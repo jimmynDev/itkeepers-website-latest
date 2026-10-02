@@ -1,0 +1,1504 @@
+<!-- Adapted from AI&Automation.html; illustrative, local-only prototype data. -->
+<figure class="offering-animation animation-ai" data-animation="ai">
+  <div class="itk-ai" data-animation-visual aria-hidden="true">
+    <div class="itk-panel" aria-hidden="true">
+
+      
+      <div class="ai-stage">
+        <div class="ai-stage__head">
+          <span class="ai-stage__title">Request handling</span>
+          <span class="ai-live" data-live><i></i> Workflow example</span>
+        </div>
+
+        
+        <div class="ai-request" data-request>
+          <span class="ai-request__dot"></span>
+          <span class="ai-request__body">
+            <span class="ai-request__label">Incoming request</span>
+            <span class="ai-request__text">Customer asks for an updated quote</span>
+          </span>
+        </div>
+
+        
+        <svg class="ai-fork" data-fork viewBox="0 0 100 15" preserveAspectRatio="none">
+          <path class="is-manual" d="M50 0 L50 6 L25 6 L25 15"></path>
+          <path class="is-ai"     d="M50 0 L50 6 L75 6 L75 15"></path>
+        </svg>
+
+        <div class="ai-lanes">
+
+          
+          <div class="ai-lane ai-lane--manual" data-lane="manual">
+            <div class="ai-lane__head" data-lane-head="manual">
+              <span class="ai-lane__title">Manual example</span>
+              <span class="ai-lane__tag" data-manual-tag>Repetitive</span>
+            </div>
+
+            <ol class="ai-steps">
+              <li class="ai-step" data-mstep="0">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Employee reads request</span>
+                <span class="ai-step__badge">Manual</span>
+              </li>
+              <li class="ai-step" data-mstep="1">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Information copied</span>
+                <span class="ai-step__badge">Manual</span>
+              </li>
+              <li class="ai-step" data-mstep="2">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Switch between systems</span>
+                <span class="ai-step__badge">Manual</span>
+              </li>
+              <li class="ai-step" data-mstep="3">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Response written</span>
+                <span class="ai-step__badge">Manual</span>
+              </li>
+              <li class="ai-step" data-mstep="4">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Follow-up task created</span>
+                <span class="ai-step__badge">Manual</span>
+              </li>
+            </ol>
+
+            <div class="ai-loop" data-loop>
+              <span class="ai-loop__glyph">&#8635;</span>
+              <span>Repeated for every request, every day</span>
+            </div>
+          </div>
+
+          
+          <div class="ai-lane ai-lane--ai" data-lane="ai">
+            <div class="ai-lane__head" data-lane-head="ai">
+              <span class="ai-lane__title">Assisted example</span>
+              <span class="ai-lane__tag" data-ai-tag>Assisted</span>
+            </div>
+
+            <ol class="ai-steps">
+              <li class="ai-step" data-astep="0">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">AI understands &amp; categorizes</span>
+                <span class="ai-step__badge">Assist</span>
+              </li>
+              <li class="ai-step" data-astep="1">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Relevant information retrieved</span>
+                <span class="ai-step__badge">Assist</span>
+              </li>
+              <li class="ai-step" data-astep="2">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Workflow triggered</span>
+                <span class="ai-step__badge">Automation</span>
+              </li>
+              <li class="ai-step" data-astep="3">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Draft / recommendation prepared</span>
+                <span class="ai-step__badge">Draft</span>
+              </li>
+              <li class="ai-step is-human" data-astep="4">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Human reviews &amp; approves</span>
+                <span class="ai-step__badge">Human</span>
+              </li>
+              <li class="ai-step is-done" data-astep="5">
+                <span class="ai-step__mark"></span>
+                <span class="ai-step__label">Action completed</span>
+                <span class="ai-step__badge">Done</span>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+
+        
+        <div class="ai-gov" data-gov>
+          <span class="ai-gov__label">Governance</span>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Choose data sources</span>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Define access</span>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Human approval</span>
+        </div>
+      </div>
+
+      
+      <div class="ai-rail">
+        <div class="ai-rail__head">
+          <span class="ai-stage__title">Workflow</span>
+        </div>
+
+        <ol class="ai-rail__list">
+          <li class="ai-item" data-rail="0">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Request arrives</span>
+            <span class="ai-item__tag">Signal</span>
+          </li>
+          <li class="ai-item" data-rail="1" data-accent="muted">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Manual handling</span>
+            <span class="ai-item__tag">Today</span>
+          </li>
+          <li class="ai-item" data-rail="2" data-accent="muted">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Repeated for every request</span>
+            <span class="ai-item__tag">Repetitive</span>
+          </li>
+          <li class="ai-item" data-rail="3">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">AI understands &amp; categorizes</span>
+            <span class="ai-item__tag">Assist</span>
+          </li>
+          <li class="ai-item" data-rail="4">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Information retrieved</span>
+            <span class="ai-item__tag">Approved sources</span>
+          </li>
+          <li class="ai-item" data-rail="5">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Workflow triggered</span>
+            <span class="ai-item__tag">Automation</span>
+          </li>
+          <li class="ai-item" data-rail="6">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Draft prepared</span>
+            <span class="ai-item__tag">AI assist</span>
+          </li>
+          <li class="ai-item" data-rail="7" data-accent="human">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Human reviews &amp; approves</span>
+            <span class="ai-item__tag">Control</span>
+          </li>
+          <li class="ai-item" data-rail="8" data-accent="ok">
+            <span class="ai-item__dot"></span>
+            <span class="ai-item__text">Action completed</span>
+            <span class="ai-item__tag">Done</span>
+          </li>
+        </ol>
+
+        <p class="ai-rail__note">
+          AI assists the business — it does not take the decision away from your people.
+        </p>
+      </div>
+
+      
+      <div class="ai-mobile">
+        <div class="ai-mobile__head">
+          <span class="ai-stage__title">Request handling</span>
+          <span class="ai-live" data-live><i></i> Active</span>
+        </div>
+
+        <div class="ai-mrequest" data-request>
+          <span class="ai-request__dot"></span>
+          <span class="ai-request__body">
+            <span class="ai-request__label">Incoming request</span>
+            <span class="ai-request__text">Customer asks for an updated quote</span>
+          </span>
+        </div>
+
+        
+        <div class="ai-mgroup ai-mgroup--manual" data-lane="manual">
+          <div class="ai-mgroup__head">
+            <span class="ai-lane__title">Manual example</span>
+            <span class="ai-lane__tag" data-manual-tag>Repetitive</span>
+          </div>
+
+          <ol class="ai-msteps">
+            <li class="ai-mstep" data-mstep="0">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Employee reads request</span>
+            </li>
+            <li class="ai-mstep" data-mstep="1">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Information copied</span>
+            </li>
+            <li class="ai-mstep" data-mstep="2">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Switch between systems</span>
+            </li>
+            <li class="ai-mstep" data-mstep="3">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Response written</span>
+            </li>
+            <li class="ai-mstep" data-mstep="4">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Follow-up task created</span>
+            </li>
+          </ol>
+
+          <div class="ai-mloop" data-loop>
+            <span class="ai-loop__glyph">&#8635;</span>
+            <span>Repeated for every request</span>
+          </div>
+        </div>
+
+        
+        <div class="ai-mgroup ai-mgroup--ai" data-lane="ai">
+          <div class="ai-mgroup__head">
+            <span class="ai-lane__title">Assisted example</span>
+          </div>
+
+          <ol class="ai-msteps">
+            <li class="ai-mstep" data-astep="0">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">AI understands &amp; categorizes</span>
+            </li>
+            <li class="ai-mstep" data-astep="1">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Relevant information retrieved</span>
+            </li>
+            <li class="ai-mstep" data-astep="2">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Workflow triggered</span>
+            </li>
+            <li class="ai-mstep" data-astep="3">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Draft / recommendation prepared</span>
+            </li>
+            <li class="ai-mstep is-human" data-astep="4">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Human reviews &amp; approves</span>
+            </li>
+            <li class="ai-mstep is-done" data-astep="5">
+              <span class="ai-mstep__mark"></span>
+              <span class="ai-mstep__label">Action completed</span>
+            </li>
+          </ol>
+        </div>
+
+        
+        <div class="ai-mgov" data-gov>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Choose data sources</span>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Define access</span>
+          <span class="ai-gov__chip" data-gov-chip><i></i>Human approval</span>
+        </div>
+      </div>
+
+      
+      <div class="ai-foot">
+        <span class="ai-chip" data-chip>
+          <i class="ai-chip__mark"></i>Draft prepared
+        </span>
+        <span class="ai-chip ai-chip--human" data-chip>
+          <i class="ai-chip__mark"></i>People stay in control
+        </span>
+        <span class="ai-chip ai-chip--done" data-chip>
+          <i class="ai-chip__mark"></i>Human review
+        </span>
+      </div>
+
+    </div>
+  </div>
+  <figcaption class="animation-caption">
+    <span class="illustrative-badge">Illustrative</span>
+    <p>A hypothetical request compares manual steps with an assisted workflow, keeping a human approval step before action.</p>
+    <button type="button" data-animation-toggle hidden>Pause animation</button>
+  </figcaption>
+</figure>
+
+<style is:global>
+
+.animation-ai *, .animation-ai *::before, .animation-ai *::after { box-sizing: border-box; }
+
+.animation-ai .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.animation-ai .itk-ai {
+  --bg:            #070B14;
+  --panel-top:     #0E1526;
+  --panel-bottom:  #0A1020;
+  --surface:       #0C1322;
+  --surface-hi:    #121B2E;
+
+  --line:          rgba(126, 156, 204, 0.14);
+  --line-strong:   rgba(126, 156, 204, 0.26);
+
+  --text:          #E8EEF9;
+  --muted:         #8695B0;
+  --dim:           #5D6B85;
+  --blue:          #3B82F6;
+  --blue-soft:     #60A5FA;
+  --blue-text:     #8FC0FF;
+  --violet:        #8B5CF6;
+  --violet-soft:   #A78BFA;
+  --violet-text:   #C4B5FD;
+  --violet-dim:    rgba(139, 92, 246, 0.16);
+  --teal:          #2DD4A7;
+  --teal-text:     #6FD9BC;
+
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-sm: 10px;
+
+  position: relative;
+  padding: clamp(56px, 8vw, 112px) clamp(18px, 5vw, 64px);
+  background:
+    radial-gradient(120% 70% at 50% -12%, rgba(139, 92, 246, 0.085), transparent 60%),
+    radial-gradient(120% 70% at 50% -12%, rgba(59, 130, 246, 0.06), transparent 66%),
+    var(--bg);
+}
+
+.animation-ai .itk-ai__inner { max-width: 1180px; margin: 0 auto; }
+
+.animation-ai .itk-ai .itk-eyebrow {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violet-text);
+  background: rgba(139, 92, 246, 0.07);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  border-radius: 999px;
+}
+
+.animation-ai .itk-ai__head h2 {
+  margin: 0 0 16px;
+  max-width: 24ch;
+  font-size: clamp(27px, 3.4vw, 43px);
+  font-weight: 650;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.animation-ai .itk-ai__lede {
+  margin: 0 0 38px;
+  max-width: 66ch;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.animation-ai .itk-ai .itk-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 42px 90px -52px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-ai .itk-ai .itk-panel.is-in { opacity: 1; transform: none; }
+
+.animation-ai .ai-stage {
+  min-width: 0;
+  padding: 20px 24px 24px;
+  border-right: 1px solid var(--line);
+}
+
+.animation-ai .ai-stage__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.animation-ai .ai-stage__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-ai .ai-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--violet-text);
+  background: rgba(139, 92, 246, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              color 0.5s ease, border-color 0.5s ease, background 0.5s ease;
+}
+
+.animation-ai .ai-live.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-live.is-ready {
+  color: var(--teal-text);
+  background: rgba(45, 212, 167, 0.08);
+  border-color: rgba(45, 212, 167, 0.26);
+}
+
+.animation-ai .ai-live i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--violet-soft);
+  animation: offering-ai-ai-live-pulse 3.6s ease-out infinite;
+  transition: background 0.5s ease;
+}
+
+.animation-ai .ai-live.is-ready i {
+  background: var(--teal);
+  animation: offering-ai-ai-teal-pulse 4s ease-out infinite;
+}
+
+@keyframes offering-ai-ai-live-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(167, 139, 250, 0); }
+}
+
+@keyframes offering-ai-ai-teal-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(45, 212, 167, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(45, 212, 167, 0); }
+}
+
+.animation-ai .ai-request {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.animation-ai .ai-request.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-request.is-active {
+  border-color: rgba(139, 92, 246, 0.40);
+  box-shadow: 0 0 30px -12px rgba(139, 92, 246, 0.6);
+}
+
+.animation-ai .ai-request__dot {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--violet-soft);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+.animation-ai .ai-request.is-active .ai-request__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  animation: offering-ai-ai-req-ping 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes offering-ai-ai-req-ping {
+  0%        { transform: scale(0.6); opacity: 0; }
+  12%       { opacity: 0.6; }
+  44%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.animation-ai .ai-request__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.animation-ai .ai-request__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-ai .ai-request__text {
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.3;
+  color: #C9D8EE;
+}
+
+.animation-ai .ai-fork {
+  display: block;
+  width: 100%;
+  height: 15px;
+  margin: 2px 0 0;
+  overflow: visible;
+}
+
+.animation-ai .ai-fork path {
+  fill: none;
+  stroke: rgba(126, 156, 204, 0.30);
+  stroke-width: 1;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.6s ease;
+}
+
+.animation-ai .ai-fork.is-on path { stroke-dashoffset: 0; }
+.animation-ai .ai-fork.is-on path.is-manual { stroke: rgba(126, 156, 204, 0.24); }
+.animation-ai .ai-fork.is-on path.is-ai     { stroke: rgba(139, 92, 246, 0.55); }
+
+.animation-ai .ai-lanes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.animation-ai .ai-lane { min-width: 0; }
+
+.animation-ai .ai-lane--manual {
+  padding-right: 22px;
+  border-right: 1px solid var(--line);
+  transition: opacity 0.8s ease;
+}
+.animation-ai .ai-lane--manual.is-repetitive { opacity: 1; }
+
+.animation-ai .ai-lane__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 22px;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.animation-ai .ai-lane__head.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-lane__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-ai .ai-lane--ai .ai-lane__title { color: var(--violet-text); }
+
+.animation-ai .ai-lane__tag {
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9AA7BC;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-ai .ai-lane__tag.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-ai .ai-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  opacity: 0.3;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.5s ease,
+    background 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.animation-ai .ai-step.is-on {
+  opacity: 1;
+  transform: none;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.animation-ai .ai-step__mark {
+  position: relative;
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2C3852;
+  transition: background 0.5s ease, box-shadow 0.5s ease, color 0.5s ease;
+}
+
+.animation-ai .ai-step__label {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #93A5C0;
+  transition: color 0.5s ease;
+}
+
+.animation-ai .ai-step.is-on .ai-step__label { color: #C6D6EE; }
+
+.animation-ai .ai-step__badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.86);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-ai .ai-step.is-on .ai-step__badge { opacity: 1; transform: none; }
+.animation-ai .ai-lane--manual .ai-step.is-on {
+  border-color: rgba(126, 156, 204, 0.16);
+  background: rgba(126, 156, 204, 0.035);
+}
+
+.animation-ai .ai-lane--manual .ai-step.is-on .ai-step__mark {
+  background: #5D6B85;
+  box-shadow: 0 0 0 3px rgba(126, 156, 204, 0.08);
+}
+
+.animation-ai .ai-lane--manual .ai-step.is-on .ai-step__label { color: #A9B8CE; }
+
+.animation-ai .ai-lane--manual .ai-step.is-on .ai-step__badge { color: #6D7B94; }
+.animation-ai .ai-lane--ai .ai-step.is-on {
+  border-color: rgba(139, 92, 246, 0.30);
+  background: rgba(139, 92, 246, 0.05);
+  box-shadow: 0 0 26px -14px rgba(139, 92, 246, 0.7);
+}
+
+.animation-ai .ai-lane--ai .ai-step.is-on .ai-step__mark {
+  background: var(--violet-soft);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+.animation-ai .ai-lane--ai .ai-step.is-on .ai-step__label { color: #D3C9F5; }
+
+.animation-ai .ai-lane--ai .ai-step.is-on .ai-step__badge { color: var(--violet-text); }
+.animation-ai .ai-step.is-human.is-on {
+  border-color: rgba(59, 130, 246, 0.48);
+  background: rgba(59, 130, 246, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.10),
+    0 0 30px -12px rgba(59, 130, 246, 0.6);
+}
+
+.animation-ai .ai-step.is-human .ai-step__mark {
+  border-radius: 3px;
+  background: transparent;
+}
+
+.animation-ai .ai-step.is-human.is-on .ai-step__mark {
+  background: transparent;
+  box-shadow: none;
+}
+
+.animation-ai .ai-step.is-human .ai-step__mark::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 1px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #4E5D78;
+  transition: background 0.5s ease;
+}
+
+.animation-ai .ai-step.is-human .ai-step__mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: 9px;
+  height: 4.5px;
+  margin-left: -4.5px;
+  border-radius: 5px 5px 2px 2px;
+  background: #4E5D78;
+  transition: background 0.5s ease;
+}
+
+.animation-ai .ai-step.is-human.is-on .ai-step__mark::before,
+.animation-ai .ai-step.is-human.is-on .ai-step__mark::after {
+  background: var(--blue-soft);
+}
+
+.animation-ai .ai-step.is-human.is-on .ai-step__label { color: #CBDFFA; }
+
+.animation-ai .ai-step.is-human.is-on .ai-step__badge {
+  color: var(--blue-text);
+  padding: 2px 7px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.32);
+  border-radius: 999px;
+}
+.animation-ai .ai-step.is-done.is-on {
+  border-color: rgba(45, 212, 167, 0.42);
+  background: rgba(45, 212, 167, 0.055);
+  box-shadow:
+    0 0 0 1px rgba(45, 212, 167, 0.08),
+    0 0 28px -12px rgba(45, 212, 167, 0.55);
+}
+
+.animation-ai .ai-step.is-done.is-on .ai-step__mark {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.14);
+}
+
+.animation-ai .ai-step.is-done.is-on .ai-step__label { color: #B8E8DA; }
+
+.animation-ai .ai-step.is-done.is-on .ai-step__badge { color: var(--teal-text); }
+.animation-ai .ai-loop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8A97AD;
+  border: 1px dashed rgba(126, 156, 204, 0.22);
+  border-radius: var(--r-sm);
+  background: rgba(126, 156, 204, 0.025);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.animation-ai .ai-loop.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-loop__glyph {
+  flex: none;
+  font-size: 14px;
+  line-height: 1;
+  color: #6D7B94;
+  animation: offering-ai-ai-loop-spin 6s linear infinite;
+  transform-origin: 50% 52%;
+}
+
+@keyframes offering-ai-ai-loop-spin {
+  to { transform: rotate(-360deg); }
+}
+
+.animation-ai .ai-gov {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 22px;
+  padding: 12px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.018);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.6s ease;
+}
+
+.animation-ai .ai-gov.is-on {
+  opacity: 1;
+  transform: none;
+  border-color: rgba(59, 130, 246, 0.24);
+}
+
+.animation-ai .ai-gov__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.animation-ai .ai-gov__label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue-soft);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.7);
+}
+
+.animation-ai .ai-gov__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.022);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              color 0.45s ease, border-color 0.45s ease;
+}
+
+.animation-ai .ai-gov__chip.is-on {
+  opacity: 1;
+  transform: none;
+  color: #C6D6EE;
+  border-color: rgba(59, 130, 246, 0.24);
+}
+
+.animation-ai .ai-gov__chip i {
+  position: relative;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.38);
+}
+
+.animation-ai .ai-gov__chip i::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2.5px;
+  width: 2.5px;
+  height: 5px;
+  border-right: 1.4px solid var(--blue-soft);
+  border-bottom: 1.4px solid var(--blue-soft);
+  transform: rotate(42deg);
+}
+
+.animation-ai .ai-rail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px 22px;
+}
+
+.animation-ai .ai-rail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.animation-ai .ai-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-ai .ai-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  opacity: 0.26;
+  transform: translateX(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-ai .ai-item.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-item__dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-ai .ai-item.is-on .ai-item__dot {
+  border-color: rgba(139, 92, 246, 0.72);
+  background: rgba(139, 92, 246, 0.16);
+  box-shadow: 0 0 10px -1px rgba(139, 92, 246, 0.5);
+}
+
+.animation-ai .ai-item.is-on .ai-item__dot::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--violet-soft);
+}
+.animation-ai .ai-item.is-on[data-accent="muted"] .ai-item__dot {
+  border-color: rgba(126, 156, 204, 0.5);
+  background: rgba(126, 156, 204, 0.10);
+  box-shadow: none;
+}
+.animation-ai .ai-item.is-on[data-accent="muted"] .ai-item__dot::after { background: #6D7B94; }
+.animation-ai .ai-item.is-on[data-accent="human"] .ai-item__dot {
+  border-color: rgba(59, 130, 246, 0.74);
+  background: rgba(59, 130, 246, 0.16);
+  box-shadow: 0 0 10px -1px rgba(59, 130, 246, 0.5);
+}
+.animation-ai .ai-item.is-on[data-accent="human"] .ai-item__dot::after { background: var(--blue-soft); }
+.animation-ai .ai-item.is-on[data-accent="ok"] .ai-item__dot {
+  border-color: rgba(45, 212, 167, 0.74);
+  background: rgba(45, 212, 167, 0.14);
+  box-shadow: 0 0 10px -1px rgba(45, 212, 167, 0.5);
+}
+.animation-ai .ai-item.is-on[data-accent="ok"] .ai-item__dot::after { background: var(--teal); }
+
+.animation-ai .ai-item__text {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.4s ease;
+}
+
+.animation-ai .ai-item.is-on .ai-item__text { color: #C6D6EE; }
+
+.animation-ai .ai-item__tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.animation-ai .ai-item.is-on .ai-item__tag { color: #7488A8; }
+
+.animation-ai .ai-rail__note {
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+.animation-ai .ai-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.animation-ai .ai-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px 8px 12px;
+  font-size: 12.5px;
+  font-weight: 550;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.55s ease, transform 0.55s ease,
+              border-color 0.45s ease, color 0.45s ease;
+}
+
+.animation-ai .ai-chip.is-on {
+  opacity: 1;
+  transform: none;
+  color: #D3C9F5;
+  border-color: rgba(139, 92, 246, 0.26);
+}
+
+.animation-ai .ai-chip__mark {
+  position: relative;
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--violet-soft);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.75);
+}
+
+.animation-ai .ai-chip--human { color: #CBDFFA; border-color: rgba(59, 130, 246, 0.26); }
+.animation-ai .ai-chip--human .ai-chip__mark {
+  background: var(--blue-soft);
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.75);
+}
+
+.animation-ai .ai-chip--done { color: #B8E8DA; border-color: rgba(45, 212, 167, 0.26); }
+.animation-ai .ai-chip--done .ai-chip__mark {
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(45, 212, 167, 0.75);
+}
+
+.animation-ai .ai-mobile { display: none; padding: 18px 18px 10px; }
+
+.animation-ai .ai-mobile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.animation-ai .ai-mobile__head .ai-live { font-size: 12px; padding: 4px 10px 4px 9px; }
+
+.animation-ai .ai-mrequest {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.6s ease, transform 0.6s ease,
+              border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-ai .ai-mrequest.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-mrequest.is-active {
+  border-color: rgba(139, 92, 246, 0.38);
+  box-shadow: 0 0 26px -14px rgba(139, 92, 246, 0.7);
+}
+
+.animation-ai .ai-mgroup {
+  margin-bottom: 18px;
+  transition: opacity 0.8s ease;
+}
+
+.animation-ai .ai-mgroup.is-repetitive { opacity: 1; }
+
+.animation-ai .ai-mgroup__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.animation-ai .ai-msteps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-ai .ai-mstep {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  opacity: 0.32;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    border-color 0.5s ease,
+    background 0.5s ease;
+}
+
+.animation-ai .ai-mstep.is-on {
+  opacity: 1;
+  transform: none;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.animation-ai .ai-mstep__mark {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2C3852;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-ai .ai-mstep__label {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #93A5C0;
+  transition: color 0.5s ease;
+}
+
+.animation-ai .ai-mstep.is-on .ai-mstep__label { color: #C6D6EE; }
+.animation-ai .ai-mgroup--manual .ai-mstep.is-on {
+  border-color: rgba(126, 156, 204, 0.16);
+  background: rgba(126, 156, 204, 0.035);
+}
+
+.animation-ai .ai-mgroup--manual .ai-mstep.is-on .ai-mstep__mark { background: #5D6B85; }
+.animation-ai .ai-mgroup--manual .ai-mstep.is-on .ai-mstep__label { color: #A9B8CE; }
+.animation-ai .ai-mgroup--ai .ai-mstep.is-on {
+  border-color: rgba(139, 92, 246, 0.30);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.animation-ai .ai-mgroup--ai .ai-mstep.is-on .ai-mstep__mark {
+  background: var(--violet-soft);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.14);
+}
+
+.animation-ai .ai-mgroup--ai .ai-mstep.is-on .ai-mstep__label { color: #D3C9F5; }
+.animation-ai .ai-mstep.is-human.is-on {
+  border-color: rgba(59, 130, 246, 0.48);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.animation-ai .ai-mstep.is-human .ai-mstep__mark { border-radius: 3px; background: transparent; }
+
+.animation-ai .ai-mstep.is-human .ai-mstep__mark::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  width: 5px; height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #4E5D78;
+  transition: background 0.5s ease;
+}
+
+.animation-ai .ai-mstep.is-human .ai-mstep__mark::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: 9px; height: 4px;
+  margin-left: -4.5px;
+  border-radius: 5px 5px 2px 2px;
+  background: #4E5D78;
+  transition: background 0.5s ease;
+}
+
+.animation-ai .ai-mstep.is-human.is-on .ai-mstep__mark::before,
+.animation-ai .ai-mstep.is-human.is-on .ai-mstep__mark::after { background: var(--blue-soft); }
+
+.animation-ai .ai-mstep.is-human.is-on .ai-mstep__label { color: #CBDFFA; }
+.animation-ai .ai-mstep.is-done.is-on {
+  border-color: rgba(45, 212, 167, 0.42);
+  background: rgba(45, 212, 167, 0.055);
+}
+
+.animation-ai .ai-mstep.is-done.is-on .ai-mstep__mark {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.14);
+}
+
+.animation-ai .ai-mstep.is-done.is-on .ai-mstep__label { color: #B8E8DA; }
+
+.animation-ai .ai-mloop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8A97AD;
+  border: 1px dashed rgba(126, 156, 204, 0.22);
+  border-radius: var(--r-sm);
+  background: rgba(126, 156, 204, 0.025);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.animation-ai .ai-mloop.is-on { opacity: 1; transform: none; }
+
+.animation-ai .ai-mgov {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.018);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.6s ease;
+}
+
+.animation-ai .ai-mgov.is-on {
+  opacity: 1;
+  transform: none;
+  border-color: rgba(59, 130, 246, 0.24);
+}
+
+@media (max-width: 900px) {
+  .animation-ai .itk-ai .itk-panel { grid-template-columns: minmax(0, 1fr); }
+  .animation-ai .ai-stage,
+  .animation-ai .ai-rail { display: none; }
+  .animation-ai .ai-mobile { display: block; }
+  .animation-ai .ai-foot { padding: 14px 18px; }
+}
+
+@media (min-width: 901px) {
+  .animation-ai .ai-mobile { display: none; }
+}
+
+.animation-ai .itk-ai.is-idle *,
+.animation-ai .itk-ai.is-idle *::before,
+.animation-ai .itk-ai.is-idle *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-ai .itk-ai *,
+  .animation-ai .itk-ai *::before,
+  .animation-ai .itk-ai *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+    .animation-ai { width:100%; min-width:0; margin:0; color:var(--fg); font-family:var(--font-editorial,system-ui); }
+    .animation-ai .itk-ai {
+      --bg:var(--n,#0b2c5f); --panel: #0b2c5f; --panel-top:#0b2c5f; --panel-bottom:#071f44;
+      --surface:#102f59; --surface-2:#123763; --surface-hi:#163b68;
+      --text:#ffffff; --muted:#d6e4f5; --dim:#b8cde6;
+      --blue:#5cc5ff; --blue-bright:#5cc5ff; --blue-soft:#5cc5ff; --blue-text:#8fcfff;
+      --cyan:#42baeb; --cyan-text:#7ee3f5; --line:rgba(184,205,230,.22); --line-strong:rgba(184,205,230,.5);
+      padding:0; background:none; overflow:visible; color:var(--text); font-family:inherit;
+    }
+    .animation-ai .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
+    .animation-ai .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
+    .animation-ai .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
+    .animation-ai [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
+    .animation-ai [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
+    .animation-ai [hidden] { display:none !important; }
+    .animation-ai.is-idle *, .animation-ai.is-idle *::before, .animation-ai.is-idle *::after { animation-play-state:paused !important; }
+    .animation-ai[data-animation-state="settled"] *, .animation-ai[data-animation-state="settled"] *::before, .animation-ai[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-ai:not([data-animation-enhanced]) [data-animation-visual], .animation-ai:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
+    .animation-ai:not([data-animation-enhanced]) .itk-panel { transform:none; }
+    @media (hover:hover) and (pointer:fine) { .animation-ai [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
+    @media (max-width:560px) { .animation-ai .animation-caption { align-items:flex-start; } .animation-ai .animation-caption p { flex-basis:100%; } }
+    @media (prefers-reduced-motion:reduce) { .animation-ai *, .animation-ai *::before, .animation-ai *::after { animation:none !important; transition:none !important; } }
+    @media (forced-colors:active) { .animation-ai .itk-panel, .animation-ai [data-animation-toggle] { border:1px solid CanvasText; } }
+  
+</style>
+
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-ai').forEach(root => {
+    mountAnimation(root, ({ later }) => {
+      const section = root.querySelector('.itk-ai');
+
+  var panel = section.querySelector(".itk-panel");
+  var fork  = section.querySelector("[data-fork]");
+
+  /* ---------- helpers ---------- */
+
+  function at(ms, fn) { later(fn, ms); }
+
+  function all(sel) { return section.querySelectorAll(sel); }
+
+  function on(sel, cls) {
+    all(sel).forEach(function (el) { el.classList.add(...cls.split(/\s+/)); });
+  }
+
+  function showManualStep(n) {
+    all('[data-mstep="' + n + '"]').forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  function showAiStep(n) {
+    all('[data-astep="' + n + '"]').forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  function rail(n) {
+    var el = section.querySelector('[data-rail="' + n + '"]');
+    if (el) el.classList.add("is-on");
+  }
+
+  function chip(n) {
+    var el = all("[data-chip]")[n];
+    if (el) el.classList.add("is-on");
+  }
+
+  /* ---------- timeline ---------- */
+
+  function play() {
+    panel.classList.add("is-in");
+
+    /* interface wakes */
+    at(220, function () {
+      on("[data-live]", "is-on");
+    });
+
+    /* the request arrives */
+    at(420, function () {
+      all("[data-request]").forEach(function (el) {
+        el.classList.add("is-on");
+      });
+      rail(0);
+    });
+
+    at(700, function () {
+      all("[data-request]").forEach(function (el) {
+        el.classList.add("is-active");
+      });
+      if (fork) fork.classList.add("is-on");
+    });
+
+    /* ---- the manual way, step by step: deliberately slower ---- */
+    at(1050, function () {
+      all('[data-lane-head="manual"]').forEach(function (el) {
+        el.classList.add("is-on");
+      });
+    });
+
+    at(1250, function () { showManualStep(0); });
+    at(1600, function () { showManualStep(1); });
+    at(1950, function () { showManualStep(2); });
+    at(2300, function () { showManualStep(3); });
+    at(2650, function () { showManualStep(4); });
+    at(2950, function () { rail(1); });
+
+    /* the loop — this is what makes it expensive */
+    at(3250, function () {
+      on("[data-loop]", "is-on");
+      on("[data-manual-tag]", "is-on");
+      rail(2);
+    });
+
+    /* ---- Assisted workflow enters, and the pace changes ---- */
+    at(3800, function () {
+      all('[data-lane-head="ai"]').forEach(function (el) {
+        el.classList.add("is-on");
+      });
+      on("[data-ai-tag]", "is-on");
+    });
+
+    at(4050, function () { showAiStep(0); rail(3); });
+    at(4320, function () { showAiStep(1); rail(4); });
+    at(4590, function () { showAiStep(2); rail(5); });
+    at(4860, function () { showAiStep(3); rail(6); });
+
+    /* the human gate — held deliberately before the final action */
+    at(5450, function () { showAiStep(4); rail(7); });
+
+    /* only then, completion */
+    at(6250, function () {
+      showAiStep(5);
+      rail(8);
+      on("[data-live]", "is-ready");
+    });
+
+    /* governance becomes explicit */
+    at(6650, function () {
+      on("[data-gov]", "is-on");
+      all("[data-gov-chip]").forEach(function (el, i) {
+        later(function () {
+          el.classList.add("is-on");
+        }, i * 220);
+      });
+    });
+
+    /* the old way recedes — automation is proven */
+    at(7300, function () {
+      all('[data-lane="manual"]').forEach(function (el) {
+        el.classList.add("is-repetitive");
+      });
+    });
+
+    /* final message */
+    at(7600, function () { chip(0); });
+    at(7850, function () { chip(1); });
+    at(8100, function () { chip(2); });
+  }
+
+  /* ---------- reduced-motion / fallback final state ---------- */
+
+  function settle() {
+    panel.classList.add("is-in");
+
+    on("[data-live]", "is-on is-ready");
+    on("[data-chip]", "is-on");
+    on("[data-loop]", "is-on");
+    on("[data-manual-tag]", "is-on");
+    on("[data-ai-tag]", "is-on");
+    on("[data-gov]", "is-on");
+    on("[data-gov-chip]", "is-on");
+    on("[data-lane-head]", "is-on");
+
+    all("[data-request]").forEach(function (el) {
+      el.classList.add("is-on", "is-active");
+    });
+
+    if (fork) fork.classList.add("is-on");
+
+    for (var i = 0; i < 5; i++) showManualStep(i);
+    for (var j = 0; j < 6; j++) showAiStep(j);
+
+    all('[data-lane="manual"]').forEach(function (el) {
+      el.classList.add("is-repetitive");
+    });
+
+    for (var k = 0; k <= 8; k++) rail(k);
+  }
+      return { play, settle, duration: 9300 };
+    });
+  });
+</script>

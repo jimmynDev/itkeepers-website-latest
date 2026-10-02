@@ -1,0 +1,78 @@
+---
+const {
+  title = 'ITKeepers | Your IT person is a team.',
+  description = 'Your IT person is a team. Familiar engineers, shared expertise, documented context and follow-up for your business.'
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://itkeepers.com');
+const organizationUrl = new URL('/', Astro.site ?? 'https://itkeepers.com').href;
+const organizationId = `${organizationUrl}#organization`;
+const entities: Record<string, unknown>[] = [{
+  '@type': 'Organization',
+  '@id': organizationId,
+  name: 'ITKeepers',
+  url: organizationUrl
+}];
+if (Astro.url.pathname === '/') {
+  entities.push({
+    '@type': 'WebSite',
+    '@id': `${organizationUrl}#website`,
+    name: 'ITKeepers',
+    url: organizationUrl,
+    publisher: { '@id': organizationId }
+  });
+}
+const schema = { '@context': 'https://schema.org', '@graph': entities };
+const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ITKeepers" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={schemaJson}></script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/mobile.css" />
+  </head>
+  <body class={Astro.url.pathname === '/' ? 'home-page' : undefined}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="site-brand" href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" /></a>
+      <nav class="desktop-navigation" aria-label="Primary navigation"><a href="/#services">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a class="btn" href="/contact">Let’s talk <span aria-hidden="true">↗</span></a></nav>
+      <details class="mobile-navigation"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation"><a href="/#services">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a class="btn" href="/contact">Let’s talk <span aria-hidden="true">↗</span></a></nav></details>
+    </header>
+    {Astro.url.pathname === '/' && <div class="home-pointer-light" data-tone="cyan" aria-hidden="true"></div>}
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-brand"><a href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a><p>Managed IT with familiar people and shared expertise.</p></div>
+      <nav aria-label="Footer navigation"><a href="/how-we-work">How we work</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></nav>
+    </footer>
+    <script>
+      const menu = document.querySelector<HTMLDetailsElement>('.mobile-navigation');
+      menu?.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menu.open) {
+          menu.open = false;
+          menu.querySelector('summary')?.focus();
+        }
+      });
+    </script>
+  </body>
+</html>
+
+
+
+

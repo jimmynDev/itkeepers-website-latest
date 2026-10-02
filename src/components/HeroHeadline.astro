@@ -1,0 +1,73 @@
+<!-- Headline and choreography adapted from the approved yourITis.html. -->
+<h1 class="itk-hero-title" id="home-title" data-hero-headline>
+  <span class="itk-hero-fixed">Your IT person</span>
+  <span class="itk-hero-accessible">is a team.</span>
+  <span class="itk-hero-rotator" aria-hidden="true">
+    <span class="itk-hero-role itk-hero-brand is-active">is a team.</span>
+    <span class="itk-hero-role itk-hero-support">is support.</span>
+    <span class="itk-hero-role itk-hero-cloud">is cloud.</span>
+    <span class="itk-hero-role itk-hero-security">is security.</span>
+    <span class="itk-hero-role itk-hero-networking">is networking.</span>
+    <span class="itk-hero-role itk-hero-automation">is automation.</span>
+    <span class="itk-hero-role itk-hero-digital">is digital.</span>
+  </span>
+</h1>
+<button class="itk-hero-toggle" type="button" data-hero-toggle hidden aria-label="Pause headline animation" title="Pause headline animation">
+  <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path class="itk-hero-pause-icon" d="M5 3v10M11 3v10"/><path class="itk-hero-play-icon" d="m5 3 7 5-7 5Z"/></svg>
+</button>
+
+<style>
+  :global(.home-hero) h1.itk-hero-title {
+    --itk-hero-shift: clamp(8px, .3em, 22px);
+    --itk-hero-blur: clamp(1px, .04em, 3.5px);
+    --itk-hero-duration: 460ms;
+    --itk-hero-slow: 540ms;
+    --itk-hero-ease: cubic-bezier(.22, 1, .36, 1);
+    --itk-hero-settle: cubic-bezier(.16, 1, .3, 1);
+    display: flex; flex-direction: column; align-items: stretch;
+    margin: 0; font-size: clamp(50px, 8vw, 112px); font-weight: 800;
+    line-height: 1.08; letter-spacing: -.03em; text-align: start;
+  }
+  .itk-hero-fixed { display: block; color: #fff; }
+  .itk-hero-rotator { display: grid; grid-template-columns: minmax(0, 1fr); overflow: hidden; padding: .4em 0; margin: -.4em 0; }
+  .itk-hero-role { grid-area: 1 / 1; justify-self: start; max-width: 100%; white-space: nowrap; opacity: 0; }
+  .itk-hero-role.is-active { opacity: 1; }
+  .itk-hero-brand { background: linear-gradient(90deg, #4071B5, #42BAEB); background-clip: text; -webkit-background-clip: text; color: transparent; }
+  .itk-hero-support { color: #42BAEB; }
+  .itk-hero-cloud { color: #5AA9FF; }
+  .itk-hero-security { color: #45B978; }
+  .itk-hero-networking { color: #36B8D0; }
+  .itk-hero-automation { color: #8175E8; }
+  .itk-hero-digital { color: #78A9E8; }
+  .itk-hero-title[data-enhanced] .itk-hero-role {
+    opacity: 0; transform: translate3d(0, var(--itk-hero-shift), 0); filter: blur(var(--itk-hero-blur));
+    transition-property: opacity, transform, filter; transition-duration: var(--itk-hero-duration); transition-timing-function: var(--itk-hero-ease);
+  }
+  .itk-hero-title[data-enhanced] .itk-hero-role.is-active { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+  .itk-hero-title[data-enhanced] .itk-hero-role.is-leaving { opacity: 0; transform: translate3d(0, calc(-1 * var(--itk-hero-shift)), 0); filter: blur(var(--itk-hero-blur)); }
+  .itk-hero-title[data-enhanced] .itk-hero-rotator--slow .itk-hero-role { transition-duration: var(--itk-hero-slow); transition-timing-function: var(--itk-hero-settle); }
+  .itk-hero-title[data-enhanced] .itk-hero-role.no-anim { transition: none !important; }
+  .itk-hero-accessible { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .itk-hero-toggle { position: absolute; inset-block-start: -40px; inset-inline-end: 0; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: transparent; color: #d6e4f5; border: 1px solid currentColor; border-radius: 50%; cursor: pointer; }
+  .itk-hero-toggle[hidden] { display: none; }
+  .itk-hero-toggle svg { fill: none; stroke: currentColor; stroke-width: 2; }
+  .itk-hero-play-icon, .itk-hero-toggle[data-paused] .itk-hero-pause-icon { display: none; }
+  .itk-hero-toggle[data-paused] .itk-hero-play-icon { display: block; }
+  .itk-hero-toggle:focus-visible { outline: 2px solid #42BAEB; outline-offset: 4px; }
+  @media (max-width: 480px) { :global(.home-hero) h1.itk-hero-title { font-size: clamp(34px, 10.6vw, 50px); } }
+  @media (prefers-reduced-motion: no-preference) { .itk-hero-title[data-enhanced] { animation: itk-hero-in 400ms var(--itk-hero-ease) both; } }
+  @keyframes itk-hero-in { from { opacity: 0; } to { opacity: 1; } }
+  /* The local preference attribute also makes a live preference change immediate. */
+  .itk-hero-title[data-reduced] { --itk-hero-duration: 250ms; --itk-hero-slow: 250ms; animation: none; }
+  .itk-hero-title[data-reduced][data-enhanced] .itk-hero-role { transform: none !important; filter: none !important; transition-property: opacity; transition-timing-function: linear; }
+  @media (prefers-reduced-motion: reduce) {
+    .itk-hero-title { --itk-hero-duration: 250ms; --itk-hero-slow: 250ms; animation: none !important; }
+    .itk-hero-title[data-enhanced] .itk-hero-role { transform: none !important; filter: none !important; transition-property: opacity; transition-timing-function: linear; }
+  }
+  @media (forced-colors: active) { .itk-hero-fixed, .itk-hero-role { color: CanvasText; background: none; } .itk-hero-toggle:focus-visible { outline-color: Highlight; } }
+</style>
+
+<script>
+  import { mountHeroHeadline } from '../scripts/hero-headline';
+  document.querySelectorAll<HTMLElement>('[data-hero-headline]').forEach(mountHeroHeadline);
+</script>

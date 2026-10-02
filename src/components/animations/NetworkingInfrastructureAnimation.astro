@@ -1,0 +1,1299 @@
+<!-- Adapted from Networking.html; illustrative, local-only prototype data. -->
+<figure class="offering-animation animation-network" data-animation="network">
+  <div class="itk-net" data-animation-visual aria-hidden="true">
+    <div class="itk-panel" aria-hidden="true">
+
+      
+      <div class="net-stage">
+        <div class="net-stage__head">
+          <span class="net-stage__title">Network topology</span>
+          <span class="net-head__badges">
+            <span class="net-fault" data-fault-badge><i></i> Link issue detected</span>
+            <span class="net-live" data-live><i></i> Connected example</span>
+          </span>
+        </div>
+
+        <div class="net-map">
+          <svg class="net-map__svg" viewBox="0 0 160 110" preserveAspectRatio="none">
+            <g data-links>
+              <path class="net-link" data-link="internet-firewall" d="M 80 7.7 L 80 28.6"></path>
+              <path class="net-link" data-link="firewall-core"     d="M 80 28.6 L 80 51.7"></path>
+              <path class="net-link is-vpn" data-link="remote-firewall"
+                    d="M 17.6 29.7 C 42 29.7, 58 28.6, 80 28.6"></path>
+              <path class="net-link" data-link="core-users"
+                    d="M 80 51.7 C 80 67, 19.2 66, 19.2 82.5"></path>
+              <path class="net-link" data-link="core-wifi"
+                    d="M 80 51.7 C 80 67, 59.2 66, 59.2 82.5"></path>
+              <path class="net-link" data-link="core-servers"
+                    d="M 80 51.7 C 80 67, 100.8 66, 100.8 82.5"></path>
+              <path class="net-link" data-link="core-business"
+                    d="M 80 51.7 C 80 67, 140.8 66, 140.8 82.5"></path>
+              <path class="net-link" data-link="servers-virt"
+                    d="M 100.8 82.5 L 100.8 102.3"></path>
+            </g>
+          </svg>
+
+          
+          <div class="net-node" data-node="internet" data-style="network-inline-1">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Internet</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          
+          <div class="net-node is-remote" data-node="remote" data-style="network-inline-2">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Remote employee</span>
+              <span class="net-node__status" data-status>Away</span>
+            </span>
+          </div>
+
+          
+          <div class="net-node" data-node="firewall" data-style="network-inline-3">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Firewall</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          
+          <div class="net-node is-core" data-node="core" data-style="network-inline-4">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Core network</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          
+          <div class="net-node" data-node="users" data-style="network-inline-5">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">User devices</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          <div class="net-node" data-node="wifi" data-style="network-inline-6">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Wi-Fi</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          <div class="net-node" data-node="servers" data-style="network-inline-7">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Servers</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          <div class="net-node" data-node="business" data-style="network-inline-8">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Business apps</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+
+          <div class="net-node" data-node="virt" data-style="network-inline-9">
+            <span class="net-node__dot"></span>
+            <span class="net-node__body">
+              <span class="net-node__label">Virtualization</span>
+              <span class="net-node__status" data-status>Offline</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="net-rail">
+        <div class="net-rail__head">
+          <span class="net-stage__title">Build &amp; monitor</span>
+        </div>
+
+        <ol class="net-rail__list">
+          <li class="net-item" data-rail="0">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Internet connection</span>
+            <span class="net-item__tag">WAN</span>
+          </li>
+          <li class="net-item" data-rail="1">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Firewall</span>
+            <span class="net-item__tag">Edge</span>
+          </li>
+          <li class="net-item" data-rail="2">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Core network</span>
+            <span class="net-item__tag">Switching</span>
+          </li>
+          <li class="net-item" data-rail="3">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">User devices &amp; Wi-Fi</span>
+            <span class="net-item__tag">Access</span>
+          </li>
+          <li class="net-item" data-rail="4">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Servers &amp; virtualization</span>
+            <span class="net-item__tag">Compute</span>
+          </li>
+          <li class="net-item" data-rail="5">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Business systems</span>
+            <span class="net-item__tag">Apps</span>
+          </li>
+          <li class="net-item" data-rail="6" data-accent="cyan">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Remote access established</span>
+            <span class="net-item__tag">VPN</span>
+          </li>
+          <li class="net-item" data-rail="7" data-accent="amber">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Link issue detected</span>
+            <span class="net-item__tag">Monitored</span>
+          </li>
+          <li class="net-item" data-rail="8" data-accent="ok">
+            <span class="net-item__dot"></span>
+            <span class="net-item__text">Restored &amp; monitored</span>
+            <span class="net-item__tag">Stable</span>
+          </li>
+        </ol>
+
+        <p class="net-rail__note">
+          Connectivity and the infrastructure behind it — engineered, monitored, restored.
+        </p>
+      </div>
+
+      
+      <div class="net-mobile">
+        <div class="net-mobile__head">
+          <span class="net-stage__title">Network</span>
+          <span class="net-live" data-live><i></i> Active</span>
+        </div>
+
+        <ol class="net-mflow">
+          <li class="net-mrow" data-node="internet">
+            <span class="net-mrow__dot"></span>
+            <span class="net-mrow__name">Internet</span>
+            <span class="net-mrow__status" data-status>Offline</span>
+          </li>
+          <li class="net-mrow" data-node="firewall">
+            <span class="net-mrow__dot"></span>
+            <span class="net-mrow__name">Firewall</span>
+            <span class="net-mrow__status" data-status>Offline</span>
+          </li>
+          <li class="net-mrow" data-node="core">
+            <span class="net-mrow__dot"></span>
+            <span class="net-mrow__name">Core network</span>
+            <span class="net-mrow__status" data-status>Offline</span>
+          </li>
+        </ol>
+
+        <div class="net-mgroup">
+          <span class="net-mgroup__title">Connected systems</span>
+          <ol class="net-mflow">
+            <li class="net-mrow" data-node="users">
+              <span class="net-mrow__dot"></span>
+              <span class="net-mrow__name">User devices</span>
+              <span class="net-mrow__status" data-status>Offline</span>
+            </li>
+            <li class="net-mrow" data-node="wifi">
+              <span class="net-mrow__dot"></span>
+              <span class="net-mrow__name">Wi-Fi</span>
+              <span class="net-mrow__status" data-status>Offline</span>
+            </li>
+            <li class="net-mrow" data-node="servers">
+              <span class="net-mrow__dot"></span>
+              <span class="net-mrow__name">Servers</span>
+              <span class="net-mrow__status" data-status>Offline</span>
+            </li>
+            <li class="net-mrow" data-node="virt">
+              <span class="net-mrow__dot"></span>
+              <span class="net-mrow__name">Virtualization</span>
+              <span class="net-mrow__status" data-status>Offline</span>
+            </li>
+            <li class="net-mrow" data-node="business">
+              <span class="net-mrow__dot"></span>
+              <span class="net-mrow__name">Business apps</span>
+              <span class="net-mrow__status" data-status>Offline</span>
+            </li>
+          </ol>
+        </div>
+
+        <ol class="net-mflow">
+          <li class="net-mrow is-remote" data-node="remote">
+            <span class="net-mrow__dot"></span>
+            <span class="net-mrow__name">Remote employee</span>
+            <span class="net-mrow__status" data-status>Away</span>
+          </li>
+        </ol>
+      </div>
+
+      
+      <div class="net-foot">
+        <span class="net-chip" data-chip><i class="net-chip__mark"></i>Connectivity</span>
+        <span class="net-chip" data-chip><i class="net-chip__mark"></i>Infrastructure</span>
+        <span class="net-chip" data-chip><i class="net-chip__mark"></i>Remote access</span>
+        <span class="net-chip" data-chip><i class="net-chip__mark"></i>Monitored links</span>
+      </div>
+
+    </div>
+  </div>
+  <figcaption class="animation-caption">
+    <span class="illustrative-badge">Illustrative</span>
+    <p>An illustrative network connects its systems, then traces a Wi-Fi link issue through detection and recovery.</p>
+    <button type="button" data-animation-toggle hidden>Pause animation</button>
+  </figcaption>
+</figure>
+
+<style is:global>
+
+.animation-network *, .animation-network *::before, .animation-network *::after { box-sizing: border-box; }
+
+.animation-network .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.animation-network .itk-net {
+  --bg:            #070B14;
+  --panel-top:     #0E1526;
+  --panel-bottom:  #0A1020;
+  --surface:       #0C1322;
+  --surface-hi:    #121B2E;
+
+  --line:          rgba(126, 156, 204, 0.14);
+  --line-strong:   rgba(126, 156, 204, 0.26);
+
+  --text:          #E8EEF9;
+  --muted:         #8695B0;
+  --dim:           #5D6B85;
+  --blue:          #3B82F6;
+  --blue-text:     #8FC0FF;
+  --indigo:        #6366F1;
+  --indigo-soft:   #818CF8;
+  --indigo-text:   #A5B4FC;
+  --electric:      #38BDF8;
+
+  --cyan:          #22D3EE;
+  --cyan-text:     #7EE3F5;
+
+  --teal:          #2DD4A7;
+  --amber:         #F0A93B;
+  --amber-soft:    rgba(240, 169, 59, 0.5);
+
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-sm: 10px;
+
+  position: relative;
+  padding: clamp(56px, 8vw, 112px) clamp(18px, 5vw, 64px);
+  background:
+    radial-gradient(120% 70% at 50% -12%, rgba(99, 102, 241, 0.085), transparent 60%),
+    radial-gradient(120% 70% at 50% -12%, rgba(56, 189, 248, 0.05), transparent 64%),
+    var(--bg);
+}
+
+.animation-network .itk-net__inner { max-width: 1180px; margin: 0 auto; }
+
+.animation-network .itk-net .itk-eyebrow {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--indigo-text);
+  background: rgba(99, 102, 241, 0.07);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+  border-radius: 999px;
+}
+
+.animation-network .itk-net__head h2 {
+  margin: 0 0 16px;
+  max-width: 24ch;
+  font-size: clamp(27px, 3.4vw, 43px);
+  font-weight: 650;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.animation-network .itk-net__lede {
+  margin: 0 0 38px;
+  max-width: 66ch;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.animation-network .itk-net .itk-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 318px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 42px 90px -52px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-network .itk-net .itk-panel.is-in { opacity: 1; transform: none; }
+
+.animation-network .net-stage {
+  min-width: 0;
+  padding: 20px 24px 26px;
+  border-right: 1px solid var(--line);
+}
+
+.animation-network .net-stage__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.animation-network .net-stage__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-network .net-head__badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.animation-network .net-live,
+.animation-network .net-fault {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              color 0.5s ease, border-color 0.5s ease, background 0.5s ease;
+}
+
+.animation-network .net-live {
+  color: var(--indigo-text);
+  background: rgba(99, 102, 241, 0.09);
+  border: 1px solid rgba(99, 102, 241, 0.22);
+}
+
+.animation-network .net-fault {
+  color: #E8B978;
+  background: rgba(240, 169, 59, 0.09);
+  border: 1px solid rgba(240, 169, 59, 0.28);
+}
+
+.animation-network .net-live.is-on,
+.animation-network .net-fault.is-on { opacity: 1; transform: none; }
+
+.animation-network .net-fault.is-ok {
+  color: #7FE0C4;
+  background: rgba(45, 212, 167, 0.09);
+  border-color: rgba(45, 212, 167, 0.28);
+}
+
+.animation-network .net-live i,
+.animation-network .net-fault i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.animation-network .net-live i {
+  background: #7C8CFA;
+  animation: offering-network-net-live-pulse 3.6s ease-out infinite;
+}
+
+.animation-network .net-fault i {
+  background: var(--amber);
+  animation: offering-network-net-fault-pulse 4.2s ease-out infinite;
+}
+
+.animation-network .net-fault.is-ok i {
+  background: var(--teal);
+  animation: offering-network-net-live-pulse 3.6s ease-out infinite;
+}
+
+@keyframes offering-network-net-live-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(124, 140, 250, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(124, 140, 250, 0); }
+}
+
+@keyframes offering-network-net-fault-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(240, 169, 59, 0.45); }
+  70%, 100% { box-shadow: 0 0 0 6px rgba(240, 169, 59, 0); }
+}
+
+.animation-network .net-map {
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  margin: 14px auto 0;
+  aspect-ratio: 16 / 11;
+  overflow: visible;
+}
+
+.animation-network .net-map__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.animation-network .net-link {
+  fill: none;
+  stroke: rgba(126, 156, 204, 0.20);
+  stroke-width: 0.34;
+  stroke-linecap: round;
+  transition: stroke 0.6s ease, opacity 0.6s ease;
+}
+
+.animation-network .net-link.is-on { stroke: rgba(99, 102, 241, 0.62); }
+.animation-network .net-link.is-vpn {
+  stroke: rgba(34, 211, 238, 0.55);
+  stroke-dasharray: 1.8 2.2;
+  opacity: 0;
+  transition: opacity 0.8s ease, stroke 0.6s ease;
+}
+
+.animation-network .net-link.is-vpn.is-on { opacity: 0.85; }
+.animation-network .net-link.is-fault {
+  stroke: var(--amber);
+  stroke-width: 0.44;
+}
+.animation-network .net-flow {
+  fill: none;
+  stroke: var(--electric);
+  stroke-width: 0.42;
+  stroke-linecap: round;
+  stroke-dasharray: 1.1 7.2;
+  opacity: 0;
+  transition: opacity 0.7s ease, stroke 0.6s ease;
+}
+
+.animation-network .net-flow.is-on {
+  opacity: 0.85;
+  animation: offering-network-net-flow-move 1.7s linear infinite;
+}
+
+.animation-network .net-flow.is-vpn.is-on {
+  stroke: var(--cyan);
+  stroke-dasharray: 0.9 5.4;
+  animation-duration: 1.4s;
+}
+
+.animation-network .net-flow.is-fault.is-on {
+  stroke: var(--amber);
+  opacity: 0.9;
+}
+
+@keyframes offering-network-net-flow-move {
+  to { stroke-dashoffset: -8.3; }
+}
+
+.animation-network .net-node {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  transform: translate(-50%, -50%) scale(0.95);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.animation-network .net-node.is-on {
+  opacity: 0.55;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.animation-network .net-node.is-active { opacity: 1; }
+
+.animation-network .net-node__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+
+.animation-network .net-node__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #C3D2E8;
+}
+
+.animation-network .net-node__status {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  transition: color 0.45s ease;
+}
+
+.animation-network .net-node__dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35415A;
+  transition: background 0.45s ease, box-shadow 0.45s ease;
+}
+.animation-network .net-node.is-active {
+  border-color: rgba(99, 102, 241, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.08),
+    0 0 28px -10px rgba(99, 102, 241, 0.55);
+}
+
+.animation-network .net-node.is-active .net-node__dot {
+  background: var(--indigo-soft);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
+}
+
+.animation-network .net-node.is-active .net-node__status { color: var(--indigo-text); }
+
+.animation-network .net-node.is-active .net-node__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(129, 140, 248, 0.45);
+  animation: offering-network-net-node-ping 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: var(--ping, 0s);
+}
+
+@keyframes offering-network-net-node-ping {
+  0%        { transform: scale(0.55); opacity: 0; }
+  10%       { opacity: 0.55; }
+  38%, 100% { transform: scale(2.3);  opacity: 0; }
+}
+.animation-network .net-node.is-core.is-active {
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.10),
+    0 0 38px -10px rgba(99, 102, 241, 0.62);
+}
+.animation-network .net-node.is-remote.is-active {
+  border-color: rgba(34, 211, 238, 0.44);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.08),
+    0 0 28px -10px rgba(34, 211, 238, 0.55);
+}
+
+.animation-network .net-node.is-remote.is-active .net-node__dot {
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.13);
+}
+
+.animation-network .net-node.is-remote.is-active .net-node__dot::after {
+  border-color: rgba(34, 211, 238, 0.45);
+}
+
+.animation-network .net-node.is-remote.is-active .net-node__status { color: var(--cyan-text); }
+.animation-network .net-node.is-fault {
+  border-color: rgba(240, 169, 59, 0.52);
+  box-shadow:
+    0 0 0 1px rgba(240, 169, 59, 0.10),
+    0 0 28px -10px rgba(240, 169, 59, 0.55);
+}
+
+.animation-network .net-node.is-fault .net-node__dot {
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(240, 169, 59, 0.14);
+}
+
+.animation-network .net-node.is-fault .net-node__dot::after { border-color: rgba(240, 169, 59, 0.5); }
+
+.animation-network .net-node.is-fault .net-node__status { color: #E8B978; }
+.animation-network .net-node.is-recovered {
+  border-color: rgba(45, 212, 167, 0.42);
+  box-shadow:
+    0 0 0 1px rgba(45, 212, 167, 0.08),
+    0 0 26px -10px rgba(45, 212, 167, 0.5);
+}
+
+.animation-network .net-node.is-recovered .net-node__dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.13);
+}
+
+.animation-network .net-node.is-recovered .net-node__dot::after { border-color: rgba(45, 212, 167, 0.45); }
+
+.animation-network .net-node.is-recovered .net-node__status { color: #6FD9BC; }
+
+.animation-network .net-rail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px 22px;
+}
+
+.animation-network .net-rail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.animation-network .net-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-network .net-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  opacity: 0.26;
+  transform: translateX(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-network .net-item.is-on { opacity: 1; transform: none; }
+
+.animation-network .net-item__dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-network .net-item.is-on .net-item__dot {
+  border-color: rgba(99, 102, 241, 0.72);
+  background: rgba(99, 102, 241, 0.16);
+  box-shadow: 0 0 10px -1px rgba(99, 102, 241, 0.5);
+}
+
+.animation-network .net-item.is-on .net-item__dot::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--indigo-soft);
+}
+
+.animation-network .net-item.is-on[data-accent="cyan"] .net-item__dot {
+  border-color: rgba(34, 211, 238, 0.72);
+  background: rgba(34, 211, 238, 0.14);
+  box-shadow: 0 0 10px -1px rgba(34, 211, 238, 0.5);
+}
+.animation-network .net-item.is-on[data-accent="cyan"] .net-item__dot::after { background: var(--cyan); }
+
+.animation-network .net-item.is-on[data-accent="amber"] .net-item__dot {
+  border-color: rgba(240, 169, 59, 0.72);
+  background: rgba(240, 169, 59, 0.14);
+  box-shadow: 0 0 10px -1px rgba(240, 169, 59, 0.5);
+}
+.animation-network .net-item.is-on[data-accent="amber"] .net-item__dot::after { background: var(--amber); }
+
+.animation-network .net-item.is-on[data-accent="ok"] .net-item__dot {
+  border-color: rgba(45, 212, 167, 0.72);
+  background: rgba(45, 212, 167, 0.14);
+  box-shadow: 0 0 10px -1px rgba(45, 212, 167, 0.5);
+}
+.animation-network .net-item.is-on[data-accent="ok"] .net-item__dot::after { background: var(--teal); }
+
+.animation-network .net-item__text {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.4s ease;
+}
+
+.animation-network .net-item.is-on .net-item__text { color: #C6D6EE; }
+
+.animation-network .net-item__tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.animation-network .net-item.is-on .net-item__tag { color: #7488A8; }
+
+.animation-network .net-rail__note {
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+.animation-network .net-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.animation-network .net-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.55s ease, transform 0.55s ease,
+              border-color 0.45s ease, color 0.45s ease;
+}
+
+.animation-network .net-chip.is-on {
+  opacity: 1;
+  transform: none;
+  color: #C6D6EE;
+  border-color: rgba(99, 102, 241, 0.24);
+}
+
+.animation-network .net-chip__mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--indigo-soft);
+  box-shadow: 0 0 8px rgba(129, 140, 248, 0.75);
+}
+
+.animation-network .net-mobile { display: none; padding: 18px 18px 10px; }
+
+.animation-network .net-mobile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.animation-network .net-mobile__head .net-live { font-size: 12px; padding: 4px 10px 4px 9px; }
+
+.animation-network .net-mflow {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-network .net-mflow::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: 16px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(99, 102, 241, 0.30) 8%,
+    rgba(99, 102, 241, 0.30) 92%,
+    transparent);
+}
+
+.animation-network .net-mrow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 11px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  opacity: 0.32;
+  transform: translateX(-5px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-network .net-mrow.is-on { opacity: 1; transform: none; }
+
+.animation-network .net-mrow__dot {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2C3852;
+  transition: background 0.45s ease, box-shadow 0.45s ease;
+}
+
+.animation-network .net-mrow.is-active .net-mrow__dot {
+  background: var(--indigo-soft);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.13);
+}
+
+.animation-network .net-mrow.is-remote.is-active .net-mrow__dot {
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.13);
+}
+
+.animation-network .net-mrow.is-fault .net-mrow__dot {
+  background: var(--amber);
+  box-shadow: 0 0 0 3px rgba(240, 169, 59, 0.14);
+}
+
+.animation-network .net-mrow.is-recovered .net-mrow__dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.13);
+}
+
+.animation-network .net-mrow__name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #C3D2E8;
+}
+
+.animation-network .net-mrow__status {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  transition: color 0.45s ease;
+}
+
+.animation-network .net-mrow.is-active .net-mrow__status { color: var(--indigo-text); }
+.animation-network .net-mrow.is-remote.is-active .net-mrow__status { color: var(--cyan-text); }
+.animation-network .net-mrow.is-fault .net-mrow__status { color: #E8B978; }
+.animation-network .net-mrow.is-recovered .net-mrow__status { color: #6FD9BC; }
+.animation-network .net-mgroup {
+  position: relative;
+  margin: 4px 0 6px;
+  padding: 12px 0 12px 0;
+  border-top: 1px solid rgba(126, 156, 204, 0.10);
+  border-bottom: 1px solid rgba(126, 156, 204, 0.10);
+}
+
+.animation-network .net-mgroup__title {
+  display: block;
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+@media (max-width: 900px) {
+  .animation-network .itk-net .itk-panel { grid-template-columns: minmax(0, 1fr); }
+  .animation-network .net-stage,
+  .animation-network .net-rail { display: none; }
+  .animation-network .net-mobile { display: block; }
+  .animation-network .net-foot { padding: 14px 18px; }
+}
+
+@media (min-width: 901px) {
+  .animation-network .net-mobile { display: none; }
+}
+
+.animation-network .itk-net.is-idle *,
+.animation-network .itk-net.is-idle *::before,
+.animation-network .itk-net.is-idle *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-network .itk-net *,
+  .animation-network .itk-net *::before,
+  .animation-network .itk-net *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.animation-network [data-style="network-inline-1"] { --x:50%;--y:7%;--ping:0s }
+
+.animation-network [data-style="network-inline-2"] { --x:11%;--y:27%;--ping:3.2s }
+
+.animation-network [data-style="network-inline-3"] { --x:50%;--y:26%;--ping:0.8s }
+
+.animation-network [data-style="network-inline-4"] { --x:50%;--y:47%;--ping:1.6s }
+
+.animation-network [data-style="network-inline-5"] { --x:12%;--y:75%;--ping:2.4s }
+
+.animation-network [data-style="network-inline-6"] { --x:37%;--y:75%;--ping:3.2s }
+
+.animation-network [data-style="network-inline-7"] { --x:63%;--y:75%;--ping:4s }
+
+.animation-network [data-style="network-inline-8"] { --x:88%;--y:75%;--ping:4.8s }
+
+.animation-network [data-style="network-inline-9"] { --x:63%;--y:93%;--ping:5.6s }
+
+
+    .animation-network { width:100%; min-width:0; margin:0; color:var(--fg); font-family:var(--font-editorial,system-ui); }
+    .animation-network .itk-net {
+      --bg:var(--n,#0b2c5f); --panel: #0b2c5f; --panel-top:#0b2c5f; --panel-bottom:#071f44;
+      --surface:#102f59; --surface-2:#123763; --surface-hi:#163b68;
+      --text:#ffffff; --muted:#d6e4f5; --dim:#b8cde6;
+      --blue:#5cc5ff; --blue-bright:#5cc5ff; --blue-soft:#5cc5ff; --blue-text:#8fcfff;
+      --cyan:#42baeb; --cyan-text:#7ee3f5; --line:rgba(184,205,230,.22); --line-strong:rgba(184,205,230,.5);
+      padding:0; background:none; overflow:visible; color:var(--text); font-family:inherit;
+    }
+    .animation-network .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
+    .animation-network .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
+    .animation-network .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
+    .animation-network [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
+    .animation-network [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
+    .animation-network [hidden] { display:none !important; }
+    .animation-network.is-idle *, .animation-network.is-idle *::before, .animation-network.is-idle *::after { animation-play-state:paused !important; }
+    .animation-network[data-animation-state="settled"] *, .animation-network[data-animation-state="settled"] *::before, .animation-network[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-network:not([data-animation-enhanced]) [data-animation-visual], .animation-network:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
+    .animation-network:not([data-animation-enhanced]) .itk-panel { transform:none; }
+    @media (hover:hover) and (pointer:fine) { .animation-network [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
+    @media (max-width:560px) { .animation-network .animation-caption { align-items:flex-start; } .animation-network .animation-caption p { flex-basis:100%; } }
+    @media (prefers-reduced-motion:reduce) { .animation-network *, .animation-network *::before, .animation-network *::after { animation:none !important; transition:none !important; } }
+    @media (forced-colors:active) { .animation-network .itk-panel, .animation-network [data-animation-toggle] { border:1px solid CanvasText; } }
+  
+</style>
+
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-network').forEach(root => {
+    mountAnimation(root, ({ later }) => {
+      const section = root.querySelector('.itk-net');
+
+  var panel      = section.querySelector(".itk-panel");
+  var faultBadge = section.querySelector("[data-fault-badge]");
+
+  /* ---------- build flow overlays from link paths ---------- */
+
+  var links = {};
+  var flows = {};
+
+  section.querySelectorAll("[data-link]").forEach(function (path) {
+    var key = path.dataset.link;
+    links[key] = path;
+
+    /* flow overlay sits on top of the base link */
+    var flow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    flow.setAttribute("d", path.getAttribute("d"));
+    flow.setAttribute("class", "net-flow");
+    if (path.classList.contains("is-vpn")) flow.classList.add("is-vpn");
+    path.parentNode.appendChild(flow);
+    flows[key] = flow;
+  });
+
+  /* ---------- helpers ---------- */
+
+  function at(ms, fn) { later(fn, ms); }
+
+  function els(key) {
+    return section.querySelectorAll('[data-node="' + key + '"]');
+  }
+
+  function appear(key) {
+    els(key).forEach(function (el) { el.classList.add("is-on"); });
+  }
+
+  function activate(key, status) {
+    els(key).forEach(function (el) {
+      el.classList.add("is-on", "is-active");
+      if (status) {
+        var s = el.querySelector("[data-status]");
+        if (s) s.textContent = status;
+      }
+    });
+  }
+
+  function setStatus(key, status) {
+    els(key).forEach(function (el) {
+      var s = el.querySelector("[data-status]");
+      if (s) s.textContent = status;
+    });
+  }
+
+  function markFault(key) {
+    els(key).forEach(function (el) { el.classList.add("is-fault"); });
+  }
+
+  function markRecovered(key) {
+    els(key).forEach(function (el) {
+      el.classList.remove("is-fault");
+      el.classList.add("is-recovered");
+    });
+  }
+
+  function drawLink(key) {
+    var p = links[key];
+    if (!p) return;
+    var len = 0;
+    try { len = p.getTotalLength(); } catch (e) { len = 60; }
+
+    if (p.classList.contains("is-vpn")) {
+      /* dashed link fades in rather than drawing */
+      p.classList.add("is-on");
+      return;
+    }
+
+    p.style.strokeDasharray  = len;
+    p.style.strokeDashoffset = len;
+    p.classList.add("is-on");
+
+    /* force reflow so the transition runs from the offset state */
+    void p.getBoundingClientRect();
+    p.style.strokeDashoffset = 0;
+  }
+
+  function startFlow(key) {
+    var f = flows[key];
+    if (f) f.classList.add("is-on");
+  }
+
+  function faultFlow(key) {
+    var f = flows[key];
+    if (f) f.classList.add("is-fault");
+  }
+
+  function clearFaultFlow(key) {
+    var f = flows[key];
+    if (f) f.classList.remove("is-fault");
+  }
+
+  function rail(n) {
+    var el = section.querySelector('[data-rail="' + n + '"]');
+    if (el) el.classList.add("is-on");
+  }
+
+  function chip(n) {
+    var el = section.querySelectorAll("[data-chip]")[n];
+    if (el) el.classList.add("is-on");
+  }
+
+  /* ---------- timeline ---------- */
+
+  function play() {
+    panel.classList.add("is-in");
+
+    /* interface wakes */
+    at(220, function () {
+      section.querySelectorAll("[data-live]").forEach(function (el) {
+        el.classList.add("is-on");
+      });
+    });
+
+    /* disconnected components appear, dim */
+    at(460, function () {
+      ["internet", "remote", "firewall", "core",
+       "users", "wifi", "servers", "business", "virt"]
+        .forEach(appear);
+    });
+
+    /* internet comes online */
+    at(800, function () {
+      activate("internet", "Online");
+      rail(0);
+    });
+
+    /* firewall + first link */
+    at(1120, function () {
+      drawLink("internet-firewall");
+      activate("firewall", "Active");
+      rail(1);
+    });
+
+    /* core + second link */
+    at(1480, function () {
+      drawLink("firewall-core");
+      activate("core", "Active");
+      rail(2);
+    });
+
+    /* branches */
+    at(1840, function () {
+      drawLink("core-users");
+      activate("users", "Connected");
+    });
+
+    at(2060, function () {
+      drawLink("core-wifi");
+      activate("wifi", "Connected");
+      rail(3);
+    });
+
+    at(2300, function () {
+      drawLink("core-servers");
+      activate("servers", "Connected");
+      rail(4);
+    });
+
+    at(2540, function () {
+      drawLink("core-business");
+      activate("business", "Connected");
+      rail(5);
+    });
+
+    at(2780, function () {
+      drawLink("servers-virt");
+      activate("virt", "Connected");
+    });
+
+    /* restrained traffic begins on the core paths */
+    at(3180, function () {
+      ["internet-firewall", "firewall-core",
+       "core-users", "core-wifi", "core-servers", "core-business",
+       "servers-virt"].forEach(startFlow);
+    });
+
+    /* remote employee connects */
+    at(3560, function () {
+      activate("remote", "Connecting");
+    });
+
+    at(3880, function () {
+      drawLink("remote-firewall");
+      setStatus("remote", "VPN established");
+    });
+
+    at(4260, function () {
+      setStatus("remote", "Identity verified");
+      startFlow("remote-firewall");
+      rail(6);
+    });
+
+    /* link issue — detected without breaking the environment */
+    at(4980, function () {
+      var p = links["core-wifi"];
+      if (p) p.classList.add("is-fault");
+      faultFlow("core-wifi");
+      markFault("wifi");
+      setStatus("wifi", "Link degraded");
+
+      if (faultBadge) faultBadge.classList.add("is-on");
+      rail(7);
+    });
+
+    at(5680, function () {
+      setStatus("wifi", "Detected · isolating");
+    });
+
+    /* restored */
+    at(6280, function () {
+      var p = links["core-wifi"];
+      if (p) p.classList.remove("is-fault");
+      clearFaultFlow("core-wifi");
+
+      markRecovered("wifi");
+      setStatus("wifi", "Restored");
+
+      if (faultBadge) {
+        faultBadge.classList.add("is-ok");
+        faultBadge.innerHTML = "<i></i> Link restored";
+      }
+      rail(8);
+    });
+
+    /* footer language settles */
+    at(6500, function () { chip(0); });
+    at(6720, function () { chip(1); });
+    at(6940, function () { chip(2); });
+    at(7160, function () { chip(3); });
+  }
+
+  /* ---------- reduced-motion / fallback final state ---------- */
+
+  function settle() {
+    panel.classList.add("is-in");
+
+    section.querySelectorAll("[data-live]").forEach(function (el) {
+      el.classList.add("is-on");
+    });
+    section.querySelectorAll("[data-chip]").forEach(function (el) {
+      el.classList.add("is-on");
+    });
+
+    ["internet", "remote", "firewall", "core",
+     "users", "wifi", "servers", "business", "virt"]
+      .forEach(function (k) { els(k).forEach(function (el) { el.classList.add("is-on"); }); });
+
+    activate("internet", "Online");
+    activate("firewall", "Active");
+    activate("core", "Active");
+    activate("users", "Connected");
+    activate("servers", "Connected");
+    activate("business", "Connected");
+    activate("virt", "Connected");
+    activate("remote", "Identity verified");
+
+    els("wifi").forEach(function (el) {
+      el.classList.add("is-active", "is-recovered");
+      var s = el.querySelector("[data-status]");
+      if (s) s.textContent = "Restored";
+    });
+
+    Object.keys(links).forEach(function (k) {
+      var p = links[k];
+      if (p.classList.contains("is-vpn")) {
+        p.classList.add("is-on");
+      } else {
+        p.classList.add("is-on");
+        p.style.strokeDasharray  = "none";
+        p.style.strokeDashoffset = 0;
+      }
+      startFlow(k);
+    });
+
+    if (faultBadge) {
+      faultBadge.classList.add("is-on", "is-ok");
+      faultBadge.innerHTML = "<i></i> Link restored";
+    }
+
+    for (var i = 0; i <= 8; i++) rail(i);
+  }
+      return { play, settle, duration: 8300 };
+    });
+  });
+</script>

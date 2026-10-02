@@ -1,0 +1,13 @@
+---
+const layers = [
+  ['Identity', 'Who can sign in, and what access should they have? Identity controls can include multifactor authentication and account policies.'],
+  ['Endpoints', 'What runs on the devices people use? Device protection and application controls are examples of this layer.'],
+  ['Network', 'How does traffic reach and move through the environment? Firewalls and DNS filtering are examples of network controls.'],
+  ['Operations', 'How are warnings, updates and open actions handled? Monitoring, patching and follow-up connect technical controls with ongoing work.'],
+  ['Backups', 'What information can be recovered? A successful backup job and a tested restore answer different questions.']
+];
+---
+<div class="disclosures security-layers">
+  {layers.map(([title, text]) => <details><summary>{title}</summary><div><p>{text}</p></div></details>)}
+</div>
+<p class="disclosure-limit">These are examples of control categories. Suitable controls depend on the environment, licensing and agreed scope; no single layer prevents every incident.</p>

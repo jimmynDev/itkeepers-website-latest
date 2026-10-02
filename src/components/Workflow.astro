@@ -1,0 +1,24 @@
+---
+const { id = 'workflow' } = Astro.props;
+const steps = [
+  ['Signal detected', 'A storage warning appears in this example. A warning is a starting point for investigation, not a diagnosis.', 'What changed, and which system raised the warning?'],
+  ['Priority assessed', 'The engineer considers the affected work and the environment before deciding what needs attention first.', 'Who is affected, and can their work continue?'],
+  ['Engineer investigates', 'The investigation connects the warning with the environment notes. The example does not assume a purchase or a specific fix.', 'What does the evidence show, and what still needs checking?'],
+  ['Colleague involved', 'If another engineer is better suited to the issue, the context can travel with the investigation. Not every incident needs escalation.', 'What has already been checked, and what expertise would help?'],
+  ['Action and follow-up', 'The example ends with the action, the open questions and what to check next. A cleared warning alone does not explain its cause.', 'What changed, who owns the next action, and what should be revisited?']
+];
+---
+<section class="section dark workflow" data-workflow aria-labelledby={`${id}-title`}>
+  <div class="split"><h2 id={`${id}-title`}>A signal gets noticed.<br />The team gets involved.</h2><div><span class="illustrative-badge">Illustrative</span><p>Follow a storage-warning example from the first signal to the next action. No real incident data or measured timings.</p></div></div>
+  <ol class="workflow-steps" data-step-selectors hidden aria-label="Choose an example step">
+    {steps.map(([title], index) => <li><button type="button" data-step={index} aria-controls={`${id}-step-${index}`}><span class="workflow-number" aria-hidden="true">0{index + 1}</span>{title}</button></li>)}
+  </ol>
+  <div class="workflow-panels">
+    {steps.map(([title, text, question], index) => <article id={`${id}-step-${index}`} data-step-panel data-step-title={title} aria-labelledby={`${id}-heading-${index}`}><p class="eyebrow">Step {index + 1} of {steps.length}</p><h3 id={`${id}-heading-${index}`}>{title}</h3><p>{text}</p><p class="workflow-question"><strong>What to ask:</strong> {question}</p></article>)}
+  </div>
+  <div class="workflow-navigation" data-step-navigation hidden><button type="button" data-previous>Previous step</button><p data-step-status role="status" aria-live="polite" aria-atomic="true">Step 1 of 5: Signal detected</p><button type="button" data-next>Next step</button></div>
+</section>
+<script>
+  import { initializeWorkflows } from '../scripts/workflow';
+  initializeWorkflows(document);
+</script>

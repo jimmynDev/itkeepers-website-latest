@@ -1,0 +1,99 @@
+---
+import ManagedITAnimation from './animations/ManagedITAnimation.astro';
+import MicrosoftCloudAnimation from './animations/MicrosoftCloudAnimation.astro';
+import CybersecurityAnimation from './animations/CybersecurityAnimation.astro';
+import NetworkingInfrastructureAnimation from './animations/NetworkingInfrastructureAnimation.astro';
+import BackupRecoveryAnimation from './animations/BackupRecoveryAnimation.astro';
+import AIAutomationAnimation from './animations/AIAutomationAnimation.astro';
+import WebDesignHostingAnimation from './animations/WebDesignHostingAnimation.astro';
+
+const offerings = [
+  {
+    id: 'managed-it', number: '01', name: 'Managed IT Services',
+    intro: 'Follow a hypothetical storage warning from detection through investigation and follow-up.',
+    href: '/services/managed-it', component: ManagedITAnimation, tone: 'blue'
+  },
+  {
+    id: 'microsoft-365-cloud', number: '02', name: 'Microsoft 365 & Cloud',
+    intro: 'Explore an example of joining and leaving a Microsoft environment.',
+    href: '/services/microsoft-cloud', component: MicrosoftCloudAnimation, tone: 'cyan'
+  },
+  {
+    id: 'cybersecurity', number: '03', name: 'Cybersecurity',
+    intro: 'See an example of layered checks and human review.',
+    href: '/services/cybersecurity', component: CybersecurityAnimation, tone: 'blue'
+  },
+  {
+    id: 'networking-infrastructure', number: '04', name: 'Networking & Infrastructure',
+    intro: 'Explore how a hypothetical network connects people, devices and systems.',
+    href: '/services/networks-infrastructure', component: NetworkingInfrastructureAnimation, tone: 'indigo'
+  },
+  {
+    id: 'backup-disaster-recovery', number: '05', name: 'Backup & Disaster Recovery',
+    intro: 'Follow an example from a backup copy to a restore check.',
+    limit: 'A successful backup job does not by itself prove a tested restore.',
+    href: '/services/backup-recovery', component: BackupRecoveryAnimation, tone: 'teal'
+  },
+  {
+    id: 'ai-automation', number: '06', name: 'AI & Automation',
+    intro: 'Explore a sample request workflow with a person reviewing the draft.',
+    href: '#ai-automation-details', component: AIAutomationAnimation, tone: 'indigo'
+  }
+];
+---
+
+<section class="service-journey offering-journey" id="services" aria-label="Services" data-light="cyan">
+  {offerings.map(({ id, number, name, intro, limit, href, component: Animation, tone }) => (
+    <section class:list={['offering-section', { 'offering-section-wide': number === '01' || number === '04' }]} id={`offering-${id}`} aria-labelledby={`offering-title-${id}`} data-scene data-light={tone === 'cyan' ? 'cyan' : 'blue'} data-offering-tone={tone}>
+      <div class="offering-heading">
+        <div class="offering-title-group">
+          <p class="eyebrow"><span aria-hidden="true">{number} / </span>Core IT operations</p>
+          <h2 id={`offering-title-${id}`}>{name}</h2>
+        </div>
+        <div class="offering-description">
+          <p>{intro}</p>
+          {limit && <p class="offering-limit">{limit}</p>}
+          <a class="scene-link" href={href}>Explore {name}<span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="offering-visual"><Animation /></div>
+      {id === 'ai-automation' && (
+        <div class="offering-detail" id="ai-automation-details" aria-labelledby="ai-governance-title">
+          <div>
+            <p class="eyebrow">AI governance</p>
+            <h3 id="ai-governance-title">Use AI. Without the new risk.</h3>
+          </div>
+          <div>
+            <p>This is the aim of a considered approach to AI, not a promise of risk-free use. Define permitted uses, decide who can access information and keep human review where it matters.</p>
+            <p>A useful starting point is one repeatable task: what goes in, what should come out and who checks the result. Agree the scope and suitable controls before introducing a workflow.</p>
+            <a class="scene-link" href="/contact">Talk to our team<span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      )}
+    </section>
+  ))}
+
+  <section class="offering-section offering-digital" id="offering-web-design-hosting" aria-labelledby="offering-title-web-design-hosting" data-scene data-light="cyan" data-offering-tone="cyan">
+    <div class="offering-category-break">
+      <p class="eyebrow">Digital Services</p>
+      <p>A clear presence online.</p>
+    </div>
+    <div class="offering-heading">
+      <div class="offering-title-group"><h2 id="offering-title-web-design-hosting">Web Design &amp; Hosting</h2></div>
+      <div class="offering-description">
+        <p>Follow an example website from wireframe through launch and maintenance.</p>
+        <a class="scene-link" href="#web-design-hosting-details">Explore Web Design &amp; Hosting<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="offering-visual"><WebDesignHostingAnimation /></div>
+    <div class="offering-detail" id="web-design-hosting-details" aria-labelledby="website-scope-title">
+      <div><p class="eyebrow">Plan the whole website</p><h3 id="website-scope-title">From the first page to what comes next.</h3></div>
+      <div>
+        <p>Start with your audience, the information they need and the action you want them to take. Design, content and navigation should work together.</p>
+        <p>Hosting, ongoing updates and maintenance also need a clear scope. Bring your existing website or a new idea to the conversation.</p>
+        <a class="scene-link" href="/contact">Talk to our team<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</section>
+

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.codex/
+.env
+.env.*
+structure.zip

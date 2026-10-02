@@ -1,0 +1,24 @@
+@media(max-width:800px){header{height:70px}header img{width:125px}header nav a:not(.btn){display:none}.hero,.advice,.knowledge,.split{grid-template-columns:1fr;gap:35px}.hero,.section{padding-top:65px;padding-bottom:65px}.strip{display:grid;grid-template-columns:1fr 1fr;gap:14px}.paper{transform:none}h1{font-size:48px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Offering stages follow available width; no scaled desktop labels on mobile. */
+@media (max-width: 1024px) {
+  .offering-heading, .offering-digital .offering-heading { grid-template-columns: 1fr; gap: 24px; }
+  .offering-heading { margin-block-end: 32px; }
+  .offering-description > p { max-inline-size: 64ch; }
+  .offering-section-wide .offering-description { grid-template-columns: 1fr; gap: 16px; }
+  .offering-section-wide .scene-link { justify-self: start; }
+}
+@media (max-width: 768px) {
+  .home-page .offering-journey { padding-block: 0 24px; }
+  .offering-detail { grid-template-columns: 1fr; gap: 24px; margin-block-start: 32px; padding-block-start: 32px; }
+  .offering-title-group h2 { font-size: clamp(34px, 6vw, 48px); }
+  .offering-section { padding-block: 64px; }
+  .offering-category-break { margin-block-end: 40px; }
+  .offering-description > p { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .offering-title-group h2 { font-size: clamp(32px, 9vw, 42px); }
+  .offering-section .scene-link { gap: 12px; align-items: start; }
+  .offering-heading { gap: 20px; }
+  .offering-category-break { display: block; }
+  .offering-category-break .eyebrow { margin-block-end: 14px; }
+}

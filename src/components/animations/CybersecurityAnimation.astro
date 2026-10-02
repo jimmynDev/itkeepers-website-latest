@@ -1,0 +1,1388 @@
+<!-- Adapted from Security.html; illustrative, local-only prototype data. -->
+<figure class="offering-animation animation-security" data-animation="security">
+  <div class="itk-sec" data-animation-visual aria-hidden="true">
+    <div class="itk-panel" aria-hidden="true">
+
+      
+      <div class="sec-stage">
+        <div class="sec-stage__head">
+          <span class="sec-stage__title">Layered defence</span>
+          <span class="sec-head__badges">
+            <span class="sec-alert" data-alert><i></i> Alert generated</span>
+            <span class="sec-live" data-live><i></i> Layered checks</span>
+          </span>
+        </div>
+
+        <div class="sec-stack">
+
+          
+          <div class="sec-lane" data-lane>
+            <span class="sec-lane__line" data-lane-line></span>
+            <span class="sec-threat" data-threat>
+              <span class="sec-threat__dot"></span>
+              <span>Suspicious login</span>
+            </span>
+          </div>
+
+          
+          <div class="sec-layers">
+
+            <div class="sec-layer" data-layer="1">
+              <span class="sec-layer__bar"></span>
+              <span class="sec-layer__body">
+                <span class="sec-layer__name">Identity protection</span>
+                <span class="sec-layer__status" data-status>Standing by</span>
+              </span>
+              <span class="sec-layer__pill" data-pill>Layer 1</span>
+            </div>
+
+            <div class="sec-layer" data-layer="2">
+              <span class="sec-layer__bar"></span>
+              <span class="sec-layer__body">
+                <span class="sec-layer__name">MFA / Conditional Access</span>
+                <span class="sec-layer__status" data-status>Standing by</span>
+              </span>
+              <span class="sec-layer__pill" data-pill>Layer 2</span>
+            </div>
+
+            <div class="sec-layer" data-layer="3">
+              <span class="sec-layer__bar"></span>
+              <span class="sec-layer__body">
+                <span class="sec-layer__name">Endpoint protection</span>
+                <span class="sec-layer__status" data-status>Standing by</span>
+              </span>
+              <span class="sec-layer__pill" data-pill>Layer 3</span>
+            </div>
+
+            <div class="sec-layer" data-layer="4">
+              <span class="sec-layer__bar"></span>
+              <span class="sec-layer__body">
+                <span class="sec-layer__name">Application control</span>
+                <span class="sec-layer__status" data-status>Standing by</span>
+              </span>
+              <span class="sec-layer__pill" data-pill>Layer 4</span>
+            </div>
+
+            <div class="sec-layer" data-layer="5">
+              <span class="sec-layer__bar"></span>
+              <span class="sec-layer__body">
+                <span class="sec-layer__name">Firewall / network controls</span>
+                <span class="sec-layer__status" data-status>Standing by</span>
+              </span>
+              <span class="sec-layer__pill" data-pill>Layer 5</span>
+            </div>
+
+            <div class="sec-response" data-response>
+              <span class="sec-response__dot"></span>
+              <span class="sec-response__text">Example engineer review</span>
+            </div>
+
+            <div class="sec-env" data-env>
+              <div class="sec-env__head">
+                <span class="sec-env__title">Example environment</span>
+                <span class="sec-env__state" data-env-state><i></i> Monitored</span>
+              </div>
+              <div class="sec-env__chips">
+                <span>Users</span>
+                <span>Endpoints</span>
+                <span>Applications</span>
+                <span>Data</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="sec-rail">
+        <div class="sec-rail__head">
+          <span class="sec-stage__title">Response</span>
+        </div>
+
+        <ol class="sec-rail__list">
+          <li class="sec-item" data-rail="0" data-accent="threat">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Threat detected</span>
+            <span class="sec-item__tag">Signal</span>
+          </li>
+          <li class="sec-item" data-rail="1">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Identity protection</span>
+            <span class="sec-item__tag">Layer 1</span>
+          </li>
+          <li class="sec-item" data-rail="2">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">MFA / Conditional Access</span>
+            <span class="sec-item__tag">Layer 2</span>
+          </li>
+          <li class="sec-item" data-rail="3">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Endpoint protection</span>
+            <span class="sec-item__tag">Layer 3</span>
+          </li>
+          <li class="sec-item" data-rail="4">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Application control</span>
+            <span class="sec-item__tag">Layer 4</span>
+          </li>
+          <li class="sec-item" data-rail="5">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Firewall / network controls</span>
+            <span class="sec-item__tag">Layer 5</span>
+          </li>
+          <li class="sec-item" data-rail="6">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Alert generated</span>
+            <span class="sec-item__tag">Detection</span>
+          </li>
+          <li class="sec-item" data-rail="7">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Engineer investigates</span>
+            <span class="sec-item__tag">Human</span>
+          </li>
+          <li class="sec-item" data-rail="8" data-accent="ok">
+            <span class="sec-item__dot"></span>
+            <span class="sec-item__text">Threat contained</span>
+            <span class="sec-item__tag">Resolved</span>
+          </li>
+        </ol>
+
+        <p class="sec-rail__note">
+          In this example, layered checks lead to a person reviewing the alert.
+        </p>
+      </div>
+
+      
+      <div class="sec-mobile">
+        <div class="sec-mobile__head">
+          <span class="sec-stage__title">Layered defence</span>
+          <span class="sec-live" data-live><i></i> Layered checks</span>
+        </div>
+
+        <span class="sec-mthreat" data-mthreat>
+          <span class="sec-threat__dot"></span>
+          <span>Suspicious login attempt</span>
+        </span>
+
+        <ul class="sec-mflow">
+          <li class="sec-mlayer" data-layer="1">
+            <span class="sec-mlayer__dot"></span>
+            <span>
+              <span class="sec-mlayer__name">Identity protection</span>
+              <span class="sec-mlayer__status" data-status>Standing by</span>
+            </span>
+          </li>
+          <li class="sec-mlayer" data-layer="2">
+            <span class="sec-mlayer__dot"></span>
+            <span>
+              <span class="sec-mlayer__name">MFA / Conditional Access</span>
+              <span class="sec-mlayer__status" data-status>Standing by</span>
+            </span>
+          </li>
+          <li class="sec-mlayer" data-layer="3">
+            <span class="sec-mlayer__dot"></span>
+            <span>
+              <span class="sec-mlayer__name">Endpoint protection</span>
+              <span class="sec-mlayer__status" data-status>Standing by</span>
+            </span>
+          </li>
+          <li class="sec-mlayer" data-layer="4">
+            <span class="sec-mlayer__dot"></span>
+            <span>
+              <span class="sec-mlayer__name">Application control</span>
+              <span class="sec-mlayer__status" data-status>Standing by</span>
+            </span>
+          </li>
+          <li class="sec-mlayer" data-layer="5">
+            <span class="sec-mlayer__dot"></span>
+            <span>
+              <span class="sec-mlayer__name">Firewall / network controls</span>
+              <span class="sec-mlayer__status" data-status>Standing by</span>
+            </span>
+          </li>
+        </ul>
+
+        <div class="sec-menv" data-env>
+          <div class="sec-env__head">
+            <span class="sec-env__title">Example environment</span>
+            <span class="sec-env__state" data-env-state><i></i> Monitored</span>
+          </div>
+          <div class="sec-menv__chips">
+            <span>Users</span>
+            <span>Endpoints</span>
+            <span>Applications</span>
+            <span>Data</span>
+          </div>
+        </div>
+
+        <div class="sec-mresp" data-response>
+          <span class="sec-response__dot"></span>
+          <span>Example engineer review</span>
+        </div>
+      </div>
+
+      
+      <div class="sec-foot">
+        <span class="sec-chip" data-chip><i class="sec-chip__mark"></i>Prevention</span>
+        <span class="sec-chip" data-chip><i class="sec-chip__mark"></i>Detection</span>
+        <span class="sec-chip" data-chip><i class="sec-chip__mark"></i>Human response</span>
+        <span class="sec-chip" data-chip><i class="sec-chip__mark"></i>Coordinated layers</span>
+      </div>
+
+    </div>
+  </div>
+  <figcaption class="animation-caption">
+    <span class="illustrative-badge">Illustrative</span>
+    <p>A hypothetical suspicious sign-in passes through control checks and an engineer review. No single layer prevents every incident.</p>
+    <button type="button" data-animation-toggle hidden>Pause animation</button>
+  </figcaption>
+</figure>
+
+<style is:global>
+
+.animation-security *, .animation-security *::before, .animation-security *::after { box-sizing: border-box; }
+
+.animation-security .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.animation-security .itk-sec {
+  --bg:            #070B14;
+  --panel-top:     #0E1526;
+  --panel-bottom:  #0A1020;
+  --surface:       #0C1322;
+  --surface-hi:    #121B2E;
+
+  --line:          rgba(126, 156, 204, 0.14);
+  --line-strong:   rgba(126, 156, 204, 0.26);
+
+  --text:          #E8EEF9;
+  --muted:         #8695B0;
+  --dim:           #5D6B85;
+
+  --blue:          #3B82F6;
+  --blue-bright:   #60A5FA;
+  --blue-text:     #8FC0FF;
+  --teal:          #2DD4A7;
+  --threat:        #F2743C;
+  --threat-soft:   rgba(242, 116, 60, 0.16);
+  --threat-glow:   rgba(242, 116, 60, 0.42);
+
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-sm: 10px;
+
+  position: relative;
+  padding: clamp(56px, 8vw, 112px) clamp(18px, 5vw, 64px);
+  background:
+    radial-gradient(120% 70% at 50% -12%, rgba(59, 130, 246, 0.09), transparent 62%),
+    var(--bg);
+}
+
+.animation-security .itk-sec__inner { max-width: 1180px; margin: 0 auto; }
+
+.animation-security .itk-sec .itk-eyebrow {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-text);
+  background: rgba(59, 130, 246, 0.07);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  border-radius: 999px;
+}
+
+.animation-security .itk-sec__head h2 {
+  margin: 0 0 16px;
+  max-width: 22ch;
+  font-size: clamp(27px, 3.4vw, 43px);
+  font-weight: 650;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.animation-security .itk-sec__lede {
+  margin: 0 0 38px;
+  max-width: 66ch;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.animation-security .itk-sec .itk-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 42px 90px -52px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-security .itk-sec .itk-panel.is-in { opacity: 1; transform: none; }
+
+.animation-security .sec-stage {
+  min-width: 0;
+  padding: 20px 24px 26px;
+  border-right: 1px solid var(--line);
+}
+
+.animation-security .sec-stage__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.animation-security .sec-stage__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-security .sec-head__badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.animation-security .sec-live,
+.animation-security .sec-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-security .sec-live {
+  color: var(--blue-text);
+  background: rgba(59, 130, 246, 0.09);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+}
+
+.animation-security .sec-alert {
+  color: #F3A57E;
+  background: rgba(242, 116, 60, 0.09);
+  border: 1px solid rgba(242, 116, 60, 0.28);
+}
+
+.animation-security .sec-live.is-on,
+.animation-security .sec-alert.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-live i,
+.animation-security .sec-alert i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.animation-security .sec-live i {
+  background: #4C9BFF;
+  animation: offering-security-sec-live-pulse 3.4s ease-out infinite;
+}
+
+.animation-security .sec-alert i {
+  background: var(--threat);
+  animation: offering-security-sec-alert-pulse 4.6s ease-out infinite;
+}
+
+@keyframes offering-security-sec-live-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(76, 155, 255, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(76, 155, 255, 0); }
+}
+
+@keyframes offering-security-sec-alert-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(242, 116, 60, 0.45); }
+  70%, 100% { box-shadow: 0 0 0 6px rgba(242, 116, 60, 0); }
+}
+
+.animation-security .sec-stack {
+  position: relative;
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.animation-security .sec-lane {
+  position: relative;
+  min-width: 0;
+}
+
+.animation-security .sec-lane__line {
+  position: absolute;
+  left: 13px;
+  top: 22px;
+  bottom: 26px;
+  width: 1px;
+  background: repeating-linear-gradient(180deg,
+    rgba(126, 156, 204, 0.26) 0 3px,
+    transparent 3px 8px);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.animation-security .sec-lane__line.is-on { opacity: 1; }
+
+.animation-security .sec-threat {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 9px;
+  max-width: 100%;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #F4B394;
+  background: linear-gradient(180deg, #1E1620 0%, #150F18 100%);
+  border: 1px solid rgba(242, 116, 60, 0.36);
+  border-radius: 999px;
+  box-shadow: 0 0 22px -8px var(--threat-glow);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(calc(16px - 50%));
+  transition:
+    transform 0.72s cubic-bezier(0.33, 0, 0.2, 1),
+    opacity 0.45s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    box-shadow 0.5s ease,
+    background 0.5s ease;
+  z-index: 4;
+}
+
+.animation-security .sec-threat.is-on { opacity: 1; }
+
+.animation-security .sec-threat__dot {
+  position: relative;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--threat);
+  box-shadow: 0 0 9px var(--threat-glow);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-security .sec-threat.is-on .sec-threat__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(242, 116, 60, 0.45);
+  animation: offering-security-sec-threat-ping 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes offering-security-sec-threat-ping {
+  0%        { transform: scale(0.6); opacity: 0; }
+  14%       { opacity: 0.55; }
+  46%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.animation-security .sec-threat.is-inert {
+  color: #8794AB;
+  background: linear-gradient(180deg, #131A28 0%, #0E1420 100%);
+  border-color: rgba(126, 156, 204, 0.22);
+  box-shadow: none;
+}
+
+.animation-security .sec-threat.is-inert .sec-threat__dot {
+  background: #55627A;
+  box-shadow: none;
+}
+
+.animation-security .sec-threat.is-inert .sec-threat__dot::after { display: none; }
+
+.animation-security .sec-threat.is-gone { opacity: 0; }
+
+.animation-security .sec-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+  padding-top: 34px;
+}
+
+.animation-security .sec-layer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(7px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.55s ease,
+    box-shadow 0.55s ease,
+    background 0.55s ease;
+}
+
+.animation-security .sec-layer.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-layer__bar {
+  align-self: stretch;
+  width: 3px;
+  min-height: 26px;
+  border-radius: 3px;
+  background: #2C3852;
+  transition: background 0.55s ease, box-shadow 0.55s ease;
+}
+
+.animation-security .sec-layer__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.animation-security .sec-layer__name {
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #C3D2E8;
+}
+
+.animation-security .sec-layer__status {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  transition: color 0.5s ease;
+}
+
+.animation-security .sec-layer__pill {
+  flex: none;
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.5s ease, border-color 0.5s ease, background 0.5s ease;
+}
+.animation-security .sec-layer.is-engaged {
+  border-color: rgba(59, 130, 246, 0.40);
+  box-shadow:
+    0 0 0 1px rgba(59, 130, 246, 0.08),
+    0 0 28px -10px rgba(59, 130, 246, 0.55);
+}
+
+.animation-security .sec-layer.is-engaged .sec-layer__bar {
+  background: var(--blue);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.65);
+}
+
+.animation-security .sec-layer.is-engaged .sec-layer__status { color: #7FA6E8; }
+
+.animation-security .sec-layer.is-engaged .sec-layer__pill {
+  color: var(--blue-text);
+  border-color: rgba(59, 130, 246, 0.34);
+  background: rgba(59, 130, 246, 0.09);
+}
+.animation-security .sec-layer.is-settled {
+  border-color: rgba(59, 130, 246, 0.26);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.04);
+}
+
+.animation-security .sec-layer.is-settled .sec-layer__bar {
+  background: rgba(59, 130, 246, 0.75);
+  box-shadow: none;
+}
+.animation-security .sec-layer.is-contained {
+  border-color: rgba(45, 212, 167, 0.44);
+  box-shadow:
+    0 0 0 1px rgba(45, 212, 167, 0.08),
+    0 0 28px -10px rgba(45, 212, 167, 0.5);
+}
+
+.animation-security .sec-layer.is-contained .sec-layer__bar {
+  background: var(--teal);
+  box-shadow: 0 0 10px rgba(45, 212, 167, 0.55);
+}
+
+.animation-security .sec-layer.is-contained .sec-layer__status { color: #6FD9BC; }
+
+.animation-security .sec-layer.is-contained .sec-layer__pill {
+  color: #7FE0C4;
+  border-color: rgba(45, 212, 167, 0.34);
+  background: rgba(45, 212, 167, 0.09);
+}
+
+.animation-security .sec-response {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  padding: 11px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.018);
+  opacity: 0;
+  transition: opacity 0.55s ease, border-color 0.55s ease;
+}
+
+.animation-security .sec-response.is-on {
+  opacity: 1;
+  border-color: rgba(59, 130, 246, 0.24);
+}
+
+.animation-security .sec-response__dot {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.animation-security .sec-response__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  animation: offering-security-sec-eng-ping 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes offering-security-sec-eng-ping {
+  0%        { transform: scale(0.6); opacity: 0; }
+  12%       { opacity: 0.55; }
+  42%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.animation-security .sec-response__text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #AFC2DC;
+}
+
+.animation-security .sec-env {
+  margin-top: 10px;
+  padding: 14px 16px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background:
+    radial-gradient(120% 150% at 50% 0%, rgba(59, 130, 246, 0.06), transparent 70%),
+    linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(7px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+.animation-security .sec-env.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-env.is-secure {
+  border-color: rgba(45, 212, 167, 0.34);
+  box-shadow: 0 0 32px -14px rgba(45, 212, 167, 0.55);
+}
+
+.animation-security .sec-env__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 11px;
+}
+
+.animation-security .sec-env__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-security .sec-env__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.5s ease;
+}
+
+.animation-security .sec-env__state i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #55627A;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-security .sec-env.is-secure .sec-env__state { color: #6FD9BC; }
+.animation-security .sec-env.is-secure .sec-env__state i {
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(45, 212, 167, 0.7);
+}
+
+.animation-security .sec-env__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.animation-security .sec-env__chips span {
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.6s ease, color 0.6s ease;
+}
+
+.animation-security .sec-env.is-secure .sec-env__chips span {
+  color: #C6D6EE;
+  border-color: rgba(45, 212, 167, 0.20);
+}
+
+.animation-security .sec-rail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px 22px;
+}
+
+.animation-security .sec-rail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.animation-security .sec-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-security .sec-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  opacity: 0.26;
+  transform: translateX(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-security .sec-item.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-item__dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-security .sec-item.is-on .sec-item__dot {
+  border-color: rgba(59, 130, 246, 0.7);
+  background: rgba(59, 130, 246, 0.16);
+  box-shadow: 0 0 10px -1px rgba(59, 130, 246, 0.5);
+}
+
+.animation-security .sec-item.is-on .sec-item__dot::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #4C9BFF;
+}
+.animation-security .sec-item.is-on[data-accent="threat"] .sec-item__dot {
+  border-color: rgba(242, 116, 60, 0.72);
+  background: rgba(242, 116, 60, 0.14);
+  box-shadow: 0 0 10px -1px rgba(242, 116, 60, 0.5);
+}
+.animation-security .sec-item.is-on[data-accent="threat"] .sec-item__dot::after { background: var(--threat); }
+.animation-security .sec-item.is-on[data-accent="ok"] .sec-item__dot {
+  border-color: rgba(45, 212, 167, 0.72);
+  background: rgba(45, 212, 167, 0.14);
+  box-shadow: 0 0 10px -1px rgba(45, 212, 167, 0.5);
+}
+.animation-security .sec-item.is-on[data-accent="ok"] .sec-item__dot::after { background: var(--teal); }
+
+.animation-security .sec-item__text {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.4s ease;
+}
+
+.animation-security .sec-item.is-on .sec-item__text { color: #C6D6EE; }
+
+.animation-security .sec-item__tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.animation-security .sec-item.is-on .sec-item__tag { color: #7488A8; }
+
+.animation-security .sec-rail__note {
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+.animation-security .sec-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.animation-security .sec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.55s ease, transform 0.55s ease,
+              border-color 0.45s ease, color 0.45s ease;
+}
+
+.animation-security .sec-chip.is-on {
+  opacity: 1;
+  transform: none;
+  color: #C6D6EE;
+  border-color: rgba(59, 130, 246, 0.22);
+}
+
+.animation-security .sec-chip__mark {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.7);
+}
+
+.animation-security .sec-mobile { display: none; padding: 18px 18px 8px; }
+
+.animation-security .sec-mobile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.animation-security .sec-mobile__head .sec-live { font-size: 12px; padding: 4px 10px 4px 9px; }
+
+.animation-security .sec-mthreat {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px 9px 11px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #F4B394;
+  background: linear-gradient(180deg, #1E1620 0%, #150F18 100%);
+  border: 1px solid rgba(242, 116, 60, 0.36);
+  border-radius: 999px;
+  box-shadow: 0 0 22px -8px var(--threat-glow);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              border-color 0.5s ease, color 0.5s ease,
+              background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-security .sec-mthreat.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-mthreat .sec-threat__dot { width: 7px; height: 7px; }
+
+.animation-security .sec-mthreat.is-inert {
+  color: #8794AB;
+  background: linear-gradient(180deg, #131A28 0%, #0E1420 100%);
+  border-color: rgba(126, 156, 204, 0.22);
+  box-shadow: none;
+}
+
+.animation-security .sec-mthreat.is-inert .sec-threat__dot {
+  background: #55627A;
+  box-shadow: none;
+}
+
+.animation-security .sec-mflow {
+  position: relative;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-security .sec-mflow::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 18px;
+  bottom: 18px;
+  width: 1px;
+  background: linear-gradient(180deg,
+    rgba(242, 116, 60, 0.28),
+    rgba(126, 156, 204, 0.20) 16%,
+    rgba(126, 156, 204, 0.20) 84%,
+    rgba(45, 212, 167, 0.28));
+}
+
+.animation-security .sec-mlayer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 11px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px 11px 0;
+  border-radius: var(--r-sm);
+  opacity: 0.3;
+  transform: translateX(-5px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              border-color 0.5s ease, background 0.5s ease;
+}
+
+.animation-security .sec-mlayer.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-mlayer__dot {
+  position: relative;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2C3852;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.animation-security .sec-mlayer.is-engaged .sec-mlayer__dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.animation-security .sec-mlayer.is-contained .sec-mlayer__dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.14);
+}
+
+.animation-security .sec-mlayer__name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #C3D2E8;
+}
+
+.animation-security .sec-mlayer__status {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  transition: color 0.5s ease;
+}
+
+.animation-security .sec-mlayer.is-engaged .sec-mlayer__status { color: #7FA6E8; }
+.animation-security .sec-mlayer.is-contained .sec-mlayer__status { color: #6FD9BC; }
+
+.animation-security .sec-menv {
+  margin-top: 14px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease,
+              border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+.animation-security .sec-menv.is-on { opacity: 1; transform: none; }
+
+.animation-security .sec-menv.is-secure {
+  border-color: rgba(45, 212, 167, 0.32);
+  box-shadow: 0 0 30px -16px rgba(45, 212, 167, 0.55);
+}
+
+.animation-security .sec-menv__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.animation-security .sec-menv__chips span {
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #93A5C0;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.6s ease, color 0.6s ease;
+}
+
+.animation-security .sec-menv.is-secure .sec-menv__chips span {
+  color: #C6D6EE;
+  border-color: rgba(45, 212, 167, 0.20);
+}
+
+.animation-security .sec-mresp {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, 0.018);
+  font-size: 12px;
+  font-weight: 500;
+  color: #AFC2DC;
+  opacity: 0;
+  transition: opacity 0.55s ease, border-color 0.55s ease;
+}
+
+.animation-security .sec-mresp.is-on { opacity: 1; border-color: rgba(59, 130, 246, 0.24); }
+
+@media (max-width: 900px) {
+  .animation-security .itk-sec .itk-panel { grid-template-columns: minmax(0, 1fr); }
+  .animation-security .sec-stage,
+  .animation-security .sec-rail { display: none; }
+  .animation-security .sec-mobile { display: block; }
+  .animation-security .sec-foot { padding: 14px 18px; }
+}
+
+@media (min-width: 901px) {
+  .animation-security .sec-mobile { display: none; }
+}
+
+.animation-security .itk-sec.is-idle *,
+.animation-security .itk-sec.is-idle *::before,
+.animation-security .itk-sec.is-idle *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-security .itk-sec *,
+  .animation-security .itk-sec *::before,
+  .animation-security .itk-sec *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+    .animation-security { width:100%; min-width:0; margin:0; color:var(--fg); font-family:var(--font-editorial,system-ui); }
+    .animation-security .itk-sec {
+      --bg:var(--n,#0b2c5f); --panel: #0b2c5f; --panel-top:#0b2c5f; --panel-bottom:#071f44;
+      --surface:#102f59; --surface-2:#123763; --surface-hi:#163b68;
+      --text:#ffffff; --muted:#d6e4f5; --dim:#b8cde6;
+      --blue:#5cc5ff; --blue-bright:#5cc5ff; --blue-soft:#5cc5ff; --blue-text:#8fcfff;
+      --cyan:#42baeb; --cyan-text:#7ee3f5; --line:rgba(184,205,230,.22); --line-strong:rgba(184,205,230,.5);
+      padding:0; background:none; overflow:visible; color:var(--text); font-family:inherit;
+    }
+    .animation-security .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
+    .animation-security .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
+    .animation-security .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
+    .animation-security [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
+    .animation-security [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
+    .animation-security [hidden] { display:none !important; }
+    .animation-security.is-idle *, .animation-security.is-idle *::before, .animation-security.is-idle *::after { animation-play-state:paused !important; }
+    .animation-security[data-animation-state="settled"] *, .animation-security[data-animation-state="settled"] *::before, .animation-security[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-security:not([data-animation-enhanced]) [data-animation-visual], .animation-security:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
+    .animation-security:not([data-animation-enhanced]) .itk-panel { transform:none; }
+    @media (hover:hover) and (pointer:fine) { .animation-security [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
+    @media (max-width:560px) { .animation-security .animation-caption { align-items:flex-start; } .animation-security .animation-caption p { flex-basis:100%; } }
+    @media (prefers-reduced-motion:reduce) { .animation-security *, .animation-security *::before, .animation-security *::after { animation:none !important; transition:none !important; } }
+    @media (forced-colors:active) { .animation-security .itk-panel, .animation-security [data-animation-toggle] { border:1px solid CanvasText; } }
+  
+</style>
+
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-security').forEach(root => {
+    mountAnimation(root, ({ later }) => {
+      const section = root.querySelector('.itk-sec');
+
+  var panel    = section.querySelector(".itk-panel");
+  var lane     = section.querySelector("[data-lane]");
+  var token    = section.querySelector("[data-threat]");
+  var laneLine = section.querySelector("[data-lane-line]");
+  var env      = section.querySelector("[data-env]");
+  var envState = section.querySelector("[data-env-state]");
+  var currentLayerEl = null;
+  var tokenHidden = false;
+
+  /* ---------- helpers ---------- */
+
+  function at(ms, fn) { later(fn, ms); }
+
+  function showAll(selector, cls) {
+    section.querySelectorAll(selector).forEach(function (el) {
+      el.classList.add(...cls.split(/\s+/));
+    });
+  }
+
+  /* ---------- token positioning ---------- */
+
+  function moveTokenTo(targetEl) {
+    if (!lane || !token || !targetEl) return;
+    var lr = lane.getBoundingClientRect();
+    var tr = targetEl.getBoundingClientRect();
+    var y = tr.top - lr.top + tr.height / 2;
+    token.style.transform = "translateY(calc(" + y + "px - 50%))";
+    currentLayerEl = targetEl;
+  }
+
+  /* ---------- layer engagement ---------- */
+
+  function showLayer(n) {
+    section.querySelectorAll('[data-layer="' + n + '"]').forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  function engageLayer(n, statusText) {
+    section.querySelectorAll('[data-layer="' + n + '"]').forEach(function (el) {
+      el.classList.add("is-on", "is-engaged");
+      var s = el.querySelector("[data-status]");
+      if (s && statusText) s.textContent = statusText;
+    });
+  }
+
+  function rail(n) {
+    var el = section.querySelector('[data-rail="' + n + '"]');
+    if (el) el.classList.add("is-on");
+  }
+
+  function chip(n) {
+    var el = section.querySelectorAll("[data-chip]")[n];
+    if (el) el.classList.add("is-on");
+  }
+
+  /* ---------- timeline ---------- */
+
+  function play() {
+    panel.classList.add("is-in");
+
+    /* interface wakes up */
+    at(200, function () {
+      showAll("[data-live]", "is-on");
+    });
+
+    /* the environment and its protective layers become visible */
+    at(450, function () {
+      if (laneLine) laneLine.classList.add("is-on");
+      [1, 2, 3, 4, 5].forEach(showLayer);
+      if (env) env.classList.add("is-on");
+    });
+
+    /* the event appears */
+    at(820, function () {
+      if (token) token.classList.add("is-on");
+      rail(0);
+    });
+
+    /* layer 1 — identity protection */
+    at(1250, function () {
+      var el = section.querySelector('[data-layer="1"]');
+      moveTokenTo(el);
+      engageLayer(1, "Risky sign-in detected");
+      rail(1);
+    });
+
+    /* layer 2 — MFA / Conditional Access */
+    at(1900, function () {
+      var el = section.querySelector('[data-layer="2"]');
+      moveTokenTo(el);
+      engageLayer(2, "Challenge issued");
+      rail(2);
+    });
+
+    /* layer 3 — endpoint protection */
+    at(2550, function () {
+      var el = section.querySelector('[data-layer="3"]');
+      moveTokenTo(el);
+      engageLayer(3, "Device posture checked");
+      rail(3);
+    });
+
+    /* layer 4 — application control */
+    at(3200, function () {
+      var el = section.querySelector('[data-layer="4"]');
+      moveTokenTo(el);
+      engageLayer(4, "App access restricted");
+      rail(4);
+    });
+
+    /* layer 5 — firewall / network controls */
+    at(3850, function () {
+      var el = section.querySelector('[data-layer="5"]');
+      moveTokenTo(el);
+      engageLayer(5, "Connection contained");
+      rail(5);
+    });
+
+    /* alert generated */
+    at(4480, function () {
+      showAll("[data-alert]", "is-on");
+      rail(6);
+    });
+
+    /* human response */
+    at(5120, function () {
+      showAll("[data-response]", "is-on");
+      rail(7);
+    });
+
+    /* contained — calm resolution */
+    at(5850, function () {
+      rail(8);
+
+      section.querySelectorAll('[data-layer="5"]').forEach(function (el) {
+        el.classList.add("is-contained");
+        var s = el.querySelector("[data-status]");
+        if (s) s.textContent = "Contained";
+      });
+
+      [1, 2, 3, 4].forEach(function (n) {
+        section.querySelectorAll('[data-layer="' + n + '"]').forEach(function (el) {
+          el.classList.add("is-settled");
+        });
+      });
+
+      if (env) env.classList.add("is-secure");
+      if (envState) {
+        envState.innerHTML = "<i></i> Example reviewed";
+      }
+
+      showAll("[data-mthreat]", "is-inert");
+
+      if (token) token.classList.add("is-inert");
+    });
+
+    /* the event is gone */
+    at(6700, function () {
+      if (token) token.classList.add("is-gone");
+      tokenHidden = true;
+    });
+
+    /* footer language settles */
+    at(6500, function () { chip(0); });
+    at(6750, function () { chip(1); });
+    at(7000, function () { chip(2); });
+    at(7250, function () { chip(3); });
+  }
+
+  /* ---------- reduced-motion / fallback final state ---------- */
+
+  function settle() {
+    panel.classList.add("is-in");
+
+    showAll("[data-live]", "is-on");
+    showAll("[data-alert]", "is-on");
+    showAll("[data-response]", "is-on");
+    showAll("[data-chip]", "is-on");
+    showAll("[data-mthreat]", "is-inert");
+
+    if (laneLine) laneLine.classList.add("is-on");
+    if (env) env.classList.add("is-on", "is-secure");
+    if (envState) envState.innerHTML = "<i></i> Example reviewed";
+
+    var statuses = {
+      1: "Risky sign-in detected",
+      2: "Challenge issued",
+      3: "Device posture checked",
+      4: "App access restricted",
+      5: "Contained"
+    };
+
+    [1, 2, 3, 4, 5].forEach(function (n) {
+      section.querySelectorAll('[data-layer="' + n + '"]').forEach(function (el) {
+        el.classList.add("is-on", "is-engaged");
+        if (n === 5) el.classList.add("is-contained");
+        else el.classList.add("is-settled");
+        var s = el.querySelector("[data-status]");
+        if (s) s.textContent = statuses[n];
+      });
+    });
+
+    if (token) {
+      token.classList.add("is-on", "is-inert");
+      var last = section.querySelector('[data-layer="5"]');
+      if (last) moveTokenTo(last);
+    }
+
+    for (var i = 0; i <= 8; i++) rail(i);
+  }
+      return { play, settle, duration: 8400 };
+    });
+  });
+</script>

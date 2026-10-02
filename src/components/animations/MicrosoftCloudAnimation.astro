@@ -1,0 +1,1237 @@
+<!-- Adapted from cloud_services.html; illustrative, local-only prototype data. -->
+<figure class="offering-animation animation-cloud" data-animation="cloud">
+  <div class="itk-m365" data-animation-visual aria-hidden="true">
+    <div class="itk-panel" aria-hidden="true">
+
+      
+      <div class="m365-stage">
+        <div class="m365-stage__head">
+          <span class="m365-stage__title">Identity &amp; cloud</span>
+          <span class="m365-live" data-live><i></i> Identity example</span>
+        </div>
+
+        <div class="m365-map">
+          <svg class="m365-map__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <g>
+              <path class="m365-link" data-link="user"
+                    d="M 13 34 C 26 34, 31 50, 44 50"></path>
+              <path class="m365-link" data-link="device"
+                    d="M 13 66 C 26 66, 31 50, 44 50"></path>
+
+              <path class="m365-link" data-link="m365"
+                    d="M 44 50 C 62 50, 65 10, 83 10"></path>
+              <path class="m365-link" data-link="exchange"
+                    d="M 44 50 C 62 50, 65 30, 83 30"></path>
+              <path class="m365-link" data-link="intune"
+                    d="M 44 50 C 62 50, 65 50, 83 50"></path>
+              <path class="m365-link" data-link="sharepoint"
+                    d="M 44 50 C 62 50, 65 70, 83 70"></path>
+              <path class="m365-link is-cloud" data-link="azure"
+                    d="M 44 50 C 62 50, 65 90, 83 90"></path>
+            </g>
+          </svg>
+
+          
+          <div class="m365-identity" data-identity>
+            <span class="m365-identity__glyph"></span>
+            <span class="m365-identity__label">Entra ID</span>
+            <span class="m365-identity__sub">Identity</span>
+          </div>
+
+          
+          <div class="m365-node" data-node="user" data-style="cloud-inline-1">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">User</span>
+              <span class="m365-node__status" data-status>New hire</span>
+            </span>
+          </div>
+
+          <div class="m365-node" data-node="device" data-style="cloud-inline-2">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">Device</span>
+              <span class="m365-node__status" data-status>New device</span>
+            </span>
+            <span class="m365-node__badge">Policy</span>
+          </div>
+
+          
+          <div class="m365-node" data-node="m365" data-style="cloud-inline-3">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">Microsoft 365</span>
+              <span class="m365-node__status" data-status>Not connected</span>
+            </span>
+          </div>
+
+          <div class="m365-node" data-node="exchange" data-style="cloud-inline-4">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">Exchange Online</span>
+              <span class="m365-node__status" data-status>Not connected</span>
+            </span>
+          </div>
+
+          <div class="m365-node" data-node="intune" data-style="cloud-inline-5">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">Intune</span>
+              <span class="m365-node__status" data-status>Not connected</span>
+            </span>
+          </div>
+
+          <div class="m365-node" data-node="sharepoint" data-style="cloud-inline-6">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">SharePoint</span>
+              <span class="m365-node__status" data-status>Not connected</span>
+            </span>
+          </div>
+
+          <div class="m365-node" data-node="azure" data-style="cloud-inline-7">
+            <span class="m365-node__dot"></span>
+            <span class="m365-node__body">
+              <span class="m365-node__label">Azure</span>
+              <span class="m365-node__status" data-status>Not connected</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="m365-rail">
+        <div class="m365-rail__head">
+          <span class="m365-stage__title">Identity lifecycle</span>
+        </div>
+
+        <ol class="m365-rail__list">
+          <li class="m365-item" data-rail="0">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">User joins company</span>
+            <span class="m365-item__tag">People</span>
+          </li>
+          <li class="m365-item" data-rail="1">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Identity created in Entra ID</span>
+            <span class="m365-item__tag">Identity</span>
+          </li>
+          <li class="m365-item" data-rail="2">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Microsoft 365 access assigned</span>
+            <span class="m365-item__tag">Apps</span>
+          </li>
+          <li class="m365-item" data-rail="3">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Email becomes available</span>
+            <span class="m365-item__tag">Exchange</span>
+          </li>
+          <li class="m365-item" data-rail="4">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Device enrols into Intune</span>
+            <span class="m365-item__tag">Devices</span>
+          </li>
+          <li class="m365-item" data-rail="5">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Security policies apply</span>
+            <span class="m365-item__tag">Security</span>
+          </li>
+          <li class="m365-item" data-rail="6">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">SharePoint resources available</span>
+            <span class="m365-item__tag">Files</span>
+          </li>
+          <li class="m365-item" data-rail="7" data-accent="cloud">
+            <span class="m365-item__dot"></span>
+            <span class="m365-item__text">Cloud services connect</span>
+            <span class="m365-item__tag">Cloud</span>
+          </li>
+        </ol>
+
+        <p class="m365-rail__note">
+          The right people get the right access on the right devices.
+        </p>
+      </div>
+
+      
+      <div class="m365-mobile">
+        <div class="m365-mobile__head">
+          <span class="m365-stage__title">Identity &amp; cloud</span>
+          <span class="m365-live" data-live><i></i> Managed</span>
+        </div>
+
+        <div class="m365-mpeople">
+          <div class="m365-mchip" data-node="user">
+            <span class="m365-mchip__top"><i></i>User</span>
+            <span class="m365-mchip__status" data-status>New hire</span>
+          </div>
+          <div class="m365-mchip" data-node="device">
+            <span class="m365-mchip__top"><i></i>Device</span>
+            <span class="m365-mchip__status" data-status>New device</span>
+          </div>
+        </div>
+
+        <div class="m365-mspine" data-spine></div>
+
+        <div class="m365-midentity" data-identity>
+          <span class="m365-identity__glyph"></span>
+          <span class="m365-identity__label">Entra ID</span>
+          <span class="m365-identity__sub">Identity</span>
+        </div>
+
+        <ul class="m365-mservices">
+          <li data-node="m365">
+            <i></i>
+            <span class="m365-mservices__name">Microsoft 365</span>
+            <span class="m365-mservices__status" data-status>Not connected</span>
+          </li>
+          <li data-node="exchange">
+            <i></i>
+            <span class="m365-mservices__name">Exchange Online</span>
+            <span class="m365-mservices__status" data-status>Not connected</span>
+          </li>
+          <li data-node="intune">
+            <i></i>
+            <span class="m365-mservices__name">Intune</span>
+            <span class="m365-mservices__status" data-status>Not connected</span>
+          </li>
+          <li data-node="sharepoint">
+            <i></i>
+            <span class="m365-mservices__name">SharePoint</span>
+            <span class="m365-mservices__status" data-status>Not connected</span>
+          </li>
+          <li data-node="azure">
+            <i></i>
+            <span class="m365-mservices__name">Azure</span>
+            <span class="m365-mservices__status" data-status>Not connected</span>
+          </li>
+        </ul>
+      </div>
+
+      
+      <div class="m365-lifecycle">
+        <span class="m365-lifecycle__title">When someone leaves</span>
+        <ol class="m365-life">
+          <li data-life="0"><i></i>Account disabled</li>
+          <li data-life="1"><i></i>Access revoked</li>
+          <li data-life="2"><i></i>Sessions terminated</li>
+          <li data-life="3"><i></i>Device controlled</li>
+          <li data-life="4"><i></i>Data access reviewed</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+  <figcaption class="animation-caption">
+    <span class="illustrative-badge">Illustrative</span>
+    <p>An illustrative identity connects people, devices and cloud services, followed by an offboarding checklist.</p>
+    <button type="button" data-animation-toggle hidden>Pause animation</button>
+  </figcaption>
+</figure>
+
+<style is:global>
+
+.animation-cloud *, .animation-cloud *::before, .animation-cloud *::after { box-sizing: border-box; }
+
+.animation-cloud .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.animation-cloud .itk-m365 {
+  --bg:            #070B14;
+  --panel-top:     #0E1526;
+  --panel-bottom:  #0A1020;
+  --surface:       #0C1322;
+  --surface-hi:    #121B2E;
+
+  --line:          rgba(126, 156, 204, 0.14);
+  --line-strong:   rgba(126, 156, 204, 0.26);
+
+  --text:          #E8EEF9;
+  --muted:         #8695B0;
+  --dim:           #5D6B85;
+
+  --blue:          #3B82F6;
+  --blue-bright:   #60A5FA;
+  --blue-text:     #8FC0FF;
+  --cyan:          #22D3EE;
+  --cyan-text:     #7EE3F5;
+  --teal:          #2DD4A7;
+
+  --r-lg: 20px;
+  --r-md: 12px;
+  --r-sm: 10px;
+
+  position: relative;
+  padding: clamp(56px, 8vw, 112px) clamp(18px, 5vw, 64px);
+  background:
+    radial-gradient(120% 70% at 50% -12%, rgba(34, 211, 238, 0.075), transparent 60%),
+    radial-gradient(120% 70% at 50% -12%, rgba(59, 130, 246, 0.09), transparent 64%),
+    var(--bg);
+}
+
+.animation-cloud .itk-m365__inner { max-width: 1180px; margin: 0 auto; }
+
+.animation-cloud .itk-m365 .itk-eyebrow {
+  display: inline-block;
+  margin: 0 0 20px;
+  padding: 6px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan-text);
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.20);
+  border-radius: 999px;
+}
+
+.animation-cloud .itk-m365__head h2 {
+  margin: 0 0 16px;
+  max-width: 24ch;
+  font-size: clamp(27px, 3.4vw, 43px);
+  font-weight: 650;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.animation-cloud .itk-m365__lede {
+  margin: 0 0 38px;
+  max-width: 66ch;
+  font-size: clamp(14.5px, 1.15vw, 16.5px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.animation-cloud .itk-m365 .itk-panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 328px;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 42px 90px -52px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-cloud .itk-m365 .itk-panel.is-in { opacity: 1; transform: none; }
+
+.animation-cloud .m365-stage {
+  min-width: 0;
+  padding: 20px 24px 26px;
+  border-right: 1px solid var(--line);
+}
+
+.animation-cloud .m365-stage__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.animation-cloud .m365-stage__title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-cloud .m365-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cyan-text);
+  background: rgba(34, 211, 238, 0.07);
+  border: 1px solid rgba(34, 211, 238, 0.20);
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-cloud .m365-live.is-on { opacity: 1; transform: none; }
+
+.animation-cloud .m365-live i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4FD8EC;
+  animation: offering-cloud-m365-live-pulse 3.2s ease-out infinite;
+}
+
+@keyframes offering-cloud-m365-live-pulse {
+  0%        { box-shadow: 0 0 0 0 rgba(79, 216, 236, 0.5); }
+  70%, 100% { box-shadow: 0 0 0 7px rgba(79, 216, 236, 0); }
+}
+
+.animation-cloud .m365-map {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  aspect-ratio: 3 / 2;
+}
+
+.animation-cloud .m365-map__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.animation-cloud .m365-link {
+  fill: none;
+  stroke: rgba(126, 156, 204, 0.22);
+  stroke-width: 0.24;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 0.6s ease;
+}
+
+.animation-cloud .m365-link.is-on { stroke: rgba(59, 130, 246, 0.55); }
+.animation-cloud .m365-link.is-cloud.is-on { stroke: rgba(34, 211, 238, 0.55); }
+
+.animation-cloud .m365-identity {
+  position: absolute;
+  left: 44%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 15px 20px 13px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(59, 130, 246, 0.22), rgba(10, 16, 32, 0.95) 74%);
+  border: 1px solid rgba(59, 130, 246, 0.32);
+  box-shadow:
+    0 0 46px -12px rgba(59, 130, 246, 0.58),
+    0 0 28px -12px rgba(59, 130, 246, 0.5) inset;
+  opacity: 0;
+  z-index: 3;
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-cloud .m365-identity.is-on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+.animation-cloud .m365-identity::after {
+  content: "";
+  position: absolute;
+  inset: -11px;
+  border-radius: 28px;
+  border: 1px solid rgba(96, 165, 250, 0.26);
+  pointer-events: none;
+  animation: offering-cloud-m365-halo 5.4s ease-in-out infinite;
+}
+
+@keyframes offering-cloud-m365-halo {
+  0%, 100% { opacity: 0.22; transform: scale(1); }
+  50%      { opacity: 0.5;  transform: scale(1.035); }
+}
+
+.animation-cloud .m365-identity__glyph {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 4px;
+  border-radius: 9px;
+  background: linear-gradient(160deg, rgba(59, 130, 246, 0.34), rgba(59, 130, 246, 0.07));
+  border: 1px solid rgba(96, 165, 250, 0.45);
+}
+
+.animation-cloud .m365-identity__glyph::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 6px;
+  width: 7px; height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: #9CC4FF;
+}
+
+.animation-cloud .m365-identity__glyph::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 5px;
+  width: 13px; height: 7px;
+  margin-left: -6.5px;
+  border-radius: 6px 6px 3px 3px;
+  background: #9CC4FF;
+  opacity: 0.85;
+}
+
+.animation-cloud .m365-identity__label {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #D3E1F6;
+}
+
+.animation-cloud .m365-identity__sub {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue-text);
+  opacity: 0.75;
+}
+
+.animation-cloud .m365-node {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  transform: translate(-50%, -50%) scale(0.95);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.animation-cloud .m365-node.is-on {
+  opacity: 0.72;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.animation-cloud .m365-node.is-check,
+.animation-cloud .m365-node.is-verified,
+.animation-cloud .m365-node.is-cloud,
+.animation-cloud .m365-node.is-policy { opacity: 1; }
+
+.animation-cloud .m365-node__body { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+
+.animation-cloud .m365-node__label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #C3D2E8;
+}
+
+.animation-cloud .m365-node__status {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  transition: color 0.4s ease;
+}
+
+.animation-cloud .m365-node__dot {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35415A;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.animation-cloud .m365-node.is-check .m365-node__dot::after,
+.animation-cloud .m365-node.is-verified .m365-node__dot::after,
+.animation-cloud .m365-node.is-cloud .m365-node__dot::after,
+.animation-cloud .m365-node.is-policy .m365-node__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  animation: offering-cloud-m365-ping 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes offering-cloud-m365-ping {
+  0%        { transform: scale(0.55); opacity: 0; }
+  10%       { opacity: 0.6; }
+  38%, 100% { transform: scale(2.3);  opacity: 0; }
+}
+
+.animation-cloud .m365-node.is-check {
+  border-color: rgba(59, 130, 246, 0.42);
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.09),
+              0 0 26px -8px rgba(59, 130, 246, 0.55);
+}
+.animation-cloud .m365-node.is-check .m365-node__dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.13);
+}
+.animation-cloud .m365-node.is-check .m365-node__status { color: #7FA6E8; }
+
+.animation-cloud .m365-node.is-verified {
+  border-color: rgba(45, 212, 167, 0.44);
+  box-shadow: 0 0 0 1px rgba(45, 212, 167, 0.09),
+              0 0 26px -8px rgba(45, 212, 167, 0.5);
+}
+.animation-cloud .m365-node.is-verified .m365-node__dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.13);
+}
+.animation-cloud .m365-node.is-verified .m365-node__status { color: #6FD9BC; }
+
+.animation-cloud .m365-node.is-cloud {
+  border-color: rgba(34, 211, 238, 0.44);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.09),
+              0 0 26px -8px rgba(34, 211, 238, 0.5);
+}
+.animation-cloud .m365-node.is-cloud .m365-node__dot {
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.13);
+}
+.animation-cloud .m365-node.is-cloud .m365-node__dot::after { border-color: rgba(34, 211, 238, 0.5); }
+.animation-cloud .m365-node.is-cloud .m365-node__status { color: #7EE3F5; }
+
+.animation-cloud .m365-node.is-policy {
+  border-color: rgba(45, 212, 167, 0.48);
+  box-shadow: 0 0 0 1px rgba(45, 212, 167, 0.10),
+              0 0 28px -8px rgba(45, 212, 167, 0.55);
+}
+.animation-cloud .m365-node.is-policy .m365-node__dot {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.14);
+}
+.animation-cloud .m365-node.is-policy .m365-node__dot::after { border-color: rgba(45, 212, 167, 0.5); }
+.animation-cloud .m365-node.is-policy .m365-node__status { color: #6FD9BC; }
+.animation-cloud .m365-node__badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7FE0C4;
+  background: #0F2430;
+  border: 1px solid rgba(45, 212, 167, 0.5);
+  border-radius: 6px;
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-cloud .m365-node.is-policy .m365-node__badge { opacity: 1; transform: scale(1); }
+
+.animation-cloud .m365-rail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px 22px;
+}
+
+.animation-cloud .m365-rail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.animation-cloud .m365-rail__list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-cloud .m365-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  opacity: 0.26;
+  transform: translateX(-4px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animation-cloud .m365-item.is-on { opacity: 1; transform: none; }
+
+.animation-cloud .m365-item__dot {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  transition: border-color 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-cloud .m365-item.is-on .m365-item__dot {
+  border-color: rgba(59, 130, 246, 0.7);
+  background: rgba(59, 130, 246, 0.16);
+  box-shadow: 0 0 10px -1px rgba(59, 130, 246, 0.55);
+}
+
+.animation-cloud .m365-item.is-on .m365-item__dot::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: #4C9BFF;
+}
+
+.animation-cloud .m365-item.is-on[data-accent="cloud"] .m365-item__dot {
+  border-color: rgba(34, 211, 238, 0.72);
+  background: rgba(34, 211, 238, 0.16);
+  box-shadow: 0 0 10px -1px rgba(34, 211, 238, 0.55);
+}
+.animation-cloud .m365-item.is-on[data-accent="cloud"] .m365-item__dot::after { background: var(--cyan); }
+
+.animation-cloud .m365-item__text {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--muted);
+  transition: color 0.4s ease;
+}
+
+.animation-cloud .m365-item.is-on .m365-item__text { color: #C6D6EE; }
+
+.animation-cloud .m365-item__tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.animation-cloud .m365-item.is-on .m365-item__tag { color: #7488A8; }
+
+.animation-cloud .m365-rail__note {
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+.animation-cloud .m365-lifecycle {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+  padding: 15px 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.animation-cloud .m365-lifecycle__title {
+  flex: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.animation-cloud .m365-life {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-cloud .m365-life li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dim);
+  opacity: 0.4;
+  transition: opacity 0.5s ease, color 0.5s ease;
+}
+
+.animation-cloud .m365-life li:not(:last-child)::after {
+  content: "›";
+  margin: 0 11px 0 13px;
+  font-size: 14px;
+  line-height: 1;
+  color: rgba(126, 156, 204, 0.32);
+}
+
+.animation-cloud .m365-life li i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #35415A;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-cloud .m365-life li.is-on { opacity: 1; color: #C6D6EE; }
+.animation-cloud .m365-life li.is-on i {
+  background: var(--blue);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.7);
+}
+
+.animation-cloud .m365-life li.is-ok { opacity: 1; color: #7FE0C4; }
+.animation-cloud .m365-life li.is-ok i {
+  background: var(--teal);
+  box-shadow: 0 0 8px rgba(45, 212, 167, 0.7);
+}
+
+.animation-cloud .m365-mobile { display: none; padding: 18px 18px 8px; }
+
+.animation-cloud .m365-mobile__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.animation-cloud .m365-mobile__head .m365-live { font-size: 12px; padding: 4px 10px 4px 9px; }
+
+.animation-cloud .m365-mpeople {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.animation-cloud .m365-mchip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, var(--surface-hi) 0%, var(--surface) 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.55s ease, transform 0.55s ease,
+              border-color 0.45s ease, box-shadow 0.45s ease;
+}
+
+.animation-cloud .m365-mchip.is-on { opacity: 0.75; transform: none; }
+
+.animation-cloud .m365-mchip.is-check,
+.animation-cloud .m365-mchip.is-verified,
+.animation-cloud .m365-mchip.is-policy { opacity: 1; }
+
+.animation-cloud .m365-mchip__top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #C3D2E8;
+}
+
+.animation-cloud .m365-mchip__top i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35415A;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-cloud .m365-mchip__status {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  transition: color 0.4s ease;
+}
+
+.animation-cloud .m365-mchip.is-check { border-color: rgba(59, 130, 246, 0.4); }
+.animation-cloud .m365-mchip.is-check .m365-mchip__top i {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.13);
+}
+.animation-cloud .m365-mchip.is-check .m365-mchip__status { color: #7FA6E8; }
+
+.animation-cloud .m365-mchip.is-policy { border-color: rgba(45, 212, 167, 0.46); }
+.animation-cloud .m365-mchip.is-policy .m365-mchip__top i {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.14);
+}
+.animation-cloud .m365-mchip.is-policy .m365-mchip__status { color: #6FD9BC; }
+
+.animation-cloud .m365-mspine {
+  width: 1px;
+  height: 26px;
+  margin: 0 auto;
+  background: linear-gradient(180deg,
+    rgba(59, 130, 246, 0.06),
+    rgba(59, 130, 246, 0.6));
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.animation-cloud .m365-mspine.is-on { transform: scaleY(1); }
+
+.animation-cloud .m365-midentity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 15px 22px 13px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(59, 130, 246, 0.22), rgba(10, 16, 32, 0.95) 76%);
+  border: 1px solid rgba(59, 130, 246, 0.32);
+  box-shadow: 0 0 34px -14px rgba(59, 130, 246, 0.62);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.animation-cloud .m365-midentity.is-on { opacity: 1; transform: none; }
+
+.animation-cloud .m365-mservices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.animation-cloud .m365-mservices li {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.5s ease, transform 0.5s ease,
+              border-color 0.5s ease, background 0.5s ease;
+}
+
+.animation-cloud .m365-mservices li.is-on {
+  opacity: 0.72;
+  transform: none;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.animation-cloud .m365-mservices li.is-check,
+.animation-cloud .m365-mservices li.is-verified,
+.animation-cloud .m365-mservices li.is-cloud { opacity: 1; }
+
+.animation-cloud .m365-mservices li > i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35415A;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.animation-cloud .m365-mservices__name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #C3D2E8;
+}
+
+.animation-cloud .m365-mservices__status {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  transition: color 0.4s ease;
+}
+
+.animation-cloud .m365-mservices li.is-check { border-color: rgba(59, 130, 246, 0.4); }
+.animation-cloud .m365-mservices li.is-check > i {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.13);
+}
+.animation-cloud .m365-mservices li.is-check .m365-mservices__status { color: #7FA6E8; }
+
+.animation-cloud .m365-mservices li.is-verified { border-color: rgba(45, 212, 167, 0.44); }
+.animation-cloud .m365-mservices li.is-verified > i {
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 212, 167, 0.13);
+}
+.animation-cloud .m365-mservices li.is-verified .m365-mservices__status { color: #6FD9BC; }
+
+.animation-cloud .m365-mservices li.is-cloud { border-color: rgba(34, 211, 238, 0.44); }
+.animation-cloud .m365-mservices li.is-cloud > i {
+  background: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.13);
+}
+.animation-cloud .m365-mservices li.is-cloud .m365-mservices__status { color: #7EE3F5; }
+
+@media (max-width: 900px) {
+  .animation-cloud .itk-m365 .itk-panel { grid-template-columns: minmax(0, 1fr); }
+  .animation-cloud .m365-stage,
+  .animation-cloud .m365-rail { display: none; }
+  .animation-cloud .m365-mobile { display: block; }
+  .animation-cloud .m365-lifecycle { padding: 15px 18px; }
+}
+
+@media (min-width: 901px) {
+  .animation-cloud .m365-mobile { display: none; }
+}
+
+.animation-cloud .itk-m365.is-idle *,
+.animation-cloud .itk-m365.is-idle *::before,
+.animation-cloud .itk-m365.is-idle *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-cloud .itk-m365 *,
+  .animation-cloud .itk-m365 *::before,
+  .animation-cloud .itk-m365 *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.animation-cloud [data-style="cloud-inline-1"] { --x:13%;--y:34% }
+
+.animation-cloud [data-style="cloud-inline-2"] { --x:13%;--y:66% }
+
+.animation-cloud [data-style="cloud-inline-3"] { --x:83%;--y:10% }
+
+.animation-cloud [data-style="cloud-inline-4"] { --x:83%;--y:30% }
+
+.animation-cloud [data-style="cloud-inline-5"] { --x:83%;--y:50% }
+
+.animation-cloud [data-style="cloud-inline-6"] { --x:83%;--y:70% }
+
+.animation-cloud [data-style="cloud-inline-7"] { --x:83%;--y:90% }
+
+
+    .animation-cloud { width:100%; min-width:0; margin:0; color:var(--fg); font-family:var(--font-editorial,system-ui); }
+    .animation-cloud .itk-m365 {
+      --bg:var(--n,#0b2c5f); --panel: #0b2c5f; --panel-top:#0b2c5f; --panel-bottom:#071f44;
+      --surface:#102f59; --surface-2:#123763; --surface-hi:#163b68;
+      --text:#ffffff; --muted:#d6e4f5; --dim:#b8cde6;
+      --blue:#5cc5ff; --blue-bright:#5cc5ff; --blue-soft:#5cc5ff; --blue-text:#8fcfff;
+      --cyan:#42baeb; --cyan-text:#7ee3f5; --line:rgba(184,205,230,.22); --line-strong:rgba(184,205,230,.5);
+      padding:0; background:none; overflow:visible; color:var(--text); font-family:inherit;
+    }
+    .animation-cloud .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
+    .animation-cloud .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
+    .animation-cloud .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
+    .animation-cloud [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
+    .animation-cloud [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
+    .animation-cloud [hidden] { display:none !important; }
+    .animation-cloud.is-idle *, .animation-cloud.is-idle *::before, .animation-cloud.is-idle *::after { animation-play-state:paused !important; }
+    .animation-cloud[data-animation-state="settled"] *, .animation-cloud[data-animation-state="settled"] *::before, .animation-cloud[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-cloud:not([data-animation-enhanced]) [data-animation-visual], .animation-cloud:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
+    .animation-cloud:not([data-animation-enhanced]) .itk-panel { transform:none; }
+    @media (hover:hover) and (pointer:fine) { .animation-cloud [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
+    @media (max-width:560px) { .animation-cloud .animation-caption { align-items:flex-start; } .animation-cloud .animation-caption p { flex-basis:100%; } }
+    @media (prefers-reduced-motion:reduce) { .animation-cloud *, .animation-cloud *::before, .animation-cloud *::after { animation:none !important; transition:none !important; } }
+    @media (forced-colors:active) { .animation-cloud .itk-panel, .animation-cloud [data-animation-toggle] { border:1px solid CanvasText; } }
+  
+</style>
+
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-cloud').forEach(root => {
+    mountAnimation(root, ({ later }) => {
+      const section = root.querySelector('.itk-m365');
+
+  var panel = section.querySelector(".itk-panel");
+
+  var STATES = ["is-check", "is-verified", "is-cloud", "is-policy"];
+
+  /* ---------- link setup ---------- */
+
+  var links = {};
+  section.querySelectorAll("[data-link]").forEach(function (path) {
+    var len = 0;
+    try { len = path.getTotalLength(); } catch (e) { len = 60; }
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    links[path.dataset.link] = path;
+  });
+
+  function drawLink(key) {
+    var p = links[key];
+    if (!p) return;
+    p.classList.add("is-on");
+    p.style.strokeDashoffset = 0;
+  }
+
+  /* ---------- helpers ---------- */
+
+  function at(ms, fn) { later(fn, ms); }
+
+  function show(key) {
+    section.querySelectorAll('[data-node="' + key + '"]').forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  function setNode(key, state, statusText) {
+    section.querySelectorAll('[data-node="' + key + '"]').forEach(function (el) {
+      el.classList.add("is-on");
+      STATES.forEach(function (s) { el.classList.remove(s); });
+      if (state) el.classList.add(state);
+      if (statusText) {
+        var s = el.querySelector("[data-status]");
+        if (s) s.textContent = statusText;
+      }
+    });
+  }
+
+  function rail(n) {
+    var el = section.querySelector('[data-rail="' + n + '"]');
+    if (el) el.classList.add("is-on");
+  }
+
+  function life(n) {
+    var el = section.querySelector('[data-life="' + n + '"]');
+    if (el) el.classList.add(n === 4 ? "is-ok" : "is-on");
+  }
+
+  function showIdentity() {
+    section.querySelectorAll("[data-identity]").forEach(function (el) {
+      el.classList.add("is-on");
+    });
+    section.querySelectorAll("[data-spine]").forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  function showLive() {
+    section.querySelectorAll("[data-live]").forEach(function (el) {
+      el.classList.add("is-on");
+    });
+  }
+
+  /* ---------- timeline ---------- */
+
+  function play() {
+    panel.classList.add("is-in");
+
+    /* -- before: services visible but not connected -- */
+    at(220, function () {
+      showLive();
+      ["m365", "exchange", "intune", "sharepoint", "azure"].forEach(show);
+    });
+
+    /* -- people and devices appear separately -- */
+    at(500, function () { show("user"); rail(0); });
+    at(760, function () { show("device"); });
+
+    /* -- identity becomes the connection point -- */
+    at(1120, function () {
+      showIdentity();
+      drawLink("user");
+      drawLink("device");
+      setNode("user", "is-check", "Active");
+      rail(1);
+    });
+
+    /* -- services attach, in order -- */
+    at(1620, function () {
+      setNode("m365", "is-verified", "Access assigned");
+      drawLink("m365");
+      rail(2);
+    });
+
+    at(2140, function () {
+      setNode("exchange", "is-verified", "Mailbox ready");
+      drawLink("exchange");
+      rail(3);
+    });
+
+    at(2660, function () {
+      setNode("device", "is-check", "Enrolled");
+      setNode("intune", "is-verified", "Device managed");
+      drawLink("intune");
+      rail(4);
+    });
+
+    at(3180, function () {
+      setNode("device", "is-policy", "Policy applied");
+      rail(5);
+    });
+
+    at(3720, function () {
+      setNode("sharepoint", "is-verified", "Sites available");
+      drawLink("sharepoint");
+      rail(6);
+    });
+
+    at(4260, function () {
+      setNode("azure", "is-cloud", "Connected");
+      drawLink("azure");
+      rail(7);
+    });
+
+    /* -- offboarding -- */
+    at(5900, function () { life(0); });
+    at(6340, function () { life(1); });
+    at(6780, function () { life(2); });
+    at(7220, function () { life(3); });
+    at(7660, function () { life(4); });
+  }
+
+  /* ---------- reduced-motion final state ---------- */
+
+  function settle() {
+    panel.classList.add("is-in");
+    showLive();
+    showIdentity();
+
+    ["user", "device", "m365", "exchange", "intune", "sharepoint", "azure"]
+      .forEach(show);
+
+    Object.keys(links).forEach(function (k) {
+      links[k].classList.add("is-on");
+      links[k].style.strokeDashoffset = 0;
+    });
+
+    setNode("user", "is-check", "Active");
+    setNode("device", "is-policy", "Policy applied");
+    setNode("m365", "is-verified", "Access assigned");
+    setNode("exchange", "is-verified", "Mailbox ready");
+    setNode("intune", "is-verified", "Device managed");
+    setNode("sharepoint", "is-verified", "Sites available");
+    setNode("azure", "is-cloud", "Connected");
+
+    for (var i = 0; i < 8; i++) rail(i);
+    for (var j = 0; j < 5; j++) life(j);
+  }
+      return { play, settle, duration: 8700 };
+    });
+  });
+</script>

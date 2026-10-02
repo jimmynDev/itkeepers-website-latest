@@ -1,0 +1,83 @@
+# =============================================================================
+# ITKeepers robots.txt  --  DRAFT FOR REVIEW (prepared 28 Sep 2026)
+# =============================================================================
+# Policy summary
+#   1. Search engines and AI *search/retrieval/user-initiated* crawlers: ALLOWED.
+#      Blocking these is what actually removes a site from AI answers.
+#   2. AI *training* crawlers: BUSINESS DECISION. Option A (allow) is active,
+#      Option B (block) is commented out below. Get CEO sign-off.
+#   3. Only /api/ is disallowed. Never list private paths here: this file is
+#      public and would advertise them. Protect private paths with auth.
+#
+# Assumptions to confirm before deploy
+#   - Canonical host is https://itkeepers.com (apex vs www) -> fix Sitemap line.
+#   - Contact-form / serverless endpoints live under /api/.
+#
+# Rules of thumb
+#   - A crawler that matches a specific User-agent group IGNORES the "*" group,
+#     so every named group repeats the Disallow rules.
+#   - robots.txt is advisory. It controls crawling, NOT indexing. For pages
+#     that must stay out of search results (e.g. /thank-you), use
+#     <meta name="robots" content="noindex"> and do NOT disallow them here,
+#     otherwise crawlers never see the noindex.
+#   - Do not disallow CSS/JS/asset folders; crawlers need them to render pages.
+#   - Serve as text/plain, UTF-8, at the root of each host. Each subdomain
+#     (e.g. staging) needs its own robots.txt.
+#   - Verify each user-agent token against the operator's current docs before
+#     deploying (OpenAI: developers.openai.com/api/docs/bots ;
+#     Anthropic: support.claude.com/en/articles/8896518).
+# =============================================================================
+
+
+# --- 1. Default: all other crawlers (Googlebot, Bingbot, etc.) ---------------
+User-agent: *
+Disallow: /api/
+
+
+# --- 2. AI search / retrieval / user-initiated fetchers: ALLOW ---------------
+# OpenAI:    OAI-SearchBot (ChatGPT search index), ChatGPT-User (user-triggered)
+# Anthropic: Claude-SearchBot (search index),      Claude-User (user-triggered)
+# Perplexity: PerplexityBot (index),               Perplexity-User (user-triggered)
+# Note: OpenAI and Perplexity say robots.txt may not govern their user-triggered
+# fetchers the way it governs automated crawlers. Listed here to document intent.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Disallow: /api/
+
+
+# --- 3. AI training crawlers: OPTION A (active) = ALLOW ----------------------
+# Rationale: the site is public marketing content with nothing proprietary, and
+# allowing training crawlers can help models describe ITKeepers accurately.
+# GPTBot (OpenAI), ClaudeBot (Anthropic), Google-Extended (Gemini),
+# Applebot-Extended (Apple)
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Disallow: /api/
+
+# --- 3. AI training crawlers: OPTION B (inactive) = BLOCK --------------------
+# To opt out of training while staying visible in AI answers, delete the Option A
+# group above and uncomment this one. Blocking these does NOT remove the site
+# from ChatGPT/Claude/Gemini answers, which are grounded on the search bots above.
+#
+# User-agent: GPTBot
+# User-agent: ClaudeBot
+# User-agent: Google-Extended
+# User-agent: Applebot-Extended
+# Disallow: /
+
+
+# --- 4. Aggressive / low-value scrapers: BLOCK -------------------------------
+# Bytespider is commonly reported as aggressive. robots.txt is advisory, so if
+# this matters, enforce at the CDN/WAF (e.g. Cloudflare bot rules) instead.
+User-agent: Bytespider
+Disallow: /
+
+
+# --- Sitemap (applies to all groups) -----------------------------------------
+Sitemap: https://itkeepers.com/sitemap.xml
