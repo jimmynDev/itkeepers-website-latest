@@ -1,0 +1,104 @@
+/* Shell-only rules: no diagram descendants, state classes, or lifecycle hooks. */
+body { background: var(--itk-bg); color: var(--itk-text); }
+body.home-page { background: var(--itk-bg); }
+body main > section:not(.home-hero) { color: var(--itk-text); }
+body main > .section, body main > .cta, body.home-page .team-thread { padding-block: var(--itk-section-space); background: var(--itk-bg); }
+body main > section.light, body main > section.dark, body main > section.advice, body main > section.knowledge { background: var(--itk-bg); }
+/* These variables belong to prose shells, not the animation token namespace. */
+body main > :is(.section, .cta), body.home-page :is(.team-thread, .service-story, .digital-service-banner) {
+  --fg: var(--itk-text); --muted: var(--itk-muted); --accent: var(--itk-brand); --focus: var(--itk-brand);
+}
+body main > section:not(.home-hero) > h2,
+body main > section:not(.home-hero) > div > h2,
+body main > section:not(.home-hero) > .split > h2,
+body main > section:not(.home-hero) > .split > div > h2,
+body.home-page main > section.team-thread .thread-intro h2 {
+  font-size: var(--itk-heading); font-weight: 600; line-height: 1.12; letter-spacing: -.035em;
+}
+body main > section:not(.home-hero) > p:not(.eyebrow),
+body main > section:not(.home-hero) > .split > div > p,
+body main > section:not(.home-hero) > div > p:not(.eyebrow),
+body.home-page main > section.team-thread .thread-intro > p:not(.eyebrow) { font-size: var(--itk-body); line-height: 1.6; color: var(--itk-muted); }
+body main > section:not(.home-hero) > .eyebrow,
+body main > section:not(.home-hero) > div > .eyebrow,
+body main > section:not(.home-hero) > .split .eyebrow { font-size: var(--itk-label); letter-spacing: var(--itk-label-tracking); color: var(--itk-brand); }
+body.home-page .service-story-copy > p:not(.eyebrow) { color: var(--itk-muted); }
+body.home-page .digital-service-banner { border-color: var(--itk-border-strong); }
+body.home-page .digital-service-banner p { color: var(--itk-muted); }
+body.home-page .digital-service-banner .eyebrow { color: var(--itk-brand); }
+/* Continuous dark surrounds; existing day-mode hero/services remain approved. */
+[data-hero-theme="day"] body.home-page :is(.service-story, .digital-service-banner) {
+  --fg: var(--itk-light-text); --muted: var(--itk-light-muted); --accent: var(--itk-light-accent); --focus: var(--itk-light-text);
+  color: var(--itk-light-text); background: var(--surface-light);
+}
+[data-hero-theme="day"] body.home-page :is(.service-story-copy p:not(.eyebrow), .digital-service-banner p) { color: var(--itk-light-muted); }
+[data-hero-theme="day"] body.home-page .digital-service-banner { border-color: var(--itk-light-border); }
+[data-hero-theme="day"] body.home-page .digital-service-banner .eyebrow { color: var(--itk-light-accent); }
+/* Relationship illustration remains the focal object, with compact chapters. */
+body.home-page .thread-intro { margin-block-end: var(--itk-content-gap); }
+body.home-page .thread-layout { gap: var(--itk-content-gap); }
+body.home-page main > section.team-thread .thread-chapters li { min-block-size: 0; padding-block: 20px 28px; border-color: var(--itk-border-strong); }
+body.home-page main > section.team-thread .thread-chapters h3 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 600; margin-block: 0 16px; }
+body.home-page main > section.team-thread .thread-key { color: var(--itk-muted); font-size: var(--itk-label); }
+body.home-page .thread-board { border-color: var(--itk-border-strong); }
+body.home-page .thread-paper { background: var(--itk-surface-raised); color: var(--itk-text); }
+body.home-page .thread-paper i { color: var(--itk-muted); }
+body.home-page .thread-paper span { border-color: var(--itk-border-strong); }
+/* Open supporting UI: one frame where it clarifies context, no nested shell. */
+body.home-page .attention-layers { padding: 0; border-radius: 0; background: transparent; }
+body.home-page .attention-sections { gap: var(--itk-content-gap); }
+body.home-page .attention-layers :is(h3, p) { color: var(--itk-text); }
+body.home-page .attention-layers .eyebrow { color: var(--itk-brand); }
+body.home-page :is(.attention-heading p, .advice-examples p, .advice-limit) { color: var(--itk-muted); }
+body.home-page .attention .attention-sections h3 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 600; margin-block: 16px 24px; }
+body.home-page .advice .advice-examples h3 { color: var(--itk-text); font-size: clamp(28px, 3vw, 36px); font-weight: 600; }
+body.home-page .advice-examples :is(article, .advice-limit) { border-color: var(--itk-border-strong); }
+body.home-page .advice-examples article { padding-block: 20px; }
+body.home-page .context-index { background: var(--itk-surface); color: var(--itk-text); border: 1px solid var(--itk-border); border-radius: var(--itk-radius-md); padding: var(--itk-panel-space); }
+body.home-page .context-index-heading { margin-block-end: 24px; }
+body.home-page .context-index :is(.context-index-label, dt, small) { color: var(--itk-muted); }
+body.home-page .context-index dl { margin-block: 24px; }
+body.home-page .context-index dl > div { border-color: var(--itk-border-strong); padding-block: 16px; }
+body.home-page .context-index h3 { font-size: 28px; font-weight: 600; }
+body main > .section > .split { gap: var(--itk-content-gap); margin-block-end: 32px; }
+body .workflow-panels article { padding-block: 24px 32px; }
+body .workflow-panels p { font-size: var(--itk-body); line-height: 1.6; }
+body :is(.workflow-steps, .workflow-steps li + li, .workflow-navigation) { border-color: var(--itk-border-strong); }
+body .workflow-navigation button { border-color: var(--itk-brand); }
+body .workflow-steps button[aria-current="step"] { background: rgba(66,186,235,.1); color: var(--itk-text); box-shadow: inset 0 -2px var(--itk-brand); }
+body .workflow .workflow-number { color: var(--itk-brand); }
+body .disclosures details { border-color: var(--itk-border-strong); }
+body main > .section.light > .split > div > article { background: transparent; border: 0; border-block-start: 1px solid var(--itk-border-strong); border-radius: 0; padding: 24px 0; }
+body main > .section.light > .split > div > article h3 { font-size: 24px; line-height: 1.2; font-weight: 600; }
+body main > .section.light > .split > div > article p { color: var(--itk-muted); }
+body .home-closing .closing-bottom { gap: var(--itk-content-gap); margin-block-start: 32px; }
+body .home-closing .closing-bottom p { color: var(--itk-muted); }
+body .btn, body .home-closing .btn.white { background:var(--itk-cta-bg); color:var(--itk-cta-text); transform:none; }
+body .btn:is(:hover,:focus-visible,:active), body .home-closing .btn.white:is(:hover,:focus-visible,:active), [data-hero-theme="day"] body.home-page .site-header .btn:is(:hover,:focus-visible), [data-hero-theme="day"] body.home-page .home-hero .hero-cta:is(:hover,:focus-visible) { background:var(--itk-cta-hover); color:var(--itk-cta-text); transform:none; }
+body .btn:focus-visible { outline:3px solid var(--itk-cta-hover); outline-offset:4px; }
+@media (prefers-reduced-motion:no-preference) { body .btn { transition:background-color 220ms ease,color 220ms ease; } }
+body .site-footer { background: var(--itk-bg); border-block-start: 1px solid var(--itk-border); padding-block: 48px; }
+body .footer-brand p, body .site-footer nav { color: var(--itk-muted); }
+/* Floating navigation is the deliberate, modest elevation exception. */
+body .header-region { background: transparent; }
+body .site-header { background: var(--itk-nav-surface); border-color: var(--itk-border-strong); box-shadow: var(--itk-nav-shadow); }
+body.home-page .site-header { --header-ink: var(--itk-text); --header-surface: var(--itk-surface); background: var(--itk-nav-surface); border-color: var(--itk-border-strong); }
+body .site-header:hover { box-shadow: var(--itk-nav-shadow); }
+[data-hero-theme="day"] body.home-page .site-header { --header-ink: var(--n); --header-surface: var(--surface-light); background: rgba(245,249,252,.94); border-color: var(--itk-light-border); }
+/* Existing hero composition/rotation and approved diagrams are not restyled. */
+body.home-page .home-hero::before { opacity: .03; }
+body.home-page .home-hero::after { opacity: .09; }
+/* Navy canvas depth replaces the existing night glow rather than adding a layer. */
+:root:not([data-hero-theme="day"]) body.home-page .home-hero::before { opacity: .025; }
+:root:not([data-hero-theme="day"]) body.home-page .home-hero::after {
+  background: radial-gradient(75% 70% at 18% 28%, rgba(66,186,235,.08), transparent 65%);
+  opacity: 1;
+}
+@media (max-width: 900px) {
+  body :is(.workflow-steps button, .workflow-steps li + li) { border-color: var(--itk-border-strong); }
+  body.home-page :is(.thread-layout, .attention-sections, .advice, .knowledge) { gap: var(--itk-content-gap); }
+}
+@media (forced-colors: active) {
+  body :is(.site-header, .context-index, .disclosures details, .workflow-steps button, .workflow-steps, .workflow-steps li + li, .workflow-navigation) { border-color: CanvasText; }
+  body .workflow-steps button[aria-current="step"] { border: 2px solid Highlight; }
+}

@@ -1,18 +1,18 @@
-/** Bounded, replayable timelines shared by the illustrative service animations. */
+/** Viewport-aware, replayable timelines; continuous playback is explicitly opt-in. */
 type Timeline = { play: () => void; settle: () => void; duration: number };
 type Scheduler = { later: (callback: () => void, delay: number) => void };
 type Task = { callback: () => void; remaining: number; since: number; timer?: ReturnType<typeof setTimeout> };
 
 const mounted = new WeakMap<HTMLElement, () => void>();
 
-export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler) => Timeline): () => void {
+export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler) => Timeline, options: { loop?: boolean } = {}): () => void {
   const existing = mounted.get(root);
   if (existing) return existing;
-
   const button = root.querySelector<HTMLButtonElement>('[data-animation-toggle]');
   const visual = root.querySelector<HTMLElement>('[data-animation-visual]');
   const fallback = visual && { html: visual.innerHTML, className: visual.className, style: visual.getAttribute('style') };
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const entrance = Boolean(root.closest?.('.service-story'));
   const tasks = new Set<Task>();
   let timeline: Timeline | undefined;
   const observers: IntersectionObserver[] = [];
@@ -26,9 +26,17 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   let staticOnly = false;
   let userPaused = false;
   let parked = false;
+  let entering = false;
+  let entranceComplete = false;
+  const present = (value: string) => {
+    if (!entrance) return;
+    root.dataset.animationEntrance = value;
+    if (visual) visual.inert = value !== 'shown';
+  };
 
   const state = (value: string) => {
     root.dataset.animationState = value;
+    if (value === 'settled') present('shown');
     root.classList.toggle('is-idle', value !== 'running');
     if (button) {
       // Keep a focused control in place when the sequence completes naturally.
@@ -92,6 +100,17 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     }
     state('paused');
   };
+  const startSequence = () => {
+    entering = false;
+    started = true;
+    entranceComplete = true;
+    present('shown');
+    state('running');
+    try {
+      timeline!.play();
+      if (!options.loop) later(() => finish(), timeline!.duration);
+    } catch { finish(true); }
+  };
   const reconcile = () => {
     if (disposed || staticOnly) return;
     if (media.matches) {
@@ -110,8 +129,11 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
       cancel();
       settled = false;
       started = false;
+      entering = false;
+      entranceComplete = false;
       replayReady = false;
       state('waiting');
+      present('waiting');
       restore();
       try { initialize(); } catch { finish(true); return; }
       // Commit the restored starting styles before play changes state classes.
@@ -120,22 +142,22 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     if (settled || (!started && !entered)) return;
     if (running) return;
     running = true;
-    state('running');
+    state(entering ? 'entering' : 'running');
     for (const task of tasks) arm(task);
-    if (!started) {
-      started = true;
-      state('running');
-      try {
-        timeline!.play();
-        later(() => finish(), timeline!.duration);
-      } catch { finish(true); }
+    if (!started && !entering) {
+      if (entrance && !entranceComplete) {
+        entering = true;
+        present('entering');
+        state('entering');
+        later(startSequence, 600);
+      } else startSequence();
     }
   };
   const toggle = () => {
     if (settled || disposed) return;
     userPaused = !userPaused;
     reconcile();
-    if (!settled) state(running ? 'running' : 'paused');
+    if (!settled) state(running ? (entering ? 'entering' : 'running') : 'paused');
   };
   const pagehide = (event: PageTransitionEvent) => {
     if (!event.persisted) { dispose(); return; }
@@ -158,6 +180,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
 
   mounted.set(root, dispose);
   root.dataset.animationEnhanced = 'true';
+  present('waiting');
   state('waiting');
   const initialize = () => {
     timeline = factory({ later });
@@ -191,9 +214,10 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   observe('0px', intersects => { visible = intersects; reconcile(); });
   observe('-96px 0px', intersects => { entered = intersects; reconcile(); });
   observe('160px 0px', intersects => {
-    if (!intersects && started) {
+    if (!intersects && (started || entering)) {
       pause();
       replayReady = true;
+      present('waiting');
       // Keep the final frame (and its transition suppression) until actual re-entry.
       if (!settled) state('replay-ready');
     }

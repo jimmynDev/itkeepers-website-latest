@@ -1,0 +1,37 @@
+---
+import diagram from '../../assets/managed-it-dashboard.svg?raw';
+---
+<figure class="offering-animation animation-managed-dashboard is-idle" data-animation="managed-dashboard" role="img" aria-label="Managed IT example: monitor systems, detect a warning, assign a ticket to an engineer, then resolve it">
+  <div class="managed-dashboard-canvas" data-animation-visual aria-hidden="true"><Fragment set:html={diagram} /></div>
+</figure>
+<style is:global>
+  .managed-dashboard-canvas { inline-size:100%; min-block-size:var(--service-art-size,400px); display:grid; place-items:center; }
+  .managed-dashboard-canvas .mit-mini-dashboard { inline-size:min(100%,640px); block-size:auto; max-inline-size:none; max-block-size:none; }
+  .managed-dashboard-canvas .mit-mini-bg-rect { fill:transparent; }
+  .animation-managed-dashboard .managed-dashboard-canvas .mit-mini-dashboard * { animation:none; }
+  .managed-dashboard-canvas .mit-mini-status-dot { fill:var(--accent); }
+  .managed-dashboard-canvas :is(.mit-mini-chip-group,.mit-mini-avatar-group) { opacity:1; transform:translateX(0); }
+  .managed-dashboard-canvas .mit-mini-row-check { stroke-dashoffset:0; opacity:1; }
+  .managed-dashboard-canvas .mit-mini-step-label { fill:var(--accent); opacity:1; font-size:12px; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-panel { animation:mit-mini-panel-glow 5s ease-in-out infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-label-bar-fill { animation:mit-mini-bar-pulse 3s ease-in-out infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) :is(.mit-mini-row-1,.mit-mini-row-2,.mit-mini-row-3) { --row-delay:0s; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-row-2 { --row-delay:3.33s; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-row-3 { --row-delay:6.66s; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-status-dot { animation:mit-mini-dot-warn 10s ease-in-out var(--row-delay) infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-row-line { animation:mit-mini-line-shorten 10s ease-in-out var(--row-delay) infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-chip-group { opacity:0; animation:mit-mini-chip-slide 10s ease-in-out var(--row-delay) infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-avatar-group { opacity:0; animation:mit-mini-avatar-slide 10s ease-in-out var(--row-delay) infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-row-check { opacity:0; animation:mit-mini-check-draw 10s ease-in-out var(--row-delay) infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-monitor { animation:mit-mini-step-highlight 10s ease-in-out infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-detect { animation:mit-mini-step-highlight-amber 10s ease-in-out 2.5s infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-own { animation:mit-mini-step-highlight 10s ease-in-out 5s infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-resolve { animation:mit-mini-step-highlight 10s ease-in-out 7.5s infinite; }
+  .animation-managed-dashboard.is-idle .mit-mini-dashboard * { animation-play-state:paused!important; }
+  @media (max-width:900px) { .managed-dashboard-canvas .mit-mini-dashboard { inline-size:min(100%,480px); } }
+  @media (prefers-reduced-motion:reduce) { .managed-dashboard-canvas .mit-mini-dashboard * { animation:none!important; } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-managed-dashboard').forEach(root => mountAnimation(root, () => ({play() {},settle() {},duration:16660}), { loop:true }));
+</script>

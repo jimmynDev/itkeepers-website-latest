@@ -1,4 +1,5 @@
 ---
+import Animation from '../../components/animations/BackupRecoveryAnimation.astro';
 import P from '../../components/ServicePage.astro';const points=[['Job monitoring','Backup status and failed jobs need attention, not just a green icon.'],['Morning checks','Routine review helps surface failed or incomplete work for follow-up.'],['Recovery planning','Retention, restore testing and recovery objectives need to be defined for the actual business requirement.']];
 ---
-<P title="Backup & Recovery" intro="Know what is being checked today—and what recovery would actually require." points={points} boundary="A successful backup job does not by itself prove a tested restore. Testing, retention and recovery objectives must be agreed and verified." cta="Discuss your backup requirements" />
+<P title="Backup & Recovery" intro="Know what is being checked today—and what recovery would actually require." points={points} boundary="A successful backup job does not by itself prove a tested restore. Testing, retention and recovery objectives must be agreed and verified." cta="Discuss your backup requirements"><section class="section service-page-example"><h2>Explore an example</h2><p>Follow an example from a backup copy to a restore check.</p><Animation /></section></P>

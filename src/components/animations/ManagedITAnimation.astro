@@ -11,7 +11,7 @@
           </div>
 
           <div class="mits-map">
-            <svg class="mits-map__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <svg class="mits-map__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
               <circle class="mits-ring" cx="50" cy="50" r="34"></circle>
 
               <line class="mits-link" data-link="users"     x1="50" y1="50" x2="50" y2="13"></line>
@@ -121,11 +121,6 @@
 
       </section>
   </div>
-  <figcaption class="animation-caption">
-    <span class="illustrative-badge">Illustrative</span>
-    <p>A hypothetical storage warning moves from monitoring to detection, ownership and resolution.</p>
-    <button type="button" data-animation-toggle hidden>Pause animation</button>
-  </figcaption>
 </figure>
 
 <style is:global>
@@ -927,6 +922,7 @@
         later(resolveIssue, 3650);
       }
       function settle() {
+        section.classList.add('is-running');
         panel.classList.add('is-visible');
         names.forEach(name => {
           nodes[name]?.classList.add('is-on');

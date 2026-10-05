@@ -17,7 +17,7 @@ function target(properties = {}) {
   });
 }
 
-function harness({ reduced = false, observerAvailable = true } = {}) {
+function harness({ reduced = false, observerAvailable = true, entrance = false } = {}) {
   let now = 0;
   let id = 0;
   const timers = new Map();
@@ -33,6 +33,7 @@ function harness({ reduced = false, observerAvailable = true } = {}) {
   const classes = new Set();
   const root = {
     dataset: {},
+    closest() { return entrance ? {} : null; },
     classList: { toggle(name, enabled) { if (enabled) classes.add(name); else classes.delete(name); } },
     querySelector(selector) { return selector === '[data-animation-toggle]' ? button : visual; },
   };
@@ -53,7 +54,7 @@ function harness({ reduced = false, observerAvailable = true } = {}) {
   });
   return {
     root, button, visual, classes, document, window, media, timers,
-    mount: factory => exports.mountAnimation(root, factory),
+    mount: (factory, options) => exports.mountAnimation(root, factory, options),
     visible(value = true) { observers.get('0px')?.emit(value); observers.get('-96px 0px')?.emit(value); },
     boundary(margin, value) { observers.get(margin)?.emit(value); },
     leave() { this.visible(false); observers.get('160px 0px')?.emit(false); },
@@ -76,6 +77,54 @@ function sequence(h, events = []) {
     settle() { events.push('settle'); h.visual.innerHTML = '<p>Meaningful final example</p>'; },
   }));
 }
+
+test('homepage visual enters for 600ms before its internal timeline, without early playback', () => {
+  const h=harness({entrance:true}),events=[];sequence(h,events);
+  assert.equal(h.root.dataset.animationEntrance,'waiting');assert.equal(h.visual.inert,true);
+  h.boundary('0px',true);h.tick(5000);assert.deepEqual(events,[]);
+  h.boundary('-96px 0px',true);assert.equal(h.root.dataset.animationState,'entering');
+  h.tick(599);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
+  assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);
+  h.tick(1000);assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);
+});
+
+test('homepage entrance pauses offscreen and replays only after the existing full-exit boundary', () => {
+  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.visible(false);h.tick(5000);
+  assert.deepEqual(events,[]);h.visible();h.tick(399);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
+  h.leave();assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(599);assert.deepEqual(events,['play']);h.tick(1);assert.deepEqual(events,['play','play']);
+});
+
+test('full exit during entrance resets the visual and cancels the interrupted entrance on re-entry', () => {
+  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.leave();h.tick(5000);
+  assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(599);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
+});
+
+test('homepage reduced motion, missing observer and failure reveal the static visual immediately', () => {
+  for(const options of [{reduced:true},{observerAvailable:false}]){const h=harness({entrance:true,...options}),events=[];sequence(h,events);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);assert.deepEqual(events,['settle']);assert.equal(h.timers.size,0);}
+  const h=harness({entrance:true});h.mount(()=>{throw new Error('test renderer failure');});assert.equal(h.visual.inert,false);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.root.dataset.animationEnhanced,undefined);
+});
+
+test('live reduced motion cancels an entering visual and reveals final state without playback', () => {
+  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.media.matches=true;h.media.emit('change');h.tick(5000);
+  assert.deepEqual(events,['settle']);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);assert.equal(h.timers.size,0);
+});
+
+test('opt-in continuous playback survives duration, pauses offscreen, replays and stops on disposal', () => {
+  const h=harness(), events=[];
+  const dispose=h.mount(() => ({duration:1000,play(){events.push('play');},settle(){events.push('settle');}}),{loop:true});
+  h.visible();h.tick(120000);
+  assert.equal(h.root.dataset.animationState,'running');assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);
+  h.visible(false);assert.equal(h.root.dataset.animationState,'paused');h.visible();assert.equal(h.root.dataset.animationState,'running');assert.deepEqual(events,['play']);
+  h.document.hidden=true;h.document.emit('visibilitychange');assert.equal(h.root.dataset.animationState,'paused');h.document.hidden=false;h.document.emit('visibilitychange');assert.equal(h.root.dataset.animationState,'running');
+  h.leave();h.visible();assert.deepEqual(events,['play','play']);
+  dispose();assert.deepEqual(events,['play','play','settle']);assert.equal(h.timers.size,0);
+});
+
+test('continuous playback still settles immediately for reduced motion', () => {
+  const h=harness({reduced:true}),events=[];
+  h.mount(() => ({duration:1000,play(){events.push('play');},settle(){events.push('settle');}}),{loop:true});
+  h.visible();h.tick(120000);assert.deepEqual(events,['settle']);assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);
+});
 
 test('waits for visibility, completes one sequence, and cancels all work', () => {
   const h = harness(); const events = [];

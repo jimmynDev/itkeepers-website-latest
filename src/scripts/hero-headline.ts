@@ -5,8 +5,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   if (existing) return existing;
   const roles = Array.from(root.querySelectorAll<HTMLElement>('.itk-hero-role'));
   const rotator = root.querySelector<HTMLElement>('.itk-hero-rotator');
-  const button = root.parentElement?.querySelector<HTMLButtonElement>('[data-hero-toggle]');
-  if (roles.length !== 7 || !rotator || !button) return () => {};
+  if (roles.length !== 7 || !rotator) return () => {};
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
   let returned = false;
@@ -14,7 +13,6 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   let since = 0;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let frame: number | undefined;
-  let paused = false;
   let visible = true;
   let parked = false;
   let disposed = false;
@@ -44,7 +42,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   };
   const reconcile = () => {
     if (disposed) return;
-    if (paused || !visible || document.hidden || parked) {
+    if (!visible || document.hidden || parked) {
       if (timer !== undefined) {
         clearTimeout(timer); timer = undefined;
         remaining = Math.max(0, remaining - (performance.now() - since));
@@ -57,13 +55,6 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
     }
   };
   const preference = () => { root.toggleAttribute('data-reduced', media.matches); };
-  const toggle = () => {
-    paused = !paused;
-    button.toggleAttribute('data-paused', paused);
-    const label = paused ? 'Resume headline animation' : 'Pause headline animation';
-    button.setAttribute('aria-label', label); button.title = label;
-    reconcile();
-  };
   const pagehide = (event: PageTransitionEvent) => {
     if (!event.persisted) { dispose(); return; }
     parked = true; reconcile();
@@ -75,19 +66,15 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
     clearTimeout(timer);
     if (frame !== undefined) cancelAnimationFrame(frame);
     observer?.disconnect();
-    button.removeEventListener('click', toggle);
     document.removeEventListener('visibilitychange', reconcile);
     media.removeEventListener('change', preference);
     window.removeEventListener('pagehide', pagehide);
     window.removeEventListener('pageshow', pageshow);
-    button.hidden = true;
     mounted.delete(root);
   };
   mounted.set(root, dispose);
   preference();
   root.setAttribute('data-enhanced', '');
-  button.hidden = false;
-  button.addEventListener('click', toggle);
   media.addEventListener('change', preference);
   document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', pagehide);

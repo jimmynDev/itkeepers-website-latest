@@ -50,9 +50,9 @@ const chapters = [
   .thread-caption { display: block; font-size: 12px; line-height: 1.5; color: var(--muted); margin-block-start: 12px; }
   .thread-packet { position: relative; margin-block-start: 22px; padding: 8px 0 0 8px; }
   .thread-packet::before { content: ''; position: absolute; inset: 0 8px 8px 0; border: 1px solid var(--accent); }
-  .thread-paper i { font: normal 12px/1.5 var(--technical-font); display: block; color: var(--text-light-muted); margin-block-end: 3px; }
+  .thread-paper i { font: normal 12px/1.5 var(--technical-font); display: block; color: var(--itk-muted, var(--text-light-muted)); margin-block-end: 3px; }
   .thread-paper { background: var(--text-light); color: var(--i); position: relative; padding: 16px; margin-block-start: 0; font-size: 12px; line-height: 1.5; }
-  .thread-paper span { display: block; padding-block: 5px; border-block-end: 1px solid var(--text-light-muted); }
+  .thread-paper span { display: block; padding-block: 5px; border-block-end: 1px solid var(--itk-border-strong, var(--text-light-muted)); }
   .thread-paper span:last-child { border: 0; }
   .thread-follow { grid-column: 1; grid-row: 2; }
   .thread-colleague { grid-column: 2; grid-row: 2; }
@@ -60,7 +60,7 @@ const chapters = [
   .thread-chapters { list-style: none; padding: 0; margin: 0; }
   .thread-chapters li { padding-block: 24px 56px; border-block-start: 1px solid var(--accent); }
   .thread-chapters h3 { font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(30px, 3.5vw, 48px); line-height: 1.04; letter-spacing: -.045em; text-wrap: balance; }
-  .thread-chapters li > p:not(.eyebrow) { font-size: 18px; line-height: 1.65; max-inline-size: 42ch; }
+  .thread-chapters li > p:not(.eyebrow) { font-size: var(--itk-body, 18px); color: var(--itk-muted, var(--muted)); line-height: 1.6; max-inline-size: 42ch; }
   @media (min-width: 901px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .team-thread[data-layout] .thread-visual { position: sticky; top: 36px; }
     .team-thread[data-layout] .thread-chapters li { min-block-size: 62vh; }

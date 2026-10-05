@@ -1,5 +1,18 @@
 # Design tokens — Home contrast
 
+## Hero day-mode pilot — 3 October 2026
+
+Only the homepage hero switches theme. Day surface #f5f9fc; navy foreground #0b2c5f;
+supporting text #42566f; small accent text #075d7d; unchanged cyan CTA #42baeb.
+Grid uses navy at 5%, static glow cyan at 12%, local mouse glow cyan at 20%.
+Conservatively compounding their maximum opacities gives supporting text 5.33:1,
+small accents 5.18:1 and navy 9.66:1. Large rotating-word colors use darker shades:
+brand #4071b5 → #087ea8, support #087ea8, cloud #2567ad, security #207644,
+networking #137487, automation #6250b3 and digital #386799; minimum large-text
+ratio is 3.26:1 on that conservative surface. CTA navy on cyan remains 6.14:1.
+The navigation and lower page retain their existing navy design. Full accessibility
+certification, native screen-reader and real-device checks remain unverified.
+
 The active Astro layout loads `public/style.css` and `public/mobile.css`.
 The root `style.css` and `assets/styles.css` are unused concept files and were not changed.
 Existing brand aliases (`--n`, `--b`, `--c`, `--s`, `--i`) are preserved; this task does not establish independent asset-derived brand verification.
@@ -145,3 +158,27 @@ forced-colors, screen reader and computed contrast not performed by this special
 in this phase; Workflow/Design QA owner must record integrated results. Build not run
 by this specialist: the integration owner owns the single candidate build. These
 notes do not establish publication approval or a complete accessibility pass.
+
+## 5 October 2026 — Phase 2.75 Visual System
+
+Canonical shell token source: public/visual-system-tokens.css; implementation: public/visual-system.css. Namespace --itk-* keeps official --n/--c/--s and approved diagram variables unchanged. Canvas #070B14, alternate #0A1020, surfaces #0D1525/#111A2B; text #E8EEF9, muted #8A98B2, brand #42BAEB. Borders rgba(126,156,204,.14/.24); radius 10/14/18px. Semantic success #2DD4A7, warning #F0A93B, danger #E85D5D, AI #8175E8 are reserved for real states/categories, not decorative variation.
+
+Major shell H2 clamp(30px,4vw,48px), weight600, 1.12 line-height, -.035em tracking. Supporting prose16px/1.6, labels12px/.1em. Section rhythm96px desktop,72px through1024px,56px through600px. Specialized hero, stage, compact index and banner preserve their geometry. Existing system font families and hero rotating scale unchanged.
+
+Source sRGB contrast against canvas/alternate/surface/raised respectively: text16.90/16.27/15.66/14.94; muted6.76/6.51/6.27/5.98; cyan8.86/8.53/8.21/7.84. Dim#61708A only3.93/3.78/3.64/3.48, and deep blue#4071B5 only3.98/3.83/3.69/3.52: neither is used for small readable text. Thin decorative structural borders are not relied on as control focus/state indicators. Existing day navy/muted/link on#F5F9FC:12.88/7.10/6.91. Diagram-local text/status colors remain outside this shell remapping.
+
+Validation: build13routes and30tests pass; Chrome13routes at1440/1024/768/390/360px, day/night homepage, unchanged semantics/copy/links, seven reduced-motion service diagrams, stage replay/cycle checks, zero overflow/errors. All16 protected animation/script source hashes match pre-phase snapshots. Screen reader, physical device, Lighthouse and field CWV not performed. No blanket accessibility/performance certification claimed. Phase3 not started.
+
+
+## 5 October 2026 — Approved dark-palette rebalance
+
+Owner approved the Phase 2.75 direction and requested a palette-only navy adjustment. Primary shell canvas --itk-bg is now #081321; secondary depth --itk-bg-alt is #0A1728. Raised surfaces remain #0D1525/#111A2B. All brand, semantic, text, spacing, type and radius tokens retained. No animation-interior styles changed. The alternate depth token remains available without introducing alternating blue section blocks.
+
+Night hero replaces its existing glow with radial-gradient(75% 70% at 18% 28%, rgba(66,186,235,.08), transparent 65%). This uses the existing noninteractive pseudo-element, with no new layer or motion. Night grid opacity reduced from .03 to .025. Day-mode treatment and pointer-light behavior retained.
+
+Source sRGB contrast against canvas/depth/surface/raised: text 16.02/15.46/15.66/14.94; muted 6.41/6.19/6.27/5.98; cyan 8.40/8.11/8.21/7.84. These are flat-surface calculations, not blanket accessibility certification.
+
+Validation Pass: hero and first two services checked in Chrome at 1440/1024/768/390px. Existing dimensions, spacing, headings and text match before/after; all animation and script hashes unchanged. No overflow or console/runtime errors. Day service palette retained. Build (13 routes) and all32 tests pass. Screenshot outputs navy-{hero,managed,cloud}-{width}.png. Stopped; no Phase3, Git, push or deployment.
+
+## 5 October 2026 - Scoped service and CTA tokens
+Service accents: Managed/Security #42BAEB, Cloud #5AA9FF, Networking #36B8D0 with #5C74D8 support, AI #8175E8 with cyan support. Shared CTA #329DCA / hover #42BAEB / text #071525; later hero-only pale #F4F7FB / hover #FFFFFF / text #081321. Service title clamp(36px,4.2vw,58px), weight500, line-height1.08, tracking-.025em; chapter11px plus44px rule; copy16px/1.6/46ch. Full validation and scoped changes: docs/reviews/2026-10-05-homepage-refinements.md.

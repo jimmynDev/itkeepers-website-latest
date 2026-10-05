@@ -12,16 +12,13 @@
     <span class="itk-hero-role itk-hero-digital">is digital.</span>
   </span>
 </h1>
-<button class="itk-hero-toggle" type="button" data-hero-toggle hidden aria-label="Pause headline animation" title="Pause headline animation">
-  <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path class="itk-hero-pause-icon" d="M5 3v10M11 3v10"/><path class="itk-hero-play-icon" d="m5 3 7 5-7 5Z"/></svg>
-</button>
 
 <style>
   :global(.home-hero) h1.itk-hero-title {
     --itk-hero-shift: clamp(8px, .3em, 22px);
-    --itk-hero-blur: clamp(1px, .04em, 3.5px);
-    --itk-hero-duration: 460ms;
-    --itk-hero-slow: 540ms;
+    --itk-hero-blur: clamp(.75px, .03em, 2.625px);
+    --itk-hero-duration: 345ms;
+    --itk-hero-slow: 405ms;
     --itk-hero-ease: cubic-bezier(.22, 1, .36, 1);
     --itk-hero-settle: cubic-bezier(.16, 1, .3, 1);
     display: flex; flex-direction: column; align-items: stretch;
@@ -48,12 +45,14 @@
   .itk-hero-title[data-enhanced] .itk-hero-rotator--slow .itk-hero-role { transition-duration: var(--itk-hero-slow); transition-timing-function: var(--itk-hero-settle); }
   .itk-hero-title[data-enhanced] .itk-hero-role.no-anim { transition: none !important; }
   .itk-hero-accessible { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); clip-path: inset(50%); white-space: nowrap; border: 0; }
-  .itk-hero-toggle { position: absolute; inset-block-start: -40px; inset-inline-end: 0; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; background: transparent; color: #d6e4f5; border: 1px solid currentColor; border-radius: 50%; cursor: pointer; }
-  .itk-hero-toggle[hidden] { display: none; }
-  .itk-hero-toggle svg { fill: none; stroke: currentColor; stroke-width: 2; }
-  .itk-hero-play-icon, .itk-hero-toggle[data-paused] .itk-hero-pause-icon { display: none; }
-  .itk-hero-toggle[data-paused] .itk-hero-play-icon { display: block; }
-  .itk-hero-toggle:focus-visible { outline: 2px solid #42BAEB; outline-offset: 4px; }
+  :global([data-hero-theme="day"]) .itk-hero-fixed { color: var(--n); }
+  :global([data-hero-theme="day"]) .itk-hero-brand { background-image: linear-gradient(90deg, #4071b5, #087ea8); }
+  :global([data-hero-theme="day"]) .itk-hero-support { color: #087ea8; }
+  :global([data-hero-theme="day"]) .itk-hero-cloud { color: #2567ad; }
+  :global([data-hero-theme="day"]) .itk-hero-security { color: #207644; }
+  :global([data-hero-theme="day"]) .itk-hero-networking { color: #137487; }
+  :global([data-hero-theme="day"]) .itk-hero-automation { color: #6250b3; }
+  :global([data-hero-theme="day"]) .itk-hero-digital { color: #386799; }
   @media (max-width: 480px) { :global(.home-hero) h1.itk-hero-title { font-size: clamp(34px, 10.6vw, 50px); } }
   @media (prefers-reduced-motion: no-preference) { .itk-hero-title[data-enhanced] { animation: itk-hero-in 400ms var(--itk-hero-ease) both; } }
   @keyframes itk-hero-in { from { opacity: 0; } to { opacity: 1; } }
@@ -64,7 +63,7 @@
     .itk-hero-title { --itk-hero-duration: 250ms; --itk-hero-slow: 250ms; animation: none !important; }
     .itk-hero-title[data-enhanced] .itk-hero-role { transform: none !important; filter: none !important; transition-property: opacity; transition-timing-function: linear; }
   }
-  @media (forced-colors: active) { .itk-hero-fixed, .itk-hero-role { color: CanvasText; background: none; } .itk-hero-toggle:focus-visible { outline-color: Highlight; } }
+  @media (forced-colors: active) { .itk-hero-fixed, .itk-hero-role { color: CanvasText; background: none; } }
 </style>
 
 <script>

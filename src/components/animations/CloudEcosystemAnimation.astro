@@ -1,0 +1,72 @@
+---
+const nodes = [
+  { id: 'itkeepers', label: 'ITKeepers', x: 198, y: 372 },
+  { id: 'microsoft', label: 'Microsoft', x: 378, y: 108 },
+  { id: 'google', label: 'Google', x: 702, y: 192 },
+  { id: 'aws', label: 'AWS', x: 585, y: 468 },
+];
+---
+<figure class="offering-animation animation-cloud-ecosystem is-idle" data-animation="cloud-ecosystem" role="group" aria-label="Example ecosystem connecting you with ITKeepers, Microsoft, Google and AWS">
+  <div class="cloud-ecosystem-canvas" data-animation-visual>
+    <svg class="ecosystem-connections" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true">
+      {nodes.map(node => <g class:list={['ecosystem-connection', { 'is-highlighted': node.id === 'itkeepers' }]} data-connection={node.id} style={`--end-x:${node.x}px;--end-y:${node.y}px`}>
+        <line x1="450" y1="288" x2={node.x} y2={node.y} vector-effect="non-scaling-stroke" />
+        {[0, 1, 2].map(index => <circle class={`ecosystem-particle particle-${index}`} r={index === 0 ? 3.5 : 2} />)}
+      </g>)}
+    </svg>
+    <div class="ecosystem-node ecosystem-center" style="left:50%;top:48%"><span class="ecosystem-dot" aria-hidden="true"></span><span class="ecosystem-badge">You</span></div>
+    {nodes.map(node => <button class="ecosystem-node" data-ecosystem-node={node.id} style={`left:${node.x / 9}%;top:${node.y / 6}%`} type="button" aria-label={`Highlight connection to ${node.label}`} aria-pressed={node.id === 'itkeepers' ? 'true' : 'false'}><span class="ecosystem-dot" aria-hidden="true"></span><span class="ecosystem-badge">{node.label}</span></button>)}
+  </div>
+</figure>
+<style>
+  .cloud-ecosystem-canvas { --ecosystem-accent:#5aa9ff; --ecosystem-line:rgba(90,169,255,.25); --ecosystem-glow:rgba(90,169,255,.3); --ecosystem-badge:rgba(18,22,31,.85); --ecosystem-text:#fff; position:relative; inline-size:100%; block-size:var(--service-art-size,360px); max-inline-size:var(--service-art-size,900px); margin-inline:auto; background:radial-gradient(circle at 50% 40%,rgba(90,169,255,.05),transparent 70%); }
+  .ecosystem-connections { position:absolute; inset:0; inline-size:100%; block-size:100%; pointer-events:none; overflow:visible; }
+  .ecosystem-connection line { stroke:var(--ecosystem-line); stroke-width:1; }
+  .ecosystem-connection.is-highlighted line { stroke:var(--ecosystem-accent); stroke-opacity:.8; stroke-width:2; }
+  .ecosystem-particle { fill:var(--ecosystem-accent); opacity:0; transform:translate(450px,288px); }
+  .is-highlighted .ecosystem-particle { fill:var(--ecosystem-text); filter:drop-shadow(0 0 4px var(--ecosystem-accent)); }
+  .ecosystem-node { position:absolute; transform:translate(-50%,-7px); display:flex; flex-direction:column; align-items:center; gap:8px; border:0; background:none; padding:0; color:var(--ecosystem-text); font:inherit; min-block-size:44px; }
+  button.ecosystem-node { cursor:pointer; }
+  .ecosystem-dot { inline-size:10px; block-size:10px; background:var(--ecosystem-accent); border-radius:50%; box-shadow:0 0 12px var(--ecosystem-glow),0 0 24px var(--ecosystem-glow); }
+  .ecosystem-center .ecosystem-dot { inline-size:14px; block-size:14px; position:relative; }
+  .ecosystem-center .ecosystem-dot::after { content:''; position:absolute; inset:50% auto auto 50%; inline-size:28px; block-size:28px; border:1.5px solid var(--ecosystem-accent); border-radius:50%; transform:translate(-50%,-50%); opacity:0; }
+  .ecosystem-badge { background:var(--ecosystem-badge); border:1px solid var(--ecosystem-line); color:var(--ecosystem-text); font-size:14px; font-weight:600; padding:6px 16px; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,.25); backdrop-filter:blur(8px); letter-spacing:.3px; white-space:nowrap; }
+  button[aria-pressed="true"] .ecosystem-badge, button:focus-visible .ecosystem-badge { border-color:var(--ecosystem-accent); }
+  .ecosystem-node:focus-visible { outline:3px solid var(--focus,var(--ecosystem-accent)); outline-offset:5px; border-radius:20px; }
+  .animation-cloud-ecosystem[data-animation-enhanced] .ecosystem-particle { animation:ecosystem-travel 2.083333s linear infinite; }
+  .animation-cloud-ecosystem[data-animation-enhanced] .particle-1 { animation-delay:-.694444s; }
+  .animation-cloud-ecosystem[data-animation-enhanced] .particle-2 { animation-delay:-1.388888s; }
+  .ecosystem-connection:not(.is-highlighted) :is(.particle-1,.particle-2) { display:none; }
+  .animation-cloud-ecosystem[data-animation-enhanced] .ecosystem-center .ecosystem-dot::after { animation:ecosystem-ring 2.5s ease-out infinite; }
+  .animation-cloud-ecosystem.is-idle .ecosystem-particle, .animation-cloud-ecosystem.is-idle .ecosystem-center .ecosystem-dot::after { animation-play-state:paused; }
+  .animation-cloud-ecosystem[data-animation-state="settled"] .ecosystem-particle, .animation-cloud-ecosystem[data-animation-state="settled"] .ecosystem-center .ecosystem-dot::after { animation:none; opacity:0; }
+  @keyframes ecosystem-travel { from { transform:translate(450px,288px); opacity:1; } to { transform:translate(var(--end-x),var(--end-y)); opacity:1; } }
+  @keyframes ecosystem-ring { from { inline-size:18px; block-size:18px; opacity:.8; } to { inline-size:42px; block-size:42px; opacity:0; } }
+  @media (hover:hover) and (pointer:fine) { button.ecosystem-node:hover .ecosystem-badge { border-color:var(--ecosystem-accent); box-shadow:0 0 15px var(--ecosystem-line); } }
+  @media (prefers-reduced-motion:no-preference) { button.ecosystem-node { transition:transform .25s ease; } button.ecosystem-node:hover { transform:translate(-50%,-7px) scale(1.08); } }
+  @media (max-width:900px) { .cloud-ecosystem-canvas { block-size:var(--service-art-size,280px); } .ecosystem-badge { padding:6px 10px; } }
+  @media (prefers-reduced-motion:reduce) { .ecosystem-particle,.ecosystem-center .ecosystem-dot::after { animation:none!important; opacity:0!important; } }
+  @media (forced-colors:active) { .ecosystem-connection line { stroke:CanvasText; } .ecosystem-badge { border-color:ButtonText; } .ecosystem-dot { background:CanvasText; } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('.animation-cloud-ecosystem').forEach(root => {
+    let selected = 'itkeepers';
+    const highlight = (id: string) => root.querySelectorAll<SVGGElement>('[data-connection]').forEach(line => line.classList.toggle('is-highlighted', line.dataset.connection === id));
+    const select = (id: string) => {
+      selected = id;
+      root.querySelectorAll<HTMLButtonElement>('[data-ecosystem-node]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.ecosystemNode === id)));
+      highlight(id);
+    };
+    mountAnimation(root, () => { select('itkeepers'); return { play() {}, settle() { highlight(selected); }, duration:6250 }; });
+    // Delegate to the stable root: replay restores the visual's original markup.
+    const node = (target: EventTarget | null) => target instanceof Element ? target.closest<HTMLButtonElement>('[data-ecosystem-node]') : null;
+    root.addEventListener('click', event => { const button=node(event.target); if(button) select(button.dataset.ecosystemNode!); });
+    root.addEventListener('pointerover', event => { const button=node(event.target); if(button && event.pointerType==='mouse') highlight(button.dataset.ecosystemNode!); });
+    root.addEventListener('pointerout', event => { if(node(event.target) && !node(event.relatedTarget)) highlight(selected); });
+    root.addEventListener('focusin', event => { const button=node(event.target); if(button) highlight(button.dataset.ecosystemNode!); });
+    root.addEventListener('focusout', event => { if(!node(event.relatedTarget)) highlight(selected); });
+  });
+</script>
+
+

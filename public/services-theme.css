@@ -1,0 +1,95 @@
+/* Homepage services share the hero's day/night setting. */
+.home-page .service-stories { view-transition-name: services-theme; }
+.home-page .digital-service-banner { view-transition-name: digital-service-theme; }
+[data-hero-theme="day"] .home-page :is(.service-story, .digital-service-banner) {
+  --fg: var(--n);
+  --muted: #42566f;
+  --accent: #075d7d;
+  --focus: var(--n);
+  color: var(--fg);
+  background: var(--surface-light);
+  border-color: #97c8df;
+}
+/* Cover the banner's top spacing with the same surface, avoiding a navy seam. */
+[data-hero-theme="day"] .home-page .digital-service-banner { margin-block-start: 0; padding-block-start: 56px; }
+[data-hero-theme="day"] .home-page :is(.service-story-copy .eyebrow, .service-story .scene-link, .digital-service-banner .scene-link, .digital-service-banner .eyebrow) { color: #075d7d; }
+[data-hero-theme="day"] .home-page :is(.service-story a, .digital-service-banner a):focus-visible { outline-color: var(--n); }
+
+/* Scope light diagram surfaces to homepage chapters; detail-page originals stay intact. */
+[data-hero-theme="day"] .home-page .service-story [data-animation-visual] {
+  --bg: var(--surface-light);
+  --panel: #fff;
+  --panel-top: #fff;
+  --panel-bottom: var(--surface-light);
+  --surface: var(--surface-light);
+  --surface-2: #fff;
+  --surface-hi: #fff;
+  --text: var(--n);
+  --muted: #42566f;
+  --dim: #42566f;
+  --blue-text: #075d7d;
+  --cyan-text: #075d7d;
+  --line: #97c8df;
+  --line-strong: #97c8df;
+  color: var(--n);
+}
+[data-hero-theme="day"] .home-page .service-story :is(.mits-panel, .itk-panel) { background: linear-gradient(180deg, #fff, var(--surface-light)); box-shadow: 0 12px 28px -20px rgba(11,44,95,.2); }
+[data-hero-theme="day"] .home-page .service-story :is(.mits-core, .mits-node, .mits-mobile__sys, .mits-mobile__result, .m365-core, .m365-user, .m365-mlife, .ai-mstep, .ai-mgroup) { background: var(--surface-light); }
+[data-hero-theme="day"] .home-page .service-story [data-animation-visual] :is(span, small, strong, p, li) { color: var(--n); }
+[data-hero-theme="day"] #services [data-animation-visual] :is(span, small, strong, p, li) { color: var(--n); }
+[data-hero-theme="day"] #services :is(.m365-identity, .m365-midentity) { background: var(--surface-light); }
+[data-hero-theme="day"] #services :is(.ai-lane--manual, .ai-mgroup--manual).is-repetitive { opacity: 1; }
+/* Imported shield badge uses literal colors, so give it equivalent light surfaces. */
+[data-hero-theme="day"] .home-page .service-story .itk-shield-card { background: transparent; border-color: transparent; box-shadow: none; }
+[data-hero-theme="day"] .home-page .service-story :is(.orbit-node, .shield-hub) { background: var(--surface-light); border-color: #97c8df; }
+[data-hero-theme="day"] .home-page .service-story :is(.node-icon, .shield-svg) { color: var(--n); }
+[data-hero-theme="day"] .home-page .service-story .shield-check { stroke: #075d7d; }
+[data-hero-theme="day"] .home-page .service-story .orbit-track { border-color: #97c8df; }
+[data-hero-theme="day"] #services .cloud-ecosystem-canvas { --ecosystem-accent:#2763a5; --ecosystem-line:rgba(39,99,165,.35); --ecosystem-glow:rgba(90,169,255,.2); --ecosystem-badge:rgba(245,249,252,.94); --ecosystem-text:var(--n); }
+
+/* One shared shell, with service identity limited to numbers/links/artwork. */
+.home-page .service-story { --service-accent:#42baeb; --service-accent-rgb:66,186,235; --service-readable-accent:var(--service-accent); position:relative; isolation:isolate; }
+.home-page [id="services/cloud"] { --service-accent:#5aa9ff; --service-accent-rgb:90,169,255; }
+.home-page [id="services/networking"] { --service-accent:#36b8d0; --service-accent-rgb:54,184,208; }
+.home-page [id="services/ai"] { --service-accent:#8175e8; --service-accent-rgb:129,117,232; }
+.home-page .service-story::before { content:''; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:var(--service-pointer-visible,0); background:radial-gradient(circle 420px at var(--service-pointer-x,50%) var(--service-pointer-y,50%),rgba(var(--service-accent-rgb),.09),transparent 72%); }
+.home-page .service-story-body { position:relative; z-index:1; }
+/* All service chapters share the body's --itk-bg canvas and continuous pointer light. */
+:root:not([data-hero-theme="day"]) .home-page :is(.service-story,.digital-service-banner) { background:transparent; border-color:transparent; }
+:root:not([data-hero-theme="day"]) .home-page .service-story::before { content:none; }
+/* Only the controller-enhanced artwork enters; its full layout space remains reserved. */
+.home-page .service-story [data-animation-enhanced][data-animation-entrance] [data-animation-visual] { opacity:1; transform:translateY(0); transition:opacity 600ms cubic-bezier(.22,1,.36,1),transform 600ms cubic-bezier(.22,1,.36,1); }
+.home-page .service-story [data-animation-enhanced][data-animation-entrance="waiting"] [data-animation-visual] { opacity:0; transform:translateY(16px); transition:none; }
+@media (prefers-reduced-motion:reduce), (forced-colors:active) { .home-page .service-story [data-animation-enhanced][data-animation-entrance] [data-animation-visual] { opacity:1; transform:none; transition:none; } }
+.home-page .service-story:first-child { padding-block-start:32px; }
+.home-page .service-story:first-child .service-story-copy { align-self:start; }
+@media (max-width:1100px) { .home-page .service-story:first-child { padding-block-start:24px; } }
+@media (max-width:600px) { .home-page .service-story:first-child { padding-block-start:12px; } }
+@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) { .home-page .service-story::before { display:none; } }
+:root[data-hero-theme="day"] .home-page .service-story { --service-readable-accent:#075d7d; }
+:root[data-hero-theme="day"] .home-page [id="services/cloud"] { --service-readable-accent:#2763a5; }
+:root[data-hero-theme="day"] .home-page [id="services/networking"] { --service-readable-accent:#087286; }
+:root[data-hero-theme="day"] .home-page [id="services/ai"] { --service-readable-accent:#5d4bb0; }
+:root[data-hero-theme="day"] .home-page .service-story :is(.service-story-copy .eyebrow,.scene-link) { color:var(--service-readable-accent); }
+.home-page .service-story a:focus-visible { outline-color:var(--service-readable-accent); }
+.home-page [id="services/managed"] .mit-mini-dashboard {
+  --accent:#42baeb; --accent-dim:rgba(66,186,235,.35); --accent-glow:rgba(66,186,235,.18); --check:var(--itk-success);
+}
+:root[data-hero-theme="day"] .home-page [id="services/managed"] .mit-mini-dashboard { --accent:#075d7d; --check:#207644; }
+.home-page [id="services/security"] .shield-check { stroke:var(--itk-success); }
+:root[data-hero-theme="day"] .home-page [id="services/security"] .shield-check { stroke:#207644; }
+
+::view-transition-old(services-theme), ::view-transition-new(services-theme),
+::view-transition-old(digital-service-theme), ::view-transition-new(digital-service-theme),
+::view-transition-group(services-theme), ::view-transition-group(digital-service-theme) { animation-duration: 650ms; animation-timing-function: ease-in-out; }
+@supports not (view-transition-name: services-theme) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home-page :is(.service-story, .digital-service-banner) { transition: background-color 650ms ease-in-out, color 650ms ease-in-out, border-color 650ms ease-in-out; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(services-theme), ::view-transition-new(services-theme),
+  ::view-transition-old(digital-service-theme), ::view-transition-new(digital-service-theme),
+  ::view-transition-group(services-theme), ::view-transition-group(digital-service-theme) { animation: none; }
+}
+

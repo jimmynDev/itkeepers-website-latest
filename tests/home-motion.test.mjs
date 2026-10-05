@@ -37,8 +37,8 @@ function fixture({ matches = true, hasPage = true, hasWash = true } = {}) {
   return {
     wash, page, media, document, window, classes, frames,
     mediaQueries: () => mediaQueries,
-    move(x, y, { pointerType = 'mouse', tone } = {}) {
-      page.emit('pointermove', { pointerType, clientX: x, clientY: y, target: { closest: () => tone ? { dataset: { light: tone } } : null } });
+    move(x, y, { pointerType = 'mouse', tone, service } = {}) {
+      page.emit('pointermove', { pointerType, clientX: x, clientY: y, target: { closest: selector => selector === '.service-story' ? service ?? null : tone ? { dataset: { light: tone } } : null } });
     },
     flush() { const pending = [...frames.values()]; frames.clear(); for (const callback of pending) callback(); }
   };
@@ -56,6 +56,21 @@ test('rapid pointer events batch into one frame and draw the latest coordinates'
   assert.equal(flow.wash.dataset.tone, 'blue');
   flow.move(500, 500); assert.equal(flow.frames.size, 1); flow.flush();
   assert.equal(flow.wash.dataset.tone, 'cyan', 'No section tone falls back to cyan');
+});
+
+test('service light follows local coordinates and clears the previous section and stop state', () => {
+  const flow = fixture();
+  const section = () => ({ style: { setProperty(key, value) { this[key] = value; }, removeProperty(key) { delete this[key]; } }, getBoundingClientRect: () => ({ left:60, top:100 }) });
+  const first = section(), second = section();
+  flow.move(180, 300, { service:first }); flow.flush();
+  assert.equal(first.style['--service-pointer-x'], '120px');
+  assert.equal(first.style['--service-pointer-y'], '200px');
+  assert.equal(first.style['--service-pointer-visible'], '1');
+  flow.move(400, 400, { service:second }); flow.flush();
+  assert.equal(first.style['--service-pointer-visible'], undefined);
+  assert.equal(second.style['--service-pointer-visible'], '1');
+  flow.page.emit('pointerleave'); flow.flush();
+  assert.equal(second.style['--service-pointer-visible'], undefined);
 });
 
 test('leave, blur and hidden document clear light even with a pointer frame pending', () => {

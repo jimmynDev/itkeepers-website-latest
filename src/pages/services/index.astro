@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const services = [
+  { id: 'managed-it', title: 'Managed IT', description: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it/' },
+  { id: 'microsoft-cloud', title: 'Microsoft 365 & Cloud', description: 'Manage users, access, devices and Microsoft cloud services with your business context in view.', href: '/services/microsoft-cloud/' },
+  { id: 'cybersecurity', title: 'Cybersecurity', description: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/' },
+  { id: 'networking', title: 'Networking', description: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure/' },
+  { id: 'ai-automation', title: 'AI & Automation', description: 'Explore a sample request workflow with a person reviewing the draft.', href: '/services/ai-automation/' },
+];
+---
+<Base title="IT Services | ITKeepers" description="Explore Managed IT, Microsoft 365 & Cloud, Cybersecurity, Networking and AI & Automation. Find the right service for your business.">
+  <section class="services-page-intro" aria-labelledby="services-page-title">
+    <p class="eyebrow">Your IT person is a team</p>
+    <h1 id="services-page-title">Services</h1>
+    <p class="lead">Five connected services for the IT behind your business.</p>
+  </section>
+  {services.map(({ id, title, description, href }, index) => (
+    <section class="service-overview" id={id} aria-labelledby={`${id}-title`}>
+      <span class="service-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      <h2 id={`${id}-title`}>{title}</h2>
+      <div class="service-overview-copy">
+        <p>{description}</p>
+        <a href={href}>Explore {title}</a>
+      </div>
+    </section>
+  ))}
+</Base>
+<style>
+  .services-page-intro { padding-block: 64px 48px; }
+  .services-page-intro h1 { margin-block-end: 20px; }
+  .services-page-intro .lead { max-inline-size: 50ch; margin: 0; }
+  .service-overview { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.2fr); gap: 32px; padding-block: 40px; border-block-start: 1px solid rgba(184, 205, 230, .3); scroll-margin-block-start: 24px; }
+  .service-number { color: var(--s); font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .service-overview h2 { font-size: clamp(28px, 3vw, 40px); line-height: 1.15; margin: 0; }
+  .service-overview-copy { min-inline-size: 0; }
+  .service-overview-copy p { margin: 0 0 16px; color: var(--text-dark-muted); max-inline-size: 55ch; }
+  .service-overview-copy a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--s); font-weight: 700; text-decoration: none; }
+  .service-overview-copy a:focus-visible { outline: 3px solid var(--s); outline-offset: 6px; }
+  @media (max-width: 700px) {
+    .services-page-intro { padding-block: 40px 32px; }
+    .service-overview { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 28px; }
+    .service-overview h2 { font-size: 30px; }
+  }
+  @media (forced-colors: active) { .service-overview { border-color: CanvasText; } }
+</style>

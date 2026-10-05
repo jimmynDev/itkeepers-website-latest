@@ -1,0 +1,402 @@
+<svg
+  viewBox="50 85 300 215"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  class="mit-mini-dashboard"
+>
+  <defs>
+    <style>
+      /* ===== CSS VARIABLES ===== */
+      .mit-mini-dashboard {
+        --accent: #3dbbee;
+        --accent-dim: rgba(61, 187, 238, 0.35);
+        --accent-glow: rgba(61, 187, 238, 0.18);
+        --navy: #1a2a4a;
+        --navy-deep: #0f1d33;
+        --bg-outer: #0f1d33;
+        --bg-inner: #162d4a;
+        --panel-bg: #162d4a;
+        --row-bg: rgba(61, 187, 238, 0.06);
+        --text-muted: #7a9bb5;
+        --text-dim: #4a6a8a;
+        --node-fill: #162d4a;
+        --node-stroke: #3dbbee;
+        --amber: #f0a030;
+        --amber-glow: rgba(240, 160, 48, 0.25);
+        --check: #3dbbee;
+        --chip-bg: rgba(240, 160, 48, 0.12);
+        --chip-border: rgba(240, 160, 48, 0.45);
+        --avatar-bg: rgba(61, 187, 238, 0.15);
+        --avatar-stroke: rgba(61, 187, 238, 0.5);
+        --bar-bg: rgba(61, 187, 238, 0.1);
+        --bar-fill: rgba(61, 187, 238, 0.35);
+      }
+
+      [data-hero-theme="day"] .mit-mini-dashboard {
+          --accent: #1a8fc4;
+          --accent-dim: rgba(26, 143, 196, 0.3);
+          --accent-glow: rgba(26, 143, 196, 0.15);
+          --navy: #2a4a6a;
+          --navy-deep: #d8e8f4;
+          --bg-outer: #e8f0f8;
+          --bg-inner: #d0e2f0;
+          --panel-bg: #e0eef8;
+          --row-bg: rgba(26, 143, 196, 0.05);
+          --text-muted: #4a6a8a;
+          --text-dim: #6a8aaa;
+          --node-fill: #e0eef8;
+          --node-stroke: #1a8fc4;
+          --amber: #d08020;
+          --amber-glow: rgba(208, 128, 32, 0.2);
+          --check: #1a8fc4;
+          --chip-bg: rgba(208, 128, 32, 0.1);
+          --chip-border: rgba(208, 128, 32, 0.4);
+          --avatar-bg: rgba(26, 143, 196, 0.12);
+          --avatar-stroke: rgba(26, 143, 196, 0.45);
+          --bar-bg: rgba(26, 143, 196, 0.1);
+          --bar-fill: rgba(26, 143, 196, 0.3);
+        }
+
+      /* ===== KEYFRAMES ===== */
+
+      /* Status dot: calm cyan -> amber -> cyan */
+      @keyframes mit-mini-dot-warn {
+        0%, 5%    { fill: var(--accent); }
+        15%, 35%  { fill: var(--amber); }
+        45%, 100% { fill: var(--accent); }
+      }
+
+      /* Row line shortens during warning */
+      @keyframes mit-mini-line-shorten {
+        0%, 5%    { width: 60px; opacity: 0.5; }
+        15%, 35%  { width: 20px; opacity: 0.8; }
+        45%, 100% { width: 60px; opacity: 0.5; }
+      }
+
+      /* Ticket chip slide in from right */
+      @keyframes mit-mini-chip-slide {
+        0%, 20%   { opacity: 0; transform: translateX(20px); }
+        28%       { opacity: 1; transform: translateX(0); }
+        50%       { opacity: 1; transform: translateX(0); }
+        58%       { opacity: 0; transform: translateX(20px); }
+        100%      { opacity: 0; transform: translateX(20px); }
+      }
+
+      /* Avatar slide in from right */
+      @keyframes mit-mini-avatar-slide {
+        0%, 30%   { opacity: 0; transform: translateX(16px); }
+        38%       { opacity: 1; transform: translateX(0); }
+        50%       { opacity: 1; transform: translateX(0); }
+        58%       { opacity: 0; transform: translateX(16px); }
+        100%      { opacity: 0; transform: translateX(16px); }
+      }
+
+      /* Checkmark draw */
+      @keyframes mit-mini-check-draw {
+        0%, 45%   { stroke-dashoffset: 10; opacity: 0; }
+        52%       { stroke-dashoffset: 0; opacity: 1; }
+        58%       { stroke-dashoffset: 0; opacity: 1; }
+        65%, 100% { stroke-dashoffset: 0; opacity: 0; }
+      }
+
+      /* Step label highlight */
+      @keyframes mit-mini-step-highlight {
+        0%, 100% { fill: var(--text-dim); opacity: 0.5; }
+        20%, 40% { fill: var(--accent); opacity: 1; }
+      }
+
+      @keyframes mit-mini-mit-mini-step-highlight-amber {
+        0%, 100% { fill: var(--text-dim); opacity: 0.5; }
+        20%, 40% { fill: var(--amber); opacity: 1; }
+      }
+
+      /* Central panel glow pulse */
+      @keyframes mit-mini-panel-glow {
+        0%, 100% { filter: drop-shadow(0 0 6px var(--accent-glow)); }
+        50%      { filter: drop-shadow(0 0 14px var(--accent-glow)); }
+      }
+
+      /* Label bar subtle pulse */
+      @keyframes mit-mini-bar-pulse {
+        0%, 100% { opacity: 0.4; }
+        50%      { opacity: 0.7; }
+      }
+
+      /* ===== BASE STYLES ===== */
+      .mit-mini-dashboard {
+        width: 100%;
+        height: 100%;
+        max-width: 400px;
+        max-height: 400px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .mit-mini-bg-rect {
+        fill: var(--bg-outer);
+      }
+
+      .mit-mini-panel {
+        fill: var(--panel-bg);
+        stroke: var(--accent-dim);
+        stroke-width: 1.2;
+        animation: mit-mini-panel-glow 5s ease-in-out infinite;
+      }
+
+      .mit-mini-panel-inner {
+        fill: none;
+        stroke: var(--accent-dim);
+        stroke-width: 0.6;
+        opacity: 0.4;
+      }
+
+      .mit-mini-row-bg {
+        fill: var(--row-bg);
+        rx: 4;
+        ry: 4;
+      }
+
+      .mit-mini-label-bar {
+        fill: var(--bar-bg);
+        rx: 2;
+        ry: 2;
+      }
+
+      .mit-mini-label-bar-fill {
+        fill: var(--bar-fill);
+        rx: 2;
+        ry: 2;
+        animation: mit-mini-bar-pulse 3s ease-in-out infinite;
+      }
+
+      .mit-mini-status-dot {
+        stroke: none;
+      }
+
+      .mit-mini-row-line {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        opacity: 0.5;
+      }
+
+      .mit-mini-chip-rect {
+        fill: var(--chip-bg);
+        stroke: var(--chip-border);
+        stroke-width: 0.8;
+        rx: 3;
+        ry: 3;
+      }
+
+      .mit-mini-chip-text {
+        fill: var(--amber);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 6px;
+        text-anchor: middle;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+
+      .mit-mini-chip-line {
+        stroke: var(--amber);
+        stroke-width: 0.7;
+        opacity: 0.5;
+      }
+
+      .mit-mini-avatar-circle {
+        fill: var(--avatar-bg);
+        stroke: var(--avatar-stroke);
+        stroke-width: 1;
+      }
+
+      .mit-mini-avatar-head {
+        fill: none;
+        stroke: var(--avatar-stroke);
+        stroke-width: 0.8;
+      }
+
+      .mit-mini-avatar-body {
+        fill: none;
+        stroke: var(--avatar-stroke);
+        stroke-width: 0.8;
+      }
+
+      .mit-mini-avatar-initials {
+        fill: var(--accent);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 5px;
+        text-anchor: middle;
+        font-weight: 700;
+      }
+
+      .mit-mini-row-check {
+        fill: none;
+        stroke: var(--check);
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 10;
+      }
+
+      .mit-mini-step-label {
+        fill: var(--text-dim);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 7px;
+        text-anchor: middle;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        opacity: 0.5;
+      }
+
+      /* ===== ROW ANIMATION DELAYS ===== */
+
+      /* Row 1: 0s - 3.3s */
+      .mit-mini-row-1 .mit-mini-status-dot   { animation: mit-mini-dot-warn 10s ease-in-out infinite; }
+      .mit-mini-row-1 .mit-mini-row-line     { animation: mit-mini-line-shorten 10s ease-in-out infinite; }
+      .mit-mini-row-1 .mit-mini-chip-group   { animation: mit-mini-chip-slide 10s ease-in-out infinite; }
+      .mit-mini-row-1 .mit-mini-avatar-group { animation: mit-mini-avatar-slide 10s ease-in-out infinite; }
+      .mit-mini-row-1 .mit-mini-row-check    { animation: mit-mini-check-draw 10s ease-in-out infinite; }
+
+      /* Row 2: 3.33s - 6.66s */
+      .mit-mini-row-2 .mit-mini-status-dot   { animation: mit-mini-dot-warn 10s ease-in-out 3.33s infinite; }
+      .mit-mini-row-2 .mit-mini-row-line     { animation: mit-mini-line-shorten 10s ease-in-out 3.33s infinite; }
+      .mit-mini-row-2 .mit-mini-chip-group   { animation: mit-mini-chip-slide 10s ease-in-out 3.33s infinite; }
+      .mit-mini-row-2 .mit-mini-avatar-group { animation: mit-mini-avatar-slide 10s ease-in-out 3.33s infinite; }
+      .mit-mini-row-2 .mit-mini-row-check    { animation: mit-mini-check-draw 10s ease-in-out 3.33s infinite; }
+
+      /* Row 3: 6.66s - 10s */
+      .mit-mini-row-3 .mit-mini-status-dot   { animation: mit-mini-dot-warn 10s ease-in-out 6.66s infinite; }
+      .mit-mini-row-3 .mit-mini-row-line     { animation: mit-mini-line-shorten 10s ease-in-out 6.66s infinite; }
+      .mit-mini-row-3 .mit-mini-chip-group   { animation: mit-mini-chip-slide 10s ease-in-out 6.66s infinite; }
+      .mit-mini-row-3 .mit-mini-avatar-group { animation: mit-mini-avatar-slide 10s ease-in-out 6.66s infinite; }
+      .mit-mini-row-3 .mit-mini-row-check    { animation: mit-mini-check-draw 10s ease-in-out 6.66s infinite; }
+
+      /* ===== STEP LABEL DELAYS ===== */
+      .mit-mini-step-monitor { animation: mit-mini-step-highlight 10s ease-in-out 0s infinite; }
+      .mit-mini-step-detect  { animation: mit-mini-mit-mini-step-highlight-amber 10s ease-in-out 2.5s infinite; }
+      .mit-mini-step-own     { animation: mit-mini-step-highlight 10s ease-in-out 5s infinite; }
+      .mit-mini-step-resolve { animation: mit-mini-step-highlight 10s ease-in-out 7.5s infinite; }
+
+      /* ===== REDUCED MOTION ===== */
+      
+    </style>
+
+    <!-- Glow filter -->
+    <filter id="managed-mini-panel-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="managed-mini-dot-glow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect class="mit-mini-bg-rect" width="400" height="400" rx="16" />
+
+  <!-- ===== CENTRAL PANEL ===== -->
+  <g filter="url(#managed-mini-panel-glow)">
+    <rect class="mit-mini-panel" x="70" y="100" width="260" height="150" rx="16" />
+    <rect class="mit-mini-panel-inner" x="78" y="108" width="244" height="134" rx="12" />
+  </g>
+
+  <!-- Panel header dots (mini dashboard chrome) -->
+  <circle cx="92" cy="116" r="2.5" fill="var(--accent)" opacity="0.3" />
+  <circle cx="101" cy="116" r="2.5" fill="var(--accent)" opacity="0.2" />
+  <circle cx="110" cy="116" r="2.5" fill="var(--accent)" opacity="0.15" />
+
+  <!-- ===== ROW 1 ===== -->
+  <g class="mit-mini-row-1">
+    <rect class="mit-mini-row-bg" x="84" y="124" width="232" height="30" />
+    <!-- Label bar -->
+    <rect class="mit-mini-label-bar" x="92" y="131" width="50" height="8" rx="2" />
+    <rect class="mit-mini-label-bar-fill" x="92" y="131" width="30" height="8" rx="2" />
+    <!-- Status dot -->
+    <circle class="mit-mini-status-dot" cx="160" cy="139" r="4" filter="url(#managed-mini-dot-glow)" />
+    <!-- Row line -->
+    <rect class="mit-mini-row-line" x="174" y="137" width="60" height="2" rx="1" />
+    <!-- Checkmark -->
+    <path class="mit-mini-row-check" d="M154,136 L157,139 L162,133" />
+    <!-- Ticket chip -->
+    <g class="mit-mini-chip-group">
+      <rect class="mit-mini-chip-rect" x="248" y="129" width="36" height="14" rx="3" />
+      <line class="mit-mini-chip-line" x1="252" y1="136" x2="258" y2="136" />
+      <text class="mit-mini-chip-text" x="270" y="139">TKT-01</text>
+    </g>
+    <!-- Avatar -->
+    <g class="mit-mini-avatar-group">
+      <circle class="mit-mini-avatar-circle" cx="294" cy="136" r="8" />
+      <circle class="mit-mini-avatar-head" cx="294" cy="133" r="2.5" />
+      <path class="mit-mini-avatar-body" d="M289,141 Q294,137 299,141" />
+      <text class="mit-mini-avatar-initials" x="294" y="141">AK</text>
+    </g>
+  </g>
+
+  <!-- ===== ROW 2 ===== -->
+  <g class="mit-mini-row-2">
+    <rect class="mit-mini-row-bg" x="84" y="160" width="232" height="30" />
+    <rect class="mit-mini-label-bar" x="92" y="167" width="50" height="8" rx="2" />
+    <rect class="mit-mini-label-bar-fill" x="92" y="167" width="30" height="8" rx="2" />
+    <circle class="mit-mini-status-dot" cx="160" cy="175" r="4" filter="url(#managed-mini-dot-glow)" />
+    <rect class="mit-mini-row-line" x="174" y="173" width="60" height="2" rx="1" />
+    <path class="mit-mini-row-check" d="M154,172 L157,175 L162,169" />
+    <g class="mit-mini-chip-group">
+      <rect class="mit-mini-chip-rect" x="248" y="165" width="36" height="14" rx="3" />
+      <line class="mit-mini-chip-line" x1="252" y1="172" x2="258" y2="172" />
+      <text class="mit-mini-chip-text" x="270" y="175">TKT-02</text>
+    </g>
+    <g class="mit-mini-avatar-group">
+      <circle class="mit-mini-avatar-circle" cx="294" cy="172" r="8" />
+      <circle class="mit-mini-avatar-head" cx="294" cy="169" r="2.5" />
+      <path class="mit-mini-avatar-body" d="M289,177 Q294,173 299,177" />
+      <text class="mit-mini-avatar-initials" x="294" y="177">MJ</text>
+    </g>
+  </g>
+
+  <!-- ===== ROW 3 ===== -->
+  <g class="mit-mini-row-3">
+    <rect class="mit-mini-row-bg" x="84" y="196" width="232" height="30" />
+    <rect class="mit-mini-label-bar" x="92" y="203" width="50" height="8" rx="2" />
+    <rect class="mit-mini-label-bar-fill" x="92" y="203" width="30" height="8" rx="2" />
+    <circle class="mit-mini-status-dot" cx="160" cy="211" r="4" filter="url(#managed-mini-dot-glow)" />
+    <rect class="mit-mini-row-line" x="174" y="209" width="60" height="2" rx="1" />
+    <path class="mit-mini-row-check" d="M154,208 L157,211 L162,205" />
+    <g class="mit-mini-chip-group">
+      <rect class="mit-mini-chip-rect" x="248" y="201" width="36" height="14" rx="3" />
+      <line class="mit-mini-chip-line" x1="252" y1="208" x2="258" y2="208" />
+      <text class="mit-mini-chip-text" x="270" y="211">TKT-03</text>
+    </g>
+    <g class="mit-mini-avatar-group">
+      <circle class="mit-mini-avatar-circle" cx="294" cy="208" r="8" />
+      <circle class="mit-mini-avatar-head" cx="294" cy="205" r="2.5" />
+      <path class="mit-mini-avatar-body" d="M289,213 Q294,209 299,213" />
+      <text class="mit-mini-avatar-initials" x="294" y="213">RS</text>
+    </g>
+  </g>
+
+  <!-- ===== STEP LABELS ===== -->
+  <text class="mit-mini-step-label mit-mini-step-monitor" x="100" y="278">Monitor</text>
+  <text class="mit-mini-step-label mit-mini-step-detect" x="160" y="278">Detect</text>
+  <text class="mit-mini-step-label mit-mini-step-own" x="220" y="278">Own</text>
+  <text class="mit-mini-step-label mit-mini-step-resolve" x="285" y="278">Resolve</text>
+
+  <!-- Step connector dots -->
+  <circle cx="100" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
+  <circle cx="160" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
+  <circle cx="220" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
+  <circle cx="285" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
+
+  <!-- Step connector lines -->
+  <line x1="105" y1="284" x2="155" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
+  <line x1="165" y1="284" x2="215" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
+  <line x1="225" y1="284" x2="280" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
+</svg>

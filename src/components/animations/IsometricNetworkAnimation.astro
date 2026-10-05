@@ -1,0 +1,26 @@
+---
+import fallback from '../../assets/isometric-network-fallback.svg?raw';
+---
+<figure class="offering-animation animation-isometric-network is-idle" data-animation="isometric-network" role="img" aria-label="Isometric network example: connected servers exchange packets through a central infrastructure hub">
+  <div class="isometric-network-canvas" data-animation-visual aria-hidden="true"><Fragment set:html={fallback} /><canvas></canvas></div>
+</figure>
+<style is:global>
+  .isometric-network-canvas { position:relative; inline-size:var(--service-art-size,360px); max-inline-size:100%; aspect-ratio:1; margin-inline:auto; border-radius:28px; overflow:hidden; background:transparent; color:#36b8d0; }
+  .isometric-network-canvas canvas,.isometric-network-fallback { display:block; inline-size:100%; block-size:100%; }
+  .isometric-network-canvas canvas { position:absolute; inset:0; }
+  .isometric-network-canvas[data-network-ready] .isometric-network-fallback { visibility:hidden; }
+  [data-hero-theme="day"] .isometric-network-canvas { background:transparent; color:#087286; }
+  [data-hero-theme="day"] .isometric-network-fallback polygon { fill:#72b6c7; stroke:#075d7d; }
+  @media (max-width:900px) { .isometric-network-canvas { inline-size:var(--service-art-size,280px); } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  import { createIsometricNetwork } from '../../scripts/isometric-network';
+  document.querySelectorAll<HTMLElement>('.animation-isometric-network').forEach(root => {
+    let renderer: ReturnType<typeof createIsometricNetwork> | undefined;
+    mountAnimation(root, () => { renderer?.dispose(); renderer=createIsometricNetwork(root); return renderer; }, { loop:true });
+    window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
+  });
+</script>
+
+

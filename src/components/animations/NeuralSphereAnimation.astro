@@ -1,0 +1,27 @@
+---
+import fallback from '../../assets/neural-sphere-fallback.svg?raw';
+---
+<figure class="offering-animation animation-ai animation-neural-sphere is-idle" data-animation="neural-sphere" role="img" aria-label="Neural sphere: connected nodes pass signals through a rotating network">
+  <div class="neural-sphere-canvas" data-animation-visual aria-hidden="true"><Fragment set:html={fallback} /><canvas></canvas></div>
+</figure>
+<style is:global>
+  .neural-sphere-canvas { position:relative; inline-size:var(--service-art-size,360px); max-inline-size:100%; aspect-ratio:1; margin-inline:auto; border-radius:28px; overflow:hidden; background:transparent; color:#8175e8; }
+  .neural-sphere-canvas canvas, .neural-sphere-fallback { display:block; inline-size:100%; block-size:100%; }
+  .neural-sphere-canvas canvas { position:absolute; inset:0; }
+  .neural-sphere-canvas[data-neural-ready] .neural-sphere-fallback { visibility:hidden; }
+  [data-hero-theme="day"] .neural-sphere-canvas { background:transparent; color:#5d4bb0; }
+  [data-hero-theme="day"] .neural-sphere-fallback circle { fill:#5d4bb0; }
+  @media (max-width:900px) { .neural-sphere-canvas { inline-size:var(--service-art-size,280px); } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  import { createNeuralSphere } from '../../scripts/neural-sphere';
+  document.querySelectorAll<HTMLElement>('.animation-neural-sphere').forEach(root => {
+    let renderer: ReturnType<typeof createNeuralSphere> | undefined;
+    mountAnimation(root, () => { renderer?.dispose(); renderer=createNeuralSphere(root); return renderer; }, { loop:true });
+    window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
+  });
+</script>
+
+
+

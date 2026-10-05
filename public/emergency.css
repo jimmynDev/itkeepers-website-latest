@@ -1,0 +1,35 @@
+/* Focused header utility. Emergency red remains local to this element. */
+.header-cta-actions { display:inline-flex; align-items:center; gap:10px; }
+.site-header .emergency-action { --emergency-red:var(--itk-danger,#e85d5d); display:inline-flex; align-items:center; justify-content:center; gap:7px; flex-shrink:0; position:relative; white-space:nowrap; min-block-size:36px; padding:7px 12px; border:1px solid rgba(232,93,93,.6); border-radius:999px; background:var(--itk-surface,#0d1525); color:var(--itk-text,#e8eef9); font-size:12px; font-weight:600; line-height:1.4; text-decoration:none; }
+.emergency-action::before { content:''; position:absolute; inset:-4px 0; border-radius:inherit; }
+.emergency-status-dot { inline-size:6px; block-size:6px; flex:0 0 6px; border-radius:50%; background:var(--emergency-red); box-shadow:0 0 6px rgba(232,93,93,.4); }
+.site-header .emergency-action:hover { border-color:var(--emergency-red); }
+.site-header .emergency-action:focus-visible { outline:3px solid var(--itk-brand); outline-offset:4px; }
+.site-header .emergency-action-mobile { display:none; }
+@media (prefers-reduced-motion:no-preference) { .emergency-status-dot { animation:emergency-dot-breathe 3.2s ease-in-out infinite; } }
+@keyframes emergency-dot-breathe { 0%,100% { opacity:.65; } 50% { opacity:1; } }
+@media (max-width:900px) {
+  .site-header .emergency-action-mobile { display:inline-flex; margin-inline-start:auto; }
+  .site-header .hero-theme-toggle { margin-inline-start:auto; }
+  .site-header .hero-theme-toggle:not([hidden]) + .emergency-action-mobile { margin-inline-start:0; }
+}
+@media (max-width:600px) {
+  .site-header, .home-page .site-header { padding-inline:10px; gap:4px; }
+  .site-header .site-brand img { inline-size:90px; }
+  .site-header .emergency-action-mobile { padding-inline:8px; font-size:12px; gap:5px; }
+  .site-header .mobile-navigation summary { gap:5px; padding-inline:4px; font-size:13px; }
+  .site-header .hero-theme-toggle { inline-size:40px; flex-basis:40px; block-size:28px; }
+  .site-header .hero-theme-toggle [data-theme-icon] { inline-size:20px; block-size:20px; font-size:14px; }
+  .site-header .hero-theme-toggle[aria-pressed="true"] [data-theme-icon] { transform:translateX(12px); }
+}
+@media (forced-colors:active) { .site-header .emergency-action { border-color:LinkText; color:LinkText; } .emergency-status-dot { background:LinkText; box-shadow:none; } .site-header .emergency-action:focus-visible { outline-color:Highlight; } }
+@media (max-width:340px) {
+  .site-header,.home-page .site-header { padding-inline:8px; gap:3px; }
+  .site-header .site-brand img { inline-size:68px; }
+  .site-header .emergency-action-mobile { padding-inline:6px; }
+  .site-header .mobile-navigation summary { padding-inline:2px; font-size:12px; gap:4px; }
+  .site-header .hero-theme-toggle { inline-size:32px; flex-basis:32px; }
+  .site-header .hero-theme-toggle [data-theme-icon] { inline-size:18px; block-size:18px; }
+  .site-header .hero-theme-toggle[aria-pressed="true"] [data-theme-icon] { transform:translateX(6px); }
+}
+

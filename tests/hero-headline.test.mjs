@@ -58,10 +58,10 @@ test('approved seven-phrase order, initial hold, specialist timing, slower retur
   assert.equal(h.roles.filter(x => x.classes.has('is-active')).length, 1);
   assert.equal(h.timers.size, 1);
 });
-test('pause, hidden document, offscreen and bfcache preserve remaining hold without duplicate work', () => {
+test('hidden document, offscreen and bfcache preserve remaining hold without a pause control', () => {
   const h = fixture(); const dispose = h.mount(); assert.equal(h.mount(), dispose);
-  h.tick(1000); h.button.emit('click'); h.tick(10000); assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
-  h.button.emit('click'); h.tick(1699); assert.equal(h.current(), 0); h.tick(1); assert.equal(h.current(), 1);
+  h.tick(2700); assert.equal(h.current(), 1);
+  assert.equal(h.button.listeners.size, 0);
   for (const [pause, resume] of [
     [() => h.visible(false), () => h.visible(true)],
     [() => { h.document.hidden = true; h.document.emit('visibilitychange'); }, () => { h.document.hidden = false; h.document.emit('visibilitychange'); }],

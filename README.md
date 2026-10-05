@@ -84,3 +84,38 @@ This checkout also contains the existing Astro application; the archive itself d
 wrangler.toml declares Worker static assets from dist; actual deployed environment remains unverified. See PROJECT_STATUS.md and docs/INTERACTION_VALIDATION.md for current implementation and outstanding B9/B14 checks. Draft robots stays under docs/drafts and was not promoted to public/robots.txt.
 
 Documentation rollback is available at .codex/backups/structure-before-20260930-a1ce3fe8; copy its matching 20 files back to their original paths, preserving unrelated source. The baseline.json records application hashes and package paths.
+
+### Homepage service chapters
+
+Five consecutive, visible homepage sections appear in this order: Managed IT Services, Microsoft 365 & Cloud, Cybersecurity, Networking & Infrastructure, AI & Automation. No service selector, hidden panels or homepage index remains. Existing fragments `/#services/managed`, `cloud`, `security`, `networking` and `ai` target the corresponding sections; `/#services` targets the start. Older aliases still resolve without changing service state. The homepage DAY-TO-DAY link group was removed at the owner's request; Managed IT sub-services and Backup & Disaster Recovery remain on detail pages. Digital Services remains separate below the five chapters.
+
+Every diagram uses the shared service-page viewport lifecycle: meaningful entry starts playback (bounded by default; AI and Networking explicitly loop continuously), offscreen departure pauses it, genuine exit makes replay ready, and re-entry restores pristine markup. Spatial hysteresis prevents threshold jitter from restarting a section. Each instance has isolated timers; reduced motion settles immediately. Accessible content is exposed once. Managed IT uses the owner-supplied compact dashboard SVG; Cloud uses the owner-supplied gold ecosystem network, ported to scoped SVG/CSS with hover, focus and click connection highlighting. Both provide static no-JavaScript fallbacks. Managed IT settles after the three delayed rows complete (16.66 seconds); Cloud runs three particle cycles (6.25 seconds), then rests. AI uses the owner-supplied 72-node neural sphere: rotation, traveling signals and neuron ripples loop continuously while visible. Its frame loop stops offscreen and for reduced motion; replay cleans up the previous canvas observers. A matching inline SVG sphere provides the no-JavaScript fallback. Original full diagrams remain on detail pages.
+
+AI governance and website planning live on `/services/ai-automation/` and `/services/web-design-hosting/`. Existing service pages also retain their full-size diagram examples. Run `node --test tests/*.test.mjs` for animation lifecycle and interaction checks, and `npm run build` for all static routes.
+
+The Services navigation opens /services/: five vertical, numbered summaries in order (Managed IT, Microsoft 365 & Cloud, Cybersecurity, Networking, AI & Automation). Each has an H2 and a descriptive detail-page link; mobile uses one column. This existing route and navigation architecture are unchanged by the homepage chapter layout.
+
+
+The homepage uses the shared 96/72/56px section rhythm. Managed IT, Cloud, Cybersecurity and Networking have copy left/artwork right, and AI reverses this on desktop. Networking uses the supplied isometric server/packet animation with the same continuous viewport-aware canvas lifecycle and inline SVG fallback as AI. AI and Networking outer canvas backgrounds are transparent in both themes. Artwork has a larger desktop column (57.5% of the available grid), scales up to 560px, and uses 300–480px responsive artwork areas on mobile/tablet; Managed IT's cropped SVG can reach 640px. Mobile order is number/title/copy, animation, then Explore link. Day/night presentation and visible keyboard focus remain available.
+
+
+The shared navigation stays pinned while scrolling. Desktop pill width is capped at 1600px with 16px side gutters; mobile preserves its compact menu. Document scroll padding reserves room above anchor destinations.
+
+
+Navigation uses viewport-fixed positioning with reserved content spacing (104px desktop / 88px mobile); desktop links are centered between equal side columns.
+
+
+The pinned menu uses finite CSS entrance/hover/dropdown animations. Prefers-reduced-motion disables movement while preserving visible focus and hover feedback.
+
+
+### Phase 2.75 visual-system maintenance
+
+Base loads local visual-system-tokens.css and visual-system.css after legacy/mobile/theme styles. Use namespaced --itk-* tokens for shells; preserve official brand aliases and animation-local variables. Scope prose/headings to shell children and exclude the hero from generic rules. Astro-scoped styles sometimes require explicit component token references: TeamThread uses these only for label/divider/chapter presentation. Preserve routes/content order, semantic tags and all animation lifecycle behavior.
+
+Dark sections use one continuous near-black canvas; existing optional homepage day surfaces remain. Major section rhythm is96/72/56px and H2s30–48px. Dim/deep-blue tokens do not meet small-text contrast and must not be used for labels. Existing local official PNG supplies the favicon. No dependencies, external assets or JS were added. Build13routes,30unit tests and browser regression checks passed. Local review completed; Phase3 and deployment remain unstarted.
+
+
+
+### Emergency header utility
+
+The shared header includes Under Attack? beside Talk to our team on desktop and beside Menu on mobile. It opens /emergency/, where the call button displays owner-supplied +961 81 816 761 and uses tel:+96181816761. Emergency red and reduced-motion handling remain unchanged. Online review booking is not connected and reports no fake submission success. See docs/reviews/2026-10-05-homepage-refinements.md for current validation.

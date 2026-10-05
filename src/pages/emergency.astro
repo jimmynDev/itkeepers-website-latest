@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { emergencyPhone } from '../data/contact';
+---
+<Base title="Under Attack? | ITKeepers Emergency Contact" description="Practical first steps for an active cyberattack, ransomware incident or account compromise, and how to contact ITKeepers.">
+  <section class="section emergency-page" aria-labelledby="emergency-title">
+    <p class="eyebrow">Emergency cybersecurity response</p>
+    <h1 id="emergency-title">Under attack?</h1>
+    <p class="lead">If you believe your business is experiencing a cyberattack, ransomware incident, account compromise or active security breach, contact ITKeepers immediately.</p>
+    <h2>What to do first</h2>
+    <ol>
+      <li>Disconnect the affected device from the network.</li>
+      <li>Do not pay any ransom.</li>
+      <li>Do not delete files, logs, messages or evidence.</li>
+      <li>Do not continue using the affected system unless instructed.</li>
+      <li>Call ITKeepers.</li>
+    </ol>
+    <a class="btn" href={emergencyPhone.href} aria-label={`Call ITKeepers on ${emergencyPhone.display}`}>Call now: {emergencyPhone.display}</a>
+  </section>
+</Base>
+<style>
+  .emergency-page { max-inline-size:900px; margin-inline:auto; }
+  .emergency-page .lead { max-inline-size:60ch; }
+  .emergency-page h2 { margin-block:40px 20px; }
+  .emergency-page ol { padding-inline-start:24px; margin-block:0 32px; }
+  .emergency-page li { font-size:16px; line-height:1.6; margin-block-end:12px; }
+</style>

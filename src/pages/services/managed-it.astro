@@ -1,4 +1,13 @@
 ---
+import Animation from '../../components/animations/ManagedITAnimation.astro';
+import { managedServices } from '../../data/managed-services';
 import P from '../../components/ServicePage.astro';const points=[['Ongoing ownership','Support, monitoring, maintenance and follow-up stay connected instead of becoming isolated tickets.'],['Escalation inside the team','When deeper expertise is useful, another engineer can join with shared context.'],['Documentation & reporting','Environment knowledge and recurring reporting help work continue with less dependence on one person.']];
 ---
-<P title="Managed IT" intro="Day-to-day IT management with familiar engineers, proactive attention and a team behind the work." points={points} boundary="Exact support scope, coverage and response commitments depend on the agreed service." />
+<P title="Managed IT" intro="Day-to-day IT management with familiar engineers, proactive attention and a team behind the work." points={points} boundary="Exact support scope, coverage and response commitments depend on the agreed service."><section class="section managed-day-to-day"><p class="eyebrow">DAY-TO-DAY</p><h2>Managed IT services</h2><p>Exact support scope, coverage and response commitments depend on the agreed service.</p><ul>{managedServices.map(service => <li id={service.id}><h3>{service.name}</h3><a class="scene-link" href={service.id === 'backup-disaster-recovery' ? service.href : '/contact'}>{service.id === 'backup-disaster-recovery' ? 'Explore Backup & Disaster Recovery' : `Discuss ${service.name}`}</a></li>)}</ul></section><section class="section service-page-example"><h2>Explore an example</h2><p>Follow a hypothetical storage warning from detection through investigation and follow-up.</p><Animation /></section></P>
+<style>
+  .managed-day-to-day ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .managed-day-to-day li { padding-block: 20px; border-block-start: 1px solid var(--s); scroll-margin-block-start: 32px; }
+  .managed-day-to-day h3 { font-size: 24px; margin-block-end: 12px; }
+  .managed-day-to-day a { text-decoration: underline; }
+  @media (max-width: 700px) { .managed-day-to-day ul { grid-template-columns: 1fr; } }
+</style>

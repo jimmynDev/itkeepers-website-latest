@@ -1,0 +1,41 @@
+/* Phase 2.75: shell tokens. Approved animation and brand aliases remain intact. */
+:root {
+  --itk-bg: #081321;
+  --itk-bg-alt: #0a1728;
+  --itk-surface: #0d1525;
+  --itk-surface-raised: #111a2b;
+  --itk-brand: #42baeb;
+  --itk-brand-deep: #4071b5;
+  --itk-cta-bg: #329dca;
+  --itk-cta-hover: #42baeb;
+  --itk-cta-text: #071525;
+  --itk-text: #e8eef9;
+  --itk-muted: #8a98b2;
+  --itk-dim: #61708a;
+  --itk-border: rgba(126,156,204,.14);
+  --itk-border-strong: rgba(126,156,204,.24);
+  --itk-success: #2dd4a7;
+  --itk-warning: #f0a93b;
+  --itk-danger: #e85d5d;
+  --itk-ai: #8175e8;
+  --itk-radius-sm: 10px;
+  --itk-radius-md: 14px;
+  --itk-radius-lg: 18px;
+  --itk-section-space: 96px;
+  --itk-content-gap: 32px;
+  --itk-panel-space: 28px;
+  --itk-heading: clamp(30px, 4vw, 48px);
+  --itk-body: 16px;
+  --itk-label: 12px;
+  --itk-label-tracking: .1em;
+  --itk-nav-surface: rgba(13,21,37,.94);
+  --itk-nav-shadow: 0 8px 24px -16px rgba(0,0,0,.5);
+  --itk-light-text: #0b2c5f;
+  --itk-light-muted: #42566f;
+  --itk-light-accent: #075d7d;
+  --itk-light-border: rgba(11,44,95,.18);
+  --journey-surface: var(--itk-bg);
+  --space-section: var(--itk-section-space);
+}
+@media (max-width: 1024px) { :root { --itk-section-space: 72px; } }
+@media (max-width: 600px) { :root { --itk-section-space: 56px; --itk-content-gap: 24px; --itk-panel-space: 20px; } }

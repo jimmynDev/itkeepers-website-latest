@@ -2,13 +2,113 @@
 import HeroHeadline from './HeroHeadline.astro';
 ---
 <section class="hero home-hero" aria-labelledby="home-title">
-  <div class="hero-heading"><p class="eyebrow">Managed IT. Personal attention.</p><HeroHeadline /></div>
-  <div class="hero-bottom"><p class="lead">Familiar engineers who know your business. Shared expertise, proactive monitoring, documented context and follow-up.</p><a class="btn hero-cta" href="/contact">Talk to our team <span aria-hidden="true">↗</span></a></div>
+  <div class="hero-day-light" aria-hidden="true"></div>
+  <div class="hero-heading"><HeroHeadline /></div>
+  <div class="hero-bottom"><p class="lead">Familiar engineers who know your business. Shared expertise, proactive monitoring, documented context and follow-up.</p><a class="btn hero-cta" href="/contact">Talk to our team</a></div>
   <div class="hero-tenets" aria-label="The ITKeepers approach"><p><span class="tenet-number" aria-hidden="true">01</span><strong>You know us.</strong><span>Familiar people.</span></p><p><span class="tenet-number" aria-hidden="true">02</span><strong>We know your IT.</strong><span>Shared context.</span></p><p><span class="tenet-number" aria-hidden="true">03</span><strong>We stay involved.</strong><span>Follow-up.</span></p></div>
 </section>
 
 <style>
   .hero-heading { position: relative; }
+  :global(.home-page) .home-hero {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+    --hero-grid-ink: var(--text-light);
+  }
+  .home-hero::before,
+  .home-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .home-hero::before {
+    background-image:
+      linear-gradient(var(--hero-grid-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hero-grid-ink) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: 0 calc(-1 * var(--hero-grid-offset));
+    opacity: .05;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.75) 82%, rgba(0,0,0,.30) 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.75) 82%, rgba(0,0,0,.30) 92%, transparent 100%);
+    mask-position: 0 0;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+  }
+  .home-hero::after {
+    background: radial-gradient(ellipse 42% 75% at 85% 35%, var(--c), transparent 70%);
+    opacity: .12;
+  }
+  .home-hero > div:not(.hero-day-light) {
+    position: relative;
+    z-index: 1;
+  }
+  .home-hero .hero-day-light {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle 420px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), rgba(66, 186, 235, .2), transparent 70%);
+  }
+  :global([data-hero-theme="day"] .home-page) .home-hero {
+    --fg: var(--n);
+    --muted: #42566f;
+    --accent: #075d7d;
+    --focus: var(--n);
+    --hero-grid-ink: var(--n);
+    color: var(--fg);
+    background: var(--surface-light);
+  }
+  :global([data-hero-theme="day"]) .home-hero .lead { color: var(--muted); }
+  :global([data-hero-theme="day"]) .home-hero .eyebrow,
+  :global([data-hero-theme="day"]) .home-hero .tenet-number { color: var(--accent); }
+  :global([data-hero-theme="day"]) .home-hero .hero-tenets,
+  :global([data-hero-theme="day"]) .home-hero .hero-tenets p { border-color: #97c8df; }
+  :global([data-hero-theme="day"]) .home-hero[data-mouse-light] .hero-day-light { display: block; }
+  :global(:root[data-hero-theme] body.home-page) .home-hero .hero-cta {
+    position:relative;
+    background:#F4F7FB;
+    color:#081321;
+    box-shadow:none;
+  }
+  /* Inset border preserves the existing button size and padding exactly. */
+  .home-hero .hero-cta::before {
+    content:'';
+    position:absolute;
+    inset:0;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:inherit;
+    pointer-events:none;
+  }
+  :global(:root[data-hero-theme] body.home-page) .home-hero .hero-cta:is(:hover,:focus-visible,:active) { background:#FFFFFF; color:#081321; box-shadow:none; }
+  :global(.home-page) .home-hero .hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  @media (max-width: 480px) {
+    .home-hero .hero-cta { inline-size: 100%; }
+  }
+  /* Color interpolation fallback for browsers without view transitions. */
+  @supports not (view-transition-name: hero-theme) {
+    @media (prefers-reduced-motion: no-preference) {
+      .home-hero { transition: background-color 650ms ease-in-out, color 650ms ease-in-out; }
+      .home-hero .lead, .home-hero .eyebrow, .home-hero .tenet-number,
+      .home-hero .hero-tenets, .home-hero .hero-tenets p,
+      .home-hero .hero-tenets strong, .home-hero .hero-tenets p > span:last-child,
+      .home-hero :global(.itk-hero-fixed), .home-hero :global(.itk-hero-toggle) {
+        transition: color 650ms ease-in-out, border-color 650ms ease-in-out;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    .home-hero::before,
+    .home-hero::after { display: none; }
+    .home-hero .hero-day-light { display: none !important; }
+  }
 </style>
 
 
