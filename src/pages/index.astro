@@ -6,11 +6,28 @@ import HowWeOperate from '../components/HowWeOperate.astro';
 import ClientProof from '../components/ClientProof.astro';
 import PhishingDecisionExperience from '../components/PhishingDecisionExperience.astro';
 import { videoTestimonials, textTestimonials, videoReady } from '../data/client-proof';
-import AIPlaybook from '../components/AIPlaybook.astro';
-import Base from '../layouts/Base.astro';import Hero from '../components/Hero.astro';import TeamThread from '../components/TeamThread.astro';import Services from '../components/Services.astro';import Workflow from '../components/Workflow.astro';import Attention from '../components/Attention.astro';import Advice from '../components/Advice.astro';import Knowledge from '../components/Knowledge.astro';import CTA from '../components/CTA.astro';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import CTA from '../components/CTA.astro';
 const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimonials.some(item => item.approved && item.quote?.trim());
 ---
-<Base title="ITKeepers | Managed IT, Cloud, Cybersecurity & Infrastructure" description="Your IT person is a team. Managed IT, Microsoft 365, cybersecurity, infrastructure and automation—with web design and hosting as a digital service."><Hero/><Services/><PulseSection/><TechnologyEcosystem/><WhoWeAre/><HowWeOperate/><PhishingDecisionExperience/>{hasApprovedClientProof && <ClientProof/>}<TeamThread/><Workflow/><Attention/><Advice/><Knowledge/><AIPlaybook/><CTA/></Base>
+<Base title="ITKeepers | Managed IT, Cloud, Cybersecurity & Infrastructure" description="Your IT person is a team. Managed IT, Microsoft 365, cybersecurity, infrastructure and automation—with web design and hosting as a digital service.">
+  <link slot="head" rel="stylesheet" href="/home-editorial.css" />
+  <Hero />
+  <Services />
+  <PulseSection />
+  <TechnologyEcosystem />
+  <WhoWeAre />
+  <HowWeOperate />
+  <PhishingDecisionExperience />
+  {hasApprovedClientProof && <ClientProof />}
+  <aside class="editorial-resource" aria-label="AI governance resource">
+    <div><p class="eyebrow">AI GOVERNANCE</p><p class="reference-heading">AI is already inside your business.<br />Make sure your data isn't leaving with it.</p></div>
+    <a href="/resources/ai-governance">Read the ITKeepers AI Governance Playbook</a>
+  </aside>
+  <CTA />
+</Base>
 
 <script>
   import '../scripts/home-motion';

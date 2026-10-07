@@ -138,5 +138,5 @@ test('initial HTML contains the Home explanations without a script-added motion 
   assert.ok(!/<(?:main|body)\b[^>]*class="[^"]*home-motion-ready/.test(html));
   assert.ok(html.includes('Your IT person'));
   assert.ok(html.includes('Not every incident needs escalation.'));
-  assert.equal((html.match(/<article\b[^>]*data-step-panel/g) ?? []).length, 5);
+  assert.equal((html.match(/<li\b[^>]*data-process-step/g) ?? []).length, 7);
 });

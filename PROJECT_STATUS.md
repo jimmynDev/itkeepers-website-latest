@@ -1,6 +1,16 @@
 # ITKeepers Website — Project Status
 
-Updated: 1 October 2026 (Asia/Beirut). Owner: Workflow; project contact: Jim Nassar.
+## 8 October 2026 — V3 editorial homepage experiment
+
+- Owner authorized the new design-direction experiment from clean `v3-editorial-concept`, based on preserved V2 checkpoint `da3161d38f99a8c2a29e4e2d1fba56f283e15740`. Reference and current components/tokens/controllers were studied; pre-edit principles, component decisions and exact proposed order reported before implementation.
+- Implemented homepage-only navy/editorial stylesheet, larger lighter headings, quiet proof, varied service compositions, flagship Pulse reveal, monochrome rail, unified team/engineering and operations chapters, stable phishing shell and editorial review close. Retained approved primary copy/proof, all authored animations/controllers, service accent colors, theme toggle, review links and schema. No dependency/font additions.
+- Consolidated duplicate TeamThread/Workflow/Attention/Advice/Knowledge homepage instances into the current team/operations narrative; reusable files and internal Workflow preserved. Daily/security native disclosures remain in HowWeOperate. AI Governance message/resource became an inline aside; existing resource route and reusable overlay untouched. ClientProof evidence gate retains no fabricated placeholders.
+- Validation Pass: `npm run build` exit 0 (16 pages); `node --test tests/*.test.mjs` exit 0 (78/78 pass, zero failures/skips/cancellations), under **Node 24.19.0** rather than required target 22. No installed Node 22 found in inspected locations; Node 22 validation remains pending. All 15 internal built-page HTML files byte-identical to V2 by SHA-256; shared controller/artwork/dependency/config sources unchanged.
+- Browser checks: all eight requested widths; no horizontal overflow/clipped major type, mobile CTA order/circular cyber preserved. All four phishing scenarios at every width and all twelve choices at 1440/360; 600/660px stage and following content stable, native mouse/keyboard scroll preserved after setup settled. No captured console errors/warnings. Local sampled CLS negligible (one earlier 768px contribution about 0.000145; final captures zero); not a field benchmark. Reduced-motion branch and no-JS fallback verified through explicitly external simulation/script-free harnesses plus runtime tests; native OS preference, browser-level JS-disable, screen-reader and forced-colors device checks not claimed.
+- Independent source reviewer found no architecture/scope blocker; fixed two CSS polish issues (inline vendor-logo luminance and forced-colors pseudo-element selector). Evidence/screenshots stored outside Git at `C:/Users/Jim/Documents/ChatGPT/ITKeepers Website/outputs/v3-editorial/`. Complete comparison, consolidation decisions and validation limits: `docs/V3_EDITORIAL_CONCEPT.md`.
+- Recommendation: **V3 has potential but needs another iteration.** Stronger premium hierarchy and less duplication; V2 retains tighter conversion grouping and faster service scanning. V3 remains long on mobile and theme/header direction is deliberately deferred. Local experiment remains uncommitted/reviewable. No push, deploy or merge.
+
+Updated: 8 October 2026 (Asia/Beirut). Owner: Workflow; project contact: Jim Nassar.
 
 ## Baseline and scope
 

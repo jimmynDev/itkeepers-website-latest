@@ -2,6 +2,8 @@
 import OperationalWorkflowAnimation from './animations/OperationalWorkflowAnimation.astro';
 import KnowledgeContinuityAnimation from './animations/KnowledgeContinuityAnimation.astro';
 import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimation.astro';
+import DailyChecks from './DailyChecks.astro';
+import SecurityLayers from './SecurityLayers.astro';
 ---
 <section class="how-we-operate" id="how-we-operate" aria-labelledby="operate-title">
   <div class="operate-inner">
@@ -12,7 +14,7 @@ import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimatio
     <div class="operate-primary"><OperationalWorkflowAnimation />
       <div class="operate-supporting">
         <article aria-labelledby="operate-monitoring-title"><h3 id="operate-monitoring-title">Proactive monitoring</h3><p>Monitoring and security alerts can surface issues before you have to report them. Those signals enter the workflow for engineer review.</p></article>
-        <article aria-labelledby="operate-escalation-title"><h3 id="operate-escalation-title">Internal escalation</h3><p>Specialized issues move inside the team to the engineer best suited to handle them.</p></article>
+        <article aria-labelledby="operate-escalation-title"><h3 id="operate-escalation-title">Internal escalation</h3><p>Specialized issues move inside the team to the engineer best suited to handle them. Not every incident needs escalation.</p></article>
       </div>
     </div>
     <div class="operate-stories">
@@ -20,12 +22,20 @@ import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimatio
         <div><p class="operate-label">DOCUMENTATION</p>
         <h3 id="operate-documentation-title">The fix is not the end of the work.</h3>
         <p>Relevant changes, decisions and environment context are documented for the next issue, project or engineer.</p>
+        <p class="operate-continuity">Your IT should not live in one person’s memory.</p>
         </div><KnowledgeContinuityAnimation />
       </article>
       <article class="operate-decisions" aria-labelledby="operate-decisions-title">
-        <div><h3 id="operate-decisions-title">Keep / Upgrade / Replace</h3><p>We recommend what the environment needs — not simply more hardware.</p></div>
+        <div><h3 id="operate-decisions-title">Keep / Upgrade / Replace</h3><p>We recommend what the environment needs — not simply more hardware.</p><p class="operate-assessment-note">Assess workload, condition and supportability before recommending a purchase.</p></div>
         <HardwareAssessmentAnimation />
       </article>
+    </div>
+    <div class="operate-review" aria-labelledby="operate-review-title">
+      <div class="operate-review-heading"><p class="operate-label">THE ONGOING WORK</p><h3 id="operate-review-title">The work you rarely see.</h3><p>Explore the questions behind a daily review. These examples explain checks, not the status of a real environment.</p><span class="illustrative-badge">Illustrative</span></div>
+      <div class="operate-review-columns">
+        <div><h4>Daily checks, explained.</h4><DailyChecks /></div>
+        <div><h4>Security, maintained in layers.</h4><SecurityLayers /><a class="disclosure-link" href="/services/cybersecurity">Explore cybersecurity</a></div>
+      </div>
     </div>
   </div>
 </section>

@@ -70,7 +70,9 @@ test('missing control preserves readable noninteractive fallback', () => {
   assert.equal(flow.navigation.hidden, true);
 });
 test('built pages preserve complete initial-HTML content and native disclosures', () => {
-  for (const path of ['dist/index.html', 'dist/how-we-work/index.html']) {
+  // V3 Home consolidates the older storage example into its seven-step system.
+  // The reusable five-step interaction still serves How We Work unchanged.
+  for (const path of ['dist/how-we-work/index.html']) {
     const html = readFileSync(path, 'utf8');
     const panels = html.match(/<article\b[^>]*data-step-panel[^>]*>/g) ?? [];
     assert.equal(panels.length, 5);
@@ -82,6 +84,14 @@ test('built pages preserve complete initial-HTML content and native disclosures'
     assert.ok(!html.includes('[[INPUT-PENDING:'));
   }
   const home = readFileSync('dist/index.html', 'utf8');
+  const operationalSteps = home.match(/<li\b[^>]*data-process-step[^>]*>/g) ?? [];
+  assert.equal(operationalSteps.length, 7);
+  assert.ok(operationalSteps.every(step => !/\bhidden\b/.test(step)), 'Operational story available without JS');
+  for (const title of ['Issue detected', 'Ticket created automatically', 'Engineer assigned', 'Client notified', 'Investigation', 'Resolved', 'Documented']) assert.ok(home.includes(title));
+  assert.equal((home.match(/<h1\b/g) ?? []).length, 1);
+  assert.ok(!home.includes('[[INPUT-PENDING:'));
+  assert.match(home, /href="\/home-editorial\.css"/);
+  assert.doesNotMatch(readFileSync('dist/how-we-work/index.html', 'utf8'), /home-editorial\.css/);
   const security = readFileSync('dist/services/cybersecurity/index.html', 'utf8');
   const disclosureCount = (html, componentClass) => {
     const wrapper = html.match(new RegExp(`<div\\b[^>]*class="[^"]*\\b${componentClass}\\b[^"]*"[^>]*>([\\s\\S]*?)</details>\\s*</div>`));
