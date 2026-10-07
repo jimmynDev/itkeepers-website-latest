@@ -1,0 +1,71 @@
+---
+interface Props { id: string; }
+const { id } = Astro.props;
+const gradientId = `${id}-gradient`;
+const glowId = `${id}-glow`;
+const nodeGlowId = `${id}-node-glow`;
+const signalPath = 'M 2 31 L 78 31 L 101 31 L 111 27 L 120 35 L 131 31 L 173 31 L 187 31 L 197 22 L 207 42 L 221 8 L 237 48 L 249 25 L 261 31 L 312 31 L 325 31 L 334 27 L 344 34 L 354 31 L 468 31';
+---
+<section class="pulse-signal" id={id} aria-label="IT Keepers Pulse live environment visibility" data-pulse-signal>
+  <div class="pulse-label">
+    <span class="pulse-live-dot" aria-hidden="true"></span>
+    LIVE ENVIRONMENT SIGNAL
+  </div>
+  <div class="pulse-visual" data-animation-visual aria-hidden="true">
+    <div class="pulse-atmosphere"></div>
+    <svg class="pulse-svg" viewBox="0 0 470 58" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#4071B5" />
+          <stop offset="55%" stop-color="#42BAEB" />
+          <stop offset="100%" stop-color="#4071B5" />
+        </linearGradient>
+        <filter id={glowId} x="-30%" y="-100%" width="160%" height="300%">
+          <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <filter id={nodeGlowId} x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+      <path class="pulse-track" d={signalPath} />
+      <path class="pulse-active" d={signalPath} stroke={`url(#${gradientId})`} filter={`url(#${glowId})`} />
+      <circle class="pulse-node" cx="120" cy="35" r="2.3" />
+      <circle class="pulse-node--active" cx="221" cy="8" r="3.2" filter={`url(#${nodeGlowId})`} />
+      <circle class="pulse-node" cx="344" cy="34" r="2.3" />
+    </svg>
+  </div>
+</section>
+<style>
+  .pulse-signal { position:relative; inline-size:min(100%,470px); block-size:108px; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+  .pulse-label { display:flex; align-items:center; gap:8px; margin-block-end:13px; color:var(--muted,var(--itk-light-muted)); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  .pulse-live-dot { inline-size:7px; block-size:7px; flex-shrink:0; border-radius:50%; background:#42BAEB; box-shadow:0 0 0 4px rgba(66,186,235,.10),0 0 12px rgba(66,186,235,.35); opacity:.75; }
+  .pulse-visual { position:relative; inline-size:100%; block-size:58px; flex-shrink:0; }
+  .pulse-visual::before { content:''; position:absolute; inset-inline:0; inset-block-start:50%; block-size:1px; background:linear-gradient(90deg,transparent,rgba(64,113,181,.14) 12%,rgba(64,113,181,.14) 88%,transparent); }
+  .pulse-svg { position:absolute; inset:0; inline-size:100%; block-size:100%; overflow:visible; }
+  .pulse-track { fill:none; stroke:rgba(64,113,181,.16); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .pulse-active { fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+  .pulse-node { fill:#42BAEB; opacity:.25; }
+  .pulse-node--active { fill:#FFFFFF; stroke:#42BAEB; stroke-width:2; transform-box:fill-box; transform-origin:center; }
+  .pulse-atmosphere { position:absolute; inline-size:190px; block-size:70px; inset-block-start:-5px; inset-inline-start:33%; border-radius:50%; background:radial-gradient(ellipse,rgba(66,186,235,.10),rgba(64,113,181,.035) 45%,transparent 72%); filter:blur(10px); pointer-events:none; }
+  /* Static full-gradient signal is the no-JavaScript and reduced-motion fallback. */
+  @media (prefers-reduced-motion:no-preference) {
+    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-active { stroke-dasharray:115 600; animation:pulseTravel 3.4s linear infinite; }
+    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-live-dot { animation:liveDot 2.8s ease-in-out infinite; }
+    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-node--active { animation:nodePulse 3.4s ease-in-out infinite; }
+    .pulse-signal[data-animation-enhanced].is-idle :is(.pulse-active,.pulse-live-dot,.pulse-node--active) { animation-play-state:paused; }
+  }
+  @keyframes pulseTravel { from { stroke-dashoffset:115; } to { stroke-dashoffset:-600; } }
+  @keyframes liveDot { 0%,70%,100% { opacity:.75; transform:scale(1); } 82% { opacity:1; transform:scale(1.22); } }
+  @keyframes nodePulse { 0%,35%,100% { opacity:.35; transform:scale(.85); } 48% { opacity:1; transform:scale(1.25); } 60% { opacity:.55; transform:scale(1); } }
+  @media (max-width:600px) { .pulse-signal { block-size:92px; } .pulse-visual { block-size:50px; } }
+  @media (prefers-reduced-motion:reduce) { .pulse-active,.pulse-live-dot,.pulse-node--active { animation:none; transform:none; } .pulse-active { stroke-dasharray:none; } }
+  @media (forced-colors:active) { .pulse-label { color:CanvasText; } .pulse-live-dot { background:Highlight; box-shadow:none; } .pulse-active,.pulse-track { stroke:CanvasText; filter:none; } .pulse-node,.pulse-node--active { fill:Highlight; stroke:CanvasText; filter:none; } .pulse-atmosphere,.pulse-visual::before { display:none; } }
+</style>
+<script>
+  import { mountAnimation } from '../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('[data-pulse-signal]').forEach(root => {
+    mountAnimation(root, () => ({ play() {}, settle() {}, duration:3400 }), { loop:true });
+  });
+</script>

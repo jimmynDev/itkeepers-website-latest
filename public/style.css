@@ -156,7 +156,7 @@ html { scroll-padding-block-start: 120px; }
   .mobile-navigation { display: block; }
   .mobile-navigation summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-block-size: 44px; padding-inline: 12px; cursor: pointer; font-weight: 600; }
   .mobile-navigation summary::-webkit-details-marker { display: none; }
-  .mobile-navigation[open] summary > span { transform: rotate(45deg); }
+  .mobile-navigation[open] summary > [aria-hidden] { transform: rotate(45deg); }
   .site-header .mobile-navigation nav { display: flex; position: absolute; inset-inline: 0; inset-block-start: calc(100% + 12px); flex-direction: column; gap: 4px; background: var(--surface-dark); padding: 20px; border: 1px solid var(--s); border-radius: 24px; }
   .site-header .mobile-navigation nav a { display: flex; min-block-size: 48px; padding: 12px; }
   .hero-bottom { flex-direction: column; align-items: start; margin-block: 32px 48px; gap: 28px; }
@@ -349,7 +349,8 @@ main > section { padding-inline-start: max(var(--layout-gutter), env(safe-area-i
 .home-page .site-brand { padding: 0; background: transparent; border-radius: 0; }
 [data-hero-theme="day"] .home-page .site-brand img { filter: url(#itkeepers-logo-day); }
 .home-page .site-header .mobile-navigation nav { color: var(--header-ink); background: var(--header-surface); border-color: var(--header-rule); }
-.home-page .hero-theme-toggle { color: var(--header-ink); border-color: var(--header-rule); }
+.home-page .site-header .hero-theme-toggle { color:var(--header-ink); border-color:color-mix(in srgb,var(--itk-dim) 90%,var(--header-ink)); background:color-mix(in srgb,var(--header-ink) 5%,transparent); }
+.home-page .site-header .hero-theme-toggle:hover { background:color-mix(in srgb,var(--header-ink) 9%,transparent); }
 [data-hero-theme="day"] .home-page .site-header .btn:hover { background: var(--n); color: var(--text-light); }
 .home-page .site-header .desktop-navigation { margin-inline-start: 0; }
 /* Small, finite movements keep the pinned menu responsive without distracting. */
@@ -394,6 +395,7 @@ html:has(.home-page) { view-transition-name: none; }
 @media (prefers-reduced-motion: reduce) { ::view-transition-old(hero-theme), ::view-transition-new(hero-theme), ::view-transition-old(hero-navigation), ::view-transition-new(hero-navigation) { animation: none; } }
 @media (max-width: 900px) { .home-page .header-region { padding-block-start: 16px; } .home-page .site-header { gap: 8px; } .hero-theme-toggle { margin-inline-start: auto; } .home-page .mobile-navigation summary { gap: 8px; padding-inline: 6px; } }
 @media (forced-colors: active) { .hero-theme-toggle { border-color: ButtonText; color: ButtonText; } }
+@media (forced-colors: active) { .home-page .site-header .hero-theme-toggle { border-color:ButtonText; color:ButtonText; background:Canvas; } .home-page .site-header .hero-theme-toggle:focus-visible { outline-color:Highlight; } }
 .home-page .offering-journey > .offering-section:first-child { border-block-start: 0; padding-block-start: clamp(28px, 3vw, 44px); }
 .offering-section { padding-block: var(--offering-section-space); min-inline-size: 0; border-block-start: 1px solid var(--offering-rule); scroll-margin-block-start: 32px; }
 .offering-section[data-offering-tone="indigo"] { --accent: var(--offering-expertise); }
@@ -414,7 +416,7 @@ html:has(.home-page) { view-transition-name: none; }
 .offering-visual > .offering-animation { inline-size: 100%; min-inline-size: 0; margin-inline: 0; }
 .offering-detail { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--offering-gap); align-items: start; margin-block-start: 40px; padding-block-start: 40px; border-block-start: 1px solid var(--offering-rule); scroll-margin-block-start: 32px; }
 .offering-detail .eyebrow { margin-block: 0 18px; }
-.offering-detail h3 { font-size: clamp(27px, 3vw, 38px); line-height: 1.15; letter-spacing: -.03em; max-inline-size: 22ch; margin: 0; }
+.offering-detail :is(h2,h3) { font-size: clamp(27px, 3vw, 38px); line-height: 1.15; letter-spacing: -.03em; max-inline-size: 22ch; margin: 0; }
 .offering-detail p:not(.eyebrow) { font-size: 16px; line-height: 1.75; max-inline-size: 65ch; margin-block: 0 18px; color: var(--muted); }
 .offering-digital { border-block-start-width: 2px; padding-block-start: 48px; }
 .offering-category-break { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px 40px; margin-block-end: 64px; }

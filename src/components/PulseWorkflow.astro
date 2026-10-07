@@ -1,0 +1,11 @@
+---
+const steps = [
+  ['Monitor', 'Keep the environment in view.'],
+  ['Detect', 'Surface what needs attention.'],
+  ['Review', 'Investigate the context.'],
+  ['Assign', 'Connect the work to the team.'],
+  ['Resolve', 'Address the issue and follow up.'],
+  ['Report', 'Make the work visible.']
+];
+---
+<ol class="pulse-workflow">{steps.map(([title, text], index) => <li><span class="pulse-workflow-index" aria-hidden="true">0{index + 1}</span><h3>{title}</h3><p>{text}</p>{index < steps.length - 1 && <span class="pulse-workflow-arrow" aria-hidden="true">→</span>}</li>)}</ol>

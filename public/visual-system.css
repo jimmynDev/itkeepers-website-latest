@@ -86,12 +86,25 @@ body.home-page .site-header { --header-ink: var(--itk-text); --header-surface: v
 body .site-header:hover { box-shadow: var(--itk-nav-shadow); }
 [data-hero-theme="day"] body.home-page .site-header { --header-ink: var(--n); --header-surface: var(--surface-light); background: rgba(245,249,252,.94); border-color: var(--itk-light-border); }
 /* Existing hero composition/rotation and approved diagrams are not restyled. */
+/* Header and hero actions share one color system without changing their boxes. */
+body .site-header, body.home-page .home-hero {
+  --s:var(--itk-brand-cyan);
+  --itk-cta-bg:var(--itk-brand-cyan);
+  --itk-cta-hover:#6cc8f2;
+  --itk-cta-text:var(--itk-bg);
+  --action-focus:var(--itk-brand-cyan);
+}
+[data-hero-theme="day"] body.home-page :is(.site-header,.home-hero) { --action-focus:var(--n); }
+body :is(.site-header .btn,.home-hero .hero-cta) { position:relative; border-radius:999px; }
+body :is(.site-header .btn,.home-hero .hero-cta):is(:hover,:focus-visible) { box-shadow:0 0 18px color-mix(in srgb,var(--itk-brand-cyan) 20%,transparent); }
+body :is(.site-header .btn,.home-hero .hero-cta):focus-visible { outline:3px solid var(--action-focus); outline-offset:4px; }
+@media (prefers-reduced-motion:no-preference) { body :is(.site-header .btn,.home-hero .hero-cta) { transition:background-color 220ms ease,color 220ms ease,box-shadow 220ms ease; } }
 body.home-page .home-hero::before { opacity: .03; }
 body.home-page .home-hero::after { opacity: .09; }
 /* Navy canvas depth replaces the existing night glow rather than adding a layer. */
 :root:not([data-hero-theme="day"]) body.home-page .home-hero::before { opacity: .025; }
 :root:not([data-hero-theme="day"]) body.home-page .home-hero::after {
-  background: radial-gradient(75% 70% at 18% 28%, rgba(66,186,235,.08), transparent 65%);
+  background: radial-gradient(75% 70% at 18% 28%, color-mix(in srgb,var(--itk-brand-cyan) 8%,transparent), transparent 65%);
   opacity: 1;
 }
 @media (max-width: 900px) {
@@ -101,4 +114,91 @@ body.home-page .home-hero::after { opacity: .09; }
 @media (forced-colors: active) {
   body :is(.site-header, .context-index, .disclosures details, .workflow-steps button, .workflow-steps, .workflow-steps li + li, .workflow-navigation) { border-color: CanvasText; }
   body .workflow-steps button[aria-current="step"] { border: 2px solid Highlight; }
+}
+
+/* Header CTA only; retain the measured navigation footprint and focus system. */
+:root body .site-header .header-cta-actions { min-block-size: 50.4px; }
+:root body .site-header a.header-primary-cta.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-inline-size: 162.34375px;
+  min-block-size: 48px;
+  padding: 11px 24px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg,rgba(25,55,88,.96),rgba(15,40,67,.96)) padding-box,
+    linear-gradient(120deg,rgba(64,113,181,.95),rgba(66,186,235,.95)) border-box;
+  color: #F6FBFF;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.6;
+  box-shadow: 0 8px 22px -14px rgba(66,186,235,.7), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: none;
+  transition: transform 240ms cubic-bezier(.22,1,.36,1), box-shadow 240ms cubic-bezier(.22,1,.36,1), border-color 240ms cubic-bezier(.22,1,.36,1);
+}
+/* A quiet internal light, separate from the illuminated one-pixel edge. */
+:root body .site-header a.header-primary-cta.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 80% 20%,rgba(66,186,235,.18),transparent 48%);
+  opacity: .75;
+  pointer-events: none;
+  transition: opacity 240ms cubic-bezier(.22,1,.36,1);
+}
+:root body .site-header a.header-primary-cta.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg,transparent 42%,rgba(255,255,255,.025) 50%,transparent 58%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+:root body .site-header a.header-primary-cta.btn:is(:hover,:focus-visible,:active) {
+  background:
+    linear-gradient(180deg,rgba(25,55,88,.96),rgba(15,40,67,.96)) padding-box,
+    linear-gradient(120deg,rgba(64,113,181,.95),rgba(66,186,235,.95)) border-box;
+  color: #F6FBFF;
+}
+:root body .site-header a.header-primary-cta.btn:focus-visible {
+  outline: 3px solid var(--action-focus);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  :root body .site-header a.header-primary-cta.btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(66,186,235,.18);
+    box-shadow: 0 10px 24px -13px rgba(66,186,235,.8), inset 0 1px 0 rgba(255,255,255,.14);
+  }
+  :root body .site-header a.header-primary-cta.btn:hover::before { opacity: 1; }
+  :root body .site-header a.header-primary-cta.btn:hover::after { animation: header-cta-sweep 420ms cubic-bezier(.22,1,.36,1) 1; }
+}
+:root body .site-header a.header-primary-cta.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px -12px rgba(66,186,235,.5), inset 0 1px 0 rgba(255,255,255,.08);
+}
+@keyframes header-cta-sweep { to { transform: translateX(120%); } }
+@media (max-width: 1180px) {
+  :root body .site-header a.header-primary-cta.btn {
+    min-inline-size: 154.671875px;
+    padding: 11px 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root body .site-header a.header-primary-cta.btn,
+  :root body .site-header a.header-primary-cta.btn::before { transition: none; }
+  :root body .site-header a.header-primary-cta.btn:is(:hover,:active) { transform: none; }
+  :root body .site-header a.header-primary-cta.btn::after,
+  :root body .site-header a.header-primary-cta.btn:hover::after { animation: none; }
+}
+@media (forced-colors: active) {
+  :root body .site-header a.header-primary-cta.btn { border-color: ButtonText; box-shadow: none; }
+  :root body .site-header a.header-primary-cta.btn:focus-visible { outline-color: Highlight; }
+  :root body .site-header a.header-primary-cta.btn::before,
+  :root body .site-header a.header-primary-cta.btn::after { display: none; }
 }

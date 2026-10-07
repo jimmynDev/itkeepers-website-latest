@@ -1,5 +1,5 @@
 /** Viewport-aware, replayable timelines; continuous playback is explicitly opt-in. */
-type Timeline = { play: () => void; settle: () => void; duration: number };
+type Timeline = { play: () => void; settle: () => void; duration: number; ambient?: boolean; activity?: (active: boolean) => void };
 type Scheduler = { later: (callback: () => void, delay: number) => void };
 type Task = { callback: () => void; remaining: number; since: number; timer?: ReturnType<typeof setTimeout> };
 
@@ -10,7 +10,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   if (existing) return existing;
   const button = root.querySelector<HTMLButtonElement>('[data-animation-toggle]');
   const visual = root.querySelector<HTMLElement>('[data-animation-visual]');
-  const fallback = visual && { html: visual.innerHTML, className: visual.className, style: visual.getAttribute('style') };
+  const fallback = visual && { html: visual.innerHTML, className: visual.className, style: visual.getAttribute('style'), phase: visual.getAttribute('data-phase'), motion: visual.getAttribute('data-motion') };
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   const entrance = Boolean(root.closest?.('.service-story'));
   const tasks = new Set<Task>();
@@ -38,12 +38,14 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     root.dataset.animationState = value;
     if (value === 'settled') present('shown');
     root.classList.toggle('is-idle', value !== 'running');
+    timeline?.activity?.((value === 'running' || (value === 'settled' && Boolean(timeline.ambient))) && visible && started && !replayReady && !document.hidden && !userPaused && !parked && !media.matches && !staticOnly && !disposed);
     if (button) {
+      const ambientControl = timeline?.ambient && !staticOnly && !media.matches;
       // Keep a focused control in place when the sequence completes naturally.
       const focusedCompletion = settled && document.activeElement === button;
-      button.hidden = !focusedCompletion && (!started || settled || disposed);
-      button.setAttribute('aria-disabled', settled ? 'true' : 'false');
-      button.textContent = settled ? 'Animation complete' : userPaused ? 'Resume animation' : 'Pause animation';
+      button.hidden = !focusedCompletion && (!started || (settled && !ambientControl) || disposed);
+      button.setAttribute('aria-disabled', settled && !ambientControl ? 'true' : 'false');
+      button.textContent = settled && !ambientControl ? 'Animation complete' : userPaused ? 'Resume animation' : 'Pause animation';
     }
   };
   const cancel = () => {
@@ -58,6 +60,10 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     visual.className = fallback.className;
     if (fallback.style === null) visual.removeAttribute('style');
     else visual.setAttribute('style', fallback.style);
+    for (const [name, value] of [['data-phase', fallback.phase], ['data-motion', fallback.motion]]) {
+      if (value === null) visual.removeAttribute(name!);
+      else visual.setAttribute(name!, value!);
+    }
   };
   const finish = (failed = false) => {
     if (settled) return;
@@ -91,6 +97,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     if (running) arm(task);
   };
   const pause = () => {
+    timeline?.activity?.(false);
     if (!running) return;
     running = false;
     const now = performance.now();
@@ -113,6 +120,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   };
   const reconcile = () => {
     if (disposed || staticOnly) return;
+    if (settled && !replayReady) state('settled');
     if (media.matches) {
       staticOnly = true;
       replayReady = false;
@@ -154,7 +162,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     }
   };
   const toggle = () => {
-    if (settled || disposed) return;
+    if (disposed || (settled && (!timeline?.ambient || staticOnly || media.matches))) return;
     userPaused = !userPaused;
     reconcile();
     if (!settled) state(running ? (entering ? 'entering' : 'running') : 'paused');
@@ -169,6 +177,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     if (disposed) return;
     finish();
     disposed = true;
+    timeline?.activity?.(false);
     observers.forEach(observer => observer.disconnect());
     button?.removeEventListener('click', toggle);
     document.removeEventListener('visibilitychange', reconcile);

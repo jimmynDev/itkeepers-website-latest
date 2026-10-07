@@ -8,16 +8,17 @@ if (page && wash) {
   let active = false;
   let tone = 'cyan';
   let service: HTMLElement | null = null;
+  let lightBounds: HTMLElement | null = null;
   let litService: HTMLElement | null = null;
   const draw = () => {
     frame = 0;
     wash.style.transform = `translate3d(${x - 500}px, ${y - 500}px, 0)`;
-    wash.style.opacity = active && allowed.matches ? '1' : '0';
-    wash.dataset.tone = tone;
     const next = active && allowed.matches ? service : null;
+    wash.style.opacity = active && allowed.matches && !next ? '1' : '0';
+    wash.dataset.tone = tone;
     if (litService && litService !== next) litService.style.removeProperty('--service-pointer-visible');
     if (next) {
-      const bounds = next.getBoundingClientRect();
+      const bounds = (lightBounds ?? next).getBoundingClientRect();
       next.style.setProperty('--service-pointer-x', `${x - bounds.left}px`);
       next.style.setProperty('--service-pointer-y', `${y - bounds.top}px`);
       next.style.setProperty('--service-pointer-visible', '1');
@@ -30,7 +31,11 @@ if (page && wash) {
     if (!allowed.matches || event.pointerType !== 'mouse') return;
     x = event.clientX; y = event.clientY; active = true;
     tone = (event.target as Element).closest<HTMLElement>('[data-light]')?.dataset.light ?? 'cyan';
-    service = (event.target as Element).closest<HTMLElement>('.service-story');
+    const target = event.target as Element;
+    service = target.closest<HTMLElement>('.service-story');
+    const digital = service ? null : target.closest<HTMLElement>('.digital-bridge');
+    lightBounds = service ?? digital;
+    if (digital) service = digital.closest<HTMLElement>('.digital-transition-zone');
     schedule();
   }, { passive: true });
   page.addEventListener('pointerleave', stop);

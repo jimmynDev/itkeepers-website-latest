@@ -1,0 +1,17 @@
+---
+import PulsePreview from './PulsePreview.astro';
+import PulseSignal from './PulseSignal.astro';
+import '../styles/pulse.css';
+const { managed = false } = Astro.props;
+const headingId = managed ? 'managed-pulse-title' : 'home-pulse-title';
+---
+<section class:list={['pulse-shell', 'pulse-reveal', { 'pulse-managed': managed }]} aria-labelledby={headingId} id={managed ? 'managed-pulse' : 'it-keepers-pulse'}>
+  <div class="pulse-reveal-copy">
+    <p class="eyebrow">IT KEEPERS PULSE</p>
+    <h2 id={headingId}>{managed ? 'Visibility comes with the service.' : <>Your IT environment.<br />One clear view.</>}</h2>
+    {managed ? <p>IT Keepers Pulse is designed to give you a clear view of the environment we manage — users, devices, security, licensing and support activity.</p> : <PulseSignal id="home-pulse-signal" />}
+    {!managed && <ul class="pulse-promises"><li>See what is healthy.</li><li>See what needs attention.</li><li>See what ITKeepers is already handling.</li></ul>}
+    <a class="btn" href="/it-keepers-pulse">Explore IT Keepers Pulse</a>
+  </div>
+  <PulsePreview compact={managed} horizontal={!managed} />
+</section>

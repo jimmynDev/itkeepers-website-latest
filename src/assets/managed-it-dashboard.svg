@@ -9,8 +9,8 @@
       /* ===== CSS VARIABLES ===== */
       .mit-mini-dashboard {
         --accent: #3dbbee;
-        --accent-dim: rgba(61, 187, 238, 0.35);
-        --accent-glow: rgba(61, 187, 238, 0.18);
+        --accent-dim: rgba(61, 187, 238, 0.28);
+        --accent-glow: rgba(61, 187, 238, 0.126);
         --navy: #1a2a4a;
         --navy-deep: #0f1d33;
         --bg-outer: #0f1d33;
@@ -34,8 +34,8 @@
 
       [data-hero-theme="day"] .mit-mini-dashboard {
           --accent: #1a8fc4;
-          --accent-dim: rgba(26, 143, 196, 0.3);
-          --accent-glow: rgba(26, 143, 196, 0.15);
+          --accent-dim: rgba(26, 143, 196, 0.24);
+          --accent-glow: rgba(26, 143, 196, 0.105);
           --navy: #2a4a6a;
           --navy-deep: #d8e8f4;
           --bg-outer: #e8f0f8;
@@ -105,7 +105,7 @@
         20%, 40% { fill: var(--accent); opacity: 1; }
       }
 
-      @keyframes mit-mini-mit-mini-step-highlight-amber {
+      @keyframes mit-mini-step-highlight-amber {
         0%, 100% { fill: var(--text-dim); opacity: 0.5; }
         20%, 40% { fill: var(--amber); opacity: 1; }
       }
@@ -137,8 +137,13 @@
       }
 
       .mit-mini-panel {
-        fill: var(--panel-bg);
-        stroke: var(--accent-dim);
+        fill: url(#managed-mini-panel-surface);
+        stroke: none;
+      }
+
+      .mit-mini-panel-edge {
+        fill: none;
+        stroke: url(#managed-mini-frame-fade);
         stroke-width: 1.2;
         animation: mit-mini-panel-glow 5s ease-in-out infinite;
       }
@@ -147,7 +152,7 @@
         fill: none;
         stroke: var(--accent-dim);
         stroke-width: 0.6;
-        opacity: 0.4;
+        opacity: 0.14;
       }
 
       .mit-mini-row-bg {
@@ -274,7 +279,7 @@
 
       /* ===== STEP LABEL DELAYS ===== */
       .mit-mini-step-monitor { animation: mit-mini-step-highlight 10s ease-in-out 0s infinite; }
-      .mit-mini-step-detect  { animation: mit-mini-mit-mini-step-highlight-amber 10s ease-in-out 2.5s infinite; }
+      .mit-mini-step-detect  { animation: mit-mini-step-highlight-amber 10s ease-in-out 2.5s infinite; }
       .mit-mini-step-own     { animation: mit-mini-step-highlight 10s ease-in-out 5s infinite; }
       .mit-mini-step-resolve { animation: mit-mini-step-highlight 10s ease-in-out 7.5s infinite; }
 
@@ -282,11 +287,24 @@
       
     </style>
 
-    <!-- Glow filter -->
+    <!-- Open top/side frame; the surface fades into the existing page canvas. -->
+    <linearGradient id="managed-mini-panel-surface" x1="0" y1="105" x2="0" y2="245" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="var(--panel-bg)" stop-opacity=".65" />
+      <stop offset=".65" stop-color="var(--panel-bg)" stop-opacity=".28" />
+      <stop offset="1" stop-color="var(--panel-bg)" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="managed-mini-frame-fade" x1="0" y1="105" x2="0" y2="172" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="var(--accent)" stop-opacity=".28" />
+      <stop offset=".5" stop-color="var(--accent)" stop-opacity=".12" />
+      <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glow is confined to the open top/side stroke, never the filled surface. -->
     <filter id="managed-mini-panel-glow" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComponentTransfer in="blur" result="soft-halo"><feFuncA type="linear" slope="0.7" /></feComponentTransfer>
       <feMerge>
-        <feMergeNode in="blur" />
+        <feMergeNode in="soft-halo" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
@@ -304,9 +322,10 @@
   <rect class="mit-mini-bg-rect" width="400" height="400" rx="16" />
 
   <!-- ===== CENTRAL PANEL ===== -->
-  <g filter="url(#managed-mini-panel-glow)">
-    <rect class="mit-mini-panel" x="70" y="100" width="260" height="150" rx="16" />
-    <rect class="mit-mini-panel-inner" x="78" y="108" width="244" height="134" rx="12" />
+  <g>
+    <rect class="mit-mini-panel" x="60" y="105" width="280" height="140" rx="16" />
+    <path class="mit-mini-panel-edge" d="M60 172 V121 Q60 105 76 105 H324 Q340 105 340 121 V146" filter="url(#managed-mini-panel-glow)" />
+    <path class="mit-mini-panel-inner" d="M84 120 H316" />
   </g>
 
   <!-- Panel header dots (mini dashboard chrome) -->
@@ -316,7 +335,7 @@
 
   <!-- ===== ROW 1 ===== -->
   <g class="mit-mini-row-1">
-    <rect class="mit-mini-row-bg" x="84" y="124" width="232" height="30" />
+    <rect class="mit-mini-row-bg" x="74" y="124" width="252" height="30" />
     <!-- Label bar -->
     <rect class="mit-mini-label-bar" x="92" y="131" width="50" height="8" rx="2" />
     <rect class="mit-mini-label-bar-fill" x="92" y="131" width="30" height="8" rx="2" />
@@ -325,7 +344,7 @@
     <!-- Row line -->
     <rect class="mit-mini-row-line" x="174" y="137" width="60" height="2" rx="1" />
     <!-- Checkmark -->
-    <path class="mit-mini-row-check" d="M154,136 L157,139 L162,133" />
+    <path class="mit-mini-row-check" d="M312,136 L315,139 L320,133" />
     <!-- Ticket chip -->
     <g class="mit-mini-chip-group">
       <rect class="mit-mini-chip-rect" x="248" y="129" width="36" height="14" rx="3" />
@@ -343,12 +362,12 @@
 
   <!-- ===== ROW 2 ===== -->
   <g class="mit-mini-row-2">
-    <rect class="mit-mini-row-bg" x="84" y="160" width="232" height="30" />
+    <rect class="mit-mini-row-bg" x="74" y="160" width="252" height="30" />
     <rect class="mit-mini-label-bar" x="92" y="167" width="50" height="8" rx="2" />
     <rect class="mit-mini-label-bar-fill" x="92" y="167" width="30" height="8" rx="2" />
     <circle class="mit-mini-status-dot" cx="160" cy="175" r="4" filter="url(#managed-mini-dot-glow)" />
     <rect class="mit-mini-row-line" x="174" y="173" width="60" height="2" rx="1" />
-    <path class="mit-mini-row-check" d="M154,172 L157,175 L162,169" />
+    <path class="mit-mini-row-check" d="M312,172 L315,175 L320,169" />
     <g class="mit-mini-chip-group">
       <rect class="mit-mini-chip-rect" x="248" y="165" width="36" height="14" rx="3" />
       <line class="mit-mini-chip-line" x1="252" y1="172" x2="258" y2="172" />
@@ -364,12 +383,12 @@
 
   <!-- ===== ROW 3 ===== -->
   <g class="mit-mini-row-3">
-    <rect class="mit-mini-row-bg" x="84" y="196" width="232" height="30" />
+    <rect class="mit-mini-row-bg" x="74" y="196" width="252" height="30" />
     <rect class="mit-mini-label-bar" x="92" y="203" width="50" height="8" rx="2" />
     <rect class="mit-mini-label-bar-fill" x="92" y="203" width="30" height="8" rx="2" />
     <circle class="mit-mini-status-dot" cx="160" cy="211" r="4" filter="url(#managed-mini-dot-glow)" />
     <rect class="mit-mini-row-line" x="174" y="209" width="60" height="2" rx="1" />
-    <path class="mit-mini-row-check" d="M154,208 L157,211 L162,205" />
+    <path class="mit-mini-row-check" d="M312,208 L315,211 L320,205" />
     <g class="mit-mini-chip-group">
       <rect class="mit-mini-chip-rect" x="248" y="201" width="36" height="14" rx="3" />
       <line class="mit-mini-chip-line" x1="252" y1="208" x2="258" y2="208" />
@@ -387,16 +406,16 @@
   <text class="mit-mini-step-label mit-mini-step-monitor" x="100" y="278">Monitor</text>
   <text class="mit-mini-step-label mit-mini-step-detect" x="160" y="278">Detect</text>
   <text class="mit-mini-step-label mit-mini-step-own" x="220" y="278">Own</text>
-  <text class="mit-mini-step-label mit-mini-step-resolve" x="285" y="278">Resolve</text>
+  <text class="mit-mini-step-label mit-mini-step-resolve" x="316" y="278">Resolve</text>
 
   <!-- Step connector dots -->
   <circle cx="100" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
   <circle cx="160" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
   <circle cx="220" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
-  <circle cx="285" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
+  <circle cx="316" cy="284" r="1.5" fill="var(--text-dim)" opacity="0.3" />
 
   <!-- Step connector lines -->
   <line x1="105" y1="284" x2="155" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
   <line x1="165" y1="284" x2="215" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
-  <line x1="225" y1="284" x2="280" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
+  <line x1="225" y1="284" x2="311" y2="284" stroke="var(--text-dim)" stroke-width="0.5" opacity="0.15" />
 </svg>

@@ -1,72 +1,266 @@
----
-const nodes = [
-  { id: 'itkeepers', label: 'ITKeepers', x: 198, y: 372 },
-  { id: 'microsoft', label: 'Microsoft', x: 378, y: 108 },
-  { id: 'google', label: 'Google', x: 702, y: 192 },
-  { id: 'aws', label: 'AWS', x: 585, y: 468 },
-];
----
-<figure class="offering-animation animation-cloud-ecosystem is-idle" data-animation="cloud-ecosystem" role="group" aria-label="Example ecosystem connecting you with ITKeepers, Microsoft, Google and AWS">
-  <div class="cloud-ecosystem-canvas" data-animation-visual>
-    <svg class="ecosystem-connections" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true">
-      {nodes.map(node => <g class:list={['ecosystem-connection', { 'is-highlighted': node.id === 'itkeepers' }]} data-connection={node.id} style={`--end-x:${node.x}px;--end-y:${node.y}px`}>
-        <line x1="450" y1="288" x2={node.x} y2={node.y} vector-effect="non-scaling-stroke" />
-        {[0, 1, 2].map(index => <circle class={`ecosystem-particle particle-${index}`} r={index === 0 ? 3.5 : 2} />)}
-      </g>)}
-    </svg>
-    <div class="ecosystem-node ecosystem-center" style="left:50%;top:48%"><span class="ecosystem-dot" aria-hidden="true"></span><span class="ecosystem-badge">You</span></div>
-    {nodes.map(node => <button class="ecosystem-node" data-ecosystem-node={node.id} style={`left:${node.x / 9}%;top:${node.y / 6}%`} type="button" aria-label={`Highlight connection to ${node.label}`} aria-pressed={node.id === 'itkeepers' ? 'true' : 'false'}><span class="ecosystem-dot" aria-hidden="true"></span><span class="ecosystem-badge">{node.label}</span></button>)}
-  </div>
+<figure class="offering-animation animation-cloud-ecosystem is-idle" data-animation="cloud-ecosystem">
+<div class="mcv" data-animation-visual data-phase="settled" data-motion="paused">
+
+  <!-- ===== Desktop / tablet ===== -->
+  <svg class="mcv-svg mcv-desktop" viewBox="0 0 600 560" role="img"
+       aria-label="Users and access through Entra ID, connected to Microsoft 365, devices and collaboration, all managed by ITKeepers">
+    <defs>
+      <radialGradient id="mcvGlow" cx="50%" cy="48%" r="50%">
+        <stop offset="0" stop-color="#42BAEB" stop-opacity=".16"/>
+        <stop offset=".55" stop-color="#5AA9FF" stop-opacity=".06"/>
+        <stop offset="1" stop-color="#5AA9FF" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="mcvBase" x1="0" x2="1">
+        <stop offset="0" stop-color="#42BAEB" stop-opacity="0"/>
+        <stop offset=".5" stop-color="#42BAEB" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#42BAEB" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <ellipse class="mcv-glow" cx="300" cy="270" rx="300" ry="260" fill="url(#mcvGlow)"/>
+    <rect class="mcv-frame-base" x="40" y="118" width="520" height="322" rx="22"/>
+    <rect class="mcv-frame" x="40" y="118" width="520" height="322" rx="22" pathLength="1"/>
+
+    <path class="mcv-line l-1" d="M300 82 V138" pathLength="1"/>
+    <path class="mcv-line l-2" d="M300 190 V254" pathLength="1"/>
+    <path class="mcv-line l-3" d="M248 318 C200 340 170 352 170 376" pathLength="1"/>
+    <path class="mcv-line l-3" d="M352 318 C400 340 430 352 430 376" pathLength="1"/>
+    <path class="mcv-line mcv-mgmt l-5" d="M170 428 Q170 440 186 440 H300" pathLength="1"/>
+    <path class="mcv-line mcv-mgmt l-5" d="M430 428 Q430 440 414 440 H300" pathLength="1"/>
+    <path class="mcv-line mcv-mgmt l-4" d="M300 470 V440" pathLength="1"/>
+
+    <g class="mcv-pulses">
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="0.7s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="0.7s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M300 82 V138"/></circle>
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="2.1s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="2.1s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M300 190 V254"/></circle>
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="3.5s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="3.5s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M248 318 C200 340 170 352 170 376"/></circle>
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="4.9s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="4.9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M352 318 C400 340 430 352 430 376"/></circle>
+    </g>
+
+    <!-- User -->
+    <g transform="translate(300 58)"><g class="mcv-a n-user">
+      <rect class="mcv-card" x="-70" y="-26" width="140" height="52" rx="12"/>
+      <g class="mcv-icon" transform="translate(-44 0)"><circle r="13" class="mcv-icon-bg"/><path d="M0-7a2.8 2.8 0 1 0 0 5.6a2.8 2.8 0 1 0 0-5.6zM-5.5 7v-.5a4.5 4.5 0 0 1 4.5-4.5h2a4.5 4.5 0 0 1 4.5 4.5v.5"/></g>
+      <text x="-22" y="5" class="mcv-label">User</text>
+    </g></g>
+
+    <!-- Entra ID -->
+    <g transform="translate(300 164)"><g class="mcv-a n-entra">
+      <rect class="mcv-card" x="-84" y="-26" width="168" height="52" rx="12"/>
+      <g class="mcv-icon" transform="translate(-58 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-3 0a3 3 0 1 1 6 0a3 3 0 1 1-6 0M3 0h5M6 0v2.5"/></g>
+      <text x="-36" y="5" class="mcv-label">Entra ID</text>
+    </g></g>
+
+    <!-- Microsoft 365 (primary) -->
+    <g transform="translate(300 286)"><g class="mcv-a n-m365 is-primary">
+      <rect class="mcv-card" x="-105" y="-32" width="210" height="64" rx="12"/>
+      <g class="mcv-icon" transform="translate(-79 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-5-5h4.5v4.5H-5zM.5-5H5v4.5H.5zM-5 .5h4.5V5H-5zM.5 .5H5V5H.5z"/></g>
+      <text x="-57" y="6" class="mcv-label">Microsoft 365</text>
+    </g></g>
+
+    <!-- Devices -->
+    <g transform="translate(170 402)"><g class="mcv-a n-dev">
+      <rect class="mcv-card" x="-84" y="-26" width="168" height="52" rx="12"/>
+      <g class="mcv-icon" transform="translate(-58 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-6-4h12v7.5H-6zM-3 6h6"/></g>
+      <text x="-36" y="5" class="mcv-label">Devices</text>
+    </g></g>
+
+    <!-- Email & Collaboration -->
+    <g transform="translate(430 402)"><g class="mcv-a n-dev">
+      <rect class="mcv-card" x="-107" y="-26" width="214" height="52" rx="12"/>
+      <g class="mcv-icon" transform="translate(-81 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-6-4h12v8h-12zM-6-4l6 4.5L6-4"/></g>
+      <text x="-59" y="5" class="mcv-label">Email &amp; Collaboration</text>
+    </g></g>
+
+    <!-- ITKeepers management layer -->
+    <g transform="translate(300 500)"><g class="mcv-a n-itk mcv-itk">
+      <rect class="mcv-itk-card" x="-150" y="-30" width="300" height="60" rx="14"/>
+      <rect x="-150" y="28" width="300" height="2" fill="url(#mcvBase)"/>
+      <g class="mcv-icon" transform="translate(-118 0)"><circle r="14" class="mcv-icon-bg"/><path d="M0-6l5.5 2v4c0 3.5-2.5 5.5-5.5 7c-3-1.5-5.5-3.5-5.5-7v-4zM-2.3 .3l1.6 1.6l3-3.2"/></g>
+      <text x="-94" y="-2" class="mcv-label mcv-itk-label">ITKeepers</text>
+      <text x="-94" y="15" class="mcv-sub">Managed in context</text>
+      <circle class="mcv-ok" cx="126" cy="0" r="4"/>
+    </g></g>
+  </svg>
+
+  <!-- ===== Mobile (≤640px) ===== -->
+  <svg class="mcv-svg mcv-mobile" viewBox="0 0 320 450" role="img"
+       aria-label="User, Entra ID, Microsoft 365, devices and collaboration, managed by ITKeepers">
+    <defs>
+      <radialGradient id="mcvGlowM" cx="50%" cy="50%" r="55%">
+        <stop offset="0" stop-color="#42BAEB" stop-opacity=".14"/>
+        <stop offset="1" stop-color="#5AA9FF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse class="mcv-glow" cx="160" cy="220" rx="170" ry="230" fill="url(#mcvGlowM)"/>
+    <rect class="mcv-frame-base" x="14" y="100" width="292" height="230" rx="18"/>
+    <rect class="mcv-frame" x="14" y="100" width="292" height="230" rx="18" pathLength="1"/>
+
+    <path class="mcv-line l-1" d="M160 68 V104" pathLength="1"/>
+    <path class="mcv-line l-2" d="M160 152 V185" pathLength="1"/>
+    <path class="mcv-line l-3" d="M160 239 V272" pathLength="1"/>
+    <path class="mcv-line mcv-mgmt l-5" d="M160 320 V330" pathLength="1"/>
+    <path class="mcv-line mcv-mgmt l-4" d="M160 330 V364" pathLength="1"/>
+
+    <g class="mcv-pulses">
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="0.7s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="0.7s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M160 68 V104"/></circle>
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="2.1s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="2.1s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M160 152 V185"/></circle>
+      <circle r="3" opacity="0" class="mcv-pulse"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.2;.8;1" dur="5.6s" begin="3.5s" repeatCount="indefinite"/><animateMotion dur="5.6s" begin="3.5s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1" path="M160 239 V272"/></circle>
+    </g>
+
+    <g transform="translate(160 44)"><g class="mcv-a n-user">
+      <rect class="mcv-card" x="-75" y="-24" width="150" height="48" rx="12"/>
+      <g class="mcv-icon" transform="translate(-49 0)"><circle r="13" class="mcv-icon-bg"/><path d="M0-7a2.8 2.8 0 1 0 0 5.6a2.8 2.8 0 1 0 0-5.6zM-5.5 7v-.5a4.5 4.5 0 0 1 4.5-4.5h2a4.5 4.5 0 0 1 4.5 4.5v.5"/></g>
+      <text x="-27" y="5" class="mcv-label">User</text>
+    </g></g>
+
+    <g transform="translate(160 128)"><g class="mcv-a n-entra">
+      <rect class="mcv-card" x="-95" y="-24" width="190" height="48" rx="12"/>
+      <g class="mcv-icon" transform="translate(-69 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-3 0a3 3 0 1 1 6 0a3 3 0 1 1-6 0M3 0h5M6 0v2.5"/></g>
+      <text x="-47" y="5" class="mcv-label">Entra ID</text>
+    </g></g>
+
+    <g transform="translate(160 212)"><g class="mcv-a n-m365 is-primary">
+      <rect class="mcv-card" x="-110" y="-27" width="220" height="54" rx="12"/>
+      <g class="mcv-icon" transform="translate(-84 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-5-5h4.5v4.5H-5zM.5-5H5v4.5H.5zM-5 .5h4.5V5H-5zM.5 .5H5V5H.5z"/></g>
+      <text x="-62" y="6" class="mcv-label">Microsoft 365</text>
+    </g></g>
+
+    <g transform="translate(160 296)"><g class="mcv-a n-dev">
+      <rect class="mcv-card" x="-126" y="-24" width="252" height="48" rx="12"/>
+      <g class="mcv-icon" transform="translate(-100 0)"><circle r="13" class="mcv-icon-bg"/><path d="M-6-4h12v7.5H-6zM-3 6h6"/></g>
+      <text x="-78" y="5" class="mcv-label">Devices / Collaboration</text>
+    </g></g>
+
+    <g transform="translate(160 392)"><g class="mcv-a n-itk mcv-itk">
+      <rect class="mcv-itk-card" x="-130" y="-28" width="260" height="56" rx="14"/>
+      <g class="mcv-icon" transform="translate(-100 0)"><circle r="13" class="mcv-icon-bg"/><path d="M0-6l5.5 2v4c0 3.5-2.5 5.5-5.5 7c-3-1.5-5.5-3.5-5.5-7v-4zM-2.3 .3l1.6 1.6l3-3.2"/></g>
+      <text x="-78" y="-2" class="mcv-label mcv-itk-label">ITKeepers</text>
+      <text x="-78" y="14" class="mcv-sub">Managed in context</text>
+      <circle class="mcv-ok" cx="108" cy="0" r="4"/>
+    </g></g>
+  </svg>
+</div>
 </figure>
 <style>
-  .cloud-ecosystem-canvas { --ecosystem-accent:#5aa9ff; --ecosystem-line:rgba(90,169,255,.25); --ecosystem-glow:rgba(90,169,255,.3); --ecosystem-badge:rgba(18,22,31,.85); --ecosystem-text:#fff; position:relative; inline-size:100%; block-size:var(--service-art-size,360px); max-inline-size:var(--service-art-size,900px); margin-inline:auto; background:radial-gradient(circle at 50% 40%,rgba(90,169,255,.05),transparent 70%); }
-  .ecosystem-connections { position:absolute; inset:0; inline-size:100%; block-size:100%; pointer-events:none; overflow:visible; }
-  .ecosystem-connection line { stroke:var(--ecosystem-line); stroke-width:1; }
-  .ecosystem-connection.is-highlighted line { stroke:var(--ecosystem-accent); stroke-opacity:.8; stroke-width:2; }
-  .ecosystem-particle { fill:var(--ecosystem-accent); opacity:0; transform:translate(450px,288px); }
-  .is-highlighted .ecosystem-particle { fill:var(--ecosystem-text); filter:drop-shadow(0 0 4px var(--ecosystem-accent)); }
-  .ecosystem-node { position:absolute; transform:translate(-50%,-7px); display:flex; flex-direction:column; align-items:center; gap:8px; border:0; background:none; padding:0; color:var(--ecosystem-text); font:inherit; min-block-size:44px; }
-  button.ecosystem-node { cursor:pointer; }
-  .ecosystem-dot { inline-size:10px; block-size:10px; background:var(--ecosystem-accent); border-radius:50%; box-shadow:0 0 12px var(--ecosystem-glow),0 0 24px var(--ecosystem-glow); }
-  .ecosystem-center .ecosystem-dot { inline-size:14px; block-size:14px; position:relative; }
-  .ecosystem-center .ecosystem-dot::after { content:''; position:absolute; inset:50% auto auto 50%; inline-size:28px; block-size:28px; border:1.5px solid var(--ecosystem-accent); border-radius:50%; transform:translate(-50%,-50%); opacity:0; }
-  .ecosystem-badge { background:var(--ecosystem-badge); border:1px solid var(--ecosystem-line); color:var(--ecosystem-text); font-size:14px; font-weight:600; padding:6px 16px; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,.25); backdrop-filter:blur(8px); letter-spacing:.3px; white-space:nowrap; }
-  button[aria-pressed="true"] .ecosystem-badge, button:focus-visible .ecosystem-badge { border-color:var(--ecosystem-accent); }
-  .ecosystem-node:focus-visible { outline:3px solid var(--focus,var(--ecosystem-accent)); outline-offset:5px; border-radius:20px; }
-  .animation-cloud-ecosystem[data-animation-enhanced] .ecosystem-particle { animation:ecosystem-travel 2.083333s linear infinite; }
-  .animation-cloud-ecosystem[data-animation-enhanced] .particle-1 { animation-delay:-.694444s; }
-  .animation-cloud-ecosystem[data-animation-enhanced] .particle-2 { animation-delay:-1.388888s; }
-  .ecosystem-connection:not(.is-highlighted) :is(.particle-1,.particle-2) { display:none; }
-  .animation-cloud-ecosystem[data-animation-enhanced] .ecosystem-center .ecosystem-dot::after { animation:ecosystem-ring 2.5s ease-out infinite; }
-  .animation-cloud-ecosystem.is-idle .ecosystem-particle, .animation-cloud-ecosystem.is-idle .ecosystem-center .ecosystem-dot::after { animation-play-state:paused; }
-  .animation-cloud-ecosystem[data-animation-state="settled"] .ecosystem-particle, .animation-cloud-ecosystem[data-animation-state="settled"] .ecosystem-center .ecosystem-dot::after { animation:none; opacity:0; }
-  @keyframes ecosystem-travel { from { transform:translate(450px,288px); opacity:1; } to { transform:translate(var(--end-x),var(--end-y)); opacity:1; } }
-  @keyframes ecosystem-ring { from { inline-size:18px; block-size:18px; opacity:.8; } to { inline-size:42px; block-size:42px; opacity:0; } }
-  @media (hover:hover) and (pointer:fine) { button.ecosystem-node:hover .ecosystem-badge { border-color:var(--ecosystem-accent); box-shadow:0 0 15px var(--ecosystem-line); } }
-  @media (prefers-reduced-motion:no-preference) { button.ecosystem-node { transition:transform .25s ease; } button.ecosystem-node:hover { transform:translate(-50%,-7px) scale(1.08); } }
-  @media (max-width:900px) { .cloud-ecosystem-canvas { block-size:var(--service-art-size,280px); } .ecosystem-badge { padding:6px 10px; } }
-  @media (prefers-reduced-motion:reduce) { .ecosystem-particle,.ecosystem-center .ecosystem-dot::after { animation:none!important; opacity:0!important; } }
-  @media (forced-colors:active) { .ecosystem-connection line { stroke:CanvasText; } .ecosystem-badge { border-color:ButtonText; } .ecosystem-dot { background:CanvasText; } }
+
+  
+  
+
+  .mcv {
+    --mcv-itk: #42BAEB;
+    --mcv-cloud: #5AA9FF;
+    --mcv-ok: var(--itk-success, #2DD4A7);
+    --mcv-surface: var(--surface-2, #0E1B2E);
+    --mcv-surface-hi: var(--surface-3, #13243C);
+    --mcv-text: var(--itk-text, #E8F1FA);
+    --mcv-muted: var(--itk-muted, #8FA6BF);
+    --mcv-line: rgba(90, 169, 255, .22);
+    position: relative; width: 100%; max-width: 600px; margin-inline: auto;
+  }
+  .mcv-svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .mcv-mobile { display: none; }
+  @media (max-width: 640px) {
+    .mcv { max-width: 340px; }
+    .mcv-desktop { display: none; }
+    .mcv-mobile { display: block; }
+  }
+
+  /* Nodes */
+  .mcv-card { fill: var(--mcv-surface); stroke: rgba(90,169,255,.38); stroke-width: 1;
+    filter: drop-shadow(0 6px 14px rgba(0,8,20,.45)); }
+  .is-primary .mcv-card { fill: var(--mcv-surface-hi); stroke: rgba(90,169,255,.6); }
+  .mcv-icon-bg { fill: rgba(90,169,255,.12); stroke: rgba(90,169,255,.35); stroke-width: 1; }
+  .mcv-icon path { fill: none; stroke: var(--mcv-cloud); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .mcv-label { fill: var(--mcv-text); font: 600 15px/1 var(--font-sans, Inter, system-ui, -apple-system, "Segoe UI", sans-serif); letter-spacing: .01em; }
+  .is-primary .mcv-label { font-size: 17px; }
+  .mcv-sub { fill: var(--mcv-muted); font: 500 11px/1 var(--font-sans, Inter, system-ui, -apple-system, "Segoe UI", sans-serif); letter-spacing: .04em; }
+
+  /* ITKeepers layer */
+  .mcv-itk-card { fill: var(--mcv-surface-hi); stroke: var(--mcv-itk); stroke-width: 1.25;
+    filter: drop-shadow(0 8px 22px rgba(66,186,235,.18)); }
+  .mcv-itk .mcv-icon path { stroke: var(--mcv-itk); }
+  .mcv-itk .mcv-icon-bg { fill: rgba(66,186,235,.14); stroke: rgba(66,186,235,.5); }
+  .mcv-itk-label { font-size: 17px; }
+  .mcv-ok { fill: var(--mcv-ok); }
+  .mcv-frame { fill: none; stroke: var(--mcv-itk); stroke-opacity: .45; stroke-width: 1.25; stroke-dasharray: 1; }
+
+  /* Lines & pulses */
+  .mcv-line { fill: none; stroke: var(--mcv-line); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; }
+  .mcv-mgmt { stroke: var(--mcv-itk); stroke-opacity: .6; }
+
+  .mcv-glow { opacity: 0; }
+
+  /* Animated inner groups (outer <g> holds the position) */
+  .mcv-a { opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .mcv-line, .mcv-frame { stroke-dashoffset: 1; }
+  .mcv-pulses { opacity: 0; }
+
+  /* ===== Calm timeline: slow, eased, overlapping (~4.4s) ===== */
+  .mcv { --ease: cubic-bezier(.33,0,.15,1); }
+  .mcv[data-phase="play"] .mcv-glow { animation: mcvFade 1.92s var(--ease) 0s forwards; }
+  /* Present the user anchor during the shared entrance, without a second fade. */
+  .mcv .n-user { opacity: 1; transform: none; }
+  .mcv[data-phase="play"] .l-1 { animation: mcvDraw 0.58s var(--ease) 0s forwards; }
+  .mcv[data-phase="play"] .n-entra { animation: mcvIn 0.7s var(--ease) 0.15s forwards; }
+  .mcv[data-phase="play"] .l-2 { animation: mcvDraw 0.58s var(--ease) 0.65s forwards; }
+  .mcv[data-phase="play"] .n-m365  { animation: mcvIn 0.77s var(--ease) 0.9s forwards; }
+  .mcv[data-phase="play"] .l-3 { animation: mcvDraw 0.7s var(--ease) 1.86s forwards; }
+  .mcv[data-phase="play"] .n-dev   { animation: mcvIn 0.7s var(--ease) 2.11s forwards; }
+  .mcv[data-phase="play"] .mcv-frame { animation: mcvDraw 1.41s var(--ease) 2.56s forwards; }
+  .mcv[data-phase="play"] .l-4 { animation: mcvDraw 0.58s var(--ease) 2.75s forwards; }
+  .mcv[data-phase="play"] .l-5 { animation: mcvDraw 0.5s var(--ease) 2.6s forwards; }
+  .mcv[data-phase="play"] .mcv-itk-card { animation: mcvItkSettle 0.7s var(--ease) 3.7s forwards; }
+  .mcv[data-phase="play"] .n-itk { animation: mcvIn 0.83s var(--ease) 2.94s forwards; }
+
+  /* ===== Settled: quiet final state =====
+     Keep only two ambient cues:
+     1) a very subtle ITKeepers breathe
+     2) occasional slow data pulses */
+  .mcv[data-phase="settled"] .mcv-a { opacity: 1; transform: none; }
+  .mcv[data-phase="settled"] .mcv-line,
+  .mcv[data-phase="settled"] .mcv-frame { stroke-dashoffset: 0; }
+  .mcv[data-phase="settled"] .mcv-glow { opacity: 1; animation: none; transform: none; }
+  .mcv[data-phase="settled"] .mcv-pulses { animation: mcvFade 1.2s ease forwards; }
+  .mcv[data-phase="settled"] .mcv-itk-card { animation: mcvItkBreathe 8s ease-in-out infinite; stroke-width: 1.4; }
+  .mcv[data-phase="settled"] .mcv-ok { opacity: 1; animation: none; transform: none; }
+  .mcv[data-phase="settled"] .mcv-frame { stroke-dasharray: none; animation: none; stroke-opacity: .5; }
+  .mcv[data-phase="settled"] .mcv-mgmt { stroke-opacity: .68; }
+  .mcv-frame-base { fill: none; stroke: #42BAEB; stroke-opacity: 0; stroke-width: 1; }
+  .mcv[data-phase="settled"] .mcv-frame-base { stroke-opacity: .22; transition: stroke-opacity 1.8s ease; }
+
+  /* Pulses: small, soft, with a fading trail */
+  .mcv-pulse { fill: var(--mcv-itk); r: 2.5; opacity: .9; filter: drop-shadow(0 0 5px rgba(66,186,235,.6)); }
+
+  @keyframes mcvIn { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+  @keyframes mcvDraw { to { stroke-dashoffset: 0; } }
+  @keyframes mcvFade { to { opacity: 1; } }
+  @keyframes mcvItkBreathe { 0%,100% { filter: drop-shadow(0 8px 20px rgba(66,186,235,.14)); } 50% { filter: drop-shadow(0 8px 24px rgba(66,186,235,.22)); } }
+  @keyframes mcvItkSettle { to { stroke-width: 1.4; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mcv .mcv-a, .mcv .mcv-glow { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .mcv .mcv-line, .mcv .mcv-frame { stroke-dashoffset: 0 !important; animation: none !important; }
+    .mcv .mcv-pulses { display: none; }
+    .mcv .mcv-frame { stroke-dasharray: none !important; stroke-opacity: .6; }
+    .mcv .mcv-frame-base { stroke-opacity: .24; }
+    .mcv .mcv-mgmt { stroke-opacity: .68; }
+    .mcv .mcv-itk-card { stroke-width: 1.4; }
+  }
+
+
+ .animation-cloud-ecosystem { position:relative; margin:0; }
+ .mcv[data-motion="paused"] :global(*) { animation-play-state:paused!important; }
+ .mcv[data-motion="running"] :global(*) { animation-play-state:running; }
+ .mcv[data-phase="settled"] .mcv-pulses { pointer-events:none; }
+ :global([data-hero-theme="day"]) .mcv { --mcv-surface:#f4f7fb; --mcv-surface-hi:#e9f3fa; --mcv-text:var(--n); --mcv-muted:#42566f; --mcv-cloud:#2763a5; --mcv-itk:#075d7d; --mcv-ok:#207644; }
+ @media (prefers-reduced-motion:reduce) { .mcv :global(*) { animation:none!important; transition:none!important; } }
+ @media (forced-colors:active) { .mcv text { fill:CanvasText; } .mcv :is(.mcv-card,.mcv-itk-card) { fill:Canvas; stroke:CanvasText; } }
 </style>
 <script>
-  import { mountAnimation } from '../../scripts/animation-lifecycle';
-  document.querySelectorAll<HTMLElement>('.animation-cloud-ecosystem').forEach(root => {
-    let selected = 'itkeepers';
-    const highlight = (id: string) => root.querySelectorAll<SVGGElement>('[data-connection]').forEach(line => line.classList.toggle('is-highlighted', line.dataset.connection === id));
-    const select = (id: string) => {
-      selected = id;
-      root.querySelectorAll<HTMLButtonElement>('[data-ecosystem-node]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.ecosystemNode === id)));
-      highlight(id);
-    };
-    mountAnimation(root, () => { select('itkeepers'); return { play() {}, settle() { highlight(selected); }, duration:6250 }; });
-    // Delegate to the stable root: replay restores the visual's original markup.
-    const node = (target: EventTarget | null) => target instanceof Element ? target.closest<HTMLButtonElement>('[data-ecosystem-node]') : null;
-    root.addEventListener('click', event => { const button=node(event.target); if(button) select(button.dataset.ecosystemNode!); });
-    root.addEventListener('pointerover', event => { const button=node(event.target); if(button && event.pointerType==='mouse') highlight(button.dataset.ecosystemNode!); });
-    root.addEventListener('pointerout', event => { if(node(event.target) && !node(event.relatedTarget)) highlight(selected); });
-    root.addEventListener('focusin', event => { const button=node(event.target); if(button) highlight(button.dataset.ecosystemNode!); });
-    root.addEventListener('focusout', event => { if(!node(event.relatedTarget)) highlight(selected); });
-  });
+import { mountAnimation } from '../../scripts/animation-lifecycle';
+import { createServiceStory } from '../../scripts/service-operational-stories';
+document.querySelectorAll<HTMLElement>('.animation-cloud-ecosystem').forEach(root => {
+ mountAnimation(root, scheduler => createServiceStory(root, scheduler, 'cloud'));
+});
 </script>
-
 

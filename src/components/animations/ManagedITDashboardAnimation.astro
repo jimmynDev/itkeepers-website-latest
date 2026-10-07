@@ -7,13 +7,14 @@ import diagram from '../../assets/managed-it-dashboard.svg?raw';
 <style is:global>
   .managed-dashboard-canvas { inline-size:100%; min-block-size:var(--service-art-size,400px); display:grid; place-items:center; }
   .managed-dashboard-canvas .mit-mini-dashboard { inline-size:min(100%,640px); block-size:auto; max-inline-size:none; max-block-size:none; }
-  .managed-dashboard-canvas .mit-mini-bg-rect { fill:transparent; }
+  /* This unused 400px backdrop extends beyond the cropped 300px viewBox. */
+  .managed-dashboard-canvas .mit-mini-bg-rect { display:none; }
   .animation-managed-dashboard .managed-dashboard-canvas .mit-mini-dashboard * { animation:none; }
   .managed-dashboard-canvas .mit-mini-status-dot { fill:var(--accent); }
   .managed-dashboard-canvas :is(.mit-mini-chip-group,.mit-mini-avatar-group) { opacity:1; transform:translateX(0); }
   .managed-dashboard-canvas .mit-mini-row-check { stroke-dashoffset:0; opacity:1; }
   .managed-dashboard-canvas .mit-mini-step-label { fill:var(--accent); opacity:1; font-size:12px; }
-  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-panel { animation:mit-mini-panel-glow 5s ease-in-out infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-panel-edge { animation:mit-mini-panel-glow 5s ease-in-out infinite; }
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-label-bar-fill { animation:mit-mini-bar-pulse 3s ease-in-out infinite; }
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) :is(.mit-mini-row-1,.mit-mini-row-2,.mit-mini-row-3) { --row-delay:0s; }
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-row-2 { --row-delay:3.33s; }
@@ -27,11 +28,12 @@ import diagram from '../../assets/managed-it-dashboard.svg?raw';
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-detect { animation:mit-mini-step-highlight-amber 10s ease-in-out 2.5s infinite; }
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-own { animation:mit-mini-step-highlight 10s ease-in-out 5s infinite; }
   .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-step-resolve { animation:mit-mini-step-highlight 10s ease-in-out 7.5s infinite; }
+  .animation-managed-dashboard[data-animation-enhanced]:not([data-animation-state="settled"]) .mit-mini-dashboard * { animation-iteration-count:1; }
   .animation-managed-dashboard.is-idle .mit-mini-dashboard * { animation-play-state:paused!important; }
   @media (max-width:900px) { .managed-dashboard-canvas .mit-mini-dashboard { inline-size:min(100%,480px); } }
   @media (prefers-reduced-motion:reduce) { .managed-dashboard-canvas .mit-mini-dashboard * { animation:none!important; } }
 </style>
 <script>
   import { mountAnimation } from '../../scripts/animation-lifecycle';
-  document.querySelectorAll<HTMLElement>('.animation-managed-dashboard').forEach(root => mountAnimation(root, () => ({play() {},settle() {},duration:16660}), { loop:true }));
+  document.querySelectorAll<HTMLElement>('.animation-managed-dashboard').forEach(root => mountAnimation(root, () => ({play() {},settle() {},duration:16660})));
 </script>

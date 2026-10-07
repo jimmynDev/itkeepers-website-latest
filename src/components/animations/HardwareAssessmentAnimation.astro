@@ -1,0 +1,43 @@
+---
+// Compact adaptation of keep-upgrade-replace.html: diagnostics and three outcomes.
+const signals=[['CPU',7,'Within spec','ok'],['RAM',4,'Under pressure','review'],['Storage',3,'Near capacity','review'],['Age',5,'In service','neutral'],['Warranty',3,'Expired','review'],['Security compatibility',7,'Review in this example','neutral']];
+const outcomes=[['Keep','Still suitable for its workload.'],['Upgrade','A targeted improvement addresses the actual bottleneck.'],['Replace','No longer sensible to maintain for the work it needs to do.']];
+---
+<figure class="hardware-assessment is-idle" data-animation="hardware-assessment" aria-describedby="hardware-caption">
+  <div class="assessment-scene" data-animation-visual data-phase="settled">
+    <div class="assessment-diagnostics"><div class="assessment-heading"><strong>Sample assessment</strong><span data-assessment-status>Example complete</span></div><dl>{signals.map(([name,fill,state,tone],index)=><div class="assessment-signal" data-assessment-signal={index}><dt>{name}</dt><dd><span class:list={['assessment-meter',`meter-${tone}`]} aria-hidden="true">{Array.from({length:8},(_,i)=><i class:list={{'is-filled':i<Number(fill)}}></i>)}</span><span class="assessment-reading">{state}</span></dd></div>)}</dl></div>
+    <div class="assessment-options" aria-label="Three possible hardware decisions">{outcomes.map(([name,copy])=><div class:list={['assessment-option',{'is-selected':name==='Upgrade'}]} data-assessment-outcome={name.toLowerCase()}><div class="assessment-option-title"><strong>{name}</strong>{name==='Upgrade'&&<span class="assessment-selection">Example outcome</span>}</div><p>{copy}</p></div>)}</div>
+  </div>
+  <figcaption id="hardware-caption"><span class="illustrative-badge">Illustrative</span><span>Sample device assessment, not a diagnosis or client result.</span></figcaption>
+</figure>
+<style>
+  .hardware-assessment { margin:0; min-width:0; }
+  .assessment-scene { display:grid; grid-template-columns:1fr 1.1fr; gap:20px; color:#0b2c5f; }
+  .assessment-diagnostics { padding:18px; border:1px solid #bfd4e5; border-radius:14px; background:rgba(255,255,255,.7); min-width:0; }
+  .assessment-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; padding-bottom:12px; border-bottom:1px solid #cedeea; font-size:14px; line-height:1.5; }
+  .assessment-heading > span { color:#42566f; font-size:12px; }
+  .assessment-diagnostics dl { margin:12px 0 0; }
+  .assessment-signal { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:12px; padding-block:7px; font-size:12px; line-height:1.5; }
+  .assessment-signal dt { font-weight:600; overflow-wrap:anywhere; }
+  .assessment-signal dd { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0; min-width:0; }
+  .assessment-reading { color:#42566f; text-align:right; overflow-wrap:anywhere; }
+  .assessment-meter { display:flex; gap:3px; flex:none; }
+  .assessment-meter i { width:4px; height:12px; border-radius:1px; background:#d4e2ec; }
+  .assessment-meter .is-filled { background:#4071B5; }
+  .meter-ok .is-filled { background:#2d7c6c; }
+  .meter-review .is-filled { background:#916421; }
+  .assessment-options { display:grid; gap:10px; }
+  .assessment-option { padding:13px 16px; border:1px solid #bfd4e5; border-radius:12px; background:rgba(255,255,255,.45); }
+  .assessment-option-title { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; font-size:14px; line-height:1.5; }
+  .assessment-option p { margin:6px 0 0; font-size:14px; line-height:1.6; color:#42566f; overflow-wrap:anywhere; }
+  .assessment-selection { padding:2px 7px; border:1px solid #b89a65; border-radius:6px; background:#fbf1df; color:#765019; font-size:12px; line-height:1.6; }
+  .assessment-option.is-selected { border-color:#b39664; background:#fbf5e9; }
+  .hardware-assessment figcaption { display:flex; align-items:start; gap:10px; margin-top:12px; color:#42566f; font-size:12px; line-height:1.7; }
+  .hardware-assessment .illustrative-badge { flex:none; color:#31577d; background:#edf5fb; border-color:#bdcfe0; font-size:12px; }
+  .hardware-assessment[data-animation-enhanced="true"] .assessment-scene:not([data-phase="settled"]) .assessment-option:not(.is-selected) .assessment-selection { visibility:hidden; }
+  .hardware-assessment[data-animation-enhanced="true"] .assessment-signal:not(.is-read) .assessment-meter .is-filled { background:#d4e2ec; }
+  @media(prefers-reduced-motion:no-preference) { .assessment-option { transition:background-color 300ms ease,border-color 300ms ease; } .assessment-meter i { transition:background-color 200ms ease; } }
+  .hardware-assessment:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .assessment-scene * { transition:none; }
+  @media(max-width:620px) { .assessment-scene { grid-template-columns:1fr; gap:16px; } .assessment-signal { grid-template-columns:1fr 1.4fr; } .assessment-signal dd { flex-wrap:wrap; } .assessment-reading { text-align:left; } .hardware-assessment figcaption { flex-direction:column; gap:7px; } }
+  @media(forced-colors:active) { .assessment-scene,.assessment-scene * { color:CanvasText; border-color:CanvasText; } .assessment-diagnostics,.assessment-option,.assessment-option.is-selected,.assessment-selection { background:Canvas; } .assessment-option.is-selected { outline:2px solid Highlight; } }
+</style>

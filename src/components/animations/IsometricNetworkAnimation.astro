@@ -18,7 +18,7 @@ import fallback from '../../assets/isometric-network-fallback.svg?raw';
   import { createIsometricNetwork } from '../../scripts/isometric-network';
   document.querySelectorAll<HTMLElement>('.animation-isometric-network').forEach(root => {
     let renderer: ReturnType<typeof createIsometricNetwork> | undefined;
-    mountAnimation(root, () => { renderer?.dispose(); renderer=createIsometricNetwork(root); return renderer; }, { loop:true });
+    mountAnimation(root, () => { renderer?.dispose(); renderer=createIsometricNetwork(root); return renderer; });
     window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
   });
 </script>

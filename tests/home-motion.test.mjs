@@ -37,8 +37,8 @@ function fixture({ matches = true, hasPage = true, hasWash = true } = {}) {
   return {
     wash, page, media, document, window, classes, frames,
     mediaQueries: () => mediaQueries,
-    move(x, y, { pointerType = 'mouse', tone, service } = {}) {
-      page.emit('pointermove', { pointerType, clientX: x, clientY: y, target: { closest: selector => selector === '.service-story' ? service ?? null : tone ? { dataset: { light: tone } } : null } });
+    move(x, y, { pointerType = 'mouse', tone, service, digital } = {}) {
+      page.emit('pointermove', { pointerType, clientX: x, clientY: y, target: { closest: selector => selector === '.service-story' ? service ?? null : selector === '.digital-bridge' ? digital ?? null : tone ? { dataset: { light: tone } } : null } });
     },
     flush() { const pending = [...frames.values()]; frames.clear(); for (const callback of pending) callback(); }
   };
@@ -71,6 +71,20 @@ test('service light follows local coordinates and clears the previous section an
   assert.equal(second.style['--service-pointer-visible'], '1');
   flow.page.emit('pointerleave'); flow.flush();
   assert.equal(second.style['--service-pointer-visible'], undefined);
+});
+
+test('Web light paints on its shared parent using Web coordinates without a second global wash', () => {
+  const flow = fixture();
+  const host = { style: { setProperty(key,value) { this[key]=value; }, removeProperty(key) { delete this[key]; } } };
+  const digital = { closest: () => host, getBoundingClientRect: () => ({ left:0,top:240 }) };
+  flow.move(620,480,{ digital }); flow.flush();
+  assert.equal(host.style['--service-pointer-x'],'620px');
+  assert.equal(host.style['--service-pointer-y'],'240px');
+  assert.equal(host.style['--service-pointer-visible'],'1');
+  assert.equal(flow.wash.style.opacity,'0');
+  flow.move(620,480); flow.flush();
+  assert.equal(host.style['--service-pointer-visible'],undefined);
+  assert.equal(flow.wash.style.opacity,'1');
 });
 
 test('leave, blur and hidden document clear light even with a pointer frame pending', () => {

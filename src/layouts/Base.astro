@@ -19,6 +19,7 @@ if (Astro.url.pathname === '/') {
     '@type': 'WebSite',
     '@id': `${organizationUrl}#website`,
     name: 'ITKeepers',
+    description,
     url: organizationUrl,
     publisher: { '@id': organizationId }
   });
@@ -33,7 +34,9 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/assets/itkeepers-logo.png" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico?v=itk-symbol-3" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=itk-symbol-3" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=itk-symbol-3" />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
@@ -46,6 +49,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     <meta name="twitter:description" content={description} />
 
     <script type="application/ld+json" set:html={schemaJson}></script>
+    <slot name="head" />
 
     {Astro.url.pathname === '/' && <script is:inline src="/hero-theme-init.js"></script>}
 
@@ -55,6 +59,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     <link rel="stylesheet" href="/visual-system-tokens.css" />
     <link rel="stylesheet" href="/visual-system.css" />
     <link rel="stylesheet" href="/emergency.css" />
+    <link rel="stylesheet" href="/pulse-navigation.css" />
   </head>
   <body class={Astro.url.pathname === '/' ? 'home-page' : undefined}>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -62,10 +67,11 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     <div class="header-region">
     <header class="site-header">
       <a class="site-brand" href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" /></a>
-      <nav class="desktop-navigation" aria-label="Primary navigation"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><span class="header-cta-actions"><a class="btn" href="/contact">Talk to our team</a><EmergencyAction /></span></nav>
+      <nav class="desktop-navigation" aria-label="Primary navigation"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/it-keepers-pulse" aria-current={Astro.url.pathname.replace(/\/$/, "") === "/it-keepers-pulse" ? "page" : undefined}>IT Keepers Pulse</a><a href="/about">The team</a><span class="header-cta-actions"><a class="btn header-primary-cta" href="/contact">Talk to our team</a></span></nav>
+      <EmergencyAction />
       {Astro.url.pathname === '/' && <button class="hero-theme-toggle" type="button" data-hero-theme-toggle aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" hidden><span data-theme-icon aria-hidden="true">☀</span></button>}
       <EmergencyAction placement="mobile" />
-      <details class="mobile-navigation"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a class="btn" href="/contact">Talk to our team</a></nav></details>
+      <details class="mobile-navigation"><summary><span class="mobile-menu-label">Menu</span> <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/it-keepers-pulse" aria-current={Astro.url.pathname.replace(/\/$/, "") === "/it-keepers-pulse" ? "page" : undefined}>IT Keepers Pulse</a><a href="/about">The team</a><a class="btn header-primary-cta" href="/contact">Talk to our team</a></nav></details>
     </header>
     </div>
     {Astro.url.pathname === '/' && <div class="home-pointer-light" data-tone="cyan" aria-hidden="true"></div>}

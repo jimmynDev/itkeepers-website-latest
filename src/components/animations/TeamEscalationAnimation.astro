@@ -1,0 +1,120 @@
+---
+const disciplines = [
+  ['cloud', 'Cloud'], ['security', 'Security'], ['networking', 'Networking'],
+  ['infrastructure', 'Infrastructure'], ['support', 'Support']
+];
+---
+<figure class="team-escalation is-idle" data-animation="team-escalation" role="img" aria-label="Conceptual team handoff: your environment connects to a familiar engineer, backed by Cloud, Security, Networking, Infrastructure and Support. A specialist joins internally with the same context.">
+  <div class="who-scene" data-animation-visual data-phase="settled" aria-hidden="true">
+    <svg class="who-paths who-paths-desktop" viewBox="0 0 600 480" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g class="who-connection-paths">
+        <path d="M300 305V185" />
+        <path d="M300 185C300 130 110 150 110 90" />
+        <path d="M300 185C220 185 80 220 80 305" />
+        <path d="M300 185C380 185 520 220 520 305" />
+        <path d="M300 185C380 240 390 390 300 430" />
+        <path d="M300 185C300 130 490 150 490 90" />
+      </g>
+      <path class="who-handoff" pathLength="100" d="M300 185C220 185 80 220 80 305" />
+    </svg>
+    <svg class="who-paths who-paths-mobile" viewBox="0 0 400 580" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <g class="who-connection-paths">
+        <path d="M200 58V174" />
+        <path d="M200 174V250C200 300 100 290 100 336" />
+        <path d="M200 174V250C200 300 300 290 300 336" />
+        <path d="M200 174V250C200 300 200 350 200 378S100 395 100 429" />
+        <path d="M200 174V250C200 300 200 350 200 378S300 395 300 429" />
+        <path d="M200 174V522" />
+      </g>
+      <path class="who-handoff" pathLength="100" d="M200 174V250C200 300 300 290 300 336" />
+    </svg>
+    <div class="who-node who-environment" data-team-node="environment">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="4" y="5" width="24" height="17" rx="2"/><path d="M11 27h10M16 22v5M9 11h5M9 15h12"/></svg>
+      <strong>Your environment</strong>
+    </div>
+    <div class="who-node who-engineer" data-team-node="engineer">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="10" r="5"/><path d="M6 28v-4a10 10 0 0 1 20 0v4M11 26h10"/></svg>
+      <div><strong>Familiar engineer</strong><span>Primary contact</span></div>
+    </div>
+    {disciplines.map(([key,label]) => <div class={'who-node who-specialist who-' + key} data-team-node={key}>
+      <span class="who-specialist-mark" aria-hidden="true"></span><strong>{label}</strong>
+    </div>)}
+  </div>
+</figure>
+<style>
+  .team-escalation { width:100%; max-width:660px; min-width:0; margin:0 auto; position:relative; }
+  .who-scene { position:relative; width:100%; height:480px; isolation:isolate; }
+  .who-scene::before { content:''; position:absolute; inset:8% 10%; z-index:-1; background:radial-gradient(ellipse,rgba(66,186,235,.08),transparent 65%); pointer-events:none; }
+  .who-paths { position:absolute; inset:0; width:100%; height:100%; fill:none; stroke:#4071B5; stroke-width:1.5; pointer-events:none; }
+  .who-paths path { vector-effect:non-scaling-stroke; }
+  .who-connection-paths { opacity:.3; }
+  .who-paths-mobile { display:none; }
+  .who-node { position:absolute; display:flex; align-items:center; justify-content:center; gap:12px; transform:translate(-50%,-50%); color:#0b2c5f; border:1px solid #cedfea; background:#fff; border-radius:14px; }
+  .who-node strong { font-size:14px; font-weight:600; line-height:1.4; }
+  .who-node > svg { width:30px; height:30px; flex:none; fill:none; stroke:#4071B5; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .who-environment { left:50%; top:63.5417%; width:220px; min-height:78px; padding:18px; box-shadow:0 10px 28px rgba(64,113,181,.06); }
+  .who-engineer { left:50%; top:38.5417%; width:210px; min-height:72px; padding:14px; border-color:#a8c9df; background:#f6fbfe; }
+  .who-engineer span { display:block; font-size:12px; line-height:1.5; color:#42566f; margin-top:3px; }
+  .who-specialist { width:132px; min-height:52px; padding:12px 8px; border-radius:10px; background:#fafdff; gap:8px; }
+  .who-specialist-mark { width:5px; height:5px; border-radius:50%; background:#4071B5; flex:none; }
+  .who-cloud { left:18.3333%; top:18.75%; }
+  .who-security { left:13.3333%; top:63.5417%; }
+  .who-networking { left:86.6667%; top:63.5417%; }
+  .who-infrastructure { left:50%; top:89.5833%; width:150px; }
+  .who-support { left:81.6667%; top:18.75%; }
+  .who-handoff { display:none; stroke:#1689b5; stroke-width:2.5; stroke-dasharray:8 92; stroke-linecap:round; }
+  .team-escalation[data-animation-enhanced] .who-node { opacity:0; transform:translate(-50%,calc(-50% + 8px)); transition:opacity .35s ease,transform .35s ease; }
+  .team-escalation[data-animation-enhanced] .who-node.is-on { opacity:1; transform:translate(-50%,-50%); }
+  .team-escalation[data-animation-enhanced] .who-connection-paths { opacity:0; transition:opacity .45s ease; }
+  .team-escalation[data-animation-enhanced] .who-scene[data-phase="connected"] .who-connection-paths,
+  .team-escalation[data-animation-enhanced] .who-scene[data-phase="handoff"] .who-connection-paths,
+  .team-escalation[data-animation-enhanced] .who-scene[data-phase="settled"] .who-connection-paths { opacity:.3; }
+  .who-scene[data-phase="handoff"] .who-handoff { display:block; animation:teamHandoff 1.2s ease-in-out both; }
+  .team-escalation[data-animation-state="paused"] :global(*) { animation-play-state:paused!important; }
+  .who-scene[data-phase="settled"] :global(*) { transition:none; }
+  @keyframes teamHandoff { 0% { stroke-dashoffset:100; opacity:0; } 20% { opacity:1; } 80% { opacity:1; } 100% { stroke-dashoffset:-100; opacity:0; } }
+  @media(max-width:600px) {
+    .who-scene { height:580px; }
+    .who-paths-desktop { display:none; }
+    .who-paths-mobile { display:block; }
+    .who-environment { top:10%; }
+    .who-engineer { top:30%; }
+    .who-cloud { left:25%; top:58%; }
+    .who-security { left:75%; top:58%; }
+    .who-networking { left:25%; top:74%; }
+    .who-infrastructure { left:75%; top:74%; width:140px; }
+    .who-support { left:50%; top:90%; }
+  }
+  @media(prefers-reduced-motion:reduce) { .team-escalation :global(*) { animation:none!important; transition:none!important; } .team-escalation[data-animation-enhanced] .who-node { opacity:1; transform:translate(-50%,-50%); } .team-escalation[data-animation-enhanced] .who-connection-paths { opacity:.3; } .who-handoff { display:none!important; } }
+  @media(forced-colors:active) { .who-node { background:Canvas; color:CanvasText; border-color:CanvasText; } .who-engineer span { color:CanvasText; } .who-paths,.who-node > svg { stroke:CanvasText; } .who-specialist-mark { background:CanvasText; } .who-scene::before { display:none; } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  function initializeTeam() {
+    document.querySelectorAll<HTMLElement>('.team-escalation').forEach(root => {
+      const dispose = mountAnimation(root, scheduler => {
+        const scene = root.querySelector<HTMLElement>('[data-animation-visual]')!;
+        const nodes = [...scene.querySelectorAll<HTMLElement>('[data-team-node]')];
+        scene.dataset.phase = 'waiting';
+        const show = (key: string) => nodes.find(node => node.dataset.teamNode === key)?.classList.add('is-on');
+        return {
+          duration:4600,
+          play() {
+            show('environment');
+            scheduler.later(() => show('engineer'),550);
+            ['cloud','security','networking','infrastructure','support'].forEach((key,index) => scheduler.later(() => show(key),1000 + index * 160));
+            scheduler.later(() => { scene.dataset.phase = 'connected'; },2100);
+            scheduler.later(() => { scene.dataset.phase = 'handoff'; },2900);
+          },
+          settle() { nodes.forEach(node => node.classList.add('is-on')); scene.dataset.phase = 'settled'; }
+        };
+      });
+      if (!root.dataset.teamCleanup) {
+        root.dataset.teamCleanup = 'true';
+        document.addEventListener('astro:before-swap',dispose,{ once:true });
+      }
+    });
+  }
+  initializeTeam();
+  document.addEventListener('astro:page-load',initializeTeam);
+</script>

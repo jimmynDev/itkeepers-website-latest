@@ -12,6 +12,7 @@ function element() {
     classes, attributes, offsetWidth: 400,
     classList: { add(...names) { names.forEach(x => classes.add(x)); }, remove(...names) { names.forEach(x => classes.delete(x)); }, toggle(name, on) { if (on) classes.add(name); else classes.delete(name); } },
     setAttribute(name, value) { attributes.set(name, value); },
+    removeAttribute(name) { attributes.delete(name); },
     toggleAttribute(name, on) { if (on) attributes.set(name, ''); else attributes.delete(name); },
     addEventListener(name, fn) { listeners.set(name, fn); }, removeEventListener(name) { listeners.delete(name); },
     emit(name, event = {}) { listeners.get(name)?.(event); }, listeners,
@@ -20,7 +21,7 @@ function element() {
 function fixture(reduced = false) {
   let now = 0, key = 0, observer;
   const timers = new Map(), frames = new Map();
-  const roles = Array.from({ length: 7 }, element); roles[0].classes.add('is-active');
+  const roles = Array.from({ length: 6 }, element); roles[0].classes.add('is-active');
   const root = element(), rotator = element(), button = element(), document = element(), window = element(), media = element();
   media.matches = reduced; window.matchMedia = () => media;
   root.querySelectorAll = () => roles; root.querySelector = () => rotator; root.parentElement = { querySelector: () => button };
@@ -32,7 +33,7 @@ function fixture(reduced = false) {
     requestAnimationFrame(fn) { const id = ++key; frames.set(id, fn); return id; }, cancelAnimationFrame(id) { frames.delete(id); },
   });
   const flush = () => { for (const [id, fn] of frames) { frames.delete(id); fn(); } };
-  return { root, roles, button, document, window, media, timers, frames,
+  return { root, rotator, roles, button, document, window, media, timers, frames,
     mount: () => exports.mountHeroHeadline(root),
     current: () => roles.findIndex(role => role.classes.has('is-active')),
     visible(value) { observer?.([{ target: root, isIntersecting: value }]); },
@@ -47,20 +48,20 @@ function fixture(reduced = false) {
     },
   };
 }
-test('approved seven-phrase order, initial hold, specialist timing, slower return and continued loop', () => {
+test('six phrases retain their order with 3-second settled holds, including return', () => {
   const h = fixture(); h.mount();
-  h.tick(2699); assert.equal(h.current(), 0);
+  h.tick(2999); assert.equal(h.current(), 0);
   h.tick(1); assert.equal(h.current(), 1);
-  for (let role = 2; role <= 6; role++) { h.tick(2260); assert.equal(h.current(), role); }
-  h.tick(2260); assert.equal(h.current(), 0);
-  h.tick(3539); assert.equal(h.current(), 0);
+  for (let role = 2; role < h.roles.length; role++) { h.tick(3349); assert.equal(h.current(), role-1); h.tick(1); assert.equal(h.current(), role); }
+  h.tick(3350); assert.equal(h.current(), 0);
+  h.tick(3349); assert.equal(h.current(), 0);
   h.tick(1); assert.equal(h.current(), 1);
   assert.equal(h.roles.filter(x => x.classes.has('is-active')).length, 1);
   assert.equal(h.timers.size, 1);
 });
 test('hidden document, offscreen and bfcache preserve remaining hold without a pause control', () => {
   const h = fixture(); const dispose = h.mount(); assert.equal(h.mount(), dispose);
-  h.tick(2700); assert.equal(h.current(), 1);
+  h.tick(3000); assert.equal(h.current(), 1);
   assert.equal(h.button.listeners.size, 0);
   for (const [pause, resume] of [
     [() => h.visible(false), () => h.visible(true)],
@@ -70,11 +71,33 @@ test('hidden document, offscreen and bfcache preserve remaining hold without a p
   h.window.emit('pagehide', { persisted: false });
   assert.equal(h.timers.size + h.frames.size, 0);
   assert.equal(h.button.listeners.size + h.window.listeners.size + h.document.listeners.size + h.media.listeners.size, 0);
+  assert.equal(h.rotator.listeners.size, 0);
+  assert.ok(!h.rotator.attributes.has('tabindex'));
 });
-test('reduced motion uses the crossfade styling hook while continuing the approved messages', () => {
+test('reduced motion swaps at 3-second intervals without reserving transition time', () => {
   const h = fixture(true); h.mount(); assert.ok(h.root.attributes.has('data-reduced'));
-  h.tick(2700); assert.equal(h.current(), 1);
-  h.tick(2260); assert.equal(h.current(), 2);
+  h.tick(3000); assert.equal(h.current(), 1);
+  h.tick(2999); assert.equal(h.current(), 1);
+  h.tick(1); assert.equal(h.current(), 2);
   h.media.matches = false; h.media.emit('change'); assert.ok(!h.root.attributes.has('data-reduced'));
   h.media.matches = true; h.media.emit('change'); assert.ok(h.root.attributes.has('data-reduced'));
+});
+test('hover and keyboard focus independently pause and preserve the remaining hold', () => {
+  const h = fixture(); h.mount();
+  assert.equal(h.rotator.attributes.get('tabindex'), '0');
+  h.tick(1000); h.rotator.emit('mouseenter'); h.tick(10000);
+  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
+  h.rotator.emit('focusin'); h.rotator.emit('mouseleave'); h.tick(10000);
+  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
+  h.rotator.emit('focusout'); h.tick(1999); assert.equal(h.current(), 0);
+  h.tick(1); assert.equal(h.current(), 1);
+  h.rotator.emit('mouseenter'); h.rotator.emit('focusin'); h.rotator.emit('focusout');
+  h.tick(10000); assert.equal(h.current(), 1); assert.equal(h.timers.size, 0);
+  h.rotator.emit('mouseleave'); h.tick(3350); assert.equal(h.current(), 2);
+});
+test('leaving hover cannot resume rotation while offscreen', () => {
+  const h = fixture(); h.mount(); h.tick(1000); h.rotator.emit('mouseenter');
+  h.visible(false); h.rotator.emit('mouseleave'); h.tick(10000);
+  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
+  h.visible(true); h.tick(2000); assert.equal(h.current(), 1);
 });

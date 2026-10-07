@@ -1,7 +1,7 @@
 ---
 import fallback from '../../assets/neural-sphere-fallback.svg?raw';
 ---
-<figure class="offering-animation animation-ai animation-neural-sphere is-idle" data-animation="neural-sphere" role="img" aria-label="Neural sphere: connected nodes pass signals through a rotating network">
+<figure class="offering-animation animation-ai animation-neural-sphere is-idle" data-animation="neural-sphere" role="img" aria-label="Illustrative workflow: a request enters automation, receives AI-assisted processing, passes human review, then reaches an approved outcome.">
   <div class="neural-sphere-canvas" data-animation-visual aria-hidden="true"><Fragment set:html={fallback} /><canvas></canvas></div>
 </figure>
 <style is:global>
@@ -18,10 +18,7 @@ import fallback from '../../assets/neural-sphere-fallback.svg?raw';
   import { createNeuralSphere } from '../../scripts/neural-sphere';
   document.querySelectorAll<HTMLElement>('.animation-neural-sphere').forEach(root => {
     let renderer: ReturnType<typeof createNeuralSphere> | undefined;
-    mountAnimation(root, () => { renderer?.dispose(); renderer=createNeuralSphere(root); return renderer; }, { loop:true });
+    mountAnimation(root, () => { renderer?.dispose(); renderer=createNeuralSphere(root); return renderer; });
     window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
   });
 </script>
-
-
-

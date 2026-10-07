@@ -4,7 +4,14 @@
   --itk-bg-alt: #0a1728;
   --itk-surface: #0d1525;
   --itk-surface-raised: #111a2b;
-  --itk-brand: #42baeb;
+  --itk-brand-cyan: #42baeb;
+  --itk-cyan-sky: #7dd3fc;
+  --itk-cyan-deep: #22b8e8;
+  --itk-cyan-sky-light: #086b8d;
+  --itk-cyan-light: #08698b;
+  --itk-cyan-deep-light: #075d7d;
+  --itk-brand: var(--itk-brand-cyan);
+  --c: var(--itk-brand-cyan);
   --itk-brand-deep: #4071b5;
   --itk-cta-bg: #329dca;
   --itk-cta-hover: #42baeb;

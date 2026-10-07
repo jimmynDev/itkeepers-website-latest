@@ -1,0 +1,12 @@
+---
+const features = [
+  { title:'IT Health', note:'Understand the current state.', text:'An overall view brings identity, devices, security and licensing together, with items requiring attention. It makes the environment understandable without overwhelming you with technical alerts.', detail:'An IT Health summary is a guide to review, not a certified security measurement.' },
+  { title:'Users & Identity', note:'Know who has access.', text:'Visibility into users, licensed users, guest and administrative accounts, MFA registration and account status helps you understand who is connected to your Microsoft 365 environment.' },
+  { title:'Devices', note:'Know what needs attention.', text:'Review managed devices, compliance state, encryption, endpoint protection and recent check-in activity. Know which devices are healthy and which ones ITKeepers is already working on.' },
+  { title:'Security', note:'See your security priorities.', text:'Bring Microsoft Secure Score, active alerts, device protection, identity security, MFA coverage and recommendations into a client-facing view.', detail:'Pulse surfaces security information from the underlying technologies; it does not replace them.' },
+  { title:'Microsoft Licensing', note:'Make licensing easier to review.', text:'Understand purchased, assigned and available licenses alongside utilization. Identify licenses that may warrant review, with visibility into possible optimization opportunities.' },
+  { title:'Reports', note:'From activity to evidence.', text:'Pulse is designed to centralize monthly IT overviews, security posture, device compliance, licensing and identity reports. See changes, open priorities and progress over time in one place.' },
+  { title:'Support', note:'Connect visibility with action.', text:'Pulse is designed to bring open requests, status, assigned engineer or team, and recently resolved requests into the same client view.' }
+];
+---
+<div class="pulse-features">{features.map(({ title, note, text, detail }, index) => <section class="pulse-feature" aria-labelledby={`pulse-feature-${index}`}><span class="pulse-feature-index" aria-hidden="true">0{index + 1}</span><h3 id={`pulse-feature-${index}`}>{title}</h3><p class="pulse-feature-note">{note}</p><p>{text}</p>{detail && <p class="pulse-feature-detail">{detail}</p>}</section>)}</div>

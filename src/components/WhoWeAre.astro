@@ -1,0 +1,47 @@
+---
+import TeamEscalationAnimation from './animations/TeamEscalationAnimation.astro';
+import EngineeringDevelopment from './EngineeringDevelopment.astro';
+const proof = ['Local engineers', 'Multi-discipline escalation', 'Continuous technical development', 'Documented environments'];
+---
+<section class="who-we-are" id="who-we-are" aria-labelledby="who-title">
+  <div class="who-layout">
+    <div class="who-copy">
+      <p class="who-eyebrow">WHO WE ARE</p>
+      <h2 id="who-title">Your IT person is a team.</h2>
+      <p>You work with people who know your environment — backed by engineers across infrastructure, cloud, security, networking and support.</p>
+      <p>When something needs deeper expertise, it moves inside the team — not back to you.</p>
+    </div>
+    <TeamEscalationAnimation />
+  </div>
+  <EngineeringDevelopment />
+  <ul class="who-proof" aria-label="How our team works">
+    {proof.map(item => <li>{item}</li>)}
+  </ul>
+</section>
+<style>
+  :global(body.home-page) .who-we-are {
+    color:#0b2c5f; padding-block:clamp(64px,7vw,112px) clamp(56px,6vw,88px);
+    /* Match Technology's lower edge, then blend into the neutral human chapter. */
+    background:linear-gradient(180deg,#f3f8fc 0px,#f7fafc 160px,#fff 45%,#fafcfe 100%);
+  }
+  .who-layout { max-width:1220px; margin-inline:auto; display:grid; grid-template-columns:minmax(0,.9fr) minmax(520px,1.1fr); align-items:center; gap:clamp(40px,5vw,76px); }
+  .who-copy { min-width:0; }
+  .who-eyebrow { display:flex; align-items:center; gap:9px; color:#4071B5; font-size:12px; font-weight:700; letter-spacing:.14em; margin:0 0 22px; }
+  .who-eyebrow::before { content:''; width:22px; height:2px; background:linear-gradient(90deg,#4071B5,#42BAEB); }
+  #who-title { color:#0b2c5f; font-size:clamp(36px,3.8vw,56px); font-weight:600; line-height:1.08; letter-spacing:-.04em; margin:0 0 28px; max-width:12ch; text-wrap:balance; }
+  .who-copy > p:not(.who-eyebrow) { color:#42566f; font-size:16px; line-height:1.7; max-width:48ch; margin:0 0 20px; }
+  .who-copy > p:last-child { margin-bottom:0; }
+  .who-proof { max-width:1220px; margin:48px auto 0; padding:28px 0 0; border-top:1px solid rgba(64,113,181,.14); list-style:none; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px 24px; color:#42566f; font-size:13px; line-height:1.6; }
+  .who-proof li + li::before { content:'·'; color:#4071B5; margin-right:24px; }
+  @media(max-width:1024px) {
+    .who-layout { grid-template-columns:1fr; gap:32px; }
+    .who-copy { max-width:660px; }
+    #who-title { max-width:19ch; }
+  }
+  @media(max-width:600px) {
+    .who-proof { display:grid; grid-template-columns:1fr 1fr; align-items:start; gap:14px 20px; text-align:left; margin-top:28px; padding-top:24px; }
+    .who-proof li + li::before { content:none; }
+    .who-proof li { padding-left:12px; border-left:2px solid rgba(64,113,181,.22); min-width:0; overflow-wrap:anywhere; }
+  }
+  @media(forced-colors:active) { :global(body.home-page) .who-we-are { background:Canvas; color:CanvasText; } #who-title,.who-copy p,.who-proof { color:CanvasText; } .who-proof { border-color:CanvasText; } }
+</style>

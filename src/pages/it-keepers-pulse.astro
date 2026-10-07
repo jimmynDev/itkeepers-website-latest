@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PulsePreview from '../components/PulsePreview.astro';
+import PulseFeatureGrid from '../components/PulseFeatureGrid.astro';
+import PulseWorkflow from '../components/PulseWorkflow.astro';
+import '../styles/pulse.css';
+const providerUrl = new URL('/', Astro.site ?? 'https://itkeepers.com').href;
+const productSchema = JSON.stringify({
+  '@context':'https://schema.org', '@type':'WebApplication',
+  '@id':new URL('/it-keepers-pulse#application', providerUrl).href,
+  name:'IT Keepers Pulse', url:new URL('/it-keepers-pulse', providerUrl).href,
+  description:'A client visibility platform designed to bring users, devices, security, Microsoft 365, licensing, reports and support activity into one clear view.',
+  provider:{ '@id':`${providerUrl}#organization`, '@type':'Organization', name:'ITKeepers', url:providerUrl }
+}).replace(/</g,'\\u003c');
+---
+<Base title="IT Keepers Pulse | Client IT Visibility Platform" description="IT Keepers Pulse gives managed IT clients one clear view of users, devices, security, Microsoft 365, licensing, reports and support activity.">
+  <script slot="head" type="application/ld+json" set:html={productSchema}></script>
+  <article class="pulse-page">
+    <header class="pulse-shell pulse-reveal pulse-hero">
+      <div class="pulse-reveal-copy">
+        <p class="eyebrow">IT KEEPERS PULSE</p>
+        <h1>Your IT environment.<br />One clear view.</h1>
+        <p>The client visibility platform from ITKeepers, designed to give you a clear view of the systems we manage — users, devices, security, Microsoft 365, licensing, reports and support activity.</p>
+        <p>ITKeepers manages the environment. IT Keepers Pulse shows you what is happening.</p>
+        <div class="pulse-actions"><a class="btn" href="#one-view">See what Pulse gives you <span aria-hidden="true">↓</span></a><a class="pulse-text-link" href="/contact">Get a Free Consultation</a></div>
+      </div>
+      <PulsePreview />
+    </header>
+    <section class="pulse-shell pulse-capabilities" id="one-view" aria-labelledby="pulse-one-view">
+      <div class="pulse-section-intro"><p class="eyebrow">ONE VIEW</p><h2 id="pulse-one-view">See what is happening across your IT environment.</h2><p>You should not need to interpret five different admin portals or wait until something fails to understand your IT. Pulse brings the important signals into a managed IT dashboard built around clarity.</p></div>
+      <PulseFeatureGrid />
+      <p class="pulse-capability-note">These areas describe the intended Pulse experience. The interface shown is a product preview; available views, data sources, reporting and support integrations depend on your managed IT scope and the confirmed rollout. Discuss current availability with our team.</p>
+    </section>
+    <section class="pulse-shell" aria-labelledby="pulse-action-title">
+      <div class="pulse-section-intro"><p class="eyebrow">VISIBLE ACCOUNTABILITY</p><h2 id="pulse-action-title">From monitoring to action.</h2><p>You should not have to discover an IT issue before your IT provider does. When ITKeepers detects something that requires attention, the team investigates it. Pulse is designed to connect the state of your environment with the work happening around it.</p><p>The view brings status, ownership and follow-up together. Resolution remains the team's work, with handling determined by the issue and your agreed service scope.</p></div>
+      <PulseWorkflow />
+    </section>
+    <section class="pulse-shell pulse-ownership" aria-labelledby="pulse-ownership-title">
+      <div><p class="eyebrow">MANAGED BY ITKEEPERS. VISIBLE TO YOU.</p><h2 id="pulse-ownership-title">Visibility without another platform to manage.</h2><p>IT Keepers Pulse isn't another monitoring tool your team has to operate. It's the client-facing view of the environment ITKeepers already manages.</p><p>Your IT person is a team. Pulse shows you what that team is managing.</p><a class="pulse-text-link" href="/services/managed-it">Explore Managed IT <span aria-hidden="true">→</span></a></div>
+    </section>
+    <section class="pulse-shell pulse-closing" aria-labelledby="pulse-contact-title"><div class="pulse-section-intro"><p class="eyebrow">LET'S TALK ABOUT YOUR ENVIRONMENT</p><h2 id="pulse-contact-title">A clearer view starts with the right context.</h2><p>Tell us what you manage today and where visibility is missing. Our team can discuss IT Keepers Pulse and the views available for your environment.</p><a class="btn" href="/contact">Get a Free Consultation <span aria-hidden="true">→</span></a></div></section>
+  </article>
+</Base>

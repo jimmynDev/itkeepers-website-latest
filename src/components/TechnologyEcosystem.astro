@@ -1,0 +1,346 @@
+---
+// Exact approved reference artwork; local SVG copies, no runtime vendor requests.
+const veeam = "<svg\n                viewBox=\"0 8.8 24 5.6\"\n                role=\"img\"\n                aria-label=\"Veeam logo\"\n                xmlns=\"http://www.w3.org/2000/svg\"\n              >\n                <path d=\"M6.63 9.842c-1.104 0-2 .945-2 2.101v.108c0 1.322.846 2.038 1.974 2.1.051.007.108.007.16.007.435 0 .794-.115 1.195-.361.04-.023.201-.132.361-.338.132-.166.138-.411 0-.543-.2-.189-.412-.086-.595.074-.292.246-.516.442-1.1.442-.55 0-1.064-.316-1.19-.94 0-.023.01-.045.034-.045H8.16a.473.473 0 0 0 .47-.504c0-1.156-.894-2.1-1.999-2.1zm4.466 0c-1.1 0-1.996.945-1.996 2.101v.108c0 1.322.846 2.038 1.974 2.1.052.007.11.007.16.007.435 0 .795-.115 1.196-.361.04-.023.2-.132.361-.338.132-.166.137-.411 0-.543-.2-.189-.413-.086-.596.074-.292.246-.515.442-1.1.442-.549 0-1.063-.316-1.189-.94-.006-.023.01-.045.028-.045h2.691a.473.473 0 0 0 .47-.504c-.007-1.156-.9-2.1-1.999-2.1zm-6.89.04a.4.4 0 0 0-.344.223l-1.42 3.063c-.034.063-.062.11-.136.11-.075 0-.105-.047-.14-.11l-1.42-3.057a.38.38 0 0 0-.53-.177.428.428 0 0 0-.172.56l1.39 2.828.16.32a.8.8 0 0 0 .712.46.791.791 0 0 0 .709-.46l.16-.32 1.385-2.834a.423.423 0 0 0-.166-.56.376.376 0 0 0-.188-.045zm11.362 0a.762.762 0 0 0-.504.188.808.808 0 0 0-.207.27l-1.59 3.137c0 .005-.007.006-.007.01v.007a.434.434 0 0 0 .03.442c0 .005.005.006.005.01 0 .007.006.005.006.01a.372.372 0 0 0 .516.077s.005 0 .005-.006a.083.083 0 0 0 .024-.017l.015-.018.006-.006a.485.485 0 0 0 .076-.103l.057-.125.332-.7c.006-.017.028-.027.045-.027h1.484c.195 0 .354-.167.354-.379 0-.206-.159-.377-.354-.377h-1.099a.033.033 0 0 1-.03-.046l.08-.172.602-1.207v-.006s0-.006.006-.006c.011-.023.04-.108.098-.125.034-.012.063-.012.086 0 .063.017.084.091.113.148l1.455 3.022a.393.393 0 0 0 .48.195s.006 0 .006-.006l.035-.017c.006 0 .007-.006.012-.006 0 0 .006 0 .006-.006.006 0 .006-.006.012-.006s.01-.004.01-.01c.006 0 .006-.006.011-.006.006-.006.012-.012.018-.012l.017-.017.006-.006a.408.408 0 0 0 .092-.498l-1.598-3.154a.79.79 0 0 0-.709-.45zm3.508 0c-.39 0-.709.332-.709.778v3.018c0 .183.104.354.264.406.263.086.486-.143.486-.412l-.058-2.938a.03.03 0 0 1 .052-.017l1.442 2.93c.137.28.367.449.625.449.257 0 .49-.167.623-.448l1.449-2.935c.01-.029.05-.019.05.016l-.056 2.955c0 .234.177.423.389.412.206-.006.367-.207.367-.43V10.66c.01-.452-.31-.77-.7-.777a.684.684 0 0 0-.61.394c-.361.739-1.426 2.93-1.426 2.936-.006.01-.03.064-.075.064-.04 0-.068-.047-.074-.064-.35-.727-1.047-2.164-1.408-2.908-.143-.287-.38-.422-.63-.422zm-12.45.647c.697 0 1.14.527 1.208 1.145 0 .023-.012.045-.035.045H5.47c-.023-.006-.033-.022-.033-.045.074-.607.49-1.145 1.19-1.145zm4.47 0h.002c.697.001 1.138.527 1.207 1.145 0 .023-.013.045-.035.045H9.94c-.023-.006-.04-.022-.034-.045.075-.606.493-1.144 1.19-1.145z\"/>\n              </svg>";
+const hpe = "<svg\n    viewBox=\"0 0 232 74\"\n    role=\"img\"\n    aria-label=\"HPE logo\"\n    xmlns=\"http://www.w3.org/2000/svg\"\n  >\n    <rect x=\"0\" y=\"2\" width=\"54\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"7\"/>\n    <text x=\"0\" y=\"54\" font-family=\"Helvetica Neue, Helvetica, Arial, sans-serif\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" letter-spacing=\"-1.4\">Hewlett Packard</text>\n    <text x=\"0\" y=\"74\" font-family=\"Helvetica Neue, Helvetica, Arial, sans-serif\" font-size=\"23\" font-weight=\"400\" fill=\"currentColor\">Enterprise</text>\n  </svg>";
+const logos = [
+  {
+    "key": "microsoft",
+    "name": "Microsoft",
+    "width": 604,
+    "height": 129
+  },
+  {
+    "key": "bitdefender",
+    "name": "Bitdefender",
+    "width": 1024,
+    "height": 236
+  },
+  {
+    "key": "fortinet",
+    "name": "Fortinet",
+    "width": 156,
+    "height": 18.83
+  },
+  {
+    "key": "veeam",
+    "name": "Veeam",
+    "width": 24,
+    "height": 5.6
+  },
+  {
+    "key": "meraki",
+    "name": "Cisco Meraki",
+    "width": 110,
+    "height": 79
+  },
+  {
+    "key": "ubiquiti",
+    "name": "Ubiquiti",
+    "width": 705.89,
+    "height": 533
+  },
+  {
+    "key": "vmware",
+    "name": "VMware",
+    "width": 190.2,
+    "height": 31
+  },
+  {
+    "key": "hpe",
+    "name": "HPE",
+    "width": 232,
+    "height": 74
+  },
+  {
+    "key": "naverisk",
+    "name": "Naverisk",
+    "width": 835.49,
+    "height": 195.45
+  },
+  {
+    "key": "mikrotik",
+    "name": "MikroTik",
+    "width": 423,
+    "height": 102.77
+  }
+];
+---
+<section class="technology-ecosystem" id="technology" aria-labelledby="technology-title">
+  <div class="technology-inner">
+    <div class="technology-header">
+      <h2 id="technology-title"><span class="ecosystem-title-dot" aria-hidden="true"></span>OUR TECHNOLOGY ECOSYSTEM</h2>
+    </div>
+  </div>
+  <div class="logo-stage" role="region" aria-labelledby="technology-title" tabindex="0">
+    <div class="logo-track">
+      {[false, true].map(duplicate => <div class="logo-group" aria-hidden={duplicate ? 'true' : undefined}>
+        {logos.map(logo => <div class={'technology-logo logo-' + logo.key}>
+          {['veeam','hpe'].includes(logo.key)
+            ? <Fragment set:html={(logo.key === 'veeam' ? veeam : hpe).replace(/role="img"/g, duplicate ? 'aria-hidden="true"' : 'role="img"')} />
+            : <img src={'/assets/technology/' + logo.key + '.svg'} alt={duplicate ? '' : logo.name + ' logo'} width={logo.width} height={logo.height} decoding="async" loading="lazy" />}
+        </div>)}
+      </div>)}
+    </div>
+  </div>
+</section>
+<style>
+  :global(body.home-page) .technology-ecosystem {
+    --itk-blue:#4071B5; --itk-cyan:#42BAEB;
+    position:relative; isolation:isolate; overflow:hidden; padding:64px 0;
+    color:#0b2c5f;
+    background:radial-gradient(ellipse at 50% 20%,rgba(66,186,235,.045),transparent 52%),linear-gradient(180deg,#fff 0%,#f8fbff 48%,#f3f8fc 100%);
+  }
+  .technology-inner { width:min(1180px,calc(100% - 48px)); margin-inline:auto; }
+  .technology-header { display:flex; align-items:center; justify-content:center; text-align:center; margin:0 auto 14px; }
+  #technology-title { display:inline-flex; align-items:center; justify-content:center; gap:7px; margin:0; padding:0 10px; font-size:10px; line-height:1.4; font-weight:650; letter-spacing:.12em; text-transform:uppercase; color:#53677f; }
+  .ecosystem-title-dot { width:4px; height:4px; flex:0 0 4px; border-radius:50%; background:#42BAEB; box-shadow:0 0 0 3px rgba(66,186,235,.05),0 0 8px rgba(66,186,235,.10); }
+    .logo-stage {
+      position: relative;
+
+      width: 100%;
+
+      padding: 20px 0 24px;
+
+      overflow: hidden;
+    }
+
+    /*
+      Soft fade at both sides.
+      Logos never disappear through a hard edge.
+    */
+
+    .logo-stage::before,
+    .logo-stage::after {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      bottom: 0;
+
+      width: min(140px, 12vw);
+
+      z-index: 5;
+
+      pointer-events: none;
+    }
+
+    .logo-stage::before {
+      left: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          #f7faff 5%,
+          rgba(247, 250, 255, 0.84) 32%,
+          transparent 100%
+        );
+    }
+
+    .logo-stage::after {
+      right: 0;
+
+      background:
+        linear-gradient(
+          270deg,
+          #f7faff 5%,
+          rgba(247, 250, 255, 0.84) 32%,
+          transparent 100%
+        );
+    }
+
+    /* =====================================================
+       MOVING MARQUEE
+    ====================================================== */
+
+    .logo-track {
+      display: flex;
+
+      width: max-content;
+
+      animation:
+        technology-scroll 38s linear infinite;
+
+      will-change: transform;
+    }
+
+    .logo-stage:hover .logo-track {
+      animation-play-state: paused;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+
+      flex-shrink: 0;
+
+      gap: 68px;
+
+      padding-right: 68px;
+    }
+
+    @keyframes technology-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =====================================================
+       LOGOS — real SVG artwork, monochrome via CSS
+    ====================================================== */
+
+    .technology-logo {
+      position: relative;
+      min-width: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 88px;
+      padding: 18px 6px;
+      cursor: default;
+      opacity: 0.78;
+      transform: translateY(0) scale(1);
+      transition:
+        opacity 260ms ease,
+        transform 260ms ease;
+    }
+
+    .technology-logo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 5px;
+      width: 70%;
+      height: 26px;
+      transform: translateX(-50%) scaleX(0.7);
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          ellipse,
+          rgba(66, 186, 235, 0.16),
+          transparent 72%
+        );
+      filter: blur(8px);
+      opacity: 0;
+      transition:
+        opacity 260ms ease,
+        transform 260ms ease;
+    }
+
+    .technology-logo::after {
+      content: "";
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: 3px;
+      height: 1px;
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--itk-blue),
+          var(--itk-cyan),
+          transparent
+        );
+      transform: scaleX(0);
+      opacity: 0;
+      transition:
+        opacity 260ms ease,
+        transform 260ms ease;
+    }
+
+    .technology-logo:hover {
+      opacity: 1;
+      transform:
+        translateY(-4px)
+        scale(1.035);
+    }
+
+    .technology-logo:hover::before {
+      opacity: 1;
+      transform:
+        translateX(-50%)
+        scaleX(1);
+    }
+
+    .technology-logo:hover::after {
+      opacity: 0.85;
+      transform: scaleX(1);
+    }
+
+    /*
+      Keep the original vector artwork.
+      CSS removes the brand colors without rasterizing the logo.
+    */
+    .technology-logo img,
+    .technology-logo :global(svg) {
+      display: block;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      color: #748296;
+      fill: currentColor;
+      filter:
+        grayscale(1)
+        saturate(0)
+        brightness(0.79)
+        contrast(1.08);
+      opacity: 0.92;
+      transform: translateZ(0);
+      transition:
+        filter 260ms ease,
+        opacity 260ms ease,
+        transform 260ms ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .technology-logo:hover img,
+    .technology-logo:hover :global(svg) {
+      filter:
+        grayscale(1)
+        saturate(0)
+        brightness(0.63)
+        contrast(1.12);
+      opacity: 1;
+      transform: scale(1.015);
+    }
+
+    /* Optical sizing so each brand has similar visual weight. */
+    .logo-microsoft img   { width: 208px; max-height: 48px; }
+    .logo-bitdefender img { width: 205px; max-height: 48px; }
+    .logo-fortinet img    { width: 205px; max-height: 36px; }
+    .logo-veeam :global(svg)       { width: 198px; height: 50px; }
+    .logo-meraki img      { width: 155px; max-height: 58px; }
+    .logo-ubiquiti img    { width: 180px; max-height: 58px; }
+    .logo-vmware img      { width: 210px; max-height: 45px; }
+    .logo-hpe :global(svg)         { width: 185px; max-height: 52px; overflow:visible; }
+    .logo-naverisk img    { width: 210px; max-height: 48px; }
+    .logo-mikrotik img    { width: 205px; max-height: 48px; }
+
+    
+  .logo-stage:focus-visible { outline:2px solid #4071B5; outline-offset:-3px; }
+  .logo-stage:focus-within .logo-track { animation-play-state:paused; }
+  @media(max-width:768px) {
+    :global(body.home-page) .technology-ecosystem { padding:64px 0; }
+    .technology-inner { width:min(calc(100% - 32px),1180px); }
+    .logo-group { gap:45px; padding-right:45px; }
+    .technology-logo { min-height:75px; }
+    .technology-logo img,.technology-logo :global(svg) { max-width:165px; max-height:42px; }
+    .logo-veeam :global(svg) { width:165px; height:42px; }
+    .logo-meraki img { width:138px; max-height:50px; }
+    .logo-track { animation-duration:30s; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .logo-track { animation:none; }
+    .logo-stage { overflow-x:auto; scrollbar-width:none; }
+    .logo-stage::-webkit-scrollbar { display:none; }
+    .logo-group[aria-hidden="true"] { display:none; }
+    .technology-logo,.technology-logo img,.technology-logo :global(svg) { transition:none; }
+  }
+  @media(forced-colors:active) { .logo-stage::before,.logo-stage::after { display:none; } #technology-title { color:CanvasText; } }
+</style>

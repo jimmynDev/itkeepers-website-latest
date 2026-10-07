@@ -182,3 +182,27 @@ Validation Pass: hero and first two services checked in Chrome at 1440/1024/768/
 
 ## 5 October 2026 - Scoped service and CTA tokens
 Service accents: Managed/Security #42BAEB, Cloud #5AA9FF, Networking #36B8D0 with #5C74D8 support, AI #8175E8 with cyan support. Shared CTA #329DCA / hover #42BAEB / text #071525; later hero-only pale #F4F7FB / hover #FFFFFF / text #081321. Service title clamp(36px,4.2vw,58px), weight500, line-height1.08, tracking-.025em; chapter11px plus44px rule; copy16px/1.6/46ch. Full validation and scoped changes: docs/reviews/2026-10-05-homepage-refinements.md.
+
+## 7 October 2026 — Hero rotating phrase refinement
+
+Added adjacent cyan tokens in public/visual-system-tokens.css: --itk-cyan-sky #7DD3FC / existing --itk-brand-cyan #42BAEB / --itk-cyan-deep #22B8E8. Only the hero rotating phrase consumes the new stops, at 135deg with background-clip:text; solid cyan remains the unsupported-clip fallback. Day overrides are --itk-cyan-sky-light #086B8D / --itk-cyan-light #08698B / --itk-cyan-deep-light #075D7D. Glow is a static 24px/.20 cyan drop-shadow on the night rotator only; day and forced colors have none. Other tokens/consumers unchanged.
+
+Measured sRGB contrast for fully visible, settled text against sampled rendered backgrounds at 1440px (cyan pointer light centered on phrase), with 360px also checked:
+
+| Stop | Night minimum | Day minimum |
+|---|---:|---:|
+| Sky |8.98:1|4.77:1|
+| Middle |6.74:1|4.91:1|
+| Deep |6.48:1|5.82:1|
+
+All 101 interpolated gradient samples were checked against background pixels in the text bounds. Stops are channel-monotonic, so endpoint minima also confirm the final build. The pale night stops would only reach 1.58/2.10/2.18:1 on flat #F5F9FC; darker day tokens are therefore required. These measurements concern settled glyph colors, not partially transparent transition frames or a blanket WCAG certification.
+
+Focus uses two contrasting bottom rules (3px focus color plus surface separation) without changing geometry; forced colors substitutes a 3px Highlight bottom rule. This keeps focus visible below the phrase and clear of the tightly spaced fixed headline. Motion 350ms ease-out with 10px vertical translation and 1.25px blur; reduced motion removes all transitions/translation/blur. Existing fixed headline typography, initial entrance easing and geometry unchanged.
+
+## 7 October 2026 — Homepage header emphasis
+
+Homepage-only emergency accents in public/emergency.css: night #FF 5A 5F; day #B 01D 2B for small-text contrast. Existing 1px border uses 90% accent opacity, surface uses 4%, halo is 14px at 22%; the existing 6px dot uses the same accent. Existing 3.2-second dot opacity pulse remains within prefers-reduced-motion:no-preference; reduced motion is static. Other routes retain their original emergency treatment.
+
+The homepage theme track mixes the existing header ink at 5% fill /9% hover, with a neutral border mixing existing --itk-dim at 90% and header ink at 10%. Only the small existing knob uses brand cyan. No new global color tokens, fonts or typography introduced. State, symbol movement, focus system, size and script remain unchanged. Homepage-specific forced-color rules restore Canvas/ButtonText/LinkText/Highlight instead of author hues.
+
+Actual Chrome rendered-background minimum ratios, including 360px and 1440px default/hover tracks: emergency text 5.34:1 day /5.74:1 night; proof text 6.55:1 across all eight widths/two themes; track border 3.53:1; focus ring 9.47:1; knob icon 6.14:1. All relevant text/control checks pass their 4.5:1/3:1 thresholds. The initial neutral border was 2.95:1 on night hover and was corrected by the 10% header-ink blend. These are tested render conditions, not a blanket accessibility certification.

@@ -1,0 +1,494 @@
+<!-- Approved purple-v7 section only; standalone page scaffolding is excluded. -->
+<section class="digital-bridge" id="offering-web-design-hosting" aria-labelledby="digital-service-title" data-animation="digital-transition">
+  <div class="digital-bridge-content" data-animation-visual data-phase="settled" data-motion="paused">
+
+        <div class="copy">
+          <p class="bridge-label">BEYOND CORE IT</p>
+          <p class="eyebrow">DIGITAL SERVICES</p>
+          <h2 id="digital-service-title">Web Design &amp; Hosting</h2>
+          <p class="lede">
+            From first wireframe to launch—and the hosting, security and maintenance after it.
+          </p>
+          <a class="digital-link" href="/services/web-design-hosting">
+            Explore Web Design &amp; Hosting
+          </a>
+        </div>
+
+        <div class="visual" >
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="accent-node one" aria-hidden="true"></div>
+          <div class="accent-node two" aria-hidden="true"></div>
+          <div class="accent-node three" aria-hidden="true"></div>
+
+          <div class="panel" role="img" aria-label="A refined interface visual representing design, hosting and managed digital delivery">
+            <div class="panel-top" aria-hidden="true">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <div class="frame" aria-hidden="true">
+              <div class="wireframe">
+                <div class="hero-block"></div>
+                <div class="line w1"></div>
+                <div class="line w2"></div>
+                <div class="line w3"></div>
+              </div>
+
+              <div class="stack">
+                <div class="stack-item">
+                  <span class="stack-icon"></span>
+                  <span class="stack-copy"></span>
+                </div>
+                <div class="stack-item">
+                  <span class="stack-icon"></span>
+                  <span class="stack-copy"></span>
+                </div>
+                <div class="stack-item">
+                  <span class="stack-icon"></span>
+                  <span class="stack-copy"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+</section>
+<style>
+    .digital-bridge{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      min-height:390px;
+
+      padding:72px 72px 76px;
+      /* Keep the existing box size while removing the visible boundary line. */
+      border-top:1px solid transparent;
+      border-bottom:1px solid rgba(129,117,232,.18);
+      background:transparent;
+    }
+
+    .digital-bridge::before,.digital-bridge::after { content:none; }
+
+    .copy{
+      position:relative;
+      z-index:2;
+      max-width:650px;
+    }
+
+    .bridge-label{
+      margin:0 0 10px;
+      color:rgba(232,238,249,.78);
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      opacity:1;
+      transform:none;
+    }
+
+
+    .copy .eyebrow,
+    .copy h2,
+    .copy .lede,
+    .copy .digital-link{
+      opacity:1;
+      transform:none;
+    }
+
+.copy h2{}
+.copy .digital-link{}
+
+    @keyframes copyReveal{
+      to{
+        opacity:1;
+        transform:none;
+      }
+    }
+
+    @keyframes bridgeLabelIn{
+      to{
+        opacity:1;
+        transform:none;
+        letter-spacing:.15em;
+      }
+    }
+
+    .eyebrow{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:0 0 18px;
+      color:#B7A8FF;
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:linear-gradient(90deg,var(--violet),var(--brand));
+      box-shadow:0 0 14px rgba(129,117,232,.28);
+    }
+
+
+    h2{
+      margin:0;
+      max-width:700px;
+      color:#F4F7FB;
+      font-size:clamp(44px,5vw,70px);
+      font-weight:600;
+      line-height:.98;
+      letter-spacing:-.045em;
+      text-shadow:
+        0 10px 24px rgba(0,0,0,.34),
+        0 0 24px rgba(66,186,235,.08);
+    }
+
+    .lede{
+      margin:24px 0 0;
+      max-width:670px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.65;
+    }
+
+    .digital-link{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      margin-top:32px;
+      color:#B7A8FF;
+      font-size:15px;
+      font-weight:750;
+      text-decoration:none;
+      border-bottom:1px solid rgba(66,186,235,.55);
+      padding-bottom:8px;
+    }
+
+    .digital-link:focus-visible{
+      opacity:1!important;
+      transform:none!important;
+      animation:none!important;
+      outline:2px solid rgba(66,186,235,.7);
+      outline-offset:5px;
+      border-radius:3px;
+    }
+
+    .visual{
+      position:relative;
+      min-height:260px;
+      display:grid;
+      place-items:center;
+      z-index:1;
+    }
+
+    .orbit{
+      position:absolute;
+      width:330px;
+      height:210px;
+      border:1px solid rgba(129,117,232,.16);
+      border-radius:50%;
+      transform:rotate(-10deg);
+      box-shadow:0 0 38px rgba(129,117,232,.04) inset;
+    }
+
+    .orbit::before{
+      content:"";
+      position:absolute;
+      inset:26px;
+      border:1px solid rgba(66,186,235,.11);
+      border-radius:inherit;
+    }
+
+    .panel{
+      position:relative;
+      width:min(430px,100%);
+      border:1px solid rgba(90,169,255,.22);
+      border-radius:24px;
+      padding:18px;
+      background:
+        linear-gradient(180deg,rgba(14,27,46,.88),rgba(9,19,33,.84));
+      box-shadow:
+        0 22px 50px rgba(0,8,20,.42),
+        0 0 44px rgba(129,117,232,.12);
+      backdrop-filter:blur(10px);
+    }
+
+    .panel-top{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      padding-bottom:15px;
+      border-bottom:1px solid rgba(126,156,204,.10);
+    }
+
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:rgba(90,169,255,.34);
+    }
+
+    .dot:first-child{background:rgba(129,117,232,.74)}
+    .dot:nth-child(2){background:rgba(66,186,235,.72)}
+
+    .frame{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:14px;
+    }
+
+    .wireframe,
+    .stack{
+      min-height:138px;
+      border:1px solid rgba(126,156,204,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.015);
+      padding:14px;
+    }
+
+    .hero-block{
+      height:52px;
+      border-radius:10px;
+      background:
+        linear-gradient(135deg,rgba(129,117,232,.18),rgba(66,186,235,.06));
+      border:1px solid rgba(129,117,232,.10);
+      margin-bottom:12px;
+    }
+
+    .line{
+      height:7px;
+      border-radius:999px;
+      background:rgba(90,169,255,.16);
+      margin-top:8px;
+    }
+
+    .line.w1{width:82%}
+    .line.w2{width:62%}
+    .line.w3{width:72%}
+
+    .stack{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
+    }
+
+    .stack-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-height:34px;
+      padding:8px 10px;
+      border-radius:11px;
+      background:rgba(255,255,255,.018);
+      border:1px solid rgba(126,156,204,.08);
+    }
+
+    .stack-icon{
+      width:20px;
+      height:20px;
+      border-radius:7px;
+      background:linear-gradient(145deg,rgba(129,117,232,.20),rgba(66,186,235,.12));
+      border:1px solid rgba(129,117,232,.14);
+    }
+
+    .stack-copy{
+      height:6px;
+      width:66%;
+      border-radius:999px;
+      background:rgba(90,169,255,.16);
+    }
+
+    .accent-node{
+      position:absolute;
+      border-radius:50%;
+      background:var(--brand);
+      box-shadow:0 0 16px rgba(66,186,235,.45);
+    }
+
+    .accent-node.one{width:7px;height:7px;right:8%;top:20%}
+    .accent-node.two{width:5px;height:5px;left:3%;bottom:26%;background:var(--violet);box-shadow:0 0 14px rgba(129,117,232,.4)}
+    .accent-node.three{width:4px;height:4px;right:16%;bottom:10%;background:var(--violet);box-shadow:none}
+
+    /* Simple, restrained animation for the right-side visual */
+    .visual .panel{
+      transform:none;
+      opacity:1;
+    }
+
+    .visual .orbit{
+      opacity:1;
+      transform:rotate(-10deg);
+    }
+
+    .visual .accent-node{
+      opacity:1;
+    }
+
+.visual .accent-node.two{}
+.wireframe .hero-block,
+    .wireframe .line,
+    .stack-item{
+      opacity:1;
+      transform:none;
+    }
+
+.wireframe .line.w1{}
+.wireframe .line.w3{}
+.stack-item:nth-child(2){}
+@keyframes panelReveal{
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+
+    @keyframes orbitReveal{
+      to{opacity:1;transform:rotate(-10deg) scale(1)}
+    }
+
+    @keyframes nodeReveal{
+      to{opacity:1}
+    }
+
+    @keyframes itemReveal{
+      to{opacity:1;transform:none}
+    }
+
+    @media (max-width:980px){
+
+
+      .digital-bridge{
+
+        padding:56px 28px 60px;
+      }
+
+      .visual{min-height:300px}
+    }
+
+    @media (max-width:640px){
+
+
+      .digital-bridge{
+        padding:44px 18px 48px;
+
+      }
+
+      h2{
+        font-size:clamp(38px,12vw,54px);
+      }
+
+      .lede{
+        font-size:16px;
+      }
+
+      .visual{
+        min-height:240px;
+      }
+
+      .orbit{
+        width:260px;
+        height:170px;
+      }
+
+      .panel{
+        width:100%;
+      }
+
+      .frame{
+        grid-template-columns:1fr;
+      }
+
+      .stack{
+        display:none;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .digital-bridge *,
+      .digital-bridge *::before,
+      .digital-bridge *::after{
+        scroll-behavior:auto!important;
+        transition:none!important;
+      }
+
+      .visual .panel,
+      .visual .orbit,
+      .visual .accent-node,
+      .wireframe .hero-block,
+      .wireframe .line,
+      .stack-item{
+        opacity:1!important;
+        transform:none!important;
+      }
+
+      .visual .orbit{
+        transform:rotate(-10deg)!important;
+      }
+
+      .bridge-label{
+        opacity:1!important;
+        transform:none!important;
+        letter-spacing:.15em!important;
+      }
+
+      .copy .eyebrow,
+      .copy h2,
+      .copy .lede,
+      .copy .digital-link{
+        opacity:1!important;
+        transform:none!important;
+      }
+    }
+  
+    .digital-bridge { --violet:#8175E8; --brand:var(--itk-brand,#42BAEB); --muted:#8D9BB5; }
+    .digital-bridge-content { display:grid; grid-template-columns:minmax(0,1fr) minmax(420px,.9fr); align-items:center; gap:68px; max-width:1296px; margin-inline:auto; }
+    .bridge-label { letter-spacing:.15em; }
+    .digital-bridge::after { pointer-events:none; }
+    .digital-bridge-content[data-phase="idle"] :is(.bridge-label,.eyebrow,h2,.lede,.digital-link,.panel,.orbit,.accent-node,.hero-block,.line,.stack-item) { opacity:0; }
+    .digital-bridge-content[data-phase="play"] :is(.bridge-label,.eyebrow,h2,.lede,.digital-link) { opacity:0; transform:translateY(8px); animation:copyReveal .62s cubic-bezier(.22,.8,.2,1) forwards; }
+    .digital-bridge-content[data-phase="play"] .bridge-label { transform:translateY(6px); letter-spacing:.18em; animation:bridgeLabelIn .65s cubic-bezier(.22,.8,.2,1) .08s forwards; }
+    .digital-bridge-content[data-phase="play"] .eyebrow { animation-delay:.22s; }
+    .digital-bridge-content[data-phase="play"] h2 { animation-delay:.38s; }
+    .digital-bridge-content[data-phase="play"] .lede { animation-delay:.56s; }
+    .digital-bridge-content[data-phase="play"] .digital-link { animation-delay:.74s; }
+    .digital-bridge-content[data-phase="play"] .panel { opacity:0; transform:translateY(14px) scale(.985); animation:panelReveal .85s cubic-bezier(.22,.8,.2,1) .18s forwards; }
+    .digital-bridge-content[data-phase="play"] .orbit { opacity:0; transform:rotate(-10deg) scale(.94); animation:orbitReveal .9s cubic-bezier(.22,.8,.2,1) .05s forwards; }
+    .digital-bridge-content[data-phase="play"] .accent-node { opacity:0; animation:nodeReveal .55s ease forwards; }
+    .digital-bridge-content[data-phase="play"] .accent-node.one { animation-delay:.42s; }
+    .digital-bridge-content[data-phase="play"] .accent-node.two { animation-delay:.52s; }
+    .digital-bridge-content[data-phase="play"] .accent-node.three { animation-delay:.62s; }
+    .digital-bridge-content[data-phase="play"] :is(.hero-block,.line,.stack-item) { opacity:0; transform:translateY(6px); animation:itemReveal .5s ease forwards; }
+    .digital-bridge-content[data-phase="play"] .hero-block { animation-delay:.52s; }
+    .digital-bridge-content[data-phase="play"] .line.w1 { animation-delay:.62s; }
+    .digital-bridge-content[data-phase="play"] .line.w2 { animation-delay:.70s; }
+    .digital-bridge-content[data-phase="play"] .line.w3 { animation-delay:.78s; }
+    .digital-bridge-content[data-phase="play"] .stack-item:nth-child(1) { animation-delay:.60s; }
+    .digital-bridge-content[data-phase="play"] .stack-item:nth-child(2) { animation-delay:.72s; }
+    .digital-bridge-content[data-phase="play"] .stack-item:nth-child(3) { animation-delay:.84s; }
+    .digital-bridge-content[data-motion="paused"] * { animation-play-state:paused!important; }
+    @media (max-width:980px) { .digital-bridge-content { grid-template-columns:minmax(0,1fr); gap:40px; } }
+    @media (max-width:640px) { .digital-bridge-content { gap:32px; } }
+    @media (forced-colors:active) { .digital-bridge { background:Canvas; color:CanvasText; border-color:CanvasText; } .digital-bridge::before,.digital-bridge::after { display:none; } .digital-bridge :is(.bridge-label,.eyebrow,h2,.lede) { color:CanvasText; text-shadow:none; } .digital-bridge .digital-link { color:LinkText; border-color:LinkText; } }
+</style>
+<script>
+  import { mountAnimation } from '../scripts/animation-lifecycle';
+  document.querySelectorAll<HTMLElement>('[data-animation="digital-transition"]').forEach(root => {
+    mountAnimation(root, () => {
+      const visual = root.querySelector<HTMLElement>('[data-animation-visual]')!;
+      const link = visual.querySelector<HTMLAnchorElement>('.digital-link')!;
+      link.inert = true;
+      visual.dataset.phase = 'idle';
+      visual.dataset.motion = 'paused';
+      return {
+        duration: 1400,
+        play() { link.inert = false; visual.dataset.phase = 'play'; },
+        settle() { link.inert = false; visual.dataset.phase = 'settled'; },
+        activity(active: boolean) { visual.dataset.motion = active ? 'running' : 'paused'; },
+      };
+    });
+  });
+</script>

@@ -1,0 +1,101 @@
+---
+const stages = [
+  ['Learn', 'Technical training and specialist courses'],
+  ['Validate', 'Certification pathways and structured learning'],
+  ['Apply', 'Knowledge used in real client environments'],
+  ['Share', 'Knowledge distributed across the ITKeepers team']
+];
+---
+<div class="engineering-development is-idle" data-animation="engineering-development" role="group" aria-labelledby="engineering-development-title">
+  <div class="development-scene" data-animation-visual data-phase="settled">
+    <header class="development-heading">
+      <div><p class="development-eyebrow">ENGINEERING DEVELOPMENT</p><h3 id="engineering-development-title">Our engineers don't stop learning when they join ITKeepers.</h3></div>
+      <div class="development-copy"><p>Technology changes constantly, and so do the environments our clients depend on. ITKeepers engineers stay current through advanced technical training, certification pathways, specialist courses and hands-on exposure to evolving technologies.</p><p>Training priorities follow real client environments, emerging technologies and changing market requirements — so knowledge stays relevant, practical and shared across the team.</p></div>
+    </header>
+    <ol class="development-stages" aria-label="Engineering development progression">
+      {stages.map(([name,copy],index) => <li class="development-stage is-complete" data-development-step={index}>
+        <span class="development-node" aria-hidden="true"></span>
+        <h4>{name}</h4><p>{copy}</p>
+        {index < stages.length - 1 && <span class="development-connector" aria-hidden="true"><span></span></span>}
+      </li>)}
+    </ol>
+  </div>
+</div>
+<style>
+  .engineering-development {
+    --development-ink:var(--itk-light-text,#0b2c5f);
+    --development-muted:var(--itk-light-muted,#42566f);
+    --development-blue:var(--itk-brand-deep,#4071B5);
+    --development-cyan:var(--itk-brand-cyan,#42BAEB);
+    --development-line:var(--itk-light-border,rgba(11,44,95,.18));
+    max-width:1220px; margin:40px auto 0; padding-top:32px; border-top:1px solid var(--development-line); color:var(--development-ink);
+  }
+  .development-heading { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(28px,5vw,76px); align-items:start; height:auto; padding:0; border:0; margin:0; background:transparent; }
+  .development-eyebrow { color:var(--development-blue); font-size:var(--itk-label,12px); font-weight:700; line-height:1.5; letter-spacing:var(--itk-label-tracking,.1em); margin:0 0 16px; overflow-wrap:anywhere; }
+  #engineering-development-title { color:var(--development-ink); font-size:clamp(24px,2.4vw,30px); font-weight:600; line-height:1.22; letter-spacing:-.025em; max-width:29ch; margin:0; text-wrap:balance; overflow-wrap:anywhere; }
+  .development-copy p { color:var(--development-muted); font-size:var(--itk-body,16px); line-height:1.65; margin:0; max-width:68ch; }
+  .development-copy p + p { margin-top:12px; }
+  .development-stages { list-style:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; padding:0; margin:28px 0 0; }
+  .development-stage { position:relative; min-width:0; }
+  .development-node { position:relative; z-index:1; display:block; width:8px; height:8px; margin-bottom:14px; border:1px solid var(--development-blue); border-radius:50%; background:var(--development-blue); }
+  .development-stage h4 { color:var(--development-ink); font-size:14px; font-weight:700; line-height:1.5; letter-spacing:.06em; text-transform:uppercase; margin:0 0 6px; overflow-wrap:anywhere; }
+  .development-stage p { color:var(--development-muted); font-size:var(--itk-body,16px); line-height:1.5; margin:0; max-width:25ch; overflow-wrap:anywhere; }
+  .development-connector { position:absolute; z-index:0; left:8px; right:-28px; top:3px; height:1px; background:var(--development-line); transform-origin:left; }
+  .development-connector > span { display:block; width:100%; height:100%; background:linear-gradient(90deg,var(--development-blue),var(--development-cyan)); transform-origin:left; }
+  .engineering-development[data-animation-enhanced="true"] .development-scene[data-phase="waiting"] { transform:translateY(6px); }
+  .engineering-development[data-animation-enhanced="true"] .development-scene[data-phase="waiting"] .development-connector { transform:scaleX(0); }
+  .engineering-development[data-animation-enhanced="true"] .development-stage:not(.is-complete):not(.is-active) .development-node { background:#fff; }
+  .engineering-development[data-animation-enhanced="true"] .development-stage:not(.is-complete) .development-connector > span { transform:scaleX(0); }
+  .development-stage.is-active .development-node { background:var(--development-blue); box-shadow:0 0 0 3px color-mix(in srgb,var(--development-cyan) 14%,transparent); }
+  @media(prefers-reduced-motion:no-preference) {
+    .development-scene { transition:transform 350ms cubic-bezier(.22,1,.36,1); }
+    .development-connector,.development-connector > span { transition:transform 350ms cubic-bezier(.22,1,.36,1); }
+    .development-node { transition:background-color 240ms ease,box-shadow 240ms ease; }
+  }
+  .engineering-development:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .development-scene,
+  .engineering-development:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .development-scene * { transition:none; }
+  @media(max-width:1024px) { .development-heading { grid-template-columns:1fr; gap:18px; } #engineering-development-title { max-width:40ch; } .development-copy { max-width:760px; } }
+  @media(max-width:768px) {
+    .engineering-development { margin-top:28px; padding-top:28px; }
+    .development-stages { grid-template-columns:1fr; gap:18px; margin-top:24px; }
+    .development-stage { display:grid; grid-template-columns:16px minmax(0,1fr); column-gap:14px; }
+    .development-node { grid-column:1; grid-row:1/3; justify-self:center; margin:6px 0 0; }
+    .development-stage h4,.development-stage p { grid-column:2; }
+    .development-stage h4 { margin-bottom:4px; }
+    .development-stage p { max-width:60ch; }
+    .development-connector { left:7px; right:auto; top:10px; bottom:-28px; width:1px; height:auto; transform-origin:top; }
+    .development-connector > span { transform-origin:top; }
+    .engineering-development[data-animation-enhanced="true"] .development-scene[data-phase="waiting"] .development-connector,
+    .engineering-development[data-animation-enhanced="true"] .development-stage:not(.is-complete) .development-connector > span { transform:scaleY(0); }
+  }
+  @media(forced-colors:active) {
+    .engineering-development { --development-ink:CanvasText; --development-muted:CanvasText; --development-blue:Highlight; --development-cyan:Highlight; --development-line:CanvasText; }
+    .development-eyebrow { color:CanvasText; }
+    .development-node { background:Highlight; }
+  }
+</style>
+<script>
+  import { mountAnimation } from '../scripts/animation-lifecycle';
+  function initializeEngineeringDevelopment() {
+    document.querySelectorAll<HTMLElement>('.engineering-development').forEach(root => {
+      const dispose=mountAnimation(root,scheduler=>{
+        const scene=root.querySelector<HTMLElement>('[data-animation-visual]')!;
+        const steps=[...scene.querySelectorAll<HTMLElement>('[data-development-step]')];
+        scene.dataset.phase='waiting';
+        steps.forEach(step=>step.classList.remove('is-active','is-complete'));
+        const activate=(index:number)=>{
+          steps.forEach((step,i)=>{step.classList.toggle('is-complete',i<index);step.classList.toggle('is-active',i===index);});
+          scene.dataset.phase=['learn','validate','apply','share'][index];
+        };
+        return {
+          duration:3500,
+          play() { scene.dataset.phase='entrance';[500,1200,1900,2600].forEach((delay,index)=>scheduler.later(()=>activate(index),delay)); },
+          settle() { scene.dataset.phase='settled';steps.forEach(step=>{step.classList.remove('is-active');step.classList.add('is-complete');}); }
+        };
+      });
+      if(!root.dataset.developmentCleanup) { root.dataset.developmentCleanup='true';document.addEventListener('astro:before-swap',dispose,{once:true}); }
+    });
+  }
+  initializeEngineeringDevelopment();
+  document.addEventListener('astro:page-load',initializeEngineeringDevelopment);
+</script>

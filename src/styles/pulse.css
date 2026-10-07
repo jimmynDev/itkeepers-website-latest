@@ -1,0 +1,104 @@
+/* Pulse is a scoped product surface within the existing ITKeepers shell. */
+body main > section.pulse-shell, body .pulse-page .pulse-shell {
+  --bg:var(--surface-light); --fg:var(--itk-light-text); --muted:var(--itk-light-muted); --accent:var(--itk-light-accent); --focus:var(--itk-light-text);
+  background:var(--bg); color:var(--fg); padding-block:var(--itk-section-space);
+  padding-inline:max(var(--layout-gutter),calc((100% - var(--layout-max))/2));
+}
+body .pulse-shell :is(h1,h2,h3) { color:var(--fg); }
+body .pulse-shell p { color:var(--muted); }
+body .pulse-shell .eyebrow { color:var(--accent); }
+body .pulse-shell :is(h1,h2) { font-size:var(--itk-heading); line-height:1.1; font-weight:600; letter-spacing:-.045em; margin-block:16px 24px; }
+body .pulse-shell h3 { font-size:24px; font-weight:600; line-height:1.25; letter-spacing:-.025em; }
+body main > section.pulse-shell > .pulse-reveal-copy h2 { color:var(--fg); }
+body main > section.pulse-shell > .pulse-reveal-copy > p:not(.eyebrow) { color:var(--muted); }
+body main > section.pulse-shell > .pulse-reveal-copy > .eyebrow { color:var(--accent); }
+body .pulse-shell .btn { background:var(--itk-brand-cyan); color:var(--itk-cta-text); }
+body .pulse-shell .btn:is(:hover,:focus-visible) { background:#6cc8f2; color:var(--itk-cta-text); }
+body .pulse-shell a:focus-visible { outline:3px solid var(--focus); outline-offset:4px; }
+body .pulse-shell .pulse-text-link { display:inline-flex; min-block-size:48px; align-items:center; font-weight:600; text-decoration:underline; text-underline-offset:5px; }
+.pulse-reveal { display:grid; grid-template-columns:minmax(0,.68fr) minmax(0,1.32fr); gap:var(--itk-content-gap); align-items:center; border-block:1px solid var(--itk-light-border); }
+@media (min-width:1101px) {
+  #it-keepers-pulse.pulse-reveal { grid-template-columns:minmax(320px,.54fr) minmax(0,1.46fr); }
+}
+.pulse-reveal-copy { min-inline-size:0; }
+.pulse-reveal-copy > p:not(.eyebrow) { max-inline-size:58ch; font-size:18px; line-height:1.7; }
+.pulse-promises { list-style:none; padding:0; margin-block:24px 32px; font-weight:600; }
+.pulse-promises li { margin-block:8px; display:flex; gap:10px; }
+.pulse-promises li::before { content:'✓'; color:#137549; }
+.pulse-managed { grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); }
+.pulse-page { border:0; border-radius:0; padding:0; }
+body .pulse-page > .pulse-hero { block-size:auto; display:grid; justify-content:initial; border:0; }
+body .pulse-page > .pulse-hero h1 { font-size:clamp(40px,5vw,68px); }
+.pulse-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; margin-block-start:32px; }
+.pulse-section-intro { max-inline-size:820px; margin-block-end:40px; }
+.pulse-section-intro > p { max-inline-size:70ch; font-size:18px; line-height:1.7; }
+.pulse-features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.pulse-feature { border-block-start:1px solid var(--itk-light-border); padding-block:24px; }
+.pulse-feature-index { display:block; color:var(--itk-light-accent); font:12px/1.6 var(--font-annotation); margin-block-end:16px; }
+.pulse-feature h3 { margin-block-end:12px; }
+.pulse-feature p { line-height:1.7; }
+body .pulse-shell .pulse-feature-note { font-weight:600; color:var(--fg); }
+.pulse-feature-detail { border-inline-start:2px solid var(--itk-brand-deep); padding-inline-start:12px; }
+body .pulse-page .pulse-capabilities { background:#fff; }
+.pulse-capability-note { border-block-start:1px solid var(--itk-light-border); padding-block-start:24px; max-inline-size:75ch; }
+.pulse-workflow { list-style:none; margin:40px 0 0; padding:0; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:24px; }
+.pulse-workflow li { position:relative; padding-block-start:24px; border-block-start:2px solid var(--itk-brand-deep); min-inline-size:0; }
+.pulse-workflow-index { font:12px/1.6 var(--font-annotation); color:var(--accent); display:block; margin-block-end:16px; }
+body .pulse-workflow h3 { font-size:20px; margin-block-end:12px; }
+.pulse-workflow p { font-size:16px; line-height:1.6; }
+.pulse-workflow-arrow { position:absolute; inset-inline-end:0; inset-block-start:20px; color:var(--accent); }
+body .pulse-page .pulse-ownership { background:var(--itk-bg); --bg:var(--itk-bg); --fg:var(--itk-text); --muted:#b7c6da; --accent:var(--itk-brand-cyan); --focus:var(--itk-brand-cyan); }
+.pulse-ownership > div { max-inline-size:840px; }
+.pulse-ownership p { font-size:18px; line-height:1.7; }
+.pulse-closing { border-block-start:1px solid var(--itk-light-border); }
+@media (max-width:1100px) { .pulse-reveal { grid-template-columns:1fr; } .pulse-reveal-copy { max-inline-size:760px; } .pulse-reveal > .pulse-preview { inline-size:100%; max-inline-size:760px; } .pulse-workflow { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:768px) { .pulse-features { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px) { .pulse-features { grid-template-columns:1fr; gap:0; } .pulse-workflow { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; } body .pulse-shell :is(h1,h2) { font-size:clamp(30px,8vw,40px); } .pulse-actions { align-items:stretch; flex-direction:column; } .pulse-reveal-copy > p:not(.eyebrow) { font-size:16px; } .pulse-shell .btn { max-inline-size:100%; padding-inline:18px; gap:12px; font-size:16px; } }
+@media (forced-colors:active) { body .pulse-shell,body .pulse-page .pulse-ownership { background:Canvas; --fg:CanvasText; --muted:CanvasText; --accent:LinkText; --focus:Highlight; } .pulse-feature,.pulse-workflow li { border-color:CanvasText; } }
+
+/* Homepage product reveal only: light UI, restrained surface separation. */
+body main > #it-keepers-pulse.pulse-shell {
+  background:linear-gradient(135deg,#F3F7FC 0%,#EEF6FB 55%,#EAF4FA 100%);
+}
+#it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) { color:#394F69; }
+#it-keepers-pulse .pulse-preview { position:relative; isolation:isolate; }
+#it-keepers-pulse .pulse-preview::before {
+  content:''; position:absolute; inset:-34px -28px; z-index:-1; pointer-events:none;
+  background:radial-gradient(ellipse at 55% 50%,rgba(66,186,235,.12),rgba(64,113,181,.05) 45%,transparent 70%);
+  filter:blur(24px);
+}
+#it-keepers-pulse .pulse-preview-visual {
+  background:#F7FAFD; border-color:#DCE6F0;
+  box-shadow:0 24px 60px rgba(15,40,75,.10),0 8px 24px rgba(64,113,181,.06);
+}
+#it-keepers-pulse :is(.pulse-product-bar,.pulse-sidebar) { background:#F7FAFD; border-color:#DCE6F0; }
+#it-keepers-pulse .pulse-dashboard { background:#F4F7FB; }
+#it-keepers-pulse :is(.pulse-health,.pulse-metric,.pulse-attention) { border-color:#DCE6F0; }
+#it-keepers-pulse .pulse-health {
+  background:linear-gradient(180deg,#FFFFFF 0%,#F8FBFF 100%);
+  border-block-start:4px solid var(--itk-brand-cyan);
+}
+#it-keepers-pulse .pulse-attention { border-inline-start-color:#a96907; }
+#it-keepers-pulse .btn {
+  /* Keep the white label over brand blue; cyan finishes the decorative edge. */
+  background:linear-gradient(135deg,#4071B5 0%,#4071B5 82%,#42BAEB 100%); color:#FFFFFF;
+  box-shadow:0 6px 18px rgba(64,113,181,.16);
+}
+#it-keepers-pulse .btn:is(:hover,:focus-visible) {
+  background:linear-gradient(135deg,#4071B5 0%,#4071B5 82%,#42BAEB 100%); color:#FFFFFF;
+  box-shadow:0 9px 22px rgba(64,113,181,.22);
+}
+#it-keepers-pulse .btn:focus-visible { outline:3px solid var(--itk-light-text); outline-offset:4px; }
+@media (prefers-reduced-motion:no-preference) {
+  #it-keepers-pulse .btn { transition:box-shadow 180ms ease,transform 180ms ease; }
+  @media (hover:hover) and (pointer:fine) { #it-keepers-pulse .btn:hover { transform:translateY(-1px); } }
+}
+@media (max-width:1100px) { #it-keepers-pulse .pulse-preview::before { inset:-24px 0; } }
+@media (forced-colors:active) {
+  body main > #it-keepers-pulse.pulse-shell { background:Canvas; }
+  #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) { color:CanvasText; }
+  #it-keepers-pulse .pulse-preview::before { display:none; }
+  #it-keepers-pulse :is(.pulse-preview-visual,.pulse-product-bar,.pulse-sidebar,.pulse-dashboard,.pulse-health,.pulse-metric,.pulse-attention) { background:Canvas; border-color:CanvasText; box-shadow:none; }
+  #it-keepers-pulse .btn:is(a,:hover,:focus-visible) { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; box-shadow:none; }
+  #it-keepers-pulse .btn:focus-visible { outline-color:Highlight; }
+}

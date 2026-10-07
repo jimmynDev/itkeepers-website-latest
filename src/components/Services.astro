@@ -1,91 +1,191 @@
 ---
+
+import DigitalServicesTransition from './DigitalServicesTransition.astro';
+
 import ManagedITAnimation from './animations/ManagedITDashboardAnimation.astro';
+
 import MicrosoftCloudAnimation from './animations/CloudEcosystemAnimation.astro';
+
 import CybersecurityAnimation from './animations/CybersecurityBadgeAnimation.astro';
+
 import NetworkingInfrastructureAnimation from './animations/IsometricNetworkAnimation.astro';
+
 import AIAutomationAnimation from './animations/NeuralSphereAnimation.astro';
+
 const offerings = [
+
   { id: 'managed', name: 'Managed IT Services', intro: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it', component: ManagedITAnimation, wide: false, steps: [] },
+
   { id: 'cloud', name: 'Microsoft 365 & Cloud', intro: 'Manage users, access, devices and Microsoft cloud services with the surrounding business context in view.', href: '/services/microsoft-cloud', component: MicrosoftCloudAnimation, wide: false, steps: [] },
+
   { id: 'security', name: 'Cybersecurity', intro: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/#cybersecurity-animation', component: CybersecurityAnimation, wide: false, steps: [] },
+
   { id: 'networking', name: 'Networking & Infrastructure', intro: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure', component: NetworkingInfrastructureAnimation, wide: false, steps: [] },
-  { id: 'ai', name: 'AI & Automation', intro: 'Explore a sample request workflow with a person reviewing the draft.', href: '/services/ai-automation', component: AIAutomationAnimation, wide: false, steps: [] },
+
+  { id: 'ai', name: 'AI & Automation', intro: 'Automate repetitive work without removing human oversight.', support: 'Turn repeatable requests into reviewed workflows that connect the tools your business already uses.', href: '/services/ai-automation', component: AIAutomationAnimation, wide: false, steps: [] },
+
 ];
+
 ---
+
+<div class="digital-transition-zone">
 <div class="service-stories" id="services">
-  {offerings.map(({ id, name, intro, href, component: Animation, wide, steps }, index) => (
+
+  {offerings.map(({ id, name, intro, support, href, component: Animation, wide, steps }, index) => (
+
     <section class:list={['service-story', { 'service-story-wide': wide, 'service-story-reverse': id === 'ai' }]} id={`services/${id}`} aria-labelledby={`service-${id}-title`} data-light="cyan">
+
       <div class="service-story-body">
+
         <div class="service-story-copy">
-          <div class="service-story-text"><p class="eyebrow">{String(index + 1).padStart(2, '0')}</p><h2 id={`service-${id}-title`}>{id === 'cloud' ? <><span class="service-title-line">Microsoft 365</span>{' '}<span class="service-title-line">&amp; Cloud</span></> : name}</h2><p class="service-story-intro">{intro}</p></div>
+
+          <div class="service-story-text"><p class="eyebrow">{String(index + 1).padStart(2, '0')}</p><h2 id={`service-${id}-title`}>{id === 'cloud' ? <><span class="service-title-line">Microsoft 365</span>{' '}<span class="service-title-line">&amp; Cloud</span></> : name}</h2><p class="service-story-intro">{intro}</p>{support && <p class="service-story-intro service-story-support">{support}</p>}</div>
+
           <a class="scene-link" href={href}>Explore {name}</a>
+
         </div>
+
         <div class="service-story-visual"><Animation />{steps.length > 0 && <ol class="service-story-steps" aria-label={`${name} example steps`}>{steps.map(step => <li>{step}</li>)}</ol>}</div>
+
       </div>
+
     </section>
+
   ))}
+
 </div>
-<section class="digital-service-banner" id="offering-web-design-hosting" aria-labelledby="digital-service-title" data-light="cyan">
-  <div><p class="eyebrow">Digital Services — A clear presence online.</p><h2 id="digital-service-title">Web Design &amp; Hosting</h2><p>Follow an example website from wireframe through launch and maintenance.</p></div>
-  <a class="scene-link" href="/services/web-design-hosting">Explore Web Design &amp; Hosting</a>
-</section>
+
+<DigitalServicesTransition />
+</div>
+
 <script>
+
   import { mountServiceAnchors } from '../scripts/service-anchors';
+
   mountServiceAnchors();
+
 </script>
+
 <style is:global>
+
+  /* One paint layer crosses the existing AI/Web boundary without changing either
+     section's layout. Its grid area follows Web's intrinsic responsive height. */
+  .home-page .digital-transition-zone { position:relative; isolation:isolate; display:grid; grid-template-columns:minmax(0,1fr); --digital-entry:var(--itk-bg); --digital-entry-hold:0px; --digital-bridge-stop:140px; --digital-indigo-stop:280px; }
+  .home-page .digital-transition-zone > #services { grid-area:1 / 1; position:relative; z-index:1; min-inline-size:0; }
+  body.home-page .digital-transition-zone > .digital-bridge { grid-area:2 / 1; z-index:1; background:transparent; }
+  body.home-page .digital-transition-zone #services > [id="services/ai"] { background:transparent; }
+  .home-page .digital-transition-zone::before { content:''; grid-area:2 / 1; margin-block-start:-220px; min-block-size:0; position:relative; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 82% 64%,rgba(129,117,232,.12),transparent 44%),radial-gradient(ellipse at 58% 78%,rgba(118,86,214,.08),transparent 48%),linear-gradient(180deg,var(--digital-entry) 0px,var(--digital-entry) var(--digital-entry-hold),#102038 var(--digital-bridge-stop),#1B2346 var(--digital-indigo-stop),#221F45 420px,#281F4E 560px,#2D2155 100%); }
+  /* The parent also owns Web's local cursor wash; keep it separate from the
+     uninterrupted background field and contain its light to Web's grid area. */
+  .home-page .digital-transition-zone::after { content:''; grid-area:2 / 1; position:relative; min-block-size:0; z-index:0; pointer-events:none; }
+  :root[data-hero-theme="day"] .home-page .digital-transition-zone { --digital-entry:var(--surface-light); --digital-entry-hold:120px; --digital-bridge-stop:260px; --digital-indigo-stop:360px; }
+  :root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] { background:linear-gradient(180deg,var(--surface-light) calc(100% - 220px),transparent calc(100% - 220px)); }
+  @media (max-width:900px) { :root[data-hero-theme="day"] .home-page .digital-transition-zone { --digital-entry-hold:180px; --digital-bridge-stop:300px; --digital-indigo-stop:380px; } }
+  @media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) { .home-page .digital-transition-zone::after { display:none; } }
+  @media (forced-colors:active) { .home-page .digital-transition-zone::before,.home-page .digital-transition-zone::after { display:none; } body.home-page .digital-transition-zone #services > [id="services/ai"] { background:Canvas; } }
+
   .home-page .service-story { padding-block: var(--itk-section-space); padding-inline: max(var(--layout-gutter), calc((100% - var(--layout-max)) / 2)); color: var(--itk-text); background: var(--itk-bg); border-block-start: 1px solid var(--itk-border); scroll-margin-block-start: 24px; --accent: var(--itk-brand); --focus: var(--itk-brand); }
+
   .home-page .service-story:first-child { border-block-start: 0; }
+
   .service-story-body { --service-art-size:clamp(360px,40vw,560px); --service-badge-scale:2.8; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 24px var(--itk-content-gap); align-items: center; }
+
   .service-story-copy { min-inline-size:0; grid-row:1 / span 2; }
+
   .service-story-copy .eyebrow { display:flex; align-items:center; gap:14px; font-size:11px; font-weight:500; letter-spacing:.16em; margin:0 0 26px; color:var(--service-readable-accent,var(--itk-brand)); }
+
   .service-story-copy .eyebrow::after { content:''; inline-size:44px; block-size:1px; background:currentColor; opacity:.65; }
-  .service-story-copy h2 { position:relative; isolation:isolate; font-size:clamp(42px,4.6vw,62px); font-weight:550; line-height:1.08; letter-spacing:-.035em; margin:0 0 26px; text-wrap:balance; text-shadow:0 3px 9px rgba(0,0,0,.16); }
+
+  /* Let gradient-painted descenders extend past the tight line box. Trade padding
+     for margin so the heading-to-copy spacing and section geometry stay stable. */
+  .service-story-copy h2 { position:relative; isolation:isolate; font-size:clamp(42px,4.6vw,62px); font-weight:550; line-height:1.08; letter-spacing:-.035em; padding-block-end:.16em; margin:0 0 calc(26px - .16em); text-wrap:balance; text-shadow:0 3px 9px rgba(0,0,0,.16); }
+
   .service-story-copy h2::before { content:''; position:absolute; inset:-18px -12px; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 45% 50%,rgba(66,186,235,.06),transparent 72%); }
-  .service-title-line { display:block; white-space:nowrap; }
+
+  .service-title-line { display:block; }
+  .home-page .service-story-copy h2 { overflow-wrap:anywhere; }
+
   @supports ((background-clip:text) or (-webkit-background-clip:text)) {
+
     .service-story-copy h2 { background-image:linear-gradient(to bottom,#fff 0%,#f4f8fc 55%,#dceafa 100%); background-clip:text; -webkit-background-clip:text; color:transparent; }
+
     :root[data-hero-theme="day"] .service-story-copy h2 { background-image:linear-gradient(to bottom,var(--n),#173b68); }
+
   }
+
   :root[data-hero-theme="day"] .service-story-copy h2 { text-shadow:0 2px 8px rgba(11,44,95,.06); }
+
   .service-story-intro { font-size:16px; line-height:1.6; color:var(--itk-muted); max-inline-size:46ch; margin:0; }
+
+  .service-story-support { margin-block-start:12px; }
+
   .service-story-visual { min-inline-size: 0; grid-column: 2; grid-row: 1 / span 2; }
+
   .service-story-visual > figure { margin: 0; inline-size: 100%; }
+
   .service-story .scene-link { grid-column:1; justify-self:start; align-self:start; margin:48px 0 0; position:relative; display:inline-flex; align-items:center; min-block-size:44px; color:var(--service-readable-accent,var(--itk-brand)); text-decoration:none; }
+
   .service-story .scene-link::after { content:''; position:absolute; inset-inline-start:0; inset-block-end:3px; inline-size:90%; block-size:1px; background:currentColor; opacity:.65; }
+
   .service-story .scene-link:hover::after { inline-size:100%; opacity:1; }
+
   @media (prefers-reduced-motion:no-preference) { .service-story .scene-link::after { transition:inline-size 200ms ease,opacity 200ms ease; } }
-  .home-page .digital-service-banner .scene-link { text-decoration: none; }
-  .service-story a:focus-visible, .digital-service-banner a:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+
+
+  .service-story a:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+
   .service-story-wide .service-story-copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 var(--itk-content-gap); grid-column: 1 / -1; }
+
   .service-story-wide .service-story-copy .eyebrow { grid-column: 1 / -1; }
+
   .service-story-wide .service-story-copy h2 { margin-block-end: 0; }
+
   .service-story-wide .service-story-visual { grid-column: 1 / -1; grid-row: auto; }
+
   .service-story-reverse .service-story-copy, .service-story-reverse .scene-link { grid-column: 2; }
+
   .service-story-reverse .service-story-body { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); }
+
   .service-story-reverse .service-story-copy { grid-row:1 / span 2; }
+
   .service-story-reverse .service-story-visual { grid-column: 1; grid-row: 1 / span 2; }
+
   /* Original rails are aria-hidden; expose their steps once without duplication. */
+
   .service-story-steps { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; padding: 0; margin: 0; }
-  .home-page .digital-service-banner { padding-block: 24px; margin-block: 32px 0; border-block: 1px solid rgba(184,205,230,.3); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-  .digital-service-banner h2 { font-size: 28px; margin: 0 0 8px; }
-  .digital-service-banner p { margin: 0; color: var(--text-dark-muted); }
-  .digital-service-banner .eyebrow { color: var(--s); margin-block-end: 12px; }
+
   @media (min-width:901px) and (max-width:1199px) { .service-story-body { --service-badge-scale:2.2; } }
+
   @media (max-width: 900px) {
+
     .service-story-copy { display:contents; }
+
     .service-story-text { grid-column:1; grid-row:1; }
+
     .service-story .scene-link { margin:0; }
+
     .service-story-body { --service-art-size:clamp(300px,80vw,480px); --service-badge-scale:2.25; }
+
     .service-story-body, .service-story-reverse .service-story-body, .service-story-wide .service-story-copy { grid-template-columns: minmax(0, 1fr); }
+
     .service-story-copy, .service-story-visual, .service-story .scene-link,
+
     .service-story-reverse .service-story-copy, .service-story-reverse .service-story-visual, .service-story-reverse .scene-link { grid-column: 1; grid-row: auto; }
+
     .service-story .service-story-visual { grid-row:2; }
+
     .service-story .scene-link { grid-row:3; }
+
     .service-story-wide .service-story-copy h2 { margin-block-end: 20px; }
-    .home-page .digital-service-banner { flex-direction: column; align-items: start; }
+
+
   }
+
   @media (max-width:600px) { .service-story-body { --service-badge-scale:1.7; } }
+
   @media (max-width:380px) { .service-story-body { --service-badge-scale:1.5; } }
+
   @media (forced-colors: active) { .home-page .service-story { border-color: CanvasText; } .service-story-copy h2 { color:CanvasText; background:none; text-shadow:none; } .service-story-copy h2::before { display:none; } }
+
 </style>
+

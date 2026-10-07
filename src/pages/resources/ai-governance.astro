@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+const description = 'A practical ITKeepers guide to protecting company data, controlling employee AI use, reducing Shadow AI risk, and introducing AI securely.';
+const pdf = '/resources/itkeepers-ai-governance-playbook.pdf';
+const topics = [
+  ['Protecting company data', 'Data classification, minimum necessary context and boundaries between client environments.'],
+  ['Employee AI usage', 'Human review, prompt hygiene and accountability for AI-assisted work.'],
+  ['Shadow AI', 'Recognizing unapproved personal accounts and tools used with sensitive information.'],
+  ['Access and permissions', 'Least privilege, identity controls and scoped connector permissions.'],
+  ['Approved AI tools', 'Tool profiles covering purpose, data handling, ownership and permitted capabilities.'],
+  ['Governance responsibilities', 'Named owners, approval paths, exceptions and incident escalation.'],
+  ['Secure AI adoption', 'Testing, change control, logging, rollback and stop conditions for automation.'],
+];
+const schema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'DigitalDocument', name: 'ITKeepers AI Governance Playbook', description, author: { '@type': 'Organization', name: 'ITKeepers' }, publisher: { '@type': 'Organization', name: 'ITKeepers' }, url: new URL('/resources/ai-governance', Astro.site).href, encoding: { '@type': 'MediaObject', contentUrl: new URL(pdf, Astro.site).href, encodingFormat: 'application/pdf' } }).replace(/</g, '\\u003c');
+---
+<Base title="AI Governance Playbook for Businesses | ITKeepers" description={description}>
+  <article class="governance-resource">
+    <header class="resource-heading"><p class="eyebrow">ITKEEPERS AI GOVERNANCE</p><h1>AI Governance Playbook for Businesses</h1><p class="lead">AI tools are already entering everyday business workflows. The ITKeepers AI Governance Playbook provides a practical framework for protecting company information, defining acceptable AI use, and introducing AI with clear controls.</p></header>
+    <section aria-labelledby="topics-heading"><h2 id="topics-heading">What the playbook helps you address</h2><div class="resource-topics">{topics.map(([title, text]) => <div><h3>{title}</h3><p>{text}</p></div>)}</div></section>
+    <section aria-labelledby="audience-heading"><h2 id="audience-heading">Who this is for</h2><p>Business owners, IT managers, operations leaders and organizations adopting AI tools who want to understand the controls around their use.</p><p class="resource-context">The supplied document is titled “AI Operations Playbook” and was written for ITKeepers’ MSP environment. It is an internal draft governance framework, intended for management, legal/HR and security review before becoming enforceable policy. It is not legal advice.</p></section>
+    <section class="resource-access" aria-labelledby="access-heading"><h2 id="access-heading">Get the ITKeepers AI Governance Playbook</h2><p>Read the original PDF. No email address is required.</p><div class="resource-actions"><a class="btn" href={pdf} target="_blank" rel="noopener noreferrer" data-event="ai-playbook-open">Open the Playbook <span class="link-note">(PDF, new tab)</span></a><a href={pdf} download data-event="ai-playbook-open">Download PDF <span aria-hidden="true">↓</span></a></div></section>
+  </article>
+  <script type="application/ld+json" set:html={schema}></script>
+</Base>
+<style>
+  .governance-resource{max-width:1180px;margin:0 auto;border:0;border-radius:0;padding:80px 24px}.resource-heading{height:auto;padding:0;display:block;border:0;max-width:850px;margin-bottom:64px}.resource-heading .eyebrow{font-size:12px}.resource-heading h1{font-size:clamp(40px,5vw,64px);line-height:1.08}.governance-resource section{margin-top:56px}.governance-resource h2{font-size:clamp(28px,3vw,38px);line-height:1.15;margin-bottom:24px}.resource-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}.resource-topics>div{padding:24px 0;border-top:1px solid #ffffff30}.resource-topics h3{font-size:21px;line-height:1.2;margin-bottom:12px}.resource-topics p,.governance-resource section>p{color:var(--text-dark-muted);max-width:75ch}.resource-topics p{margin:0}.resource-context{border-left:3px solid var(--c);padding-left:20px}.resource-access{padding:32px;border:1px solid #ffffff30;border-radius:20px;background:var(--surface-dark)}.resource-actions{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.resource-actions>a:last-child{color:var(--c);font-weight:700}.link-note{font-size:12px;font-weight:400}@media(max-width:650px){.governance-resource{padding:48px 20px}.resource-topics{grid-template-columns:1fr}.resource-access{padding:24px}.resource-actions{align-items:stretch;flex-direction:column}.resource-actions .btn{width:100%}}
+</style>

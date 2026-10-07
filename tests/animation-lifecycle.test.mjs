@@ -27,7 +27,10 @@ function harness({ reduced = false, observerAvailable = true, entrance = false }
   const button = target({ hidden: true, textContent: '', attributes: {}, setAttribute(name, value) { this.attributes[name] = value; } });
   const visual = {
     innerHTML: '<p>Readable static example</p>', className: 'visual', style: null,
-    getAttribute() { return this.style; }, setAttribute(_, value) { this.style = value; }, removeAttribute() { this.style = null; },
+    attributes: {},
+    getAttribute(name) { return name === 'style' ? this.style : this.attributes[name] ?? null; },
+    setAttribute(name, value) { if(name === 'style') this.style = value; else this.attributes[name] = value; },
+    removeAttribute(name) { if(name === 'style') this.style = null; else delete this.attributes[name]; },
     getBoundingClientRect() { return {}; },
   };
   const classes = new Set();
@@ -298,4 +301,24 @@ test('reduced motion disables replay after a settled or interrupted exit', () =>
     assert.equal(h.root.dataset.animationState, 'settled');
     assert.equal(h.timers.size, 0);
   }
+});
+
+test('opt-in settled ambient uses the same viewport, pause, replay and disposal gates',()=>{
+ const h=harness({entrance:true}),activity=[],events=[];
+ const dispose=h.mount(()=>({duration:1000,ambient:true,activity(active){activity.push(active)},play(){events.push('play')},settle(){events.push('settle')}}));
+ h.visible();h.tick(1600);assert.equal(h.root.dataset.animationState,'settled');assert.equal(activity.at(-1),true);assert.equal(h.timers.size,0);assert.equal(h.button.hidden,false);
+ h.button.emit('click');assert.equal(activity.at(-1),false);assert.equal(h.button.textContent,'Resume animation');h.button.emit('click');assert.equal(activity.at(-1),true);
+ h.boundary('0px',false);assert.equal(activity.at(-1),false);h.visible();assert.equal(activity.at(-1),true);assert.deepEqual(events,['play','settle']);
+ h.document.hidden=true;h.document.emit('visibilitychange');assert.equal(activity.at(-1),false);h.document.hidden=false;h.document.emit('visibilitychange');assert.equal(activity.at(-1),true);
+ h.window.emit('pagehide',{persisted:true});assert.equal(activity.at(-1),false);h.window.emit('pageshow');assert.equal(activity.at(-1),true);
+ h.leave();assert.equal(activity.at(-1),false);h.boundary('0px',false);assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(600);assert.deepEqual(events,['play','settle','play']);dispose();assert.equal(activity.at(-1),false);assert.equal(h.timers.size,0);
+});
+test('reduced motion stops opt-in ambient permanently without enabling completion controls',()=>{
+ for(const reduced of [true,false]){const h=harness({reduced}),activity=[];h.mount(()=>({duration:1000,ambient:true,activity(active){activity.push(active)},play(){},settle(){}}));if(!reduced){h.visible();h.tick(1000);assert.equal(activity.at(-1),true);h.media.matches=true;h.media.emit('change');}assert.equal(activity.at(-1),false);assert.equal(h.button.hidden,true);assert.equal(h.timers.size,0);h.visible();h.tick(10000);assert.equal(activity.at(-1),false);}
+});
+
+test('renderer failure restores the authored final prototype phase and paused motion',()=>{
+ const h=harness({entrance:true});h.visual.setAttribute('data-phase','settled');h.visual.setAttribute('data-motion','paused');
+ h.mount(()=>{h.visual.setAttribute('data-phase','idle');h.visual.setAttribute('data-motion','running');h.visual.innerHTML='partial';throw new Error('renderer failed')});
+ assert.equal(h.visual.getAttribute('data-phase'),'settled');assert.equal(h.visual.getAttribute('data-motion'),'paused');assert.equal(h.visual.innerHTML,'<p>Readable static example</p>');assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.timers.size,0);
 });

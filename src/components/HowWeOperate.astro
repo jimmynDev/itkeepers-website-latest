@@ -1,0 +1,54 @@
+---
+import OperationalWorkflowAnimation from './animations/OperationalWorkflowAnimation.astro';
+import KnowledgeContinuityAnimation from './animations/KnowledgeContinuityAnimation.astro';
+import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimation.astro';
+---
+<section class="how-we-operate" id="how-we-operate" aria-labelledby="operate-title">
+  <div class="operate-inner">
+    <header class="operate-heading">
+      <div><p class="operate-eyebrow">HOW WE WORK</p><h2 id="operate-title">From signal to resolution.</h2></div>
+      <p class="operate-intro">Monitoring, engineering context and internal escalation keep work moving without making the client coordinate the response.</p>
+    </header>
+    <div class="operate-primary"><OperationalWorkflowAnimation />
+      <div class="operate-supporting">
+        <article aria-labelledby="operate-monitoring-title"><h3 id="operate-monitoring-title">Proactive monitoring</h3><p>Monitoring and security alerts can surface issues before you have to report them. Those signals enter the workflow for engineer review.</p></article>
+        <article aria-labelledby="operate-escalation-title"><h3 id="operate-escalation-title">Internal escalation</h3><p>Specialized issues move inside the team to the engineer best suited to handle them.</p></article>
+      </div>
+    </div>
+    <div class="operate-stories">
+      <article class="operate-documentation" aria-labelledby="operate-documentation-title">
+        <div><p class="operate-label">DOCUMENTATION</p>
+        <h3 id="operate-documentation-title">The fix is not the end of the work.</h3>
+        <p>Relevant changes, decisions and environment context are documented for the next issue, project or engineer.</p>
+        </div><KnowledgeContinuityAnimation />
+      </article>
+      <article class="operate-decisions" aria-labelledby="operate-decisions-title">
+        <div><h3 id="operate-decisions-title">Keep / Upgrade / Replace</h3><p>We recommend what the environment needs — not simply more hardware.</p></div>
+        <HardwareAssessmentAnimation />
+      </article>
+    </div>
+  </div>
+</section>
+<style>
+  :global(body.home-page) .how-we-operate { --operate-ink:#0b2c5f; --operate-muted:#42566f; --operate-accent:#4071B5; --operate-line:#ccdce9; color:var(--operate-ink); background:linear-gradient(180deg,#fafcfe 0px,#f0f5fa 180px,#edf3f8 100%); padding-block:clamp(64px,7vw,104px) clamp(64px,6vw,96px); }
+  .operate-inner { max-width:1220px; margin-inline:auto; }
+  .how-we-operate :is(h2,h3,p,dt,dd) { overflow-wrap:anywhere; }
+  .operate-heading { display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:clamp(32px,5vw,72px); height:auto; padding:0; border:0; margin:0 0 40px; background:transparent; }
+  .operate-eyebrow { color:color-mix(in srgb,var(--operate-accent) 90%,var(--operate-ink)); font-size:12px; font-weight:700; letter-spacing:.14em; margin:0 0 22px; }
+  #operate-title { font-size:clamp(36px,3.8vw,56px); line-height:1.08; font-weight:600; letter-spacing:-.04em; color:var(--operate-ink); max-width:14ch; margin:0; text-wrap:balance; }
+  .operate-intro { color:var(--operate-muted); font-size:16px; line-height:1.7; max-width:48ch; margin:0 0 3px; }
+  .operate-primary { display:grid; grid-template-columns:1.05fr 1fr; align-items:center; gap:clamp(32px,6vw,88px); }
+  .operate-stories { display:grid; gap:36px; margin-top:48px; }
+  .operate-stories > article,.operate-supporting article { background:transparent; border:0; border-radius:0; padding:0; margin:0; }
+  .operate-stories > article > div h3,.operate-supporting h3 { color:var(--operate-ink); font-size:22px; font-weight:600; line-height:1.2; letter-spacing:-.02em; margin:0 0 14px; }
+  .operate-stories > article > div > p,.operate-supporting p { color:var(--operate-muted); font-size:16px; line-height:1.7; margin:0; max-width:52ch; }
+  .operate-stories > .operate-documentation { display:grid; grid-template-columns:.75fr 1.25fr; gap:40px; align-items:center; border-top:1px solid var(--operate-line); padding-top:36px; }
+  .operate-stories .operate-documentation > div .operate-label { color:color-mix(in srgb,var(--operate-accent) 90%,var(--operate-ink)); font-size:12px; font-weight:700; letter-spacing:.12em; margin:0 0 18px; }
+  .operate-stories .operate-documentation > div h3 { font-size:clamp(26px,2.5vw,34px); max-width:20ch; }
+  .operate-supporting article + article { border-top:1px solid var(--operate-line); margin-top:24px; padding-top:24px; }
+  .operate-stories .operate-decisions { display:grid; grid-template-columns:.55fr 1.45fr; gap:40px; border-top:1px solid var(--operate-line); padding-top:36px; align-items:center; }
+  @media(max-width:1100px) { .operate-stories > .operate-documentation,.operate-stories .operate-decisions { grid-template-columns:1fr; gap:24px; } }
+  @media(max-width:768px) { .operate-heading,.operate-primary { grid-template-columns:1fr; gap:28px; } .operate-heading { margin-bottom:32px; } #operate-title { max-width:18ch; } .operate-stories { margin-top:32px; } .operate-supporting { border-top:1px solid var(--operate-line); padding-top:24px; } }
+  @media(forced-colors:active) { :global(body.home-page) .how-we-operate { --operate-ink:CanvasText; --operate-muted:CanvasText; --operate-accent:LinkText; --operate-line:CanvasText; background:Canvas; } }
+</style>
+<script>import '../scripts/approved-operate-animations';</script>

@@ -5,16 +5,17 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   if (existing) return existing;
   const roles = Array.from(root.querySelectorAll<HTMLElement>('.itk-hero-role'));
   const rotator = root.querySelector<HTMLElement>('.itk-hero-rotator');
-  if (roles.length !== 7 || !rotator) return () => {};
+  if (roles.length !== 6 || !rotator) return () => {};
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   let current = 0;
-  let returned = false;
-  let remaining = 2700;
+  let remaining = 3000;
   let since = 0;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let frame: number | undefined;
   let visible = true;
   let parked = false;
+  let hovered = false;
+  let focused = false;
   let disposed = false;
   let observer: IntersectionObserver | undefined;
 
@@ -27,22 +28,19 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   };
   const advance = () => {
     timer = undefined;
-    const isReturn = current === roles.length - 1;
     current = (current + 1) % roles.length;
-    if (isReturn) returned = true;
-    rotator.classList.toggle('itk-hero-rotator--slow', isReturn);
     const incoming = roles[current];
     incoming.classList.add('no-anim');
     incoming.classList.remove('is-active', 'is-leaving');
     void incoming.offsetWidth;
     incoming.classList.remove('no-anim');
     frame = requestAnimationFrame(activate);
-    remaining = (isReturn ? 540 : 460) + (current === 0 ? (returned ? 3000 : 2700) : 1800);
+    remaining = 3000 + (media.matches ? 0 : 350);
     reconcile();
   };
   const reconcile = () => {
     if (disposed) return;
-    if (!visible || document.hidden || parked) {
+    if (!visible || document.hidden || parked || hovered || focused) {
       if (timer !== undefined) {
         clearTimeout(timer); timer = undefined;
         remaining = Math.max(0, remaining - (performance.now() - since));
@@ -55,6 +53,10 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
     }
   };
   const preference = () => { root.toggleAttribute('data-reduced', media.matches); };
+  const enter = () => { hovered = true; reconcile(); };
+  const leave = () => { hovered = false; reconcile(); };
+  const focus = () => { focused = true; reconcile(); };
+  const blur = () => { focused = false; reconcile(); };
   const pagehide = (event: PageTransitionEvent) => {
     if (!event.persisted) { dispose(); return; }
     parked = true; reconcile();
@@ -70,11 +72,21 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
     media.removeEventListener('change', preference);
     window.removeEventListener('pagehide', pagehide);
     window.removeEventListener('pageshow', pageshow);
+    rotator.removeEventListener('mouseenter', enter);
+    rotator.removeEventListener('mouseleave', leave);
+    rotator.removeEventListener('focusin', focus);
+    rotator.removeEventListener('focusout', blur);
+    rotator.removeAttribute('tabindex');
     mounted.delete(root);
   };
   mounted.set(root, dispose);
   preference();
   root.setAttribute('data-enhanced', '');
+  rotator.setAttribute('tabindex', '0');
+  rotator.addEventListener('mouseenter', enter);
+  rotator.addEventListener('mouseleave', leave);
+  rotator.addEventListener('focusin', focus);
+  rotator.addEventListener('focusout', blur);
   media.addEventListener('change', preference);
   document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', pagehide);

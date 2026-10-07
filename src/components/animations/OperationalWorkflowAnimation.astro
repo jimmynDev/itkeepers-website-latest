@@ -1,0 +1,67 @@
+---
+// Adapted from Jim's incident-response.html: rail, travelling ticket and ownership.
+const stages = [
+  ['Issue detected','Monitoring or user-reported signal'],
+  ['Ticket created automatically','Available environment context attached'],
+  ['Engineer assigned','Issue reaches an appropriate engineer'],
+  ['Client notified','An update on the investigation'],
+  ['Investigation','Engineer works with known context'],
+  ['Resolved','Service restored in this example'],
+  ['Documented','Actions, outcome and follow-up']
+];
+---
+<figure class="operate-process is-idle" data-animation="operational-workflow" aria-describedby="operate-process-caption">
+  <div class="incident-panel" data-animation-visual data-phase="settled">
+    <div class="incident-chrome"><span class="incident-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="incident-url">ITKeepers / support</span><span class="incident-status" aria-hidden="true"><i></i><b data-incident-status>Resolved</b></span></div>
+    <div class="incident-heading"><h3>Incident response</h3><p>One example, from first signal to documented outcome.</p></div>
+    <div class="incident-rail">
+      <div class="incident-axis" aria-hidden="true"><span class="incident-fill"></span></div>
+      <ol class="incident-steps" aria-label="Illustrative incident workflow">
+        {stages.map(([name,copy],index) => <li class="incident-step is-complete" data-process-step={index}><span class="incident-node" aria-hidden="true"></span><div><strong>{name}</strong><span class="incident-detail">{copy}</span></div></li>)}
+      </ol>
+      <span class="incident-ticket" aria-hidden="true"><i></i></span>
+    </div>
+    <div class="incident-foot"><span aria-hidden="true"></span>One thread · Action and follow-up recorded</div>
+  </div>
+  <figcaption id="operate-process-caption"><span class="illustrative-badge">Illustrative</span><span>Conceptual workflow. Animation timing does not represent response or resolution times.</span></figcaption>
+</figure>
+<style>
+  .operate-process { margin:0; min-width:0; }
+  .incident-panel { --incident-cyan:#42BAEB; position:relative; padding:22px 24px 18px; border:1px solid #38758d; border-radius:18px; background:linear-gradient(160deg,#132b43,#0c1c2e 75%); box-shadow:0 18px 44px -30px rgba(11,44,95,.5),inset 0 1px 0 rgba(255,255,255,.04); color:#f6fbff; }
+  .incident-chrome { display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:12px; line-height:1.5; color:#b9cedf; }
+  .incident-dots { display:flex; gap:5px; }
+  .incident-dots i { width:5px; height:5px; border-radius:50%; background:var(--incident-cyan); }
+  .incident-url { flex:1; overflow-wrap:anywhere; }
+  .incident-status { display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border:1px solid #3e829b; border-radius:8px; color:#d6f4ff; background:rgba(66,186,235,.08); font-size:12px; }
+  .incident-status i,.incident-foot > span { flex:none; width:5px; height:5px; border-radius:50%; background:var(--incident-cyan); }
+  .incident-heading { margin-block:22px 20px; }
+  .incident-heading h3 { margin:0 0 7px; font-size:20px; line-height:1.3; letter-spacing:-.02em; color:#f6fbff; }
+  .incident-heading p { margin:0; font-size:14px; line-height:1.6; color:#b9cedf; }
+  .incident-rail { position:relative; }
+  .incident-steps { list-style:none; margin:0; padding:0; display:grid; gap:16px; }
+  .incident-step { display:grid; grid-template-columns:20px minmax(0,1fr); gap:16px; position:relative; }
+  .incident-node { z-index:1; align-self:start; justify-self:center; margin-top:6px; width:10px; height:10px; border-radius:50%; border:1px solid #759bb2; background:#15334b; }
+  .incident-step strong { display:block; color:#f6fbff; font-size:16px; font-weight:600; line-height:1.35; overflow-wrap:anywhere; }
+  .incident-detail { display:block; color:#b9cedf; font-size:12px; line-height:1.6; margin-top:2px; overflow-wrap:anywhere; }
+  .incident-step.is-complete .incident-node { background:var(--incident-cyan); border-color:var(--incident-cyan); }
+  .incident-step:last-child.is-complete .incident-node { outline:1px solid var(--incident-cyan); outline-offset:3px; }
+  .incident-step.is-active .incident-node { background:var(--incident-cyan); border-color:var(--incident-cyan); box-shadow:0 0 0 4px rgba(66,186,235,.16); }
+  .incident-axis { position:absolute; left:9px; top:11px; bottom:30px; width:2px; background:#355b73; }
+  .incident-fill { display:block; height:100%; width:100%; background:var(--incident-cyan); transform-origin:top; }
+  .incident-ticket { display:none; position:absolute; left:10px; top:11px; width:0; height:0; }
+  .incident-ticket i { display:block; position:absolute; width:10px; height:10px; top:-5px; left:-5px; border-radius:2px; background:#a4e7ff; transform:rotate(45deg); box-shadow:0 0 9px rgba(66,186,235,.45); }
+  .incident-ticket.is-handoff::after { content:''; position:absolute; left:-12px; top:-12px; width:24px; height:24px; border:1px solid var(--incident-cyan); border-radius:50%; }
+  .incident-foot { display:flex; align-items:center; gap:8px; color:#b9cedf; font-size:12px; line-height:1.6; margin-top:18px; padding-top:14px; border-top:1px solid #31536a; }
+  .operate-process figcaption { display:flex; align-items:start; gap:10px; margin-top:14px; color:#42566f; font-size:12px; line-height:1.7; }
+  .operate-process .illustrative-badge { flex:none; color:#31577d; background:#edf5fb; border-color:#bdcfe0; font-size:12px; }
+  .operate-process[data-animation-enhanced="true"] .incident-panel[data-phase="waiting"] { transform:translateY(10px); }
+  .operate-process[data-animation-state="running"] .incident-ticket { display:block; }
+  .operate-process[data-animation-enhanced="true"] .incident-panel:not([data-phase="settled"]) .incident-foot > span { background:#759bb2; }
+  @media(prefers-reduced-motion:no-preference) { .incident-panel { transition:transform 500ms cubic-bezier(.22,1,.36,1); } .incident-ticket { transition:top 390ms cubic-bezier(.16,1,.3,1); } .incident-fill { transition:transform 390ms cubic-bezier(.16,1,.3,1); } .incident-node { transition:background-color 240ms ease,box-shadow 240ms ease; } }
+  .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .incident-panel * { transition:none; }
+  .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .incident-panel { transition:none; }
+  .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"]) .incident-ticket { display:block; }
+  .operate-process[data-animation-state="replay-ready"] .incident-panel[data-phase="settled"] .incident-ticket { display:none; }
+  @media(max-width:480px) { .incident-panel { padding:18px 16px; } .incident-step { gap:10px; } .operate-process figcaption { flex-direction:column; gap:7px; } }
+  @media(forced-colors:active) { .incident-panel { --incident-cyan:Highlight; background:Canvas; color:CanvasText; border-color:CanvasText; } .incident-panel :is(h3,p,strong,.incident-detail,.incident-chrome,.incident-foot,.incident-status) { color:CanvasText; } .incident-status { border-color:CanvasText; } .incident-node { border-color:CanvasText; } }
+</style>

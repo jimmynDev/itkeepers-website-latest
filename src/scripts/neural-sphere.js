@@ -44,7 +44,8 @@ export function createNeuralSphere(root) {
 
   function resize() {
     const r = canvas.getBoundingClientRect();
-    w = r.width; h = r.height; cx = w / 2; cy = h / 2; R = Math.min(w, h) * 0.34;
+    // Preserve the approved visual center within the reserved animation space.
+    w = r.width; h = r.height; cx = w / 2; cy = h * 0.45; R = Math.min(w, h) * 0.34;
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     draw(0);
