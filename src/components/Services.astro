@@ -158,7 +158,7 @@ const offerings = [
 
   @media (max-width: 900px) {
 
-    .service-story-copy { display:contents; }
+    .service-story-copy { display:grid; row-gap:24px; }
 
     .service-story-text { grid-column:1; grid-row:1; }
 
@@ -173,8 +173,6 @@ const offerings = [
     .service-story-reverse .service-story-copy, .service-story-reverse .service-story-visual, .service-story-reverse .scene-link { grid-column: 1; grid-row: auto; }
 
     .service-story .service-story-visual { grid-row:2; }
-
-    .service-story .scene-link { grid-row:3; }
 
     .service-story-wide .service-story-copy h2 { margin-block-end: 20px; }
 

@@ -3,32 +3,6 @@
   <h2>See what your IT could do better.</h2>
   <div class="closing-bottom">
     <p>Book a free IT review.</p>
-    <div class="review-booking" role="group" aria-label="Book a free IT review">
-      <label for="review-email">Work email address</label>
-      <input id="review-email" type="email" autocomplete="email" placeholder="Work email address" required aria-describedby="review-help" />
-      <button class="btn white" type="button" id="review-booking-button">Book my free review</button>
-      <p id="review-help">Online booking is currently unavailable.</p>
-      <p id="review-status" role="status"></p>
-    </div>
+    <a class="btn white" href="/contact">Book my free IT review</a>
   </div>
 </section>
-<script>
-  const email = document.querySelector<HTMLInputElement>('#review-email');
-  const button = document.querySelector<HTMLButtonElement>('#review-booking-button');
-  const status = document.querySelector<HTMLElement>('#review-status');
-  button?.addEventListener('click', () => {
-    if (!email?.reportValidity() || !status) return;
-    status.textContent = 'Your email has not been sent. Online booking is currently unavailable.';
-  });
-</script>
-<style>
-  .review-booking { display:grid; gap:12px; inline-size:min(100%,440px); }
-  .review-booking label { font-size:14px; color:var(--itk-text); }
-  .review-booking input { inline-size:100%; min-inline-size:0; min-block-size:48px; padding:12px 16px; border:1px solid var(--itk-muted); border-radius:8px; background:var(--itk-surface); color:var(--itk-text); font:inherit; }
-  .review-booking input::placeholder { color:var(--itk-muted); opacity:1; }
-  .review-booking :is(input,button,a):focus-visible { outline:3px solid var(--itk-brand); outline-offset:4px; }
-  .review-booking .btn { justify-content:center; cursor:pointer; }
-  .review-booking #review-help,.review-booking #review-status { font-size:14px; line-height:1.6; }
-  .review-booking #review-status:empty { display:none; }
-  @media (max-width:900px) { .review-booking { inline-size:100%; } }
-</style>

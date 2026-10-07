@@ -181,3 +181,124 @@ No implementation fixes, claim changes, commit or deployment occurred. Assumptio
 none about missing feature behavior. Reviewer needed: design/workflow owner and
 engineers for B9; manual QA/device owner for B14. Next: complete the missing
 interactive scope, then rerun this matrix.
+
+## 7 October 2026 — Homepage phishing decision experience
+
+Scope: owner-approved integration on `v2-full-services`, inspected HEAD
+`6a34fa5324cb541cc6ffda3289d70029513641e3`. Earlier validation above is historical.
+Only the new experience, homepage placement/proof gate and associated records
+changed. Existing conversion work and mobile fixes were preserved.
+
+- Three fictional business messages: account urgency, changed payment details,
+  internal-looking file share. Fictional `.example` addresses are displayed as
+  text, never active destinations. Every action reveals a calm, context-based
+  explanation; only Continue/Finish progresses. No classification, points,
+  timer, ranks, persistent storage, audio, automatic advancement or transmission.
+- Final state: “You shouldn’t have to investigate this alone.” / “Your IT person
+  is a team.” Restart explicitly clears the choices and focuses the first heading.
+  The 30–60-second duration is a design target, not a visitor timing measurement.
+- Initial HTML contains the heading, introduction and a substantive static
+  takeaway. Controls remain hidden until initialization succeeds. A temporary
+  viewport minimum keeps following content out of the initial viewport while
+  enhancement loads; the ready state removes it, and a scoped noscript style
+  removes it for JavaScript-disabled visitors. It does not clip content.
+- Explanation variants occupy one CSS grid cell. Invisible variants reserve the
+  longest text and remain absent from the accessibility tree; changing a choice
+  does not change section height. No JavaScript geometry measurement is needed.
+- Choice keeps focus on its button. Continue/Finish reveals and focuses the next
+  heading before hiding the prior panel; restart focuses the first heading.
+  Native buttons, fieldset/legend, aria-pressed and one persistent polite atomic
+  status region expose the current state. No viewport replay controller is used.
+
+| Check | Result / evidence | Owner |
+| --- | --- | --- |
+| Build | PASS: Node 22 `npm run build`, 16 pages | Integration |
+| Tests | PASS: `node --test tests/*.test.mjs`, 75/75, including eight new state/content tests | Integration |
+| Responsive | PASS: 1920/1440/1024/768/430/390/375/360/320 in both homepage themes; all nine options across each case, no overflow, controls >=48px high | Integration |
+| Mouse / keyboard | PASS: selection, changes of choice, guarded progression, final state, restart; Tab/Enter/Space and visible 3px focus; new headings remain visible below the header | Integration |
+| Touch | PASS: Chrome touch emulation through all three messages and restart; physical device QA unperformed | Integration / manual QA |
+| Announcements | PASS: selected explanation and final status text update in a polite atomic live region, verified in browser accessibility snapshots; native screen-reader speech unperformed | Integration / manual QA |
+| Reduced motion | PASS: immediate state changes, transitions disabled, including live preference change | Integration |
+| No JavaScript | PASS: static takeaway, no visible inactive buttons or empty interaction | Integration |
+| Reentry / duration | PASS: scrolling away/reentering preserves selected action; repeated initialization preserves state; normal-motion explanation remains until explicit progression | Integration |
+| Contrast | PASS: lowest sampled normal text pair 5.98:1 in both themes; forced-color keyboard focus remains visible | Integration |
+| Reflow | PASS: 320px with doubled component text and spacing overrides, no horizontal overflow | Integration |
+| Layout stability | PASS for component: feedback height change 0px across 162 choice activations; load and exercised full flow CLS 0 with the existing dismissible Playbook overlay closed | Integration |
+| Network / errors | PASS: no console/page errors or external requests in 18 responsive cases; isolated full keyboard flow adds zero requests | Integration |
+| Client evidence | PASS: no visible pending proof section; existing ClientProof component/data unchanged, no approved quotes/media invented | Integration |
+
+Existing out-of-scope observation: with the AI Playbook card open, its own
+focus/scroll repositioning contributed up to 0.286416 to the whole-page layout
+shift sum during automated reentry checks. Attribution identified only the
+Playbook aside/close button after the new component's startup shift was fixed.
+The overlay can cover part of a message until dismissed. Its implementation was
+not modified; this is not a claim of zero CLS for every existing page interaction.
+
+Root viewed the final desktop/night and mobile/day component captures. Vercel
+Web Interface Guidelines and skill reference were retrieved 7 October 2026 for
+scoped review. Native button keyboard behavior, approved Continue labels, local
+non-persistent state and restrained color transitions take precedence over
+generic framework/deep-link/compositor-only suggestions. No library added.
+Emitted controller is 2,773 bytes (~1.08kB gzip). No password calculator included.
+
+Evidence outside the repository:
+`C:/Users/Jim/Documents/Codex/2026-10-06/files-mentioned-by-the-user-it/outputs/phishing-decisions/`
+contains responsive/all/extra JSON and four day/night desktop/mobile captures.
+Browser emulation/lab evidence only: Safari, native screen-reader speech, physical
+phones, field performance and usability timing remain unperformed. No commit,
+push or deployment.
+
+## Homepage phishing stable-stage rebuild — 8 October 2026
+
+This supersedes the previous three-message interaction's presentation, not its
+homepage placement. Four fictional messages now have distinct decision and
+ITKeepers View screens in one reserved stage; final takeaway occupies that same
+stage. Earlier records remain historical evidence.
+
+| Check | Result and evidence | Owner |
+| --- | --- | --- |
+| Scope | PASS: four interaction files plus these two records; all other starting source hashes preserved, including existing dirty files. Homepage order and testimonial infrastructure unchanged. | Integration |
+| Build/tests | PASS: Node22 npm run build,16 pages; node --test tests/*.test.mjs,78/78. Eleven scoped tests cover all12 choices, phase/progress guards, final/restart, remount isolation, transition interruption, live reduced motion, cleanup and static fallback. | Integration |
+| Stable layout | PASS: all screens share one intrinsic grid cell; hidden/inert screens reserve maximum content size. Minimum600px desktop/tablet and660px mobile; actual320px height680.5px. No clipping or absolute-positioned panels. | Integration |
+| Responsive | PASS:1920/1440/1024/768/430/390/375/360/320 in both actual day/night themes,18 cases.486 measured answer/Continue/restart activations: stage, section, heading and next homepage section geometry deltas0px; scroll deltas0px. | Integration |
+| Decision/explanation/final | PASS: exactly4 decision screens,12 choice-specific explanation screens, one final. Only active screen interactive/exposed in accessibility snapshots; outgoing animation is inert and aria-hidden. No appended results. Final copy matches owner's request. | Integration |
+| Motion | PASS: outgoing opacity1→0/Y0→-8px and incoming opacity0→1/Y8→0;380ms ease-out. Four normal-motion flows at1440/768/390/375 have32 stable activations. Explicit input can interrupt; offscreen reentry preserves state. | Integration |
+| Reduced motion | PASS: instant phase changes and live preference cancellation; inspected actual Web Animation keyframes and immediate settlement. | Integration |
+| Keyboard/focus | PASS: native Tab/Shift+Tab/Space and Enter,3px visible outline; feedback focuses Continue; Continue/restart focus the new heading using preventScroll:true before concealing the previous control. No body focus dump. | Integration |
+| Touch | PASS: full touch-emulated flow at390; additional390x844/360x740 mobile-emulated taps plus Enter transitions maintain scroll position. Targets >=48px; no hover prerequisite. Physical devices unperformed. | Integration |
+| No JavaScript | PASS:1440/390 readable compact static takeaway; interactive panels/progress absent from visible and accessible content. | Integration |
+| Reflow/forced colors | PASS:320px doubled text plus line/letter/word/paragraph spacing; all phases stable, no horizontal overflow/clipping. Forced colors at320 also passes flow and focus. | Integration |
+| Contrast | PASS: canonical dark component remains in both themes. Conservative brightest radial mix gives muted5.42:1, main text13.54:1 and choice outline3.48:1. Choice borders60% cyan; text16px, labels12px, buttons14px. | Integration |
+| Errors/network | PASS: responsive and special flows have no page/console errors, no additional interaction requests. All interactive state local/non-persistent; no new dependencies. | Integration |
+| Layout shifts | PASS for isolated component: observed flow shift sum0 with existing Playbook overlay dismissed; this includes recent-input shifts, with geometry and scroll also measured separately. Not a field CLS claim. | Integration |
+| Screen reader / broader audit | UNPERFORMED: native screen-reader speech, Safari and physical-device behavior; axe-core not installed. Automated accessibility snapshots and native control checks are partial evidence, not full WCAG certification. | Manual QA |
+
+Before rebuild, the old component displayed message/options/feedback together.
+The measured section heights varied with scenario and final screen:1440px range
+751.98–1162.92px;390px range768.53–1505.98px. The old controller used ordinary
+heading.focus(), permitting browser scroll. The initial baseline helper's
+nextElementSibling selected a non-section sibling, so those particular "next"
+measurements are excluded; the final harness selects the actual following
+main > section. After rebuild, answer selection and Continue each produce0px
+changes to the following section, heading, section/stage height and scroll.
+
+Existing limitation: the floating AI Playbook card is unchanged, may obscure
+content, and can independently move on focus/scroll. Isolated measurements use
+it dismissed. A newly focused scenario heading can be above the current viewport
+when activation occurs low in the stage; preventScroll preserves the explicitly
+requested scroll position, while the next Tab reaches the choices.
+
+Visual review: root viewed desktop decision/explanation and mobile
+decision/explanation/final captures. Stronger navy surface, cyan checks/progress,
+restrained static internal illumination. No pointer-follow effect added.
+References reviewed8 October2026:
+[Vercel interface guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md),
+[MDN focus options](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus),
+[W3C status messages](https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html).
+Native buttons, owner-approved Continue copy and local state take precedence
+over generic framework/deep-link recommendations. Controller3.77kB/~1.52kB gzip.
+
+Evidence outside repository:
+`C:/Users/Jim/Documents/Codex/2026-10-06/files-mentioned-by-the-user-it/outputs/phishing-stage/`
+contains before/responsive/extras/phone-enter JSON, screenshots, tests.txt and
+baseline source hashes. No commit, push or deployment.

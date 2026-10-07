@@ -1,4 +1,123 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Talk to Our Team | ITKeepers"><section class="section"><p class="eyebrow">A conversation is a good start.</p><h1>What would you like your IT team to handle?</h1><p class="lead">Tell us what keeps coming back—or what you are planning next.</p></section><section class="section light"><div class="split"><div><h2>Start with the problem, not a package.</h2><p>Please do not include passwords, credentials or sensitive client information.</p></div><article><h3>Contact ITKeepers</h3><p>Use the verified contact details on the current ITKeepers website.</p><p>A server-side inquiry form will be enabled only after its destination, validation, abuse controls and privacy handling are configured. This V1 does not fake a working form.</p></article></div></section></Base>
+<Base
+  title="Free IT Review | ITKeepers"
+  description="Book a free IT review with ITKeepers to discuss recurring IT issues, infrastructure, Microsoft 365, security and upcoming technology priorities."
+>
+  <section class="section free-review-intro" aria-labelledby="review-title">
+    <p class="eyebrow">FREE IT REVIEW</p>
+    <h1 id="review-title">Start with a clearer view of your IT.</h1>
+    <p class="lead">Tell us what is slowing your team down, creating risk, or simply needs a second look. We’ll start by understanding your environment, priorities and recurring issues — then identify where ITKeepers can help.</p>
+    <p class="review-reassurance">No obligation. No generic sales pitch. Just a practical first conversation about your IT environment.</p>
+  </section>
+  <section class="section free-review-content" aria-label="Your free IT review">
+    <div class="review-layout">
+      <div class="review-context">
+        <div>
+          <h2>What we'll look at</h2>
+          <ul>
+            <li>Recurring IT issues</li>
+            <li>Devices, users and infrastructure</li>
+            <li>Microsoft 365, security and access</li>
+            <li>Current priorities and upcoming changes</li>
+          </ul>
+        </div>
+        <div>
+          <h2>What you get</h2>
+          <ul>
+            <li>A clearer picture of the issues worth addressing first</li>
+            <li>Practical next-step recommendations</li>
+            <li>A discussion of where ITKeepers may be able to help</li>
+          </ul>
+        </div>
+        <p class="review-presence">ITKeepers operates from Lebanon and the United States.</p>
+      </div>
+      <div class="review-request">
+        <h2 id="request-title">Tell us where to start.</h2>
+        <p id="review-availability" class="review-availability">Online requests are currently unavailable. This form does not send your details.</p>
+        <form method="post" action="/contact" data-free-it-review aria-labelledby="request-title" aria-describedby="review-availability">
+          <p class="review-form-help">All fields are required unless marked optional. Please do not include passwords, credentials or sensitive client information.</p>
+          <div class="review-fields">
+            <div class="review-field">
+              <label for="review-name">Name</label>
+              <input id="review-name" name="name" type="text" autocomplete="name" maxlength="120" required />
+            </div>
+            <div class="review-field">
+              <label for="review-company">Company</label>
+              <input id="review-company" name="company" type="text" autocomplete="organization" maxlength="160" required />
+            </div>
+            <div class="review-field">
+              <label for="review-email">Work email</label>
+              <input id="review-email" name="email" type="email" autocomplete="email" maxlength="254" required />
+            </div>
+            <div class="review-field">
+              <label for="review-phone">Phone <span>(optional)</span></label>
+              <input id="review-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" />
+            </div>
+            <div class="review-field review-field-message">
+              <label for="review-message">What should we take a look at?</label>
+              <p id="review-message-help">A recurring issue, a planned change, a security concern, or anything else you want a second opinion on.</p>
+              <textarea id="review-message" name="message" rows="5" maxlength="3000" required aria-describedby="review-message-help"></textarea>
+            </div>
+          </div>
+          <button class="btn review-submit" type="submit" disabled aria-describedby="review-availability">Book my free IT review</button>
+          <p class="review-privacy">Read our <a href="/privacy">privacy notice</a>. Online submission will be available once inquiry handling is in place.</p>
+        </form>
+        <div class="review-next" aria-labelledby="next-title">
+          <h2 id="next-title">What happens next</h2>
+          <p>Once online requests are available:</p>
+          <ol>
+            <li><span aria-hidden="true">01</span>We review your message</li>
+            <li><span aria-hidden="true">02</span>An ITKeepers engineer gets in touch</li>
+            <li><span aria-hidden="true">03</span>We discuss your environment and next steps</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { guardUnconfiguredReviewForms } from '../scripts/free-it-review';
+  guardUnconfiguredReviewForms();
+</script>
+
+<style>
+  .free-review-intro h1 { max-inline-size:19ch; margin-block-end:24px; font-size:clamp(40px,5vw,72px); line-height:1.08; }
+  .free-review-intro .lead { max-inline-size:68ch; font-size:19px; line-height:1.7; }
+  .free-review-intro .review-reassurance { max-inline-size:75ch; margin-block:24px 0; }
+  :global(body) main > .free-review-content { padding-block-start:0; }
+  .review-layout { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(32px,5vw,72px); align-items:start; }
+  .review-layout h2 { margin-block:0 20px; font-size:clamp(24px,2.4vw,32px); line-height:1.2; font-weight:600; }
+  .review-context > div + div { margin-block-start:40px; }
+  .review-context ul { padding-inline-start:20px; margin:0; color:var(--itk-muted); }
+  .review-context li { padding-inline-start:4px; margin-block:12px; }
+  .review-context li::marker { color:var(--itk-brand-cyan); }
+  .review-presence { border-block-start:1px solid var(--itk-border-strong); margin-block:32px 0; padding-block-start:24px; color:var(--itk-muted); }
+  .review-request { border-block-start:1px solid var(--itk-brand-deep); padding-block-start:24px; min-inline-size:0; }
+  .review-availability { padding:16px 18px; margin-block:0 24px; border-inline-start:2px solid var(--itk-brand-cyan); background:var(--itk-surface-raised); color:var(--itk-text); }
+  .review-form-help,.review-privacy,.review-field p,.review-next > p { font-size:14px; line-height:1.65; color:var(--itk-muted); }
+  .review-form-help { margin-block:0 24px; }
+  .review-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 20px; }
+  .review-field { min-inline-size:0; }
+  .review-field label { display:block; margin-block-end:8px; color:var(--itk-text); font-weight:600; }
+  .review-field label span { color:var(--itk-muted); font-size:14px; font-weight:400; }
+  .review-field input,.review-field textarea { inline-size:100%; min-inline-size:0; min-block-size:48px; padding:12px 14px; border:1px solid var(--itk-muted); border-radius:var(--itk-radius-sm); background:var(--itk-surface); color:var(--itk-text); font:inherit; line-height:1.5; }
+  .review-field textarea { display:block; resize:vertical; min-block-size:150px; }
+  .review-field :is(input,textarea):focus-visible { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
+  .review-field-message { grid-column:1 / -1; }
+  .review-field p { margin-block:0 12px; }
+  :global(body) .free-review-content .review-submit.btn { min-block-size:48px; max-inline-size:100%; margin-block-start:24px; padding:14px 22px; border:1px solid transparent; border-radius:var(--itk-radius-md); background:linear-gradient(var(--itk-surface-raised),var(--itk-surface)) padding-box,linear-gradient(120deg,var(--itk-brand-deep),var(--itk-brand-cyan)) border-box; color:var(--itk-text); box-shadow:inset 0 1px 0 rgba(255,255,255,.12); font-family:inherit; font-size:14px; font-weight:700; line-height:1.4; letter-spacing:-.01em; cursor:not-allowed; }
+  .review-privacy { margin-block:16px 0; }
+  .review-privacy a { text-decoration:underline; text-underline-offset:3px; color:var(--itk-text); }
+  .review-next { margin-block-start:32px; border-block-start:1px solid var(--itk-border-strong); padding-block-start:28px; }
+  .review-next h2 { font-size:24px; margin-block-end:12px; }
+  .review-next ol { display:grid; gap:14px; padding:0; margin-block:20px 0; list-style:none; }
+  .review-next li { display:grid; grid-template-columns:28px minmax(0,1fr); gap:14px; }
+  .review-next li span { color:var(--itk-brand-cyan); font:12px/2 var(--font-annotation); }
+  @media (min-width:901px) and (max-width:1100px) { .review-fields { grid-template-columns:minmax(0,1fr); } }
+  @media (max-width:900px) { .review-layout { grid-template-columns:minmax(0,1fr); gap:40px; } }
+  @media (max-width:600px) { .review-fields { grid-template-columns:minmax(0,1fr); } .review-layout { gap:32px; } .review-context > div + div { margin-block-start:28px; } }
+  @media (forced-colors:active) { .review-field :is(input,textarea),.review-availability { border-color:CanvasText; } .review-field :is(input,textarea):focus-visible { outline-color:Highlight; } :global(body) .free-review-content .review-submit.btn { border-color:GrayText; color:GrayText; box-shadow:none; } }
+</style>
