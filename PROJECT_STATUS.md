@@ -1,5 +1,15 @@
 # ITKeepers Website — Project Status
 
+## 8 October 2026 — V3 editorial iteration 2
+
+- V3 v1 safely checkpointed at `6f7a4f7d77445abeb3325cb4032d23ca8d5dfdde`, `Create V3 editorial homepage concept`, seven files. Scope/secret audit passed; Node 22.23.3 build emitted 16 pages and all 78 tests passed. Working tree verified clean before further edits. V2 remains `da3161d38f99a8c2a29e4e2d1fba56f283e15740`.
+- Owner-authorized Iteration 2 refines hero conversion proximity, a six-service native overview, chapter spacing and individual mobile modules. Supporting documentation/hardware figures now use native optional disclosures; their primary copy remains visible. Team diagram and engineering grouping tightened; phishing shell spacing reduced with initialized-only minimum, preserving intrinsic stage, all scenarios/choices and no-JS fallback.
+- Clear V3 CSS debt addressed: homepage-only compiled stylesheet replaces public prototype asset; doubled root specificity and redundant Hero rules removed; documentation captured surfaces use variables with original defaults. No new dependency, controller, transform, timing, internal-route, conversion-logic, theme-toggle or testimonial changes.
+- Final validation: Node **22.23.3**; build exit 0 / **16 pages**; tests exit 0 / **78 of 78**, no failures/skips/cancellations/todo. All 15 internal-page HTML outputs byte-identical to checkpoint build. All eight requested widths checked; no final horizontal overflow/clipped type; mobile CTA order and circular cybersecurity preserved. All phishing scenarios/choices tested; native mobile mouse/keyboard run preserved scroll exactly. Local sampled CLS 0; no captured console warnings/errors. Reduced-motion and script-free rendering harness results are simulations, not OS/browser preference emulation.
+- At 390px, default document height approximately **15,703px → 13,507px**, down **2,196px / 14%**. Both optional figures expanded: about 14,911px. Local comparative layout measurement only. Independent review found no remaining actionable issues after fixes.
+- Recommendation: **V3 is now clearly stronger than V2** as a design direction. Richer detailed chapters still take longer to compare than V2, and optional supporting illustrations now require a click; the full service landscape and primary explanations remain visible. See `docs/V3_EDITORIAL_ITERATION_2.md` for changes, tradeoffs and validation limits.
+- Iteration 2 remains uncommitted for review on `v3-editorial-concept`. No push, deployment or merge. Evidence/runtime/logs kept outside Git at `C:/Users/Jim/Documents/ChatGPT/ITKeepers Website/outputs/v3-iteration-2/`; preview remains `http://127.0.0.1:4333/`.
+
 ## 8 October 2026 — V3 editorial homepage experiment
 
 - Owner authorized the new design-direction experiment from clean `v3-editorial-concept`, based on preserved V2 checkpoint `da3161d38f99a8c2a29e4e2d1fba56f283e15740`. Reference and current components/tokens/controllers were studied; pre-edit principles, component decisions and exact proposed order reported before implementation.

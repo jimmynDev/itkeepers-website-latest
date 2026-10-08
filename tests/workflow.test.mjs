@@ -90,8 +90,14 @@ test('built pages preserve complete initial-HTML content and native disclosures'
   for (const title of ['Issue detected', 'Ticket created automatically', 'Engineer assigned', 'Client notified', 'Investigation', 'Resolved', 'Documented']) assert.ok(home.includes(title));
   assert.equal((home.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!home.includes('[[INPUT-PENDING:'));
-  assert.match(home, /href="\/home-editorial\.css"/);
-  assert.doesNotMatch(readFileSync('dist/how-we-work/index.html', 'utf8'), /home-editorial\.css/);
+  const linkedCss = html => [...html.matchAll(/href="(\/_astro\/[^" ]+\.css)"/g)].map(match => readFileSync(`dist${match[1]}`, 'utf8')).join('\n');
+  assert.ok(linkedCss(home).includes('--v3-canvas'), 'Homepage editorial CSS is included in the build');
+  assert.ok(!linkedCss(readFileSync('dist/how-we-work/index.html', 'utf8')).includes('--v3-canvas'), 'Editorial styles stay homepage-only');
+  const overview = home.match(/<nav\b[^>]*class="service-orientation"[^>]*>([\s\S]*?)<\/nav>/);
+  assert.ok(overview, 'The complete service landscape is available without JS');
+  const overviewLinks = [...overview[1].matchAll(/href="#([^"]+)"/g)];
+  assert.equal(overviewLinks.length, 6);
+  for (const [, target] of overviewLinks) assert.ok(home.includes(`id="${target}"`), `Service target ${target} exists`);
   const security = readFileSync('dist/services/cybersecurity/index.html', 'utf8');
   const disclosureCount = (html, componentClass) => {
     const wrapper = html.match(new RegExp(`<div\\b[^>]*class="[^"]*\\b${componentClass}\\b[^"]*"[^>]*>([\\s\\S]*?)</details>\\s*</div>`));

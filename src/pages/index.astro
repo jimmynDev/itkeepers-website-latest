@@ -13,8 +13,18 @@ import CTA from '../components/CTA.astro';
 const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimonials.some(item => item.approved && item.quote?.trim());
 ---
 <Base title="ITKeepers | Managed IT, Cloud, Cybersecurity & Infrastructure" description="Your IT person is a team. Managed IT, Microsoft 365, cybersecurity, infrastructure and automation—with web design and hosting as a digital service.">
-  <link slot="head" rel="stylesheet" href="/home-editorial.css" />
   <Hero />
+  <nav class="service-orientation" aria-labelledby="service-landscape-title">
+    <p id="service-landscape-title">OUR SERVICES</p>
+    <ol>
+      <li><a href="#services/managed"><span aria-hidden="true">01</span>Managed IT</a></li>
+      <li><a href="#services/cloud"><span aria-hidden="true">02</span>Microsoft 365 &amp; Cloud</a></li>
+      <li><a href="#services/security"><span aria-hidden="true">03</span>Cybersecurity</a></li>
+      <li><a href="#services/networking"><span aria-hidden="true">04</span>Networking &amp; Infrastructure</a></li>
+      <li><a href="#services/ai"><span aria-hidden="true">05</span>AI &amp; Automation</a></li>
+      <li><a href="#offering-web-design-hosting"><span aria-hidden="true">06</span>Web Design &amp; Hosting</a></li>
+    </ol>
+  </nav>
   <Services />
   <PulseSection />
   <TechnologyEcosystem />
@@ -32,5 +42,9 @@ const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimo
 <script>
   import '../scripts/home-motion';
 </script>
+
+<style is:global>
+  @import '../styles/home-editorial.css';
+</style>
 
 

@@ -2,7 +2,7 @@
 
 8 October 2026. Branch: `v3-editorial-concept`. Preserved base: `da3161d38f99a8c2a29e4e2d1fba56f283e15740` (Complete conversion and interactive experience).
 
-This is a local, uncommitted design direction. No push, deployment or merge. The experiment changes the homepage composition; all 15 internal-page HTML outputs remain byte-identical to the initial V2 build. The existing day/night control and default remain in place, as explicitly requested. The navy direction is evaluated in night mode; the first six service/hero palettes retain their existing day-mode compatibility.
+This report records the original V3 v1 design direction, checkpointed subsequently at `6f7a4f7d77445abeb3325cb4032d23ca8d5dfdde` (`Create V3 editorial homepage concept`) after Node 22 build/test validation. The original observations below are historical; current refinements and validation are in [V3 Editorial Iteration 2](V3_EDITORIAL_ITERATION_2.md). No push, deployment or merge. The experiment changes the homepage composition; all 15 internal-page HTML outputs remain byte-identical to the initial V2 build. The existing day/night control and default remain in place, as explicitly requested. The navy direction is evaluated in night mode; the first six service/hero palettes retain their existing day-mode compatibility.
 
 ## Reference principles
 
@@ -107,4 +107,4 @@ Evidence is outside the repository in `C:/Users/Jim/Documents/ChatGPT/ITKeepers 
 
 ## Review and rollback
 
-Preview: `http://127.0.0.1:4333/` (ordinary built Astro preview). The instrumented QA server on 4334 is separate from the deliverable. The preserved V2 checkpoint remains on `v2-full-services` at `da3161d`. The V3 working tree contains this experiment and its documentation; no redesign commit was requested or made. Review this direction before authorizing further changes.
+Preview: `http://127.0.0.1:4333/` (ordinary built Astro preview). The instrumented QA server on 4334 is separate from the deliverable. The preserved V2 checkpoint remains on `v2-full-services` at `da3161d`. V3 v1 is preserved at `6f7a4f7`; the subsequent Iteration 2 refinement remains in the working tree for review.
