@@ -1,5 +1,21 @@
 # ITKeepers Website — Project Status
 
+## 9 October 2026 — V4 Phase 2B lab refinement
+
+- Owner approved Structural Frame as the V4 base. Refined `/v4-lab` only: Archivo display + Source Sans 3 body/UI default with comparisons retained; connected hero support/CTA row; unified Managed IT copy/heading/index beside a larger four-column stage; stronger grayscale SVG hierarchy; shared security-layer rule; unequal branching team relationship. Product specimens no longer carry lab commentary. Chapter spacing preserved; no final accent.
+- Browser access recovered through an already-open user review tab. All six required widths (1920/1440/1024/768/430/390) inspected/captured with zero horizontal overflow; four font modes also pass at 1440/390. Keyboard menu/skip/CTA/emergency/service/pause paths, focus and pause/resume verified. No rendered color/glow/gradient/shadow contamination or captured console warnings/errors.
+- External browser fixtures pass reduced-motion, script-free fallback and 200% root text reflow at 390px. These are simulations; native OS preference, actual browser zoom, screen-reader and physical-device checks are not claimed. Full evidence/13-part report: `docs/V4_LAB_VALIDATION.md`; files/logs/screenshots outside Git in `outputs/v4-lab-2b/` under the chat workspace.
+- Node 22.23.3 build passes (17 pages); all 78 existing tests and relevant static checks pass. All 16 production HTML files are byte-identical to the pre-refinement build. Shared animation/controller/SVG, production source, dependencies and hosting unchanged.
+- Changed this pass: lab Astro/CSS plus status/validation records. Implemented from `v4-design-reset` baseline `587b98bad771e3111704c0ed01285ad70003b5b1`; owner authorized a grayscale checkpoint commit and branch push before color exploration. No merge or production migration. Preview `http://127.0.0.1:4344/v4-lab/`. Next: Jim's visual judgment of the hybrid and composition; accent exploration remains a later phase.
+
+## 9 October 2026 — V4 Phase 2 Structural Frame lab
+
+- Implemented local `/v4-lab` on `v4-design-reset` from `587b98bad771e3111704c0ed01285ad70003b5b1`: isolated grayscale tokens, six-column frame, eight requested specimen groups, three self-hosted font candidates, unchanged Managed IT animation with a local neutral presentation adapter. No production page source, global CSS, animation logic, dependencies or hosting changes.
+- Proposed font preference: Archivo + IBM Plex Mono; Barlow and Source Sans 3 remain selectable. No final font/accent decision. New typography comparison carries 201,636 bytes of WOFF2 assets with OFL licenses.
+- Validation: Node 22.23.3 build emits 17 pages; 78/78 existing tests pass. Built-output links/IDs, token contrast and SVG color-alias coverage pass static checks. Fifteen existing internal pages are byte-identical to baseline. Astro extracts shared Managed IT CSS, changing homepage stylesheet links; homepage content and complete CSS rule multiset remain unchanged (normalizing generated newlines/line endings).
+- Earlier desktop A/B/C masthead/hero/proof views inspected. Final responsive, lower-page contamination and keyboard checks are **Blocked**: the browser security check rejected reopening the local preview with a URL-policy restriction. No browser-policy workaround attempted, and no six-width rendered pass or full accessibility audit claimed. Full scope, evidence and limitations: `docs/V4_LAB_VALIDATION.md`.
+- Local preview: `http://127.0.0.1:4344/v4-lab/`. Evidence outside Git: `C:/Users/Jim/Documents/ChatGPT/ITKeepers Website/outputs/v4-lab/`. No commit, push, deployment or merge. Next: Jim's visual review and remaining browser QA; production migration awaits direction approval.
+
 ## 8 October 2026 — V3 editorial iteration 2
 
 - V3 v1 safely checkpointed at `6f7a4f7d77445abeb3325cb4032d23ca8d5dfdde`, `Create V3 editorial homepage concept`, seven files. Scope/secret audit passed; Node 22.23.3 build emitted 16 pages and all 78 tests passed. Working tree verified clean before further edits. V2 remains `da3161d38f99a8c2a29e4e2d1fba56f283e15740`.

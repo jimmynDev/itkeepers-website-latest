@@ -1,0 +1,112 @@
+---
+import ManagedIT from '../components/animations/ManagedITDashboardAnimation.astro';
+import '../styles/v4-lab.css';
+const facts = [['15+ years','Experience'], ['50+','Clients supported'], ['1,500+','Endpoints managed'], ['2 locations','Lebanon & USA']];
+const types = [
+  ['Display XL','v4-display-xl','Your IT person is a team.','48–144'],
+  ['Display','v4-display','Shared expertise.','40–104'],
+  ['H1','v4-h1','Managed IT Services','36–80'],
+  ['H2','v4-h2','From signal to resolution.','32–64'],
+  ['H3','v4-h3','Familiar engineers.','24–32'],
+  ['Body large','v4-body-large','Familiar engineers. Shared context. A whole team behind the work.','20–24'],
+  ['Body','v4-body','Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.','18'],
+  ['Small','v4-small','Illustrative. A hypothetical workflow, not a client result.','14'],
+  ['Technical / meta','v4-meta','01 / MANAGED IT SERVICES','12'],
+  ['Numeric proof','v4-numeric','1,500+','40–72'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f5f5f3" />
+    <title>Structural Frame — ITKeepers V4 Design Lab</title>
+    <meta name="description" content="Internal grayscale typography and composition study for ITKeepers V4." />
+    <link rel="preload" href="/v4-lab/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body class="v4-lab">
+    <a class="v4-skip" href="#v4-main">Skip to specimens</a>
+    <aside class="v4-lab-bar" aria-label="Design laboratory controls">
+      <div class="v4-container v4-lab-toolbar">
+        <p class="v4-lab-caption">ITK / V4 LAB <span>Structural Frame · Architectural × Operational × Human</span></p>
+        <fieldset class="v4-font-picker">
+          <legend>Compare type</legend>
+          <label><input type="radio" name="v4-font" value="hybrid" checked /> <span>Hybrid / Archivo + Source Sans</span></label>
+          <label><input type="radio" name="v4-font" value="a" /> <span>A / Archivo</span></label>
+          <label><input type="radio" name="v4-font" value="b" /> <span>B / Barlow</span></label>
+          <label><input type="radio" name="v4-font" value="c" /> <span>C / Source Sans</span></label>
+        </fieldset>
+      </div>
+    </aside>
+    <header class="v4-container v4-masthead">
+      <a class="v4-brand" href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" /></a>
+      <nav class="v4-nav" aria-label="Primary navigation specimen"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a></nav>
+      <div class="v4-header-actions"><a class="v4-emergency" href="/emergency">Under Attack?</a><a class="v4-button v4-header-cta" href="/contact">Book a free IT review</a></div>
+      <details class="v4-menu"><summary>Menu</summary><nav aria-label="Mobile navigation specimen"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a href="/contact">Book a free IT review</a></nav></details>
+    </header>
+    <main id="v4-main" tabindex="-1">
+      <section class="v4-container v4-hero" aria-labelledby="v4-title">
+        <h1 class="v4-display-xl" id="v4-title"><span>Your IT person</span> <span>is a team.</span></h1>
+        <div class="v4-grid v4-hero-bottom">
+          <p class="v4-body-large">Familiar engineers. Shared context. A whole team behind the work.</p>
+          <div class="v4-hero-action"><a class="v4-button" href="/contact">Book a free IT review</a><span class="v4-small">A conversation is a good start.</span></div>
+        </div>
+        <ul class="v4-proof" aria-label="ITKeepers proof facts">{facts.map(([number,label]) => <li><strong class="v4-numeric">{number}</strong><span>{label}</span></li>)}</ul>
+      </section>
+
+      <section class="v4-container v4-chapter" id="v4-managed" aria-labelledby="v4-managed-title">
+        <div class="v4-grid v4-service-body">
+          <div class="v4-service-copy"><p class="v4-service-index">01 / MANAGED IT</p><h2 class="v4-h2" id="v4-managed-title">Managed IT Services</h2><p class="v4-body">Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.</p><a class="v4-service-link" href="/services/managed-it">Explore Managed IT Services</a></div>
+          <div class="v4-animation"><ManagedIT /><p class="v4-small v4-animation-caption">Illustrative / Monitor systems, detect a warning, assign a ticket to an engineer, then resolve it.</p></div>
+        </div>
+      </section>
+
+      <section class="v4-inverse v4-chapter" aria-labelledby="v4-security-title">
+        <div class="v4-container">
+          <div class="v4-grid v4-security-grid"><h2 class="v4-display" id="v4-security-title">Cybersecurity.</h2><div class="v4-security-copy"><p class="v4-body-large">Security maintained in layers across identity, endpoints, networks, operations and recovery.</p><p>No single stack prevents every incident. Suitable controls depend on risk, licensing, environment and agreement.</p><a class="v4-service-link" href="/services/cybersecurity">Explore Cybersecurity</a></div></div>
+          <div class="v4-security-model"><p class="v4-small">Security maintained in layers</p><ol class="v4-layer-list" aria-label="Security layers">{['Identity','Endpoints','Network','Operations','Recovery'].map((layer,i) => <li><span class="v4-meta">0{i+1}</span><span>{layer}</span></li>)}</ol></div>
+        </div>
+      </section>
+
+      <section class="v4-container v4-chapter v4-human" aria-labelledby="v4-team-title">
+        <p class="v4-kicker">Who We Are</p>
+        <div class="v4-grid"><h2 class="v4-h1" id="v4-team-title">Your IT person<br class="v4-desktop-break" /> is a team.</h2><div class="v4-human-copy"><p class="v4-body-large">You work with people who know your environment — backed by engineers across infrastructure, cloud, security, networking and support.</p><p>When something needs deeper expertise, it moves inside the team — not back to you.</p></div></div>
+        <figure class="v4-handoff" aria-labelledby="v4-handoff-caption"><ol class="v4-relationship"><li class="v4-environment"><span class="v4-small">Shared context</span><strong>Your environment</strong></li><li class="v4-familiar"><span class="v4-small">One relationship</span><strong>Familiar engineer</strong><span class="v4-small">Primary contact</span></li><li class="v4-wider"><span class="v4-small">Expertise moves inside the team</span><strong>The wider team</strong><ul class="v4-disciplines">{['Cloud','Security','Networking','Infrastructure','Support'].map(label => <li>{label}</li>)}</ul></li></ol><figcaption id="v4-handoff-caption" class="v4-small">Conceptual team handoff · Your environment, a familiar engineer, and the wider team working with the same context.</figcaption></figure>
+      </section>
+
+      <section class="v4-container v4-chapter" aria-labelledby="v4-controls-title">
+        <div class="v4-specimen-label"><span class="v4-meta">LAB / CONTROLS</span><span class="v4-small">Evaluation specimens below</span></div>
+        <h2 class="v4-h2" id="v4-controls-title">A clear next step.</h2>
+        <div class="v4-control-grid">
+          <div><p class="v4-meta">PRIMARY / DEFAULT</p><a class="v4-button" href="/contact">Book a free IT review</a></div>
+          <div><p class="v4-meta">PRIMARY / HOVER SAMPLE</p><a class="v4-button v4-hover-sample" href="/contact">Book a free IT review</a></div>
+          <div><p class="v4-meta">PRIMARY / FOCUS SAMPLE</p><a class="v4-button v4-focus-sample" href="/contact">Book a free IT review</a></div>
+          <div><p class="v4-meta">DISABLED / NOT SUBMITTING</p><button class="v4-button" disabled>Online requests unavailable</button></div>
+          <div><p class="v4-meta">SECONDARY / TEXT</p><a class="v4-text-link" href="/how-we-work">How we work</a></div>
+          <div><p class="v4-meta">SERVICE / DETAIL</p><a class="v4-service-link" href="/services/managed-it">Explore Managed IT Services</a></div>
+          <div><p class="v4-meta">EMERGENCY / UTILITY</p><a class="v4-emergency" href="/emergency">Under Attack?</a></div>
+          <div><p class="v4-meta">INLINE / READING</p><p>Read our <a class="v4-inline-link" href="/privacy">privacy notice</a>.</p></div>
+        </div>
+      </section>
+
+      <section class="v4-container v4-chapter" aria-labelledby="v4-fonts-title">
+        <div class="v4-specimen-label"><span class="v4-meta">LAB / TYPOGRAPHY</span><span class="v4-small">Hybrid plus three references. No global selection.</span></div>
+        <h2 class="v4-h2" id="v4-fonts-title">Compare the character.</h2>
+        <p class="v4-measure">Use the controls at the top to compare each candidate across the full composition. These smaller specimens remain visible together.</p>
+        <div class="v4-font-comparison">{[['hybrid','Archivo + Source Sans 3','Archivo headings / Source Sans 3 body and UI'],['a','Archivo','Variable width / structural baseline'],['b','Barlow','Semi Condensed display / normal-width body'],['c','Source Sans 3','Humanist proportions / open reading texture']].map(([key,name,note]) => <article class={`v4-candidate v4-candidate-${key}`}><p class="v4-meta">{key.toUpperCase()} / {name}</p><h3>Your IT person is a team.</h3><p>Familiar engineers. Shared context. A whole team behind the work.</p><p class="v4-small">{note}</p></article>)}</div>
+      </section>
+
+      <section class="v4-container v4-chapter v4-scale" aria-labelledby="v4-scale-title">
+        <div class="v4-specimen-label"><span class="v4-meta">LAB / TYPE SYSTEM</span><span class="v4-small">Fluid scale · 18px body · 12px metadata</span></div>
+        <h2 class="v4-h2" id="v4-scale-title">The hierarchy, exposed.</h2>
+        <p class="v4-measure">Desktop and mobile use the same roles. Display sizes adapt to the viewport; body text keeps its reading size. Ranges below are CSS pixels at the default text setting.</p>
+        <dl>{types.map(([label,cls,words,size]) => <div class="v4-scale-row"><dt class="v4-meta">{label}<span>{size} PX</span></dt><dd class={cls}>{words}</dd></div>)}</dl>
+      </section>
+    </main>
+    <footer class="v4-container v4-footer"><p class="v4-meta">ITKEEPERS / STRUCTURAL FRAME</p><p class="v4-small">Internal design study. Typography and grayscale only.</p><a class="v4-text-link" href="#v4-main">Back to specimens</a></footer>
+    <!-- Parser-time lab adapter runs before the unchanged Astro module mounts. -->
+    <script is:inline src="/v4-lab/prepare-animation.js"></script>
+  </body>
+</html>
