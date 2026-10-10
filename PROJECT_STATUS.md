@@ -1,5 +1,38 @@
 # ITKeepers Website — Project Status
 
+## 10 October 2026 — V4 Structural Frame design system locked
+
+- **Approved by Jim:** B — Refined Copper is the final Human Signal accent. The design-lab phase is complete; this decision supersedes the recommendations below.
+- **Locked palette:** Primary `#A34E26`, hover `#8D4020`, active `#723319`, dark `#E3A06F`, tint `#F3E8E1`. Structural Frame layout, Hybrid typography and independent semantic colors retain their validated treatment.
+- **Lab state:** B is now the default selection. A and C remain available as comparison history. Production migration is outside this checkpoint.
+- **Checkpoint:** Owner authorized committing the completed lab as `Lock V4 Structural Frame design system` and pushing `v4-design-reset`. Inspected starting commit: `9d65eb5`; repository deployment configuration is Cloudflare Workers static assets (`wrangler.toml`).
+
+## 10 October 2026 — Phase 2C.1 final Human Signal hue comparison
+
+- **Done:** Owner chose Human Signal. Replaced the lab accent choices with A Burnt Orange, B Refined Copper and C Alternative Copper at the same existing placements. A/B use the exact supplied values; C is `#AD552B`, hover `#934623`, active `#78371C`, dark `#EDA477`, tint `#FBF3EE`. Removed the obsolete Neutral comparison and semantic overrides; locked danger/warning/success values remain identical across all three.
+- **Recommendation:** **B / Refined Copper; READY TO LOCK: YES.** Primary `#A34E26`, hover `#8D4020`, active `#723319`, dark `#E3A06F`, tint `#F3E8E1`. Best balance of warm team identity, restrained technical presentation and light-surface contrast margin. Independent Astra High visual review agreed after inspecting the rendered alternatives. This is the recommendation for the owner's final lock, not a production release.
+- **Validation:** Build 17 pages; existing tests 78/78; all contrast pairs pass. Six 1440/390 browser cases without overflow; identical mobile section rectangles; actual keyboard focus on hero/dark-field link for every variant; paused animation verifies separate copper ticket/amber Detect. All 16 production HTML files are byte-identical to this phase's starting build. Full matrix, exact colors, findings and limits: `docs/V4_LAB_VALIDATION.md`; evidence in chat `outputs/v4-lab-2c1/`.
+- **Scope:** Only lab page/CSS and existing status/report records changed. Layout, spacing, typography, accent placement and animation behavior preserved. No commit, push, deploy or merge. Review stops at the final hue comparison; all three remain selectable and A remains the control/default.
+
+## 9 October 2026 — Independent Phase 2C reassessment
+
+- **Done:** Independently reviewed A/B/C with an Astra High source/brand reviewer plus primary-agent desktop/mobile browser inspection. Supersedes the earlier B recommendation: **propose C refined toward muted copper**, with one final hue comparison before locking. A stays as-is; B should become less yellow/neon if retained. Exact proposed values and all requested scores/risks are in `docs/V4_LAB_VALIDATION.md`.
+- **Comparison fixes:** Neutral now restores grayscale semantics; warning/detection is separate from brand ticket color; mobile connector/current navigation match their desktop roles; neutralized the hero reassurance/type selector; repaired body-level forced-colors token overrides and stale lab footer. Existing hue sets, layout, typography, spacing, product copy and animation lifecycle are preserved.
+- **Validation:** Build 17 pages; tests 78/78; eight 1440/390 browser cases without horizontal overflow; real mobile menu/focus and animation pause checks; contrast calculations include ticket tint and actual row backgrounds. Physical devices, Safari, native screen readers and OS forced colors remain untested. Evidence outside Git: `outputs/v4-lab-reassessment/` in the chat workspace.
+- **Decision status:** Proposal only; no accent is approved. Next: current C versus proposed copper in the same lab. No fourth direction needed. No production source changes, commit, push, deployment or merge. Modified only the two lab files and the existing validation/status records.
+
+## 9 October 2026 — V4 Phase 2C accent exploration
+
+- **Done:** Added a lab-only Neutral/A/B/C accent selector and semantic `--v4-*` color tokens on `/v4-lab`. Applied accent selectively to CTAs/states, current navigation, service indexing/links, active Managed IT cues, Cybersecurity layer identifiers/link and the Who We Are connector. Production pages, layout, typography, spacing, copy, animation lifecycle and component geometry are unchanged.
+- **Decisions made:** Recommend B — Operational Signal (`#4E6B00`, dark-field `#B7D84A`) for the strongest distinctiveness and operational fit. Emergency red, warning and success stay independent. Direction C was moved to burnt orange to separate it from emergency red.
+- **Assumptions:** Proposed recommendation awaits Jim's visual decision; Neutral remains the default comparison state.
+- **Validation:** Pass — Node 22 build, 17 pages; existing tests 78/78; contrast pairs pass; real Chromium review at 1440px and 390px for Neutral/A/B/C; no horizontal overflow at 390px. See `docs/V4_LAB_VALIDATION.md` and external evidence `outputs/v4-lab-2c/`.
+- **Blocked on:** None for the color study. Physical-device, Safari and native screen-reader checks remain outside this local review.
+- **Needs review from:** Jim for final accent selection.
+- **Files changed:** `src/pages/v4-lab.astro`, `src/styles/v4-lab.css`, `docs/V4_LAB_VALIDATION.md`, `PROJECT_STATUS.md`.
+- **Deployment:** Local working tree only on `v4-design-reset`; no commit, push, deploy or merge.
+- **Next:** Visually compare the three systems and approve one before any production migration.
+
 ## 9 October 2026 — V4 Phase 2B lab refinement
 
 - Owner approved Structural Frame as the V4 base. Refined `/v4-lab` only: Archivo display + Source Sans 3 body/UI default with comparisons retained; connected hero support/CTA row; unified Managed IT copy/heading/index beside a larger four-column stage; stronger grayscale SVG hierarchy; shared security-layer rule; unequal branching team relationship. Product specimens no longer carry lab commentary. Chapter spacing preserved; no final accent.

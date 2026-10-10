@@ -23,7 +23,7 @@ const types = [
     <meta name="robots" content="noindex, nofollow" />
     <meta name="theme-color" content="#f5f5f3" />
     <title>Structural Frame — ITKeepers V4 Design Lab</title>
-    <meta name="description" content="Internal grayscale typography and composition study for ITKeepers V4." />
+    <meta name="description" content="Internal accent-color study on the approved ITKeepers V4 Structural Frame." />
     <link rel="preload" href="/v4-lab/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body class="v4-lab">
@@ -31,6 +31,7 @@ const types = [
     <aside class="v4-lab-bar" aria-label="Design laboratory controls">
       <div class="v4-container v4-lab-toolbar">
         <p class="v4-lab-caption">ITK / V4 LAB <span>Structural Frame · Architectural × Operational × Human</span></p>
+        <div class="v4-lab-controls">
         <fieldset class="v4-font-picker">
           <legend>Compare type</legend>
           <label><input type="radio" name="v4-font" value="hybrid" checked /> <span>Hybrid / Archivo + Source Sans</span></label>
@@ -38,13 +39,20 @@ const types = [
           <label><input type="radio" name="v4-font" value="b" /> <span>B / Barlow</span></label>
           <label><input type="radio" name="v4-font" value="c" /> <span>C / Source Sans</span></label>
         </fieldset>
+        <fieldset class="v4-color-picker">
+          <legend>Compare Human Signal hue</legend>
+          <label><input type="radio" name="v4-color" value="color-a" /> <span>A / Burnt Orange</span></label>
+          <label><input type="radio" name="v4-color" value="color-b" checked /> <span>B / Refined Copper</span></label>
+          <label><input type="radio" name="v4-color" value="color-c" /> <span>C / Alternative Copper</span></label>
+        </fieldset>
+        </div>
       </div>
     </aside>
     <header class="v4-container v4-masthead">
       <a class="v4-brand" href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" /></a>
-      <nav class="v4-nav" aria-label="Primary navigation specimen"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a></nav>
+      <nav class="v4-nav" aria-label="Primary navigation specimen"><a class="v4-nav-current" aria-current="true" href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a></nav>
       <div class="v4-header-actions"><a class="v4-emergency" href="/emergency">Under Attack?</a><a class="v4-button v4-header-cta" href="/contact">Book a free IT review</a></div>
-      <details class="v4-menu"><summary>Menu</summary><nav aria-label="Mobile navigation specimen"><a href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a href="/contact">Book a free IT review</a></nav></details>
+      <details class="v4-menu"><summary>Menu</summary><nav aria-label="Mobile navigation specimen"><a class="v4-nav-current" aria-current="true" href="/services/">Services</a><a href="/how-we-work">How we work</a><a href="/about">The team</a><a href="/contact">Book a free IT review</a></nav></details>
     </header>
     <main id="v4-main" tabindex="-1">
       <section class="v4-container v4-hero" aria-labelledby="v4-title">
@@ -105,7 +113,7 @@ const types = [
         <dl>{types.map(([label,cls,words,size]) => <div class="v4-scale-row"><dt class="v4-meta">{label}<span>{size} PX</span></dt><dd class={cls}>{words}</dd></div>)}</dl>
       </section>
     </main>
-    <footer class="v4-container v4-footer"><p class="v4-meta">ITKEEPERS / STRUCTURAL FRAME</p><p class="v4-small">Internal design study. Typography and grayscale only.</p><a class="v4-text-link" href="#v4-main">Back to specimens</a></footer>
+    <footer class="v4-container v4-footer"><p class="v4-meta">ITKEEPERS / STRUCTURAL FRAME</p><p class="v4-small">Internal design study. Neutral frame and accent comparison.</p><a class="v4-text-link" href="#v4-main">Back to specimens</a></footer>
     <!-- Parser-time lab adapter runs before the unchanged Astro module mounts. -->
     <script is:inline src="/v4-lab/prepare-animation.js"></script>
   </body>
