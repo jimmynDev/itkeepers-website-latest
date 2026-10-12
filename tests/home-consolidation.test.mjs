@@ -21,7 +21,7 @@ test('homepage presents one people section and one operating explanation before 
   assert.equal((main.match(/data-process-step=/g) ?? []).length, 7);
   assert.match(main, /Your IT shouldn&#39;t live in one person&#39;s head\.|Your IT shouldn't live in one person's head\./);
   for (const value of ['configurations', 'service information', 'open actions and follow-up', 'Scope and schedule depend on your service agreement', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
-  assert.match(main, /href="\/contact\?intent=review"[^>]*>Book a free IT review/);
+  assert.match(main, /href="\/contact\?type=review"[^>]*>Book a free IT review/);
   assert.equal((main.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!readdirSync(new URL('../dist/_astro', import.meta.url)).some(name => name.startsWith('TeamThread.')));
 });
