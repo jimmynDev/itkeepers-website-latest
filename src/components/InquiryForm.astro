@@ -23,7 +23,7 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
       <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method="post" action={endpoint} novalidate data-inquiry-form data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
         <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
-        {compact && <input type="hidden" name="message" value="I\'d like a free IT review." />}
+        {compact && <input type="hidden" name="message" value="I'd like a free IT review." />}
         <div class="inquiry-fields">
           {fields.map(name => <div class="inquiry-field">
             <label for={id + '-' + name}>{labels[name]} <span>({name === 'name' || name === 'email' ? 'required' : 'optional'})</span></label>
