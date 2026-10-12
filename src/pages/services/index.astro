@@ -5,15 +5,17 @@ const services = [
   { id: 'managed-it', title: 'Managed IT', description: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it/' },
   { id: 'microsoft-cloud', title: 'Microsoft 365 & Cloud', description: 'Manage users, access, devices and Microsoft cloud services with your business context in view.', href: '/services/microsoft-cloud/' },
   { id: 'cybersecurity', title: 'Cybersecurity', description: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/' },
-  { id: 'networking', title: 'Networking', description: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure/' },
+  { id: 'networking', title: 'Networking & Infrastructure', description: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure/' },
+  { id: 'backup-recovery', title: 'Backup & Disaster Recovery', description: 'Monitoring backup jobs, verifying restore capability, and planning recovery around business needs.', href: '/services/backup-recovery/' },
   { id: 'ai-automation', title: 'AI & Automation', description: 'Explore a sample request workflow with a person reviewing the draft.', href: '/services/ai-automation/' },
+  { id: 'web-design-hosting', title: 'Web Design & Hosting', description: 'Website design, hosting, security and maintenance from launch onward.', href: '/services/web-design-hosting/' },
 ];
 ---
-<Base title="IT Services | ITKeepers" description="Explore Managed IT, Microsoft 365 & Cloud, Cybersecurity, Networking and AI & Automation. Find the right service for your business.">
+<Base title="IT Services | ITKeepers" description="Explore Managed IT, Cybersecurity, Microsoft 365 & Cloud, Networking & Infrastructure, Backup & Disaster Recovery, AI & Automation, and Web Design & Hosting.">
   <section class="services-page-intro" aria-labelledby="services-page-title">
     <p class="eyebrow">Your IT person is a team</p>
     <h1 id="services-page-title">Services</h1>
-    <p class="lead">Five connected services for the IT behind your business.</p>
+    <p class="lead">Seven connected services for the IT behind your business.</p>
   </section>
   {services.map(({ id, title, description, href }, index) => (
     <section class="service-overview" id={id} aria-labelledby={`${id}-title`}>
