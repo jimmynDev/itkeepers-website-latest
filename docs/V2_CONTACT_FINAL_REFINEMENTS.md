@@ -1,6 +1,6 @@
 # Contact page final refinements — 13 October 2026
 
-Done on `v2-mega-navigation`, inspected remote/local baseline `eaabdc4cc155f3fadece7d3af1e4cfb686f9117f`. Existing Astro 5.18.2, npm lockfile, design tokens and assets-only Cloudflare Worker (`wrangler.toml`) retained. No dependencies added, commit created, push or deployment performed. The branch was brought up to its existing remote tip by fast-forward; no branches or divergent changes were merged.
+Done on `v2-mega-navigation`, inspected remote/local baseline `eaabdc4cc155f3fadece7d3af1e4cfb686f9117f`. Existing Astro 5.18.2, npm lockfile, design tokens and assets-only Cloudflare Worker (`wrangler.toml`) retained. No dependencies added. This chat did not commit, push or deploy. The branch was brought up to its existing remote tip by fast-forward; no branches or divergent changes were merged.
 
 The latest baseline already had the requested required/optional fields, eight collapsed interest chips, review prefill, cyan submit pill, heading/contact wording, 1100px container and mobile card ordering. Reviewed and exercised those behaviors rather than replacing them.
 
@@ -34,7 +34,7 @@ Validation performed by Codex:
 
 Evidence and repeatable browser audit: sibling directory `outputs/v2-contact-final-evidence/`, containing build/test logs, `audit-contact.mjs`, `responsive-and-behavior.json` and 12 screenshots. Uses existing bundled Playwright and installed Edge; no project dependency changes or real inquiry submissions. Test endpoint was supplied only to an isolated local development process, intercepted in the browser, and not saved in configuration. That process is stopped after validation.
 
-The initial baseline test run had 102/110 passing. Separate homepage/test edits appeared concurrently in this shared checkout and the final existing suite passes 110/110. Those edits, including other status/claims updates, are preserved and are not attributed to this contact task. No unrelated implementation or tests were edited by this task.
+The initial baseline test run had 102/110 passing. Separate homepage/test edits appeared concurrently in this shared checkout and the final existing suite passes 110/110. Those edits, including other status/claims updates, are preserved and are not attributed to this contact task. No unrelated implementation or tests were edited by this task. The concurrent chat subsequently created checkpoint `0d2e0d1acd5c8c5452138293fd6f4a28e7e26ecc`, which also captured the five contact implementation files and the status entry; this handoff and status-format correction remain outside that checkpoint. This chat did not change the index or create that commit.
 
 Missing configuration: `PUBLIC_CONTACT_FORM_ENDPOINT` is unset, and this assets-only build contains no submission API. B3/B13 remain owned by ITKeepers Ops/project owner: provide a working same-origin endpoint with server validation, abuse controls and durable mail delivery, confirm inquiry routing/data handling/retention, and approve the final Privacy notice before inquiry collection. The endpoint contract requires successful JSON `{ "ok": true }` after confirmed delivery. Current normal build omits the form and exposes `tel:+96181816761` and `mailto:info@itkeepers.com`. No response-time promise was added.
 
