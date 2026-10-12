@@ -1,27 +1,366 @@
 ---
 import Base from '../layouts/Base.astro';
-import { emergencyPhone } from '../data/contact';
+import { emergencyPhone, contactEmail } from '../data/contact';
 ---
 <Base title="Under Attack? | ITKeepers Emergency Contact" description="Practical first steps for an active cyberattack, ransomware incident or account compromise, and how to contact ITKeepers.">
   <section class="section emergency-page" aria-labelledby="emergency-title">
-    <p class="eyebrow">Emergency cybersecurity response</p>
-    <h1 id="emergency-title">Under attack?</h1>
-    <p class="lead">If you believe your business is experiencing a cyberattack, ransomware incident, account compromise or active security breach, contact ITKeepers immediately.</p>
-    <h2>What to do first</h2>
-    <ol>
-      <li>Disconnect the affected device from the network.</li>
-      <li>Do not pay any ransom.</li>
-      <li>Do not delete files, logs, messages or evidence.</li>
-      <li>Do not continue using the affected system unless instructed.</li>
-      <li>Call ITKeepers.</li>
-    </ol>
-    <a class="btn" href={emergencyPhone.href} aria-label={`Call ITKeepers on ${emergencyPhone.display}`}>Call now: {emergencyPhone.display}</a>
+    <div class="emergency-container">
+      <header class="emergency-intro">
+        <p class="eyebrow emergency-eyebrow">Emergency cybersecurity response</p>
+        <h1 id="emergency-title">Under attack?</h1>
+        <p class="emergency-lead">If you believe your business is experiencing a cyberattack, ransomware incident, account compromise or active security breach, contact ITKeepers immediately.</p>
+        <div class="emergency-actions">
+          <a class="emergency-link emergency-link--primary" href={emergencyPhone.href} aria-label={'Call ITKeepers on ' + emergencyPhone.display}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.57 2.8.7A2 2 0 0 1 22 16.92Z"/></svg>
+            Call {emergencyPhone.display}
+          </a>
+          <a class="emergency-link emergency-link--secondary" href={contactEmail.href}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email our team
+          </a>
+        </div>
+        <p class="emergency-call-first">Call first. Then follow the steps below while you wait.</p>
+        <!-- TODO: Add response-time or after-hours availability wording only when ITKeepers has approved a verified claim. -->
+      </header>
+
+      <section class="emergency-guidance" aria-label="Immediate incident response guidance">
+        <div class="emergency-cards">
+          <article class="emergency-card emergency-card--do" aria-labelledby="emergency-do-title">
+            <div class="emergency-card-heading">
+              <span class="emergency-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></span>
+              <h2 id="emergency-do-title">Do this now</h2>
+            </div>
+            <p class="emergency-card-subheading">Limit the damage while we get to work.</p>
+            <ul class="emergency-checklist">
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Call ITKeepers</strong> right away.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Disconnect affected devices</strong> from the network (unplug the cable, turn off Wi-Fi). Leave them powered on if you can.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Write down what you see:</strong> the time you noticed, any ransom note, and any error messages. Take photos of the screen.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Change passwords for email and admin accounts,</strong> from a device you trust that is not affected.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Keep backups offline</strong> and disconnected from the network.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Tell only the people who need to know,</strong> and ask them to stop using affected systems.</span></li>
+            </ul>
+          </article>
+
+          <article class="emergency-card emergency-card--dont" aria-labelledby="emergency-dont-title">
+            <div class="emergency-card-heading">
+              <span class="emergency-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></span>
+              <h2 id="emergency-dont-title">Don't do this</h2>
+            </div>
+            <p class="emergency-card-subheading">These make recovery harder or more expensive.</p>
+            <ul class="emergency-checklist">
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't pay a ransom</strong> or reply to the attacker before speaking to us.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't delete files, wipe machines or reinstall Windows.</strong> It destroys evidence we need.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't plug USB drives or backup disks</strong> into affected devices.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't run random antivirus or cleanup tools</strong> without guidance.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't discuss the incident over email or chat</strong> that may be compromised. Call us instead.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't wait until tomorrow.</strong> Early action limits the damage.</span></li>
+            </ul>
+          </article>
+        </div>
+        <p class="emergency-footnote">General guidance. Your situation may need different steps, so call us first.</p>
+      </section>
+
+      <!-- Preserve the existing follow-up section and its original incident steps. -->
+      <section class="emergency-follow-up" aria-labelledby="emergency-what-title">
+        <h2 id="emergency-what-title">What to do first</h2>
+        <ol>
+          <li>Disconnect the affected device from the network.</li>
+          <li>Do not pay any ransom.</li>
+          <li>Do not delete files, logs, messages or evidence.</li>
+          <li>Do not continue using the affected system unless instructed.</li>
+          <li>Call ITKeepers.</li>
+        </ol>
+        <a class="emergency-repeat-call" href={emergencyPhone.href} aria-label={'Call ITKeepers on ' + emergencyPhone.display}>Call now: {emergencyPhone.display}</a>
+      </section>
+    </div>
   </section>
 </Base>
+
 <style>
-  .emergency-page { max-inline-size:900px; margin-inline:auto; }
-  .emergency-page .lead { max-inline-size:60ch; }
-  .emergency-page h2 { margin-block:40px 20px; }
-  .emergency-page ol { padding-inline-start:24px; margin-block:0 32px; }
-  .emergency-page li { font-size:16px; line-height:1.6; margin-block-end:12px; }
+  /* The old max-width on the padded <section> constrained its content box.
+     Keep the section full-width and constrain only this inner container. */
+  :global(body main > section.emergency-page) {
+    inline-size: 100%;
+    max-inline-size: none;
+    min-inline-size: 0;
+    margin-inline: 0;
+    padding-inline: 24px;
+    padding-block: clamp(48px, 7vw, 80px) 96px;
+    background: var(--itk-bg);
+  }
+
+  .emergency-page {
+    --emergency-surface: var(--itk-surface);
+    --emergency-text: var(--itk-text);
+    --emergency-muted: #B8C4D6;
+    --emergency-helper: #9FB0C7;
+    color: var(--emergency-text);
+    overflow-wrap: break-word;
+  }
+  .emergency-container {
+    inline-size: 100%;
+    max-inline-size: 1100px;
+    min-inline-size: 0;
+    margin-inline: auto;
+  }
+  .emergency-intro { inline-size: 100%; max-inline-size: 60ch; min-inline-size: 0; margin: 0 0 44px; }
+  .emergency-intro .emergency-eyebrow {
+    margin: 0 0 18px;
+    color: var(--itk-brand-cyan);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .emergency-intro h1 {
+    margin: 0 0 22px;
+    color: var(--emergency-text);
+    font-family: Inter, var(--font-editorial, system-ui, sans-serif);
+    font-size: clamp(2.75rem, 6vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.05;
+    text-wrap: initial;
+  }
+  .emergency-intro .emergency-lead {
+    max-inline-size: 60ch;
+    inline-size: 100%;
+    margin: 0 0 28px;
+    color: var(--emergency-muted);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .emergency-actions { display: flex; flex-wrap: wrap; align-items: stretch; gap: 12px; }
+  .emergency-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-block-size: 52px;
+    padding: 13px 22px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font: 600 16px/1.35 var(--font-editorial, system-ui, sans-serif);
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .emergency-link svg { flex: 0 0 18px; }
+  .emergency-link--primary {
+    background: var(--itk-brand-cyan);
+    border-color: var(--itk-brand-cyan);
+    color: #071525;
+  }
+  .emergency-link--primary:hover { background: #7DD3FC; border-color: #7DD3FC; color: #071525; }
+  .emergency-link--secondary {
+    border-color: #9FB0C7;
+    background: transparent;
+    color: var(--emergency-text);
+  }
+  .emergency-link--secondary:hover { background: rgba(159, 176, 199, .12); border-color: #E8EEF9; color: #fff; }
+  .emergency-page a:focus-visible {
+    outline: 3px solid #7DD3FC;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 2px var(--itk-bg);
+  }
+  .emergency-intro .emergency-call-first {
+    margin: 16px 0 0;
+    color: var(--emergency-helper);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .emergency-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 24px;
+    min-inline-size: 0;
+  }
+  .emergency-card {
+    min-inline-size: 0;
+    padding: 30px;
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    background: linear-gradient(var(--card-tint), var(--card-tint)), var(--emergency-surface);
+    box-shadow: 0 0 0 1px var(--card-ring), 0 8px 32px var(--card-glow);
+  }
+  .emergency-card--do {
+    --card-accent: #6EE7B7;
+    --card-border: rgba(52, 211, 153, .45);
+    --card-tint: rgba(52, 211, 153, .07);
+    --card-ring: rgba(52, 211, 153, .08);
+    --card-glow: rgba(52, 211, 153, .06);
+    --card-icon-bg: rgba(52, 211, 153, .16);
+  }
+  .emergency-card--dont {
+    --card-accent: #FCA5A5;
+    --card-border: rgba(248, 113, 113, .5);
+    --card-tint: rgba(248, 113, 113, .07);
+    --card-ring: rgba(248, 113, 113, .08);
+    --card-glow: rgba(248, 113, 113, .06);
+    --card-icon-bg: rgba(248, 113, 113, .16);
+  }
+  .emergency-card-heading { display: flex; align-items: center; gap: 12px; margin-block-end: 10px; }
+  .emergency-card-icon {
+    display: inline-flex;
+    flex: 0 0 34px;
+    inline-size: 34px;
+    block-size: 34px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: var(--card-icon-bg);
+    color: var(--card-accent);
+  }
+  .emergency-card h2 {
+    margin: 0;
+    color: var(--card-accent);
+    font-size: clamp(22px, 2vw, 25px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.025em;
+  }
+  .emergency-card .emergency-card-subheading {
+    margin: 0 0 24px;
+    color: var(--emergency-muted);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .emergency-checklist { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+  .emergency-checklist li {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    align-items: start;
+    gap: 11px;
+    min-inline-size: 0;
+    color: var(--emergency-text);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .emergency-list-icon {
+    display: inline-block;
+    color: var(--card-accent);
+    font-family: var(--font-editorial, system-ui, sans-serif);
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .emergency-checklist strong { color: inherit; font-weight: 600; }
+  .emergency-guidance .emergency-footnote {
+    margin: 20px 0 0;
+    color: var(--emergency-helper);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .emergency-follow-up {
+    margin-block-start: 96px;
+    padding: 32px;
+    border: 1px solid var(--itk-border-strong);
+    border-radius: var(--itk-radius-md);
+    background: var(--itk-surface);
+  }
+  .emergency-follow-up h2 {
+    margin: 0 0 24px;
+    color: var(--emergency-text);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.2;
+  }
+  .emergency-follow-up ol { margin: 0 0 28px; padding-inline-start: 24px; }
+  .emergency-follow-up li {
+    padding-inline-start: 4px;
+    margin-block-end: 12px;
+    color: var(--emergency-muted);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .emergency-follow-up li::marker { color: var(--itk-brand-cyan); font-weight: 700; }
+  .emergency-repeat-call {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 44px;
+    color: #7DD3FC;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .emergency-repeat-call:hover { color: #E8EEF9; }
+
+  /* The site is dark by default; these styles support an explicitly enabled light theme. */
+  :global(html[data-theme="light"]) .emergency-page {
+    --emergency-surface: #fff;
+    --emergency-text: #20334C;
+    --emergency-muted: #42566F;
+    --emergency-helper: #42566F;
+    color: var(--emergency-text);
+  }
+  :global(html[data-theme="light"] body main > section.emergency-page) { background: #F5F9FC; }
+  :global(html[data-theme="light"]) .emergency-intro h1,
+  :global(html[data-theme="light"]) .emergency-follow-up h2 { color: #0B2C5F; }
+  :global(html[data-theme="light"]) .emergency-intro .emergency-eyebrow { color: #075D7D; }
+  :global(html[data-theme="light"]) .emergency-link--secondary { border-color: #42566F; color: #0B2C5F; }
+  :global(html[data-theme="light"]) .emergency-link--secondary:hover { background: #E5EFF7; border-color: #0B2C5F; color: #0B2C5F; }
+  :global(html[data-theme="light"]) .emergency-page a:focus-visible { outline-color: #075D7D; box-shadow: 0 0 0 2px #F5F9FC; }
+  :global(html[data-theme="light"]) .emergency-card--do {
+    --card-accent: #166534;
+    --card-border: rgba(22, 101, 52, .45);
+    --card-tint: rgba(52, 211, 153, .08);
+    --card-ring: rgba(22, 101, 52, .08);
+    --card-glow: rgba(22, 101, 52, .05);
+    --card-icon-bg: rgba(22, 101, 52, .1);
+  }
+  :global(html[data-theme="light"]) .emergency-card--dont {
+    --card-accent: #991B1B;
+    --card-border: rgba(153, 27, 27, .42);
+    --card-tint: rgba(248, 113, 113, .08);
+    --card-ring: rgba(153, 27, 27, .08);
+    --card-glow: rgba(153, 27, 27, .05);
+    --card-icon-bg: rgba(153, 27, 27, .1);
+  }
+  :global(html[data-theme="light"]) .emergency-follow-up { background: #fff; border-color: rgba(11, 44, 95, .2); }
+  :global(html[data-theme="light"]) .emergency-follow-up li::marker,
+  :global(html[data-theme="light"]) .emergency-repeat-call { color: #075D7D; }
+  :global(html[data-theme="light"]) .emergency-repeat-call:hover { color: #0B2C5F; }
+
+  @media (min-width: 768px) {
+    .emergency-intro .emergency-eyebrow { white-space: nowrap; }
+    .emergency-intro h1 { white-space: nowrap; }
+  }
+  @media (max-width: 767px) {
+    .emergency-cards { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 600px) {
+    :global(body main > section.emergency-page) { padding-block: 40px 72px; }
+    .emergency-intro { margin-block-end: 34px; }
+    .emergency-intro h1 { margin-block-end: 18px; }
+    .emergency-intro .emergency-lead { margin-block-end: 24px; }
+    .emergency-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
+    .emergency-link { inline-size: 100%; }
+    .emergency-card { padding: 24px; }
+    .emergency-follow-up { padding: 24px; margin-block-start: 72px; }
+  }
+  @media (max-width: 380px) {
+    .emergency-card { padding: 20px; }
+    .emergency-follow-up { padding: 20px; }
+    .emergency-intro h1 { font-size: 2.75rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .emergency-link { transition: none; }
+  }
+  @media (forced-colors: active) {
+    .emergency-card, .emergency-follow-up { background: Canvas; border-color: CanvasText; box-shadow: none; }
+    .emergency-card-icon { background: Canvas; outline: 1px solid CanvasText; }
+    .emergency-page a:focus-visible { outline-color: Highlight; box-shadow: none; }
+    .emergency-link { forced-color-adjust: auto; }
+    .emergency-link--primary { border-color: LinkText; }
+  }
 </style>
