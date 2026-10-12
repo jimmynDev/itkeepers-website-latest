@@ -37,7 +37,7 @@ import { emergencyPhone, contactEmail } from '../data/contact';
               <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Write down what you see:</strong> the time you noticed, any ransom note, and any error messages. Take photos of the screen.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Change passwords for email and admin accounts,</strong> from a device you trust that is not affected.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Keep backups offline</strong> and disconnected from the network.</span></li>
-              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Tell only the people who need to know,</strong> and ask them to stop using affected systems.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Tell only the people who need to know,</strong> and ask them to stop using affected systems unless instructed by ITKeepers.</span></li>
             </ul>
           </article>
 
@@ -49,7 +49,7 @@ import { emergencyPhone, contactEmail } from '../data/contact';
             <p class="emergency-card-subheading">These make recovery harder or more expensive.</p>
             <ul class="emergency-checklist">
               <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't pay a ransom</strong> or reply to the attacker before speaking to us.</span></li>
-              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't delete files, wipe machines or reinstall Windows.</strong> It destroys evidence we need.</span></li>
+              <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't delete files, logs, or messages. Don't wipe machines or reinstall Windows.</strong> These actions destroy evidence we need.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't plug USB drives or backup disks</strong> into affected devices.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't run random antivirus or cleanup tools</strong> without guidance.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">×</span><span><strong>Don't discuss the incident over email or chat</strong> that may be compromised. Call us instead.</span></li>
@@ -60,18 +60,6 @@ import { emergencyPhone, contactEmail } from '../data/contact';
         <p class="emergency-footnote">General guidance. Your situation may need different steps, so call us first.</p>
       </section>
 
-      <!-- Preserve the existing follow-up section and its original incident steps. -->
-      <section class="emergency-follow-up" aria-labelledby="emergency-what-title">
-        <h2 id="emergency-what-title">What to do first</h2>
-        <ol>
-          <li>Disconnect the affected device from the network.</li>
-          <li>Do not pay any ransom.</li>
-          <li>Do not delete files, logs, messages or evidence.</li>
-          <li>Do not continue using the affected system unless instructed.</li>
-          <li>Call ITKeepers.</li>
-        </ol>
-        <a class="emergency-repeat-call" href={emergencyPhone.href} aria-label={'Call ITKeepers on ' + emergencyPhone.display}>Call now: {emergencyPhone.display}</a>
-      </section>
     </div>
   </section>
 </Base>
@@ -259,42 +247,6 @@ import { emergencyPhone, contactEmail } from '../data/contact';
     line-height: 1.6;
   }
 
-  .emergency-follow-up {
-    margin-block-start: 96px;
-    padding: 32px;
-    border: 1px solid var(--itk-border-strong);
-    border-radius: var(--itk-radius-md);
-    background: var(--itk-surface);
-  }
-  .emergency-follow-up h2 {
-    margin: 0 0 24px;
-    color: var(--emergency-text);
-    font-size: clamp(26px, 3vw, 34px);
-    font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.2;
-  }
-  .emergency-follow-up ol { margin: 0 0 28px; padding-inline-start: 24px; }
-  .emergency-follow-up li {
-    padding-inline-start: 4px;
-    margin-block-end: 12px;
-    color: var(--emergency-muted);
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  .emergency-follow-up li::marker { color: var(--itk-brand-cyan); font-weight: 700; }
-  .emergency-repeat-call {
-    display: inline-flex;
-    align-items: center;
-    min-block-size: 44px;
-    color: #7DD3FC;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-  .emergency-repeat-call:hover { color: #E8EEF9; }
-
   /* The site is dark by default; these styles support an explicitly enabled light theme. */
   :global(html[data-theme="light"]) .emergency-page {
     --emergency-surface: #fff;
@@ -304,8 +256,7 @@ import { emergencyPhone, contactEmail } from '../data/contact';
     color: var(--emergency-text);
   }
   :global(html[data-theme="light"] body main > section.emergency-page) { background: #F5F9FC; }
-  :global(html[data-theme="light"]) .emergency-intro h1,
-  :global(html[data-theme="light"]) .emergency-follow-up h2 { color: #0B2C5F; }
+  :global(html[data-theme="light"]) .emergency-intro h1 { color: #0B2C5F; }
   :global(html[data-theme="light"]) .emergency-intro .emergency-eyebrow { color: #075D7D; }
   :global(html[data-theme="light"]) .emergency-link--secondary { border-color: #42566F; color: #0B2C5F; }
   :global(html[data-theme="light"]) .emergency-link--secondary:hover { background: #E5EFF7; border-color: #0B2C5F; color: #0B2C5F; }
@@ -326,10 +277,6 @@ import { emergencyPhone, contactEmail } from '../data/contact';
     --card-glow: rgba(153, 27, 27, .05);
     --card-icon-bg: rgba(153, 27, 27, .1);
   }
-  :global(html[data-theme="light"]) .emergency-follow-up { background: #fff; border-color: rgba(11, 44, 95, .2); }
-  :global(html[data-theme="light"]) .emergency-follow-up li::marker,
-  :global(html[data-theme="light"]) .emergency-repeat-call { color: #075D7D; }
-  :global(html[data-theme="light"]) .emergency-repeat-call:hover { color: #0B2C5F; }
 
   @media (min-width: 768px) {
     .emergency-intro .emergency-eyebrow { white-space: nowrap; }
@@ -346,18 +293,16 @@ import { emergencyPhone, contactEmail } from '../data/contact';
     .emergency-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
     .emergency-link { inline-size: 100%; }
     .emergency-card { padding: 24px; }
-    .emergency-follow-up { padding: 24px; margin-block-start: 72px; }
   }
   @media (max-width: 380px) {
     .emergency-card { padding: 20px; }
-    .emergency-follow-up { padding: 20px; }
     .emergency-intro h1 { font-size: 2.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .emergency-link { transition: none; }
   }
   @media (forced-colors: active) {
-    .emergency-card, .emergency-follow-up { background: Canvas; border-color: CanvasText; box-shadow: none; }
+    .emergency-card { background: Canvas; border-color: CanvasText; box-shadow: none; }
     .emergency-card-icon { background: Canvas; outline: 1px solid CanvasText; }
     .emergency-page a:focus-visible { outline-color: Highlight; box-shadow: none; }
     .emergency-link { forced-color-adjust: auto; }
