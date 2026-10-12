@@ -17,7 +17,7 @@
   --itk-cta-hover: #42baeb;
   --itk-cta-text: #071525;
   --itk-text: #e8eef9;
-  --itk-muted: #8a98b2;
+  --itk-muted: #9FB0C7;
   --itk-dim: #61708a;
   --itk-border: rgba(126,156,204,.14);
   --itk-border-strong: rgba(126,156,204,.24);
@@ -33,7 +33,7 @@
   --itk-panel-space: 28px;
   --itk-heading: clamp(30px, 4vw, 48px);
   --itk-body: 16px;
-  --itk-label: 12px;
+  --itk-label: 14px;
   --itk-label-tracking: .1em;
   --itk-nav-surface: rgba(13,21,37,.94);
   --itk-nav-shadow: 0 8px 24px -16px rgba(0,0,0,.5);

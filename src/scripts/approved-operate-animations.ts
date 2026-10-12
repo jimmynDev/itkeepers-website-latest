@@ -1,6 +1,6 @@
 import { mountAnimation } from './animation-lifecycle';
 type Scheduler={later:(callback:()=>void,delay:number)=>void};
-const incidentPhases=['detect','ticket','assign','notify','investigate','resolve','document'];
+const incidentPhases=['detect','assign','resolve','document'];
 export function createIncidentWorkflow(root:HTMLElement,scheduler:Scheduler) {
   const scene=root.querySelector<HTMLElement>('[data-animation-visual]')!;
   const rail=scene.querySelector<HTMLElement>('.incident-rail')!;
@@ -8,24 +8,24 @@ export function createIncidentWorkflow(root:HTMLElement,scheduler:Scheduler) {
   const ticket=scene.querySelector<HTMLElement>('.incident-ticket')!;
   const fill=scene.querySelector<HTMLElement>('.incident-fill')!;
   const status=scene.querySelector<HTMLElement>('[data-incident-status]')!;
-  const sources=[...scene.querySelectorAll<HTMLElement>('[data-issue-source]')];
-  scene.dataset.phase='waiting';scene.dataset.inputPhase='waiting';fill.style.transform='scaleY(0)';status.textContent='Assessment';
-  sources.forEach(source=>source.classList.remove('is-visible'));
+  scene.dataset.phase='waiting'; fill.style.transform='scaleY(0)'; status.textContent='Ready';
   steps.forEach(step=>step.classList.remove('is-complete','is-active'));
   const activate=(index:number)=>{
     steps.forEach((step,i)=>{step.classList.toggle('is-complete',i<index);step.classList.toggle('is-active',i===index);});
     scene.dataset.phase=incidentPhases[index];
-    scene.dataset.inputPhase='complete';
     const node=steps[index].querySelector<HTMLElement>('.incident-node')!.getBoundingClientRect();
     const box=rail.getBoundingClientRect();
     const axis=scene.querySelector<HTMLElement>('.incident-axis')!.getBoundingClientRect();
     const y=node.top+node.height/2-box.top;
     ticket.style.transform=`translateY(${y-11}px)`;
     fill.style.transform=`scaleY(${Math.min(1,Math.max(0,(node.top+node.height/2-axis.top)/axis.height))})`;
-    ticket.classList.toggle('is-handoff',index===2);
-    status.textContent=['Detected','Recorded','Assigned','Notified','Investigating','Resolved','Documented'][index];
+    ticket.classList.toggle('is-handoff',index===1);
+    status.textContent=['Detected','Assigned','Resolved','Documented'][index];
   };
-  return {duration:4800,play(){scene.dataset.phase='sources';status.textContent='Assessing';sources.forEach((source,i)=>scheduler.later(()=>source.classList.add('is-visible'),100+i*140));scheduler.later(()=>{scene.dataset.inputPhase='assess';},650);steps.forEach((_,i)=>scheduler.later(()=>activate(i),1100+i*480));},settle(){scene.dataset.phase='settled';scene.dataset.inputPhase='complete';sources.forEach(source=>source.classList.add('is-visible'));steps.forEach(step=>{step.classList.add('is-complete');step.classList.remove('is-active');});fill.style.transform='scaleY(1)';ticket.classList.remove('is-handoff');status.textContent='Documented';}};
+  return { duration:3100, play(){steps.forEach((_,i)=>scheduler.later(()=>activate(i),400+i*570));}, settle(){
+    scene.dataset.phase='settled';steps.forEach(step=>{step.classList.add('is-complete');step.classList.remove('is-active');});
+    fill.style.transform='scaleY(1)';ticket.classList.remove('is-handoff');status.textContent='Documented';
+  }};
 }
 function knowledge(root:HTMLElement,scheduler:Scheduler) {
   const scene=root.querySelector<HTMLElement>('[data-animation-visual]')!;

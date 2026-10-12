@@ -54,13 +54,14 @@ body.home-page #technology .technology-logo:hover :is(img, svg) { filter: graysc
 /* Keep the operational shell compact; protected story visuals remain intact. */
 body.home-page #how-we-operate {
   --operate-ink: var(--itk-text);
-  --operate-muted: var(--itk-muted);
+  --operate-muted: #B8C4D6;
   --operate-accent: var(--itk-brand-cyan);
   --operate-line: var(--itk-border-strong);
 }
-body.home-page #how-we-operate .operate-heading { gap: var(--chapter-gap); margin-block-end: 28px; }
-body.home-page #how-we-operate .operate-primary { gap: clamp(24px, 3vw, 48px); }
-body.home-page #how-we-operate .incident-steps { gap: 10px; }
+body.home-page #how-we-operate { padding-block-start: 48px; }
+body.home-page #how-we-operate .operate-heading { margin-block-end: 28px; }
+body.home-page #how-we-operate .operate-primary { gap: clamp(24px, 3vw, 36px); }
+body.home-page #how-we-operate .incident-steps { gap: 18px; }
 body.home-page #how-we-operate .incident-heading { margin-block: 20px 16px; }
 body.home-page #how-we-operate .operate-stories { margin-block-start: var(--chapter-gap); gap: var(--chapter-gap); }
 body.home-page #how-we-operate .operate-stories > .operate-documentation,
@@ -71,8 +72,7 @@ body.home-page #how-we-operate .operate-stories > .operate-decisions {
 }
 /* Captions and stage labels sit on navy; the intentional light record cards
    retain their original foreground/background contrast and animation states. */
-body.home-page #how-we-operate :is(.operate-process, .knowledge-continuity, .hardware-assessment) figcaption,
-body.home-page #how-we-operate .knowledge-stage-label { color: var(--itk-muted); }
+body.home-page #how-we-operate .knowledge-stage-label { color: #9FB0C7; }
 body.home-page #how-we-operate .knowledge-outcome { color: var(--itk-text); border-color: var(--itk-border-strong); }
 body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-brand-cyan); }
 
@@ -82,7 +82,6 @@ body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-bran
 @media (max-width: 768px) {
   body.home-page { --chapter-space: 48px; --chapter-gap: 24px; }
   body.home-page #technology { padding-block: 32px; }
-  body.home-page #how-we-operate .operate-heading { gap: var(--chapter-gap); }
 }
 @media (max-width: 600px) {
   body.home-page { --chapter-space: 44px; --chapter-detail: 20px; }
@@ -100,7 +99,6 @@ body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-bran
   body.home-page #technology-title,
   body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow),
   body.home-page #how-we-operate .knowledge-stage-label,
-  body.home-page #how-we-operate :is(.operate-process, .knowledge-continuity, .hardware-assessment) figcaption,
   body.home-page #how-we-operate .knowledge-outcome { color: CanvasText; }
   body.home-page #technology .logo-stage::before,
   body.home-page #technology .logo-stage::after { content: none; }

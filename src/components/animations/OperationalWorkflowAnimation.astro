@@ -1,72 +1,37 @@
 ---
-// Adapted from Jim's incident-response.html: rail, travelling ticket and ownership.
-const stages = [
-  ['Issue detected','An assessed issue requires action'],
-  ['Ticket created','The needed action and available context are recorded'],
-  ['Engineer assigned','Issue reaches an appropriate engineer'],
-  ['Client notified','An update on the investigation'],
-  ['Investigation','Engineer works with known context'],
-  ['Resolved','Service restored in this example'],
-  ['Documented','Actions, outcome and follow-up']
-];
-const sources = [
-  { key:'monitoring', label:'Monitoring alerts', icon:'M5 17h14l-2-3V9a5 5 0 0 0-10 0v5l-2 3ZM10 20a2 2 0 0 0 4 0M12 2v2' },
-  { key:'reviews', label:'Routine reviews', icon:'M8 4H5v18h14V4h-3M8 2h8v4H8V2ZM8 11l2 2 4-4M8 17l2 2 4-4M16 12h1M16 18h1' },
-  { key:'clients', label:'Client reports', icon:'M3 4h18v13H9l-6 4V4ZM7 9h10M7 13h7' },
-];
+// Four-stage incident-response summary.
+const stages = ['Issue detected', 'Engineer assigned', 'Resolved', 'Documented'];
 ---
-<figure class="operate-process is-idle" data-animation="operational-workflow" aria-describedby="operate-process-caption operate-process-context">
-  <div class="incident-panel" data-animation-visual data-phase="settled" data-input-phase="complete">
+<figure class="operate-process is-idle" data-animation="operational-workflow" aria-label="Example incident workflow from detection to documentation">
+  <div class="incident-panel" data-animation-visual data-phase="settled">
     <div class="incident-chrome"><span class="incident-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="incident-url">ITKeepers / support</span><span class="incident-status" aria-hidden="true"><i></i><b data-incident-status>Documented</b></span></div>
-    <div class="incident-inputs">
-      <ul class="incident-sources" aria-label="Issue sources">
-        {sources.map(source => <li class="incident-source is-visible" data-issue-source={source.key}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d={source.icon} /></svg>
-          <span id={source.key === 'reviews' ? 'operate-reviews-title' : undefined}>{source.label}</span>
-        </li>)}
-      </ul>
-      <svg class="incident-input-paths" viewBox="0 0 300 30" preserveAspectRatio="none" height="30" aria-hidden="true" focusable="false"><path d="M50 0V10Q50 18 58 18H142Q150 18 150 26V30M150 0V30M250 0V10Q250 18 242 18H158Q150 18 150 26V30" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" /></svg>
-      <span class="incident-input-line" aria-hidden="true"></span>
-      <p class="incident-assessment">Issue assessment</p>
-      <span class="incident-assessment-line" aria-hidden="true"></span>
-    </div>
     <div class="incident-heading"><h3>Incident response</h3></div>
     <div class="incident-rail">
       <div class="incident-axis" aria-hidden="true"><span class="incident-fill"></span></div>
-      <ol class="incident-steps" aria-label="Illustrative incident workflow">
-        {stages.map(([name,copy],index) => <li class="incident-step is-complete" data-process-step={index}><span class="incident-node" aria-hidden="true"></span><div><strong>{name}</strong><span class="incident-detail">{copy}</span></div></li>)}
+      <ol class="incident-steps" aria-label="Example incident workflow">
+        {stages.map((name,index) => <li class="incident-step is-complete" data-process-step={index}><span class="incident-node" aria-hidden="true"></span><div><strong>{name}</strong>{name === 'Documented' && <span class="incident-detail">Actions, outcome and follow-up recorded.</span>}</div></li>)}
       </ol>
       <span class="incident-ticket" aria-hidden="true"><i></i></span>
     </div>
   </div>
-  <figcaption id="operate-process-caption"><span class="illustrative-badge">Illustrative</span><span>Example workflow, not an outcome or timing guarantee.</span></figcaption>
-  <p class="incident-context" id="operate-process-context">Monitoring and security alerts, routine reviews of backups, system health and open work, and client reports feed into engineer assessment. Not every signal becomes an incident. When action is needed, this example follows a ticket through investigation to a documented outcome. Ticket creation is not universally automated.</p>
 </figure>
 <style>
   .operate-process { margin:0; min-width:0; }
-  .incident-panel { --incident-cyan:#42BAEB; position:relative; padding:22px 24px 18px; border:1px solid #38758d; border-radius:18px; background:linear-gradient(160deg,#132b43,#0c1c2e 75%); box-shadow:0 18px 44px -30px rgba(11,44,95,.5),inset 0 1px 0 rgba(255,255,255,.04); color:#f6fbff; }
-  .incident-chrome { display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:12px; line-height:1.5; color:#b9cedf; }
+  .incident-panel { --incident-cyan:#42BAEB; position:relative; padding:22px 24px 22px; border:1px solid #38758d; border-radius:18px; background:linear-gradient(160deg,#132b43,#0c1c2e 75%); box-shadow:0 18px 44px -30px rgba(11,44,95,.5),inset 0 1px 0 rgba(255,255,255,.04); color:#f6fbff; }
+  .incident-chrome { display:flex; align-items:center; flex-wrap:wrap; gap:8px; font-size:14px; line-height:1.5; color:#b9cedf; }
   .incident-dots { display:flex; gap:5px; }
   .incident-dots i { width:5px; height:5px; border-radius:50%; background:var(--incident-cyan); }
   .incident-url { flex:1; overflow-wrap:anywhere; }
-  .incident-status { display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border:1px solid #3e829b; border-radius:8px; color:#d6f4ff; background:rgba(66,186,235,.08); font-size:12px; }
+  .incident-status { display:inline-flex; align-items:center; gap:6px; padding:3px 9px; border:1px solid #3e829b; border-radius:8px; color:#d6f4ff; background:rgba(66,186,235,.08); font-size:14px; }
   .incident-status i { flex:none; width:5px; height:5px; border-radius:50%; background:var(--incident-cyan); }
-  .incident-inputs { margin-block-start:20px; }
-  .incident-sources { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; list-style:none; padding:0; margin:0; }
-  .incident-source { display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; text-align:center; color:var(--itk-text); font-size:16px; line-height:1.4; font-weight:500; }
-  .incident-source svg { flex:none; color:var(--incident-cyan); }
-  .incident-input-paths { display:block; width:100%; color:var(--incident-cyan); transform-origin:top; }
-  .incident-input-line { display:none; }
-  .incident-panel .incident-assessment { color:var(--incident-cyan); text-align:center; font-size:16px; line-height:1.5; font-weight:600; margin:0; }
-  .incident-assessment-line { display:block; width:1.5px; height:14px; background:var(--incident-cyan); margin:4px auto 0; transform-origin:top; }
-  .incident-heading { margin-block:22px 20px; }
-  .incident-heading h3 { margin:0 0 7px; font-size:20px; line-height:1.3; letter-spacing:-.02em; color:#f6fbff; }
+  .incident-heading { margin-block:20px 16px; }
+  .incident-heading h3 { margin:0; font-size:20px; line-height:1.3; letter-spacing:-.02em; color:#f6fbff; }
   .incident-rail { position:relative; }
-  .incident-steps { list-style:none; margin:0; padding:0; display:grid; gap:16px; }
+  .incident-steps { list-style:none; margin:0; padding:0; display:grid; gap:18px; }
   .incident-step { display:grid; grid-template-columns:20px minmax(0,1fr); gap:16px; position:relative; }
   .incident-node { z-index:1; align-self:start; justify-self:center; margin-top:6px; width:10px; height:10px; border-radius:50%; border:1px solid #759bb2; background:#15334b; }
-  .incident-step strong { display:block; color:#f6fbff; font-size:16px; font-weight:600; line-height:1.35; overflow-wrap:anywhere; }
-  .incident-detail,.incident-context { position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .incident-step strong { display:block; color:#f6fbff; font-size:16px; font-weight:600; line-height:1.35; }
+  .incident-detail { display:block; margin-top:4px; color:#B8C4D6; font-size:14px; line-height:1.5; }
   .incident-step.is-complete .incident-node { background:var(--incident-cyan); border-color:var(--incident-cyan); }
   .incident-step:last-child.is-complete .incident-node { outline:1px solid var(--incident-cyan); outline-offset:3px; }
   .incident-step.is-active .incident-node { background:var(--incident-cyan); border-color:var(--incident-cyan); box-shadow:0 0 0 4px rgba(66,186,235,.16); }
@@ -75,19 +40,14 @@ const sources = [
   .incident-ticket { display:none; position:absolute; left:10px; top:11px; width:0; height:0; }
   .incident-ticket i { display:block; position:absolute; width:10px; height:10px; top:-5px; left:-5px; border-radius:2px; background:#a4e7ff; transform:rotate(45deg); box-shadow:0 0 9px rgba(66,186,235,.45); }
   .incident-ticket.is-handoff::after { content:''; position:absolute; left:-12px; top:-12px; width:24px; height:24px; border:1px solid var(--incident-cyan); border-radius:50%; }
-  .operate-process figcaption { display:flex; align-items:start; gap:10px; margin-top:14px; color:#42566f; font-size:12px; line-height:1.7; }
-  .operate-process .illustrative-badge { flex:none; color:#31577d; background:#edf5fb; border-color:#bdcfe0; font-size:12px; }
   .operate-process[data-animation-enhanced="true"] .incident-panel[data-phase="waiting"] { transform:translateY(10px); }
   .operate-process[data-animation-state="running"] .incident-ticket { display:block; }
-  .operate-process .incident-panel:is([data-phase="waiting"],[data-phase="sources"]) .incident-ticket { display:none; }
-  .operate-process[data-animation-enhanced="true"] .incident-source:not(.is-visible) { opacity:0; transform:translateY(6px); }
-  .operate-process[data-animation-enhanced="true"] .incident-panel[data-input-phase="waiting"] :is(.incident-input-paths,.incident-input-line,.incident-assessment-line) { transform:scaleY(0); }
-  @media(prefers-reduced-motion:no-preference) { .incident-panel { transition:transform 500ms cubic-bezier(.22,1,.36,1); } .incident-source { transition:opacity 260ms ease,transform 260ms ease; } .incident-input-paths,.incident-input-line,.incident-assessment-line { transition:transform 350ms ease; } .incident-ticket { transition:transform 390ms cubic-bezier(.16,1,.3,1); } .incident-fill { transition:transform 390ms cubic-bezier(.16,1,.3,1); } .incident-node { transition:background-color 240ms ease,box-shadow 240ms ease; } }
+  .operate-process .incident-panel[data-phase="waiting"] .incident-ticket { display:none; }
+  @media(prefers-reduced-motion:no-preference) { .incident-panel { transition:transform 500ms cubic-bezier(.22,1,.36,1); } .incident-ticket,.incident-fill { transition:transform 390ms cubic-bezier(.16,1,.3,1); } .incident-node { transition:background-color 240ms ease,box-shadow 240ms ease; } }
   .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .incident-panel * { transition:none; }
   .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"],[data-animation-state="settled"]) .incident-panel { transition:none; }
   .operate-process:is([data-animation-state="paused"],[data-animation-state="replay-ready"]) .incident-ticket { display:block; }
   .operate-process[data-animation-state="replay-ready"] .incident-panel[data-phase="settled"] .incident-ticket { display:none; }
-  @media(max-width:480px) { .incident-panel { padding:18px 16px; } .incident-step { gap:10px; } .incident-sources { grid-template-columns:1fr; gap:8px; } .incident-source { flex-direction:row; justify-content:center; gap:10px; } .incident-input-paths { display:none; } .incident-input-line { display:block; width:1.5px; height:18px; margin:8px auto 0; background:var(--incident-cyan); transform-origin:top; } .operate-process figcaption { flex-direction:column; gap:7px; } }
-  @media(prefers-reduced-motion:reduce) { .operate-process .incident-source { opacity:1; transform:none; } .operate-process .incident-panel :is(.incident-input-paths,.incident-input-line,.incident-assessment-line) { transform:none; } }
-  @media(forced-colors:active) { .incident-panel { --incident-cyan:Highlight; background:Canvas; color:CanvasText; border-color:CanvasText; } .incident-panel :is(h3,p,strong,.incident-detail,.incident-chrome,.incident-status) { color:CanvasText; } .incident-source svg,.incident-source span,.incident-input-paths { color:CanvasText; } .incident-status { border-color:CanvasText; } .incident-node { border-color:CanvasText; } }
+  @media(max-width:480px) { .incident-panel { padding:18px 16px; } .incident-step { gap:10px; } }
+  @media(forced-colors:active) { .incident-panel { --incident-cyan:Highlight; background:Canvas; color:CanvasText; border-color:CanvasText; } .incident-panel :is(h3,strong,.incident-detail,.incident-chrome,.incident-status) { color:CanvasText; } .incident-status,.incident-node { border-color:CanvasText; } }
 </style>
