@@ -28,7 +28,6 @@
 :root body .governance-resource section > p,
 :root body p.inquiry-intro,
 :root body p.inquiry-help,
-:root body p.inquiry-availability,
 :root body .contact-information .contact-emergency > p:not(.contact-card-label),
 :root body p.closing-description,
 :root body .home-closing .closing-phone > p,
@@ -41,12 +40,8 @@
 
 /* Only these paragraphs were smaller than 16px. Existing larger prose stays larger. */
 :root body p.inquiry-help,
-:root body p.inquiry-availability,
 :root body .home-closing .closing-phone > p,
 :root body .phishing-decisions .decision-inner > p.decision-note { font-size: 16px; }
-
-/* These inline links are contact actions; preserve their existing typography. */
-:root body p.inquiry-availability > a { font-size: 14px; line-height: 1.6; }
 
 /* Actual light surfaces, rather than every section carrying a legacy .light class. */
 :root[data-hero-theme="day"] body.home-page .service-story p.service-story-intro,

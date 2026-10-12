@@ -90,10 +90,11 @@ test('How We Work retains the reusable five-step example and native review discl
   };
   const how = readFileSync('dist/how-we-work/index.html', 'utf8');
   assert.equal(disclosureCount(how, 'daily-checks'), 3);
-  assert.equal(disclosureCount(home, 'daily-checks'), 3);
-  assert.equal(disclosureCount(home, 'security-layers'), 5);
+  assert.doesNotMatch(home, /class="disclosures (?:daily-checks|security-layers)"/);
+  assert.match(home, /href="\/services\/cybersecurity\/#security-layers"/);
   assert.doesNotMatch(home, /class="[^\"]*\bworkflow\b/);
   assert.equal(disclosureCount(security, 'security-layers'), 5);
+  assert.equal(disclosureCount(security, 'daily-checks'), 3);
   for (const title of ['Identity', 'Endpoints', 'Network', 'Operations', 'Backups']) {
     assert.ok(security.includes(`<summary>${title}</summary>`));
   }

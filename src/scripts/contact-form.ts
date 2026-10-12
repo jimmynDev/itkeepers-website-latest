@@ -87,6 +87,11 @@ export function initializeContactForms(scope: ParentNode = document): void {
       status.textContent = 'Sending your message…';
       button.disabled = true;
       form.setAttribute('aria-busy', 'true');
+      // A stalled endpoint must also reach the direct-contact fallback.
+      const requestController = new AbortController();
+      const abortRequest = (): void => requestController.abort();
+      controller.signal.addEventListener('abort', abortRequest, { once: true });
+      const timeout = window.setTimeout(abortRequest, 15000);
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -94,7 +99,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
           headers: { Accept: 'application/json' },
           credentials: 'same-origin',
           redirect: 'error',
-          signal: controller.signal
+          signal: requestController.signal
         });
         const isJson = response.headers.get('content-type')?.toLowerCase().includes('application/json');
         const result: unknown = response.ok && isJson ? await response.json() : null;
@@ -109,7 +114,10 @@ export function initializeContactForms(scope: ParentNode = document): void {
         unavailable.hidden = false;
         const failureMessage = unavailable.querySelector<HTMLElement>('[data-inquiry-failure-message]');
         if (failureMessage) failureMessage.textContent = 'Your message was not sent. Please contact our team directly.';
+        unavailable.focus();
       } finally {
+        window.clearTimeout(timeout);
+        controller.signal.removeEventListener('abort', abortRequest);
         form.removeAttribute('aria-busy');
         button.disabled = false;
       }

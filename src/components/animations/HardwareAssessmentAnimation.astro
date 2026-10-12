@@ -1,7 +1,7 @@
 ---
 // Compact adaptation of keep-upgrade-replace.html: diagnostics and three outcomes.
 const signals=[['CPU',7,'Within spec','ok'],['RAM',4,'Under pressure','review'],['Storage',3,'Near capacity','review'],['Age',5,'In service','neutral'],['Warranty',3,'Expired','review'],['Security compatibility',7,'Review in this example','neutral']];
-const outcomes=[['Keep','Still suitable for its workload.'],['Upgrade','A targeted improvement addresses the actual bottleneck.'],['Replace','No longer sensible to maintain for the work it needs to do.']];
+const outcomes=[['Keep','Still suitable for the work.'],['Upgrade','A targeted improvement addresses a bottleneck.'],['Replace','No longer practical to maintain.']];
 ---
 <figure class="hardware-assessment is-idle" data-animation="hardware-assessment" aria-label="Example hardware assessment comparing keep, upgrade and replace options">
   <div class="assessment-scene" data-animation-visual data-phase="settled">
@@ -28,7 +28,7 @@ const outcomes=[['Keep','Still suitable for its workload.'],['Upgrade','A target
   .assessment-options { display:grid; gap:10px; }
   .assessment-option { padding:13px 16px; border:1px solid #bfd4e5; border-radius:12px; background:rgba(255,255,255,.45); }
   .assessment-option-title { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; font-size:14px; line-height:1.5; }
-  .assessment-option p { margin:6px 0 0; font-size:14px; line-height:1.6; color:#42566f; overflow-wrap:anywhere; }
+  .assessment-option p { margin:6px 0 0; font-size:16px; line-height:1.6; font-weight:400; color:#06101c; overflow-wrap:anywhere; }
   .assessment-selection { padding:2px 7px; border:1px solid #b89a65; border-radius:6px; background:#fbf1df; color:#765019; font-size:14px; line-height:1.6; }
   .assessment-option.is-selected { border-color:#b39664; background:#fbf5e9; }
   .hardware-assessment[data-animation-enhanced="true"] .assessment-scene:not([data-phase="settled"]) .assessment-option:not(.is-selected) .assessment-selection { visibility:hidden; }
