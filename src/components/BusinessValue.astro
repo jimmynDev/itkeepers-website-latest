@@ -1,40 +1,352 @@
 ---
-const services = [
-  ['managed', 'Managed IT'],
-  ['security', 'Cybersecurity'],
-  ['cloud', 'Microsoft 365 & Cloud'],
-  ['networking', 'Networking & Infrastructure'],
-  ['backup', 'Backup & Disaster Recovery'],
-  ['ai', 'AI & Automation'],
-  ['web', 'Web Design & Hosting'],
+const circles = [
+  {
+    id: 'future',
+    eyebrow: 'ITKeepers · Lebanon',
+    top: 'Built for',
+    accent: 'what’s next.',
+    subheading: 'Managed Service Provider',
+  },
+  {
+    id: 'monitoring',
+    eyebrow: 'Proactive Operations',
+    top: '',
+    accent: '24/7',
+    subheading: 'Automated Monitoring',
+  },
+  {
+    id: 'ownership',
+    eyebrow: 'Client Ownership',
+    top: 'Your data.',
+    accent: 'Your control.',
+    subheading: 'Your business stays yours',
+  },
 ];
+const services = ['Managed IT', 'Security', 'Cloud', 'Networking', 'Backup', 'AI', 'Web'];
 ---
 <section class="business-value" id="business-value" aria-labelledby="business-value-title">
   <div class="business-inner">
-    <p class="eyebrow business-eyebrow">MANAGED SERVICE PROVIDER • LEBANON</p>
-    <h2 id="business-value-title">Less IT to worry about. More room to grow.</h2>
-    <p class="business-intro">ITKeepers is a Lebanon-based Managed Service Provider (MSP) helping businesses simplify IT operations and plan for what comes next.</p>
-    <p class="service-summary">{services.map(([key, name], index) => <Fragment><span class={`service-name service-name--${key}`}>{index === services.length - 1 && 'and '}{name}{index < services.length - 1 && ','}</span>{index < services.length - 1 && ' '}</Fragment>)}<span class="service-summary-end"> — <strong>All under one roof.</strong></span></p>
+    <h2 id="business-value-title" class="business-sr-only">ITKeepers: Managed Services and Client Commitments</h2>
+
+    <div class="business-circles">
+      {circles.map((circle) => (
+        <article class="business-circle" data-orbit-stage aria-label={circle.eyebrow}>
+          <svg class="business-ring" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+            <defs>
+              <filter id={'business-trail-glow-' + circle.id} x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" />
+              </filter>
+              <filter id={'business-dot-glow-' + circle.id} x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="5" />
+              </filter>
+            </defs>
+            <circle class="business-outer-track" cx="200" cy="200" r="199" />
+            <circle class="business-full-ring" cx="200" cy="200" r="194" />
+            <g class="business-orbit">
+              <g class="business-trail-glow" data-trail-glow filter={'url(#business-trail-glow-' + circle.id + ')'}></g>
+              <g data-trail></g>
+              <circle class="business-dot-halo" cx="200" cy="6" r="8" filter={'url(#business-dot-glow-' + circle.id + ')'} />
+              <circle class="business-dot" cx="200" cy="6" r="4.5" />
+              <circle class="business-dot-highlight" cx="199.2" cy="4.9" r="1.5" />
+            </g>
+          </svg>
+          <div class="business-circle-copy">
+            <p class="business-circle-eyebrow">{circle.eyebrow}</p>
+            <h3 class:list={['business-circle-heading', circle.id === 'monitoring' && 'business-monitoring-number']}>
+              {circle.top && <>{circle.top}<br /></>}
+              <strong>{circle.accent}</strong>
+            </h3>
+            <p class="business-circle-subheading">
+              {circle.id === 'monitoring'
+                ? <><b>Automated Monitoring</b><br />Alerts. Detection. Escalation.</>
+                : circle.subheading}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="business-services" aria-label="ITKeepers service areas">
+      <p class="business-service-line" aria-label={services.join(', ')}>
+        {services.map((service, index) => (
+          <Fragment>
+            <span class="business-service-word" style={'--reveal-delay:' + (70 + index * 130) + 'ms'}>{service}</span>
+            {index < services.length - 1 && (
+              <span class="business-service-separator" aria-hidden="true" style={'--reveal-delay:' + (110 + index * 130) + 'ms'}>·</span>
+            )}
+          </Fragment>
+        ))}
+      </p>
+      <p class="business-payoff">All under one roof.</p>
+    </div>
   </div>
 </section>
+
 <style>
-  .business-value { background:var(--itk-bg); color:var(--itk-text); padding-block:var(--chapter-space,64px) var(--chapter-gap,32px); scroll-margin-block-start:140px; }
-  .business-inner { max-width:1220px; margin-inline:auto; min-width:0; }
-  .business-eyebrow { color:var(--itk-brand-cyan); font-size:var(--itk-label); font-weight:700; line-height:1.5; letter-spacing:var(--itk-label-tracking); margin:0 0 16px; }
-  #business-value-title { color:var(--itk-text); font-size:var(--itk-heading); font-weight:600; line-height:1.12; letter-spacing:-.035em; margin:0 0 20px; max-width:26ch; text-wrap:balance; scroll-margin-block-start:140px; }
-  .business-value .business-intro { color:var(--itk-supporting-text); font-size:var(--itk-body); font-weight:400; line-height:1.6; max-width:78ch; margin:0; text-wrap:pretty; }
-  .business-value .service-summary { color:var(--itk-supporting-text); font-size:clamp(22px,2.2vw,28px); font-weight:500; line-height:1.6; max-width:1100px; margin:24px 0 0; text-wrap:pretty; }
-  /* Existing pillar accents, using their readable text variants on navy. */
-  .service-name,.service-summary-end { display:inline-block; max-inline-size:100%; vertical-align:top; }
-  .service-name--managed,.service-name--security { color:var(--itk-brand-cyan); }
-  .service-name--cloud { color:#5aa9ff; }
-  .service-name--networking { color:#36b8d0; }
-  .service-name--backup { color:var(--itk-success); }
-  .service-name--ai { color:color-mix(in srgb,var(--itk-ai) 82%,white); }
-  .service-name--web { color:#c4b5fd; }
-  .service-summary-end strong { display:inline-block; color:var(--itk-text); font-weight:700; }
-  @media(forced-colors:active) {
-    .business-value { background:Canvas; color:CanvasText; }
-    .business-eyebrow,#business-value-title,.business-value .business-intro,.business-value .service-summary,.service-name,.service-summary-end strong { color:CanvasText; }
+  .business-value {
+    --business-accent: #2b9df0;
+    --business-accent-bright: #6fd3ff;
+    --business-ring-color: #1f6ea8;
+    background: var(--itk-bg);
+    color: var(--itk-text);
+    padding-block: var(--chapter-space, 64px) var(--chapter-gap, 32px);
+    scroll-margin-block-start: 140px;
+    text-align: center;
+  }
+  .business-inner {
+    max-width: 1240px;
+    min-width: 0;
+    padding-inline: clamp(16px, 2vw, 24px);
+    margin-inline: auto;
+  }
+  .business-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .business-circles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: clamp(14px, 2.5vw, 40px);
+    max-width: 1190px;
+    margin-inline: auto;
+  }
+  .business-circle {
+    position: relative;
+    width: min(100%, 362px);
+    aspect-ratio: 1;
+    container-type: inline-size;
+    isolation: isolate;
+    min-width: 0;
+  }
+  .business-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .business-outer-track { fill: none; stroke: #2b3140; stroke-width: .8px; opacity: .6; }
+  .business-full-ring { fill: none; stroke: var(--business-ring-color); stroke-width: 1.5px; opacity: .68; }
+  .business-orbit {
+    transform-origin: 200px 200px;
+    animation: business-circle-orbit 13s linear infinite;
+    will-change: transform;
+  }
+  .business-circle:nth-child(2) .business-orbit { animation-delay: -4s; }
+  .business-circle:nth-child(3) .business-orbit { animation-delay: -8s; }
+  .business-value.is-orbit-ready .business-orbit { animation-play-state: paused; }
+  .business-value.is-orbit-ready .business-circle.is-orbit-active .business-orbit { animation-play-state: running; }
+  .business-trail-glow { opacity: .6; }
+  .business-value :global(.business-trail-segment) {
+    fill: none;
+    stroke: var(--business-accent-bright);
+    stroke-linecap: round;
+  }
+  .business-dot-halo { fill: var(--business-accent); opacity: .55; }
+  .business-dot { fill: var(--business-accent-bright); }
+  .business-dot-highlight { fill: #e8f7ff; opacity: .75; }
+  @keyframes business-circle-orbit {
+    from { transform: rotate(81deg); }
+    to { transform: rotate(441deg); }
+  }
+  .business-circle-copy {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 8%;
+    transform: translateY(-1%);
+    pointer-events: none;
+  }
+  .business-circle-eyebrow {
+    margin: 0;
+    color: #a2b3c9;
+    font-size: clamp(11px, 3.35cqw, 13px);
+    font-weight: 750;
+    letter-spacing: .14em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .business-circle-heading {
+    margin: 3.2cqw 0 0;
+    color: #f4f6f9;
+    font-size: clamp(25px, 11cqw, 43px);
+    font-weight: 800;
+    letter-spacing: -.038em;
+    line-height: 1.1;
+  }
+  .business-circle-heading strong { color: var(--business-accent); font-weight: inherit; }
+  .business-monitoring-number { font-size: clamp(48px, 19.5cqw, 76px); letter-spacing: -.06em; }
+  .business-circle-subheading {
+    margin: 3.2cqw 0 0;
+    color: #b8c6d8;
+    font-size: clamp(12px, 3.7cqw, 15px);
+    font-weight: 580;
+    line-height: 1.45;
+  }
+  .business-circle-subheading b { color: #f4f6f9; font-weight: 650; }
+
+  .business-services {
+    max-width: 1220px;
+    margin: clamp(52px, 6vw, 82px) auto 0;
+    padding-inline: 8px;
+  }
+  .business-service-line {
+    margin: 0;
+    color: #f0f5fb;
+    font-size: clamp(23px, 2.65vw, 34px);
+    font-weight: 650;
+    line-height: 1.72;
+    letter-spacing: -.028em;
+    text-wrap: balance;
+  }
+  .business-service-word { display: inline-block; white-space: nowrap; }
+  .business-service-separator {
+    display: inline-block;
+    margin-inline: .2em;
+    color: #8ba4c1;
+    font-weight: 350;
+  }
+  .business-payoff {
+    margin: 14px 0 0;
+    color: var(--business-accent-bright);
+    font-size: clamp(27px, 3vw, 38px);
+    font-weight: 750;
+    line-height: 1.24;
+    letter-spacing: -.035em;
+  }
+  /* Only opt into a hidden starting state after the observer is installed. */
+  .business-value.is-motion-ready .business-service-word,
+  .business-value.is-motion-ready .business-service-separator,
+  .business-value.is-motion-ready .business-payoff {
+    opacity: 0;
+    transform: translateY(9px);
+    transition: opacity 400ms ease, transform 460ms cubic-bezier(.18, .72, .25, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .business-value.is-motion-ready .business-payoff {
+    transition-delay: 1150ms;
+    transition-duration: 650ms;
+  }
+  .business-value.is-motion-ready .business-services.is-visible .business-service-word,
+  .business-value.is-motion-ready .business-services.is-visible .business-service-separator,
+  .business-value.is-motion-ready .business-services.is-visible .business-payoff {
+    opacity: 1;
+    transform: none;
+  }
+  @media (max-width: 900px) {
+    .business-circles { gap: 12px; }
+    .business-circle-heading { font-size: clamp(20px, 10cqw, 36px); }
+    .business-circle-eyebrow { font-size: clamp(11px, 3.4cqw, 12px); }
+    .business-circle-subheading { font-size: clamp(11.5px, 3.7cqw, 14px); }
+  }
+  @media (max-width: 700px) {
+    .business-circles { grid-template-columns: 1fr; gap: 16px; }
+    .business-circle { width: min(100%, 344px); }
+    .business-circle-heading { font-size: clamp(25px, 11cqw, 42px); }
+    .business-circle-eyebrow { font-size: clamp(11px, 3.35cqw, 13px); }
+    .business-circle-subheading { font-size: clamp(12px, 3.7cqw, 15px); }
+    .business-services { margin-top: 53px; }
+    .business-service-line { font-size: clamp(22px, 5.6vw, 28px); line-height: 1.65; }
+    .business-payoff { margin-top: 22px; }
+  }
+  @media (max-width: 420px) {
+    .business-service-separator { margin-inline: .14em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .business-orbit { animation: none; transform: rotate(81deg); will-change: auto; }
+    .business-trail-glow { opacity: .25; }
+    .business-value.is-motion-ready .business-service-word,
+    .business-value.is-motion-ready .business-service-separator,
+    .business-value.is-motion-ready .business-payoff {
+      opacity: 1; transform: none; transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .business-value { background: Canvas; color: CanvasText; }
+    .business-ring { forced-color-adjust: none; }
+    .business-circle-eyebrow, .business-circle-heading, .business-circle-heading strong,
+    .business-circle-subheading, .business-circle-subheading b,
+    .business-service-line, .business-service-separator, .business-payoff {
+      color: CanvasText;
+    }
   }
 </style>
+
+<script>
+  const section = document.getElementById('business-value');
+  if (section) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const radius = 194;
+    const tailLength = 100;
+    const steps = 70;
+    const pointAt = (degrees: number) => {
+      const a = degrees * Math.PI / 180;
+      return [200 + radius * Math.sin(a), 200 - radius * Math.cos(a)];
+    };
+
+    // Full rings are in the HTML; create only the orbiting fading trails.
+    const stages = section.querySelectorAll<HTMLElement>('[data-orbit-stage]');
+    for (const stage of stages) {
+      const regular = stage.querySelector('[data-trail]');
+      const glow = stage.querySelector('[data-trail-glow]');
+      if (!regular || !glow) continue;
+      for (let i = 0; i < steps; i++) {
+        const from = -tailLength + i * tailLength / steps;
+        const to = -tailLength + (i + 1) * tailLength / steps + .07;
+        const [x1, y1] = pointAt(from);
+        const [x2, y2] = pointAt(to);
+        const progress = (i + .5) / steps;
+        const alpha = Math.pow(progress, 1.85) * .99;
+        const width = 1.5 + Math.pow(progress, 1.9) * 1.65;
+        const arc = 'M ' + x1.toFixed(3) + ' ' + y1.toFixed(3) + ' A ' + radius + ' ' + radius +
+          ' 0 0 1 ' + x2.toFixed(3) + ' ' + y2.toFixed(3);
+        for (const [layer, isGlow] of [[glow, true], [regular, false]] as const) {
+          const path = document.createElementNS(ns, 'path');
+          path.setAttribute('d', arc);
+          path.setAttribute('class', 'business-trail-segment');
+          path.setAttribute('stroke-width', (width * (isGlow ? 2 : 1)).toFixed(2));
+          path.setAttribute('opacity', (alpha * (isGlow ? .88 : 1)).toFixed(3));
+          layer.appendChild(path);
+        }
+      }
+    }
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      const services = section.querySelector<HTMLElement>('.business-services');
+      if (services) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              services.classList.add('is-visible');
+              observer.disconnect();
+            }
+          }
+        }, { threshold: .2 });
+        revealObserver.observe(services);
+        section.classList.add('is-motion-ready');
+      }
+
+      const orbitObserver = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          entry.target.classList.toggle('is-orbit-active', entry.isIntersecting);
+        }
+      });
+      section.classList.add('is-orbit-ready');
+      stages.forEach(stage => orbitObserver.observe(stage));
+    }
+  }
+</script>
