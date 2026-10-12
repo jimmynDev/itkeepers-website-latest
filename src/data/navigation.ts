@@ -19,7 +19,7 @@ export const navigation: NavigationCategory[] = [
         { title: 'Endpoint Management', description: 'Patching and device oversight within your agreed IT scope.' },
       ] },
       { label: 'Projects & Advisory', items: [
-        { title: 'Technology Planning', description: 'Equipment lifecycle decisions with your business context in view.', href: '/#operate-decisions-title' },
+        { title: 'Technology Planning', description: 'Equipment lifecycle decisions with your business context in view.', href: '/services/#operate-decisions-title' },
         { title: 'Free IT Review', description: 'Start a conversation about your environment and priorities.', href: '/contact?type=review' },
       ] },
     ],

@@ -14,7 +14,6 @@
 :root body.home-page #offering-web-design-hosting p.lede,
 :root body.home-page #how-we-operate p.operate-intro,
 :root body.home-page #how-we-operate .operate-supporting article > p,
-:root body.home-page #how-we-operate .operate-stories > article > div > p:not(.operate-label),
 :root body .workflow-panels article > p:not(.eyebrow),
 :root body .disclosures details > div > p,
 :root body p.disclosure-limit,

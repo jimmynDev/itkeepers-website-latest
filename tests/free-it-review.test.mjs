@@ -39,24 +39,23 @@ test('contact cards retain exact destinations, headings and emergency wording', 
   assert.match(contactSource, /font-size:20px/);
 });
 
-test('no endpoint means a visible email/call fallback, not a disabled form', () => {
+test('the form remains visible without an endpoint and offers a truthful email handoff', () => {
   for (const html of [contactHtml, homeHtml]) {
-    const configured = /<form\b[^>]*data-inquiry-form/.test(html);
-    if (!configured) {
-      assert.match(html, /Online requests are unavailable/);
-      assert.match(html, /href="mailto:info@itkeepers\.com"/);
-      assert.match(html, /href="tel:\+96181816761"/);
-      assert.doesNotMatch(html, /<button[^>]*disabled[^>]*type="submit"/);
-    } else {
-      assert.match(html, /name="type" value="(?:general|review)"/);
+    assert.match(html, /<form\b[^>]*data-inquiry-form/);
+    assert.match(html, /name="type" value="(?:general|review)"/);
+    if (/data-inquiry-delivery="backend"/.test(html)) {
       assert.match(html, /data-inquiry-success/);
-      assert.match(html, /data-inquiry-unavailable/);
-      assert.doesNotMatch(html, /<button[^>]*type="submit"[^>]*disabled/);
+    } else {
+      assert.match(html, /action="mailto:info@itkeepers\.com"/);
+      assert.match(html, /Continue to email/);
+      assert.match(html, /Your email app will open\. Review and send your message there\./);
+      assert.doesNotMatch(html, /data-inquiry-success|Message sent\.|message has been received/);
     }
+    assert.doesNotMatch(html, /Online requests are unavailable|data-inquiry-unavailable|inquiry-direct-actions/);
+    assert.doesNotMatch(html, /<button[^>]*type="submit"[^>]*disabled/);
   }
   assert.match(formTemplate, /PUBLIC_CONTACT_FORM_ENDPOINT/);
   assert.match(formTemplate, /same-origin API route/);
-  assert.match(formTemplate, /data-inquiry-unavailable/);
 });
 
 test('form source requires name, email and message; company and phone remain optional', () => {
@@ -112,16 +111,44 @@ test('inline errors are accessible and required/optional limits remain enforced'
   assert.match(formCss, /\.inquiry-error,\.inquiry-status \{[^}]*font-size:14px/);
 });
 
-test('submission only succeeds with confirmed JSON and otherwise swaps to live fallback', () => {
+test('backend success requires confirmed JSON and failure preserves the form for retry', () => {
   assert.match(formScript, /fetch\(endpoint/);
   assert.match(formScript, /new FormData\(form\)/);
   assert.match(formScript, /response\.ok && isJson/);
   assert.match(formScript, /result\.ok !== true/);
   assert.match(formScript, /live\.hidden = true/);
   assert.match(formScript, /success\.hidden = false/);
-  assert.match(formScript, /unavailable\.hidden = false/);
-  assert.match(formScript, /Your message was not sent/);
+  assert.match(formScript, /We could not confirm delivery/);
+  assert.doesNotMatch(formScript, /unavailable\.hidden|Your message was not sent/);
   assert.doesNotMatch(formScript, /localStorage|sessionStorage|innerHTML|sendBeacon|XMLHttpRequest/);
+});
+
+const emailFields = { name:'Example Person',email:'person@example.com',company:'Example & Co',phone:'+961 81 000 000',message:'First line\nSecond line: café & cloud? #priority' };
+test('email composition includes completed fields and readable selected service labels', () => {
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', emailFields, 'general', ['managed-it','microsoft-cloud']));
+  assert.equal(draft.protocol, 'mailto:');
+  assert.equal(draft.pathname, 'info@itkeepers.com');
+  assert.equal(draft.searchParams.get('subject'), 'General inquiry');
+  const body = draft.searchParams.get('body');
+  for (const text of ['Full name: Example Person','Work email: person@example.com','Company: Example & Co','Phone: +961 81 000 000','Inquiry type: general','Interested in: Managed IT, Microsoft 365 and Cloud','First line\r\nSecond line: café & cloud? #priority']) assert.ok(body.includes(text));
+  assert.equal([...draft.searchParams].length, 2);
+});
+
+test('review email composition keeps the review intent and omits empty optional fields', () => {
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,company:' ',phone:'',message:"I'd like a free IT review."}, 'review', []));
+  assert.equal(draft.searchParams.get('subject'), 'Free IT review request');
+  assert.match(draft.searchParams.get('body'), /Inquiry type: review/);
+  assert.match(draft.searchParams.get('body'), /I'd like a free IT review\./);
+  assert.doesNotMatch(draft.searchParams.get('body'), /Company:|Phone:|Interested in:/);
+});
+
+test('visitor text cannot add mail recipients or headers and interests remain validated', () => {
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,name:'Example\r\nBcc: someone@example.com',message:'?subject=changed&bcc=someone@example.com'}, 'general', ['not-sure']));
+  assert.equal(draft.pathname, 'info@itkeepers.com');
+  assert.equal(draft.searchParams.get('subject'), 'General inquiry');
+  assert.equal(draft.searchParams.has('bcc'), false);
+  assert.match(draft.searchParams.get('body'), /Interested in: Not sure yet/);
+  assert.throws(() => api.composeInquiryEmail('info@itkeepers.com', emailFields, 'general', ['unknown']), /Unsupported/);
 });
 
 test('submit stays cyan and interactive, with responsive layouts and light/forced-color options', () => {

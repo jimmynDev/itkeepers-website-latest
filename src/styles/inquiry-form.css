@@ -1,4 +1,4 @@
-/* Contact form and homepage review panel. Endpoint-missing state contains only live contact actions. */
+/* Contact form and homepage review panel; email handoff until an endpoint is configured. */
 .inquiry-widget { --inquiry-text:var(--itk-text); --inquiry-muted:#B8C4D6; --inquiry-bg:var(--itk-surface); --inquiry-border:rgba(159,176,199,.65); min-inline-size:0; color:var(--inquiry-text); }
 .inquiry-widget [hidden] { display:none !important; }
 .inquiry-heading { font-size:clamp(24px,2.3vw,30px); line-height:1.2; font-weight:600; margin:0 0 12px; letter-spacing:-.025em; color:var(--inquiry-text); }
@@ -17,6 +17,7 @@
 .inquiry-field textarea { display:block; resize:vertical; min-block-size:132px; }
 .inquiry-message { grid-column:1 / -1; }
 .inquiry-help,.inquiry-privacy { color:var(--inquiry-muted); font-size:14px; line-height:1.6; margin:8px 0 0; }
+.inquiry-email-note { color:var(--inquiry-muted); font-size:14px; line-height:1.6; margin:12px 0 0; }
 .inquiry-error,.inquiry-status { color:#FCA5A5; font-size:14px; line-height:1.5; margin:8px 0 0; }
 .inquiry-status:empty { display:none; }
 .inquiry-field [aria-invalid="true"] { border-color:#FCA5A5; border-width:2px; }
@@ -39,13 +40,8 @@
 .inquiry-widget a:hover { color:var(--itk-brand-cyan); }
 .inquiry-widget :is(a,button,input,textarea,summary,[tabindex]):focus-visible { outline:3px solid #7DD3FC; outline-offset:4px; }
 .inquiry-compact .inquiry-submit { inline-size:100%; }
-.inquiry-unavailable p,.inquiry-result p { margin:12px 0 20px; color:var(--inquiry-muted); font-size:16px; line-height:1.6; }
+.inquiry-result p { margin:12px 0 20px; color:var(--inquiry-muted); font-size:16px; line-height:1.6; }
 .inquiry-result h3 { margin:12px 0 0; color:var(--inquiry-text); font-size:24px; line-height:1.25; }
-.inquiry-direct-actions { display:flex; flex-wrap:wrap; gap:12px; }
-.inquiry-direct-actions a { display:inline-flex; align-items:center; justify-content:center; min-block-size:48px; padding:11px 18px; border-radius:999px; border:1px solid var(--inquiry-border); color:var(--inquiry-text); font-size:16px; font-weight:600; line-height:1.4; text-align:center; text-decoration:none; }
-.inquiry-direct-actions a:first-child { border-color:var(--itk-brand-cyan); background:var(--itk-brand-cyan); color:#071525; }
-.inquiry-direct-actions a:first-child:hover { background:#7DD3FC; color:#071525; }
-.inquiry-direct-actions a:last-child:hover { border-color:var(--itk-brand-cyan); color:var(--itk-brand-cyan); }
 
 :root[data-theme="light"] .inquiry-widget {
   --itk-supporting-text:#42566F;
@@ -64,13 +60,11 @@
 @media(max-width:600px) {
   .inquiry-fields { grid-template-columns:minmax(0,1fr); gap:18px; }
   :root body .inquiry-widget .inquiry-submit.btn { inline-size:100%; }
-  .inquiry-direct-actions { display:grid; grid-template-columns:minmax(0,1fr); }
-  .inquiry-direct-actions a { inline-size:100%; }
 }
 @media(prefers-reduced-motion:reduce) { .inquiry-widget * { scroll-behavior:auto; transition:none; } }
 @media(forced-colors:active) {
-  .inquiry-field :is(input,textarea),.interest-chip,.inquiry-direct-actions a { background:Canvas; color:CanvasText; border-color:CanvasText; }
+  .inquiry-field :is(input,textarea),.interest-chip { background:Canvas; color:CanvasText; border-color:CanvasText; }
   .interest-chip[aria-pressed="true"] { border-color:Highlight; }
   .inquiry-widget :is(a,button,input,textarea,summary,[tabindex]):focus-visible { outline-color:Highlight; }
-  :root body .inquiry-widget .inquiry-submit.btn,.inquiry-direct-actions a:first-child { background:Highlight; color:HighlightText; border-color:Highlight; }
+  :root body .inquiry-widget .inquiry-submit.btn { background:Highlight; color:HighlightText; border-color:Highlight; }
 }

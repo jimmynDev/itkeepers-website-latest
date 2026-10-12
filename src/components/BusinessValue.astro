@@ -4,7 +4,7 @@ const circles = [
     id: 'future',
     eyebrow: 'ITKeepers · Lebanon',
     top: 'Built for',
-    accent: 'what’s next.',
+    accent: "what's next.",
     subheading: 'Managed Service Provider',
   },
   {
@@ -22,11 +22,7 @@ const circles = [
     subheading: 'Your business stays yours',
   },
 ];
-const serviceGroups = [
-  ['Managed IT', 'Security', 'Cloud'],
-  ['Infrastructure', 'AI', 'Web'],
-];
-const services = serviceGroups.flat();
+const services = ['Managed IT', 'Security', 'Cloud', 'Infrastructure', 'AI', 'Web'];
 ---
 <section class="business-value" id="business-value" aria-labelledby="business-value-title">
   <div class="business-inner">
@@ -56,35 +52,22 @@ const services = serviceGroups.flat();
           </svg>
           <div class="business-circle-copy">
             <p class="business-circle-eyebrow">{circle.eyebrow}</p>
-            <h3 class:list={['business-circle-heading', circle.id === 'monitoring' && 'business-monitoring-number']}>
-              {circle.top && <>{circle.top}<br /></>}
+            <h3 class="business-circle-heading">
+              <span class="business-circle-top" aria-hidden={!circle.top ? 'true' : undefined}>{circle.top || '\u00a0'}</span>
               <strong>{circle.accent}</strong>
             </h3>
-            <p class="business-circle-subheading">
-              {circle.id === 'monitoring'
-                ? <><b>Automated Monitoring</b><br />Alerts. Detection. Escalation.</>
-                : circle.subheading}
-            </p>
+            <p class="business-circle-subheading">{circle.subheading}</p>
           </div>
         </article>
       ))}
     </div>
 
     <div class="business-services" aria-label="ITKeepers service areas">
-      <div class="business-service-hairline" aria-hidden="true"></div>
-      <p class="business-service-line" aria-label={services.join(', ')}>
-        {serviceGroups.map((group, groupIndex) => (
-          <span class="business-service-group">
-            {groupIndex > 0 && <span class="business-service-separator business-service-bridge" aria-hidden="true" style="--reveal-delay:460ms"></span>}
-            {group.map((service, index) => (
-              <Fragment>
-                {index > 0 && <span class="business-service-separator" aria-hidden="true" style={'--reveal-delay:' + (160 + (groupIndex * 3 + index) * 130) + 'ms'}></span>}
-                <span class="business-service-word" style={'--reveal-delay:' + (70 + (groupIndex * 3 + index) * 130) + 'ms'}>{service}</span>
-              </Fragment>
-            ))}
-          </span>
+      <ul class="business-service-line" aria-label="Services">
+        {services.map((service, index) => (
+          <li class="business-service-word" style={'--reveal-delay:' + (70 + index * 130) + 'ms'}>{service}</li>
         ))}
-      </p>
+      </ul>
       <p class="business-payoff">All under one roof.</p>
     </div>
   </div>
@@ -92,9 +75,9 @@ const services = serviceGroups.flat();
 
 <style>
   .business-value {
-    --business-accent: #2b9df0;
-    --business-accent-bright: #6fd3ff;
-    --business-ring-color: #1f6ea8;
+    --business-accent: #38bdf8;
+    --business-accent-bright: var(--business-accent);
+    --business-ring-color: var(--business-accent);
     background: var(--itk-bg);
     color: var(--itk-text);
     padding-block: var(--chapter-space, 64px) var(--chapter-gap, 32px);
@@ -124,7 +107,7 @@ const services = serviceGroups.flat();
     justify-items: center;
     align-items: center;
     gap: clamp(14px, 2.5vw, 40px);
-    max-width: 1190px;
+    max-width: 100%;
     margin-inline: auto;
   }
   .business-circle {
@@ -166,7 +149,7 @@ const services = serviceGroups.flat();
   }
   .business-dot-halo { fill: var(--business-accent); opacity: .55; }
   .business-dot { fill: var(--business-accent-bright); }
-  .business-dot-highlight { fill: #e8f7ff; opacity: .75; }
+  .business-dot-highlight { fill: var(--business-accent); opacity: .75; }
   @keyframes business-circle-orbit {
     from { transform: rotate(81deg); }
     to { transform: rotate(441deg); }
@@ -174,64 +157,67 @@ const services = serviceGroups.flat();
   .business-circle-copy {
     position: absolute;
     inset: 0;
-    display: flex;
-    flex-direction: column;
+    --business-headline-size: clamp(25px, 11cqw, 43px);
+    display: grid;
+    grid-template-rows: 1.3em calc(var(--business-headline-size) * 2.2) 1.4em;
+    row-gap: clamp(8px, 2.2cqw, 10px);
+    font-size: 16px;
     align-items: center;
-    justify-content: center;
-    padding-inline: 8%;
-    transform: translateY(-1%);
+    align-content: center;
+    justify-items: center;
+    padding-inline: 6%;
     pointer-events: none;
   }
   .business-circle-eyebrow {
     margin: 0;
-    color: #a2b3c9;
-    font-size: clamp(11px, 3.35cqw, 13px);
+    color: #B8C4D6;
+    font-size: 13px;
     font-weight: 750;
-    letter-spacing: .14em;
+    letter-spacing: .08em;
     line-height: 1.3;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .business-circle-heading {
-    margin: 3.2cqw 0 0;
+    display: grid;
+    grid-template-rows: repeat(2, 1.1em);
+    margin: 0;
     color: #f4f6f9;
-    font-size: clamp(25px, 11cqw, 43px);
+    font-size: var(--business-headline-size);
     font-weight: 800;
     letter-spacing: -.038em;
     line-height: 1.1;
+    white-space: nowrap;
   }
+  .business-circle-top { display: block; }
   .business-circle-heading strong { color: var(--business-accent); font-weight: inherit; }
-  .business-monitoring-number { font-size: clamp(48px, 19.5cqw, 76px); letter-spacing: -.06em; }
   .business-circle-subheading {
-    margin: 3.2cqw 0 0;
-    color: #b8c6d8;
-    font-size: clamp(12px, 3.7cqw, 15px);
-    font-weight: 580;
-    line-height: 1.45;
+    margin: 0;
+    color: #B8C4D6;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    white-space: nowrap;
   }
-  .business-circle-subheading b { color: #f4f6f9; font-weight: 650; }
 
   .business-services {
     --business-service-ink: #ffffff;
-    --business-service-cyan: #38bdf8;
-    --business-service-size: clamp(1.5rem, 3vw, 2.25rem);
-    max-width: 1220px;
+    --business-service-cyan: var(--business-accent);
+    --business-service-size: clamp(1.125rem, 2.16vw, 1.575rem);
+    max-width: 100%;
     margin: clamp(64px, 5.6vw, 80px) auto 0;
-    padding-inline: 8px;
+    padding-inline: 0;
     text-align: center;
-  }
-  .business-service-hairline {
-    width: 160px;
-    height: 1px;
-    margin: 0 auto 24px;
-    background: linear-gradient(90deg, transparent, var(--business-service-cyan), transparent);
   }
   .business-service-line {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    row-gap: .12em;
-    margin: 0;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
     color: var(--business-service-ink);
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: var(--business-service-size);
@@ -240,28 +226,18 @@ const services = serviceGroups.flat();
     letter-spacing: .01em;
     text-wrap: balance;
   }
-  .business-service-group {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    min-width: 0;
-  }
   .business-service-word {
     display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid color-mix(in srgb, var(--business-accent) 30%, transparent);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--business-accent) 8%, transparent);
+    box-shadow: none;
+    cursor: default;
     white-space: nowrap;
   }
-  .business-service-separator {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    flex: 0 0 6px;
-    margin-inline: .6em;
-    border-radius: 50%;
-    background: var(--business-service-cyan);
-  }
   .business-payoff {
-    margin: 12px 0 0;
+    margin: 20px 0 0;
     color: var(--business-service-cyan);
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: calc(var(--business-service-size) * .85);
@@ -272,23 +248,21 @@ const services = serviceGroups.flat();
   /* An explicit light-surface variant; the current V2 business section stays
      dark in both hero theme modes, so it retains the white/cyan treatment. */
   .business-value[data-surface="light"] {
+    --business-accent: #075d7d;
     background: #f5f9fc;
     color: #0b2c5f;
   }
   .business-value[data-surface="light"] .business-services {
     --business-service-ink: #0b2c5f;
-    --business-service-cyan: #075d7d;
+    --business-service-cyan: var(--business-accent);
   }
   .business-value[data-surface="light"] .business-circle-eyebrow,
   .business-value[data-surface="light"] .business-circle-subheading {
     color: #42566f;
   }
-  .business-value[data-surface="light"] .business-circle-heading,
-  .business-value[data-surface="light"] .business-circle-subheading b { color: #0b2c5f; }
-  .business-value[data-surface="light"] .business-circle-heading strong { color: #075d7d; }
+  .business-value[data-surface="light"] .business-circle-heading { color: #0b2c5f; }
   /* Only opt into a hidden starting state after the observer is installed. */
   .business-value.is-motion-ready .business-service-word,
-  .business-value.is-motion-ready .business-service-separator,
   .business-value.is-motion-ready .business-payoff {
     opacity: 0;
     transform: translateY(9px);
@@ -300,40 +274,35 @@ const services = serviceGroups.flat();
     transition-duration: 650ms;
   }
   .business-value.is-motion-ready .business-services.is-visible .business-service-word,
-  .business-value.is-motion-ready .business-services.is-visible .business-service-separator,
   .business-value.is-motion-ready .business-services.is-visible .business-payoff {
     opacity: 1;
     transform: none;
   }
   @media (max-width: 900px) {
     .business-circles { gap: 12px; }
-    .business-circle-heading { font-size: clamp(20px, 10cqw, 36px); }
-    .business-circle-eyebrow { font-size: clamp(11px, 3.4cqw, 12px); }
-    .business-circle-subheading { font-size: clamp(11.5px, 3.7cqw, 14px); }
+    .business-circle-copy { --business-headline-size: clamp(20px, 10cqw, 36px); font-size: 15px; }
+    .business-circle-subheading { font-size: 15px; }
+    .business-service-line { max-inline-size: 440px; }
   }
   @media (max-width: 700px) {
     .business-circles { grid-template-columns: 1fr; gap: 16px; }
     .business-circle { width: min(100%, 344px); }
-    .business-circle-heading { font-size: clamp(25px, 11cqw, 42px); }
-    .business-circle-eyebrow { font-size: clamp(11px, 3.35cqw, 13px); }
-    .business-circle-subheading { font-size: clamp(12px, 3.7cqw, 15px); }
+    .business-circle-copy { --business-headline-size: clamp(25px, 11cqw, 42px); }
     .business-services { margin-top: 48px; }
-    .business-payoff { margin-top: 12px; }
   }
   @media (max-width: 767px) {
-    .business-services { --business-service-size: clamp(20px, 5.8vw, 22px); margin-top: 48px; }
-    .business-service-line { flex-direction: column; row-gap: .18em; }
-    .business-service-bridge { display: none; }
+    .business-services { margin-top: 48px; }
+  }
+  @media (max-width: 600px) {
+    .business-service-line { max-inline-size: 280px; }
   }
   @media (max-width: 420px) {
-    .business-inner { padding-inline: 12px; }
     .business-services { padding-inline: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .business-orbit { animation: none; transform: rotate(81deg); will-change: auto; }
     .business-trail-glow { opacity: .25; }
     .business-value.is-motion-ready .business-service-word,
-    .business-value.is-motion-ready .business-service-separator,
     .business-value.is-motion-ready .business-payoff {
       opacity: 1; transform: none; transition: none;
     }
@@ -346,8 +315,7 @@ const services = serviceGroups.flat();
     .business-service-line, .business-payoff {
       color: CanvasText;
     }
-    .business-service-separator { background: CanvasText; }
-    .business-service-hairline { background: CanvasText; }
+    .business-service-word { background: Canvas; color: CanvasText; border-color: CanvasText; }
   }
 </style>
 

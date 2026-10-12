@@ -2,7 +2,6 @@
 body.home-page {
   --chapter-space: 64px;
   --chapter-gap: 32px;
-  --chapter-detail: 24px;
 }
 
 /* The old Web background overlapped the previous service by 220px. Keep its
@@ -56,24 +55,12 @@ body.home-page #how-we-operate {
   --operate-ink: var(--itk-text);
   --operate-muted: #B8C4D6;
   --operate-accent: var(--itk-brand-cyan);
-  --operate-line: var(--itk-border-strong);
 }
-body.home-page #how-we-operate { padding-block-start: 48px; }
+body.home-page #how-we-operate { padding-block-start: 48px; padding-block-end: 0; }
 body.home-page #how-we-operate .operate-heading { margin-block-end: 28px; }
 body.home-page #how-we-operate .operate-primary { gap: clamp(24px, 3vw, 36px); }
 body.home-page #how-we-operate .incident-steps { gap: 18px; }
 body.home-page #how-we-operate .incident-heading { margin-block: 20px 16px; }
-body.home-page #how-we-operate .operate-stories { margin-block-start: var(--chapter-gap); gap: var(--chapter-gap); }
-body.home-page #how-we-operate .operate-stories > .operate-documentation,
-body.home-page #how-we-operate .operate-stories > .operate-decisions {
-  gap: var(--chapter-gap);
-  padding-block-start: var(--chapter-detail);
-  border-block-start: 0;
-}
-/* Captions and stage labels sit on navy; the intentional light record cards
-   retain their original foreground/background contrast and animation states. */
-body.home-page #how-we-operate .knowledge-stage-label { color: #9FB0C7; }
-
 @media (max-width: 1100px) {
   body.home-page { --chapter-space: 52px; --chapter-gap: 28px; }
 }
@@ -82,7 +69,7 @@ body.home-page #how-we-operate .knowledge-stage-label { color: #9FB0C7; }
   body.home-page #technology { padding-block: 32px; }
 }
 @media (max-width: 600px) {
-  body.home-page { --chapter-space: 44px; --chapter-detail: 20px; }
+  body.home-page { --chapter-space: 44px; }
   body.home-page #offering-web-design-hosting { padding-block: 40px; }
 }
 @media (forced-colors: active) {
@@ -95,8 +82,7 @@ body.home-page #how-we-operate .knowledge-stage-label { color: #9FB0C7; }
     background: Canvas; color: CanvasText;
   }
   body.home-page #technology-title,
-  body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow),
-  body.home-page #how-we-operate .knowledge-stage-label { color: CanvasText; }
+  body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) { color: CanvasText; }
   body.home-page #technology .logo-stage::before,
   body.home-page #technology .logo-stage::after { content: none; }
   body.home-page #technology .technology-logo :is(img, svg) { filter: none; }

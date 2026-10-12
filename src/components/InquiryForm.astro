@@ -1,5 +1,5 @@
 ---
-import { businessPhone, contactEmail } from '../data/contact';
+import { contactEmail } from '../data/contact';
 import { inquiryLimits, serviceInterests } from '../data/inquiry';
 import '../styles/inquiry-form.css';
 
@@ -17,10 +17,9 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
 ---
 <section class:list={['inquiry-widget', { 'inquiry-widget--compact': compact }]} aria-labelledby={id + '-form-title'}>
   <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : 'Send us a message'}</Heading>
-  {endpoint ? <>
     <div data-inquiry-live>
       <p class="inquiry-intro">A few details are enough to get started.</p>
-      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method="post" action={endpoint} novalidate data-inquiry-form data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
+      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method={endpoint ? 'post' : 'get'} action={endpoint ?? contactEmail.href} novalidate data-inquiry-form data-inquiry-delivery={endpoint ? 'backend' : 'email'} data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
         <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
         {compact && <input type="hidden" name="message" value="I'd like a free IT review." />}
@@ -51,30 +50,18 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
             </div>
           </fieldset>
         </details>}
-        <button class="btn inquiry-submit" type="submit">{compact ? 'Request my free IT review' : 'Send my message'}</button>
-        <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true"></p>
+        <button class="btn inquiry-submit" type="submit" aria-describedby={!endpoint ? id + '-email-help' : undefined}>{!endpoint ? 'Continue to email' : compact ? 'Request my free IT review' : 'Send my message'}</button>
+        {!endpoint && <p class="inquiry-email-note" id={id + '-email-help'}>Your email app will open. Review and send your message there.</p>}
+        <noscript><p class="inquiry-email-note">To include all your details automatically, enable JavaScript. You can also <a href={contactEmail.href}>email our team directly</a>.</p></noscript>
+        <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
         <!-- TODO: Add a verified "what happens next" response-time sentence only after ITKeepers approves the claim. -->
       </form>
     </div>
-    <div class="inquiry-result" data-inquiry-success role="status" aria-live="polite" tabindex="-1" hidden>
+    {endpoint && <div class="inquiry-result" data-inquiry-success role="status" aria-live="polite" tabindex="-1" hidden>
       <h3>Message sent.</h3>
       <p>Thank you. Your message has been received by ITKeepers.</p>
-    </div>
-    <div class="inquiry-unavailable" data-inquiry-unavailable role="status" aria-live="polite" tabindex="-1" hidden>
-      <p data-inquiry-failure-message>Online requests are unavailable. Please contact our team directly.</p>
-      <div class="inquiry-direct-actions">
-        <a href={contactEmail.href}>Email our team</a>
-        <a href={businessPhone.href}>Call {businessPhone.display}</a>
-      </div>
-    </div>
-  </> : <div class="inquiry-unavailable" data-inquiry-unavailable>
-    <p>Online requests are unavailable. Please contact our team directly.</p>
-    <div class="inquiry-direct-actions">
-      <a href={contactEmail.href}>Email our team</a>
-      <a href={businessPhone.href}>Call {businessPhone.display}</a>
-    </div>
-    <!-- TODO: Configure PUBLIC_CONTACT_FORM_ENDPOINT to a working same-origin API route with server-side validation, spam controls, and mail delivery before enabling the form. -->
-  </div>}
+    </div>}
+    <!-- TODO: Configure PUBLIC_CONTACT_FORM_ENDPOINT after server validation, spam controls, mail delivery and privacy requirements are verified. -->
   {!compact && <p class="inquiry-privacy"><a href="/privacy/">Privacy notice</a></p>}
 </section>
 <script>

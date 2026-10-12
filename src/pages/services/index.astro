@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import ServiceRecordsAdvice from '../../components/ServiceRecordsAdvice.astro';
 
 const services = [
   { id: 'managed-it', title: 'Managed IT', description: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it/' },
@@ -27,6 +28,7 @@ const services = [
       </div>
     </section>
   ))}
+  <ServiceRecordsAdvice />
 </Base>
 <style>
   .services-page-intro { padding-block: 64px 48px; }

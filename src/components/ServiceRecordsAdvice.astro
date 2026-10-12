@@ -1,0 +1,33 @@
+---
+import KnowledgeContinuityAnimation from './animations/KnowledgeContinuityAnimation.astro';
+import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimation.astro';
+---
+<section class="service-records-advice" id="service-records-advice" aria-label="Documentation and hardware advice">
+    <div class="operate-stories">
+      <article class="operate-documentation" aria-labelledby="operate-documentation-title">
+        <div><p class="operate-label">DOCUMENTATION</p><h2 id="operate-documentation-title">Your IT. Your data. Your control.</h2><p>We maintain infrastructure and configuration records, ticket history, resolutions, changes and decisions. This documentation, with backup and recovery context, helps engineers share knowledge and continue the work.</p><p class="operate-data-arrangements">Agree client access, ownership, export, retention and handover arrangements for records and backups in your service agreement.</p></div>
+        <KnowledgeContinuityAnimation />
+      </article>
+      <article class="operate-decisions" aria-labelledby="operate-decisions-title">
+        <div><h2 id="operate-decisions-title">Keep / Upgrade / Replace</h2><p>We assess workload, condition and supportability before recommending a purchase.</p></div>
+        <HardwareAssessmentAnimation />
+      </article>
+    </div>
+  <p class="service-records-footnote">Illustrative examples, not a response-time guarantee or a device diagnosis.</p>
+</section>
+<style>
+  .service-records-advice { color:var(--itk-text); background:var(--itk-bg); padding-block:var(--itk-section-space); }
+  .operate-stories { display:grid; gap:64px; min-inline-size:0; }
+  .operate-stories > article { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); align-items:center; gap:32px; margin:0; padding:0; border:0; border-radius:0; background:transparent; }
+  .operate-stories > article > div { min-inline-size:0; }
+  .operate-stories h2 { color:var(--itk-text); font-size:clamp(26px,2.5vw,34px); font-weight:600; line-height:1.2; letter-spacing:-.025em; margin:0 0 16px; text-wrap:balance; scroll-margin-block-start:140px; }
+  .operate-stories p:not(.operate-label) { color:var(--itk-supporting-text,#B8C4D6); font-size:16px; line-height:1.6; margin:0; max-inline-size:52ch; }
+  .operate-label { color:var(--itk-cyan-sky); font-size:13px; font-weight:600; line-height:1.5; letter-spacing:var(--itk-label-tracking); margin:0 0 14px; }
+  .operate-stories .operate-documentation .operate-data-arrangements { margin-block-start:16px; }
+  .service-records-advice > .service-records-footnote { color:var(--itk-supporting-text,#B8C4D6); font-size:14px; line-height:1.6; margin:32px 0 0; }
+  .service-records-advice :is(h2,p) { overflow-wrap:anywhere; }
+  @media(max-width:1199px) { .operate-stories > article { grid-template-columns:minmax(0,1fr); gap:24px; } }
+  @media(max-width:767px) { .operate-stories { gap:48px; } }
+  @media(forced-colors:active) { .service-records-advice { background:Canvas; color:CanvasText; } .service-records-advice :is(h2,p) { color:CanvasText; } }
+</style>
+<script>import '../scripts/approved-operate-animations';</script>

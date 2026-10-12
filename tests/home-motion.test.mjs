@@ -137,7 +137,7 @@ test('initial HTML contains the Home explanations without a script-added motion 
   assert.ok(html.includes('aria-hidden="true"'));
   assert.ok(!/<(?:main|body)\b[^>]*class="[^"]*home-motion-ready/.test(html));
   assert.ok(html.includes('Your IT person'));
-  assert.ok(html.includes('Your IT. Your data. Your control.'));
+  assert.ok(html.includes('Clear records. Honest advice.'));
   assert.ok(html.includes('Proactive monitoring'));
   assert.equal((html.match(/<article\b[^>]*data-step-panel/g) ?? []).length, 0);
 });
