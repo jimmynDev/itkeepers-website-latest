@@ -18,15 +18,15 @@ import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimatio
     </div>
     <div class="operate-stories">
       <article class="operate-documentation" aria-labelledby="operate-documentation-title">
-        <div><p class="operate-label">DOCUMENTATION</p><h3 id="operate-documentation-title">Your IT shouldn't live in one person's head.</h3><p>Infrastructure records, configurations, service information, decisions and changes are documented alongside open actions and follow-up. Engineers can continue the work with that context, rather than rebuilding it each time.</p></div>
+        <div><p class="operate-label">DOCUMENTATION</p><h3 id="operate-documentation-title">Your IT. Your data. Your control.</h3><p>We maintain infrastructure and configuration records, ticket history, resolutions, changes and decisions. This documentation, with backup and recovery context, helps engineers share knowledge and continue the work.</p><p class="operate-data-arrangements">Agree client access, ownership, export, retention and handover arrangements for records and backups in your service agreement.</p></div>
         <KnowledgeContinuityAnimation />
       </article>
       <article class="operate-decisions" aria-labelledby="operate-decisions-title">
-        <div><h3 id="operate-decisions-title">Keep / Upgrade / Replace</h3><p>We assess workload, condition and supportability before recommending a purchase — not simply more hardware.</p></div>
+        <div><h3 id="operate-decisions-title">Keep / Upgrade / Replace</h3><p>We assess workload, condition and supportability before recommending a purchase.</p></div>
         <HardwareAssessmentAnimation />
       </article>
     </div>
-    <p class="operate-footnote">Example workflow, not a response-time guarantee.</p>
+    <p class="operate-footnote">Illustrative examples, not a response-time guarantee or a device diagnosis.</p>
   </div>
 </section>
 <style>
@@ -46,6 +46,8 @@ import HardwareAssessmentAnimation from './animations/HardwareAssessmentAnimatio
   .operate-stories > article > div h3 { color:var(--operate-ink); font-size:22px; font-weight:600; line-height:1.25; letter-spacing:-.02em; margin:0 0 14px; }
   .operate-supporting h3 { color:var(--operate-ink); font-size:18px; font-weight:600; line-height:1.3; letter-spacing:-.01em; margin:0 0 8px; }
   .operate-stories > article > div > p:not(.operate-label),.operate-supporting p { color:#B8C4D6; font-size:16px; line-height:1.6; margin:0; max-width:52ch; }
+  .operate-stories .operate-documentation .operate-data-arrangements { margin-block-start:16px; }
+  #operate-documentation-title,#operate-decisions-title { scroll-margin-block-start:140px; }
   .operate-stories > .operate-documentation { display:grid; grid-template-columns:.75fr 1.25fr; gap:40px; align-items:center; border-top:1px solid var(--operate-line); padding-top:36px; }
   .operate-stories .operate-documentation > div .operate-label { color:#9FB0C7; font-size:14px; font-weight:700; letter-spacing:.12em; margin:0 0 18px; }
   .operate-stories .operate-documentation > div h3 { font-size:clamp(26px,2.5vw,34px); max-width:20ch; }

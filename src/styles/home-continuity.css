@@ -73,8 +73,6 @@ body.home-page #how-we-operate .operate-stories > .operate-decisions {
 /* Captions and stage labels sit on navy; the intentional light record cards
    retain their original foreground/background contrast and animation states. */
 body.home-page #how-we-operate .knowledge-stage-label { color: #9FB0C7; }
-body.home-page #how-we-operate .knowledge-outcome { color: var(--itk-text); border-color: var(--itk-border-strong); }
-body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-brand-cyan); }
 
 @media (max-width: 1100px) {
   body.home-page { --chapter-space: 52px; --chapter-gap: 28px; }
@@ -98,8 +96,7 @@ body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-bran
   }
   body.home-page #technology-title,
   body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow),
-  body.home-page #how-we-operate .knowledge-stage-label,
-  body.home-page #how-we-operate .knowledge-outcome { color: CanvasText; }
+  body.home-page #how-we-operate .knowledge-stage-label { color: CanvasText; }
   body.home-page #technology .logo-stage::before,
   body.home-page #technology .logo-stage::after { content: none; }
   body.home-page #technology .technology-logo :is(img, svg) { filter: none; }

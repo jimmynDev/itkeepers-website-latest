@@ -18,9 +18,11 @@ test('homepage presents one people section and one operating explanation before 
   for (const animation of ['operate-process', 'knowledge-continuity', 'hardware-assessment']) {
     assert.equal((main.match(new RegExp(`class="${animation}(?:[ "])[^>]*`, 'g')) ?? []).length, 1, `one ${animation} presentation`);
   }
-  assert.equal((main.match(/data-process-step=/g) ?? []).length, 7);
-  assert.match(main, /Your IT shouldn&#39;t live in one person&#39;s head\.|Your IT shouldn't live in one person's head\./);
-  for (const value of ['configurations', 'service information', 'open actions and follow-up', 'Scope and schedule depend on your service agreement', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
+  assert.equal((main.match(/data-process-step=/g) ?? []).length, 4);
+  assert.match(main, /Your IT\. Your data\. Your control\./);
+  for (const value of ['infrastructure and configuration records', 'ticket history, resolutions, changes and decisions', 'backup and recovery context', 'helps engineers share knowledge', 'Agree client access, ownership, export, retention and handover arrangements', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
+  assert.doesNotMatch(main, /knowledge-outcome|class="operate-details"/);
+  assert.match(main, /Illustrative examples, not a response-time guarantee or a device diagnosis/);
   assert.match(main, /href="\/contact\?intent=review"[^>]*>Book a free IT review/);
   assert.equal((main.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!readdirSync(new URL('../dist/_astro', import.meta.url)).some(name => name.startsWith('TeamThread.')));

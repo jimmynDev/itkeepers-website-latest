@@ -1,5 +1,22 @@
 # ITKeepers Website — Project Status
 
+## 13 October 2026 — Prompt 3/3, documentation and final cleanup
+
+- Baseline: `v2-mega-navigation` at `4317accd1ede844e803da9dccad196da871950f7`. Preserve both pending files: the four-property BusinessValue wrapper reset and the status entry below. The approved four-stage workflow, Cybersecurity relocation, all protected homepage modules, testimonials/approval gating and closing contact CTA remain unchanged. No V3/backup-branch modification, commit, push, merge or deployment.
+- Done: replace the existing documentation message with “Your IT. Your data. Your control.” and one short explanation of infrastructure/configuration records, ticket history/resolutions/follow-up, changes/decisions, backup/recovery context and engineer continuity. Add an advisory paragraph to agree access/ownership/export/retention/handover terms; do not claim those rights are established. Remove the repeated knowledge outcome row and obsolete CSS; retain the diagram's accessible label/handoff. Shorten purchasing introduction and descriptions; raise only undersized hardware descriptions to 16px/1.6/400 with AA supporting ink on the actual translucent surfaces. Keep one 14px illustrative/response-time/device-diagnosis note.
+- Validation: build16 routes Pass (no EPERM), tests114/114 Pass. Eight baseline tests failed because assertions/fixtures expected the superseded seven-stage workflow, homepage disclosures or old metadata/copy; updated tests now exercise approved four-stage ordering, handoff geometry, pause/replay/reduced motion, idempotency and disclosure placement. No production workflow logic changed. 1,628 internal built-link/fragment checks Pass. Changed supporting paragraph contrast calculations: minimum4.61:1; not browser-computed or whole-site certification. Full file inventory, preservation evidence and limits: `docs/V2_FINAL_CLEANUP_PROMPT3.md`.
+- B16 Open, Jim/Ops: no verified ownership/client-access/export/retention/portability contract found in repository sources. Earlier “configuration and backups” reply identifies areas without defining rights or terms. Qualitative documentation and backup practices are employee/owner-reported; no unrestricted rights or guaranteed recovery is inferred.
+- B14 Blocked, Jim: saved browser permission setting denies localhost access. Required full homepage visual review at360/390/768/1024/1440, both theme modes, live reduced motion, alignment/overflow/clipping/scrolling and manual accessibility are pending. Source responsive rules and automated reduced-motion checks are not a substitute. Preserve compact spacing rather than claim unmeasured visual improvements.
+- Next: STOP for visual approval and browser-review access. Preview http://127.0.0.1:4352/#operate-documentation-title . Installed build/test runtime Node24.19.0; declared runtime Node22.x retained. Vercel interface skill/rules retrieved13 October2026. No deployment.
+
+## 13 October 2026 — V2 Prompt 3 isolated for visual review
+
+- Branch: `codex/v2-prompt3`, created from local `v2-mega-navigation` at `4317acc` while preserving the complete uncommitted worktree. No pull, reset, rebase, merge or overwrite was performed during isolation.
+- Done: retain the Prompt 3 documentation/data-control copy, simplified purchasing language, supporting typography and redundant handoff-row removal; retain the accompanying workflow regression updates. Restore the explicit border/radius/background/shadow reset that removes square wrappers around the three business circles.
+- Validation: Pass — Astro production build generated 16 pages; Node test suite passed 114/114; `git diff --check` passed. Visual, responsive and interaction review remains pending.
+- Deployment: local only. No commit, push or deployment.
+- Next: stop for Jim's visual review before any further Git operation or release action.
+
 ## 12 October 2026 — V2 continuous background and spacing, local review
 
 - Continued isolated `v2-mega-navigation` at preserved V2 `da3161d38f99a8c2a29e4e2d1fba56f283e15740`; existing navigation work retained. No V3/V4 edits. Astro 5.18.2 / Node 22.23.3 / existing Workers static assets.
