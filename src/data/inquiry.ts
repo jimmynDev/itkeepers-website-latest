@@ -4,11 +4,11 @@ export const inquiryLimits: Record<InquiryField,number> = { name:120,email:254,c
 export const serviceInterests = [
   { value:'managed-it', label:'Managed IT' },
   { value:'cybersecurity', label:'Cybersecurity' },
-  { value:'microsoft-cloud', label:'Microsoft 365 & Cloud' },
-  { value:'networks-infrastructure', label:'Networking & Infrastructure' },
-  { value:'backup-recovery', label:'Backup & Disaster Recovery' },
-  { value:'ai-automation', label:'AI & Automation' },
-  { value:'web-design-hosting', label:'Web Design & Hosting' },
+  { value:'microsoft-cloud', label:'Microsoft 365 and Cloud' },
+  { value:'networks-infrastructure', label:'Networking and Infrastructure' },
+  { value:'backup-recovery', label:'Backup and Disaster Recovery' },
+  { value:'ai-automation', label:'AI and Automation' },
+  { value:'web-design-hosting', label:'Web Design and Hosting' },
   { value:'not-sure', label:'Not sure yet' }
 ] as const;
 export function normalizeContactIntent(value: unknown): InquiryIntent { return value === 'review' ? 'review' : 'general'; }
