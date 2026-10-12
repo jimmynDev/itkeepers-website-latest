@@ -1,0 +1,40 @@
+---
+const services = [
+  ['managed', 'Managed IT'],
+  ['security', 'Cybersecurity'],
+  ['cloud', 'Microsoft 365 & Cloud'],
+  ['networking', 'Networking & Infrastructure'],
+  ['backup', 'Backup & Disaster Recovery'],
+  ['ai', 'AI & Automation'],
+  ['web', 'Web Design & Hosting'],
+];
+---
+<section class="business-value" id="business-value" aria-labelledby="business-value-title">
+  <div class="business-inner">
+    <p class="eyebrow business-eyebrow">MANAGED SERVICE PROVIDER • LEBANON</p>
+    <h2 id="business-value-title">Less IT to worry about. More room to grow.</h2>
+    <p class="business-intro">ITKeepers is a Lebanon-based Managed Service Provider (MSP) helping businesses simplify IT operations and plan for what comes next.</p>
+    <p class="service-summary">{services.map(([key, name], index) => <Fragment><span class={`service-name service-name--${key}`}>{index === services.length - 1 && 'and '}{name}{index < services.length - 1 && ','}</span>{index < services.length - 1 && ' '}</Fragment>)}<span class="service-summary-end"> — <strong>All under one roof.</strong></span></p>
+  </div>
+</section>
+<style>
+  .business-value { background:var(--itk-bg); color:var(--itk-text); padding-block:var(--chapter-space,64px) var(--chapter-gap,32px); scroll-margin-block-start:140px; }
+  .business-inner { max-width:1220px; margin-inline:auto; min-width:0; }
+  .business-eyebrow { color:var(--itk-brand-cyan); font-size:var(--itk-label); font-weight:700; line-height:1.5; letter-spacing:var(--itk-label-tracking); margin:0 0 16px; }
+  #business-value-title { color:var(--itk-text); font-size:var(--itk-heading); font-weight:600; line-height:1.12; letter-spacing:-.035em; margin:0 0 20px; max-width:26ch; text-wrap:balance; scroll-margin-block-start:140px; }
+  .business-value .business-intro { color:var(--itk-supporting-text); font-size:var(--itk-body); font-weight:400; line-height:1.6; max-width:78ch; margin:0; text-wrap:pretty; }
+  .business-value .service-summary { color:var(--itk-supporting-text); font-size:clamp(22px,2.2vw,28px); font-weight:500; line-height:1.6; max-width:1100px; margin:24px 0 0; text-wrap:pretty; }
+  /* Existing pillar accents, using their readable text variants on navy. */
+  .service-name,.service-summary-end { display:inline-block; max-inline-size:100%; vertical-align:top; }
+  .service-name--managed,.service-name--security { color:var(--itk-brand-cyan); }
+  .service-name--cloud { color:#5aa9ff; }
+  .service-name--networking { color:#36b8d0; }
+  .service-name--backup { color:var(--itk-success); }
+  .service-name--ai { color:color-mix(in srgb,var(--itk-ai) 82%,white); }
+  .service-name--web { color:#c4b5fd; }
+  .service-summary-end strong { display:inline-block; color:var(--itk-text); font-weight:700; }
+  @media(forced-colors:active) {
+    .business-value { background:Canvas; color:CanvasText; }
+    .business-eyebrow,#business-value-title,.business-value .business-intro,.business-value .service-summary,.service-name,.service-summary-end strong { color:CanvasText; }
+  }
+</style>

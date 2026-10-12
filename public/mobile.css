@@ -1,4 +1,4 @@
-@media(max-width:800px){header{height:70px}header img{width:125px}header nav a:not(.btn){display:none}.hero,.advice,.knowledge,.split{grid-template-columns:1fr;gap:35px}.hero,.section{padding-top:65px;padding-bottom:65px}.strip{display:grid;grid-template-columns:1fr 1fr;gap:14px}.paper{transform:none}h1{font-size:48px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media(max-width:800px){header{height:70px}header img{width:125px}header nav a:not(.btn){display:none}.hero,.split{grid-template-columns:1fr;gap:35px}.hero,.section{padding-top:65px;padding-bottom:65px}.strip{display:grid;grid-template-columns:1fr 1fr;gap:14px}.paper{transform:none}h1{font-size:48px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 /* Offering stages follow available width; no scaled desktop labels on mobile. */
 @media (max-width: 1024px) {
   .offering-heading, .offering-digital .offering-heading { grid-template-columns: 1fr; gap: 24px; }

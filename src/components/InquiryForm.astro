@@ -1,0 +1,51 @@
+---
+import { businessPhone, contactEmail } from '../data/contact';
+import { inquiryLimits, serviceInterests } from '../data/inquiry';
+import '../styles/inquiry-form.css';
+const { compact=false, id='contact' } = Astro.props as { compact?:boolean; id?:string };
+const Heading=compact?'h3':'h2';
+const fields=compact?['name','email','phone','company'] as const:['name','email','company','phone'] as const;
+const labels={name:'Full name',email:'Work email',company:'Company',phone:'Phone'};
+const types={name:'text',email:'email',company:'text',phone:'tel'};
+const autocomplete={name:'name',email:'email',company:'organization',phone:'tel'};
+---
+<Heading id={`${id}-form-title`} class="inquiry-heading">{compact?'Book your free IT review.':"Let's start with a conversation."}</Heading>
+<p class="inquiry-intro">A few details are enough to get started.</p>
+<form class:list={['inquiry-form',{'inquiry-compact':compact}]} method="post" action="/contact" data-inquiry-form data-inquiry-mode={compact?'review':'contact'} aria-labelledby={`${id}-form-title`} aria-describedby={`${id}-availability`}>
+  <input type="hidden" name="form_kind" value={compact?'review':'contact'} />
+  {compact?<input type="hidden" name="intent" value="review" />:<>
+    <fieldset class="inquiry-purpose">
+      <legend>Inquiry purpose</legend>
+      <div class="inquiry-radio-options">
+        <label><input type="radio" name="intent" value="review" /><span>A free IT review</span></label>
+        <label><input type="radio" name="intent" value="general" checked /><span>General inquiry</span></label>
+      </div>
+    </fieldset>
+    <fieldset class="inquiry-interests">
+      <legend>Interested in <span>(optional)</span></legend>
+      <div class="inquiry-chips">{serviceInterests.map(item=><label class="interest-chip"><input type="checkbox" name="interests" value={item.value} /><span class="interest-chip-content"><span class="interest-chip-mark" aria-hidden="true">✓</span><span class="interest-chip-text">{item.label}</span></span></label>)}</div>
+    </fieldset>
+  </>}
+  <div class="inquiry-fields">
+    {fields.map(name=><div class="inquiry-field">
+      <label for={`${id}-${name}`}>{labels[name]} <span>({name==='name'||name==='email'?'required':'optional'})</span></label>
+      <input id={`${id}-${name}`} name={name} type={types[name]} autocomplete={autocomplete[name]} inputmode={name==='email'?'email':name==='phone'?'tel':undefined} spellcheck={name==='email'?'false':undefined} maxlength={inquiryLimits[name]} required={name==='name'||name==='email'} aria-describedby={`${id}-${name}-error`} />
+      <p class="inquiry-error" id={`${id}-${name}-error`} data-field-error={name} hidden></p>
+    </div>)}
+    {!compact&&<div class="inquiry-field inquiry-message">
+      <label for={`${id}-message`}>How can we help? <span>(required)</span></label>
+      <textarea id={`${id}-message`} name="message" rows="4" maxlength={inquiryLimits.message} required placeholder="Briefly describe what you're looking for..." aria-describedby={`${id}-data-help ${id}-message-error`}></textarea>
+      <p class="inquiry-help" id={`${id}-data-help`}>Please don't include passwords, account credentials or confidential technical information.</p>
+      <p class="inquiry-error" id={`${id}-message-error`} data-field-error="message" hidden></p>
+    </div>}
+  </div>
+  <button class="btn inquiry-submit" type="submit" disabled aria-describedby={`${id}-availability`}>{compact?'Request my free IT review':'Send my message'}</button>
+  <p class="inquiry-availability" id={`${id}-availability`}>Online requests are unavailable. Please <a href={contactEmail.href}>email our team</a> or <a href={businessPhone.href}>call us</a>.</p>
+  <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true"></p>
+  {!compact&&<p class="inquiry-privacy"><a href="/privacy">Privacy notice</a></p>}
+</form>
+<script>
+  import { initializeContactForms } from '../scripts/contact-form';
+  initializeContactForms();
+  document.addEventListener('astro:page-load',()=>initializeContactForms());
+</script>

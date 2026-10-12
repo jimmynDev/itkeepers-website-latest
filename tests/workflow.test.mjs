@@ -69,8 +69,8 @@ test('missing control preserves readable noninteractive fallback', () => {
   assert.equal(flow.selectors.hidden, true);
   assert.equal(flow.navigation.hidden, true);
 });
-test('built pages preserve complete initial-HTML content and native disclosures', () => {
-  for (const path of ['dist/index.html', 'dist/how-we-work/index.html']) {
+test('How We Work retains the reusable five-step example and native review disclosures', () => {
+  for (const path of ['dist/how-we-work/index.html']) {
     const html = readFileSync(path, 'utf8');
     const panels = html.match(/<article\b[^>]*data-step-panel[^>]*>/g) ?? [];
     assert.equal(panels.length, 5);
@@ -88,11 +88,13 @@ test('built pages preserve complete initial-HTML content and native disclosures'
     assert.ok(wrapper, `${componentClass} wrapper must exist`);
     return (wrapper[1].match(/<details\b/g) ?? []).length;
   };
+  const how = readFileSync('dist/how-we-work/index.html', 'utf8');
+  assert.equal(disclosureCount(how, 'daily-checks'), 3);
   assert.equal(disclosureCount(home, 'daily-checks'), 3);
   assert.equal(disclosureCount(home, 'security-layers'), 5);
+  assert.doesNotMatch(home, /class="[^\"]*\bworkflow\b/);
   assert.equal(disclosureCount(security, 'security-layers'), 5);
   for (const title of ['Identity', 'Endpoints', 'Network', 'Operations', 'Backups']) {
-    assert.ok(home.includes(`<summary>${title}</summary>`));
     assert.ok(security.includes(`<summary>${title}</summary>`));
   }
 });

@@ -179,13 +179,16 @@ test('production markup provides a shared intrinsic stage, native controls and f
   assert.match(component, /You shouldn’t have to investigate every suspicious message yourself\./);
 });
 
-test('built homepage preserves placement and testimonial infrastructure with four decisions and twelve explanations', () => {
-  const html = read('dist/index.html'), start = html.indexOf('id="phishing-decisions"');
-  assert.ok(start > html.indexOf('id="how-we-operate"')); assert.ok(start < html.indexOf('class="cta home-closing"'));
+test('Cybersecurity contains the relocated exercise while the homepage preserves the testimonial gate', () => {
+  const home = read('dist/index.html');
+  const html = read('dist/services/cybersecurity/index.html'), start = html.indexOf('id="phishing-decisions"');
+  assert.doesNotMatch(home, /data-phishing-experience|data-decision-scenario=/);
+  assert.ok(start > html.indexOf('id="cybersecurity-animation"'));
+  assert.ok(start < html.indexOf('class="cta"', start));
   assert.equal((html.match(/data-decision-scenario=/g) ?? []).length, 4);
   assert.equal((html.match(/data-decision-explanation=/g) ?? []).length, 12);
   assert.equal((html.match(/data-decision-segment /g) ?? []).length, 4);
-  assert.doesNotMatch(html, /Client testimonial content is pending|Approved quote and attribution pending|CONTENT PENDING|id="client-proof"/);
+  assert.doesNotMatch(home, /Client testimonial content is pending|Approved quote and attribution pending|CONTENT PENDING|id="client-proof"/);
   const proof = {}; vm.runInNewContext(compile('src/data/client-proof.ts'), { exports: proof });
   assert.ok(proof.videoTestimonials.every(item => !item.approved && item.sources.length === 0));
   assert.ok(proof.textTestimonials.every(item => !item.approved));

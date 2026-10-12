@@ -54,7 +54,7 @@ const { id = 'phishing-decisions' } = Astro.props;
 </section>
 <noscript><style is:inline>.phishing-decisions .decision-panel[hidden], .phishing-decisions .decision-progress { display:none; } .phishing-decisions .decision-stage { min-block-size:0; }</style></noscript>
 <style>
-  :global(body.home-page) .phishing-decisions { --decision-bg:var(--itk-bg); --decision-surface:var(--itk-surface-raised); --decision-ink:var(--itk-text); --decision-muted:var(--itk-muted); --decision-accent:var(--itk-brand-cyan); color:var(--decision-ink); background:var(--decision-bg); padding-block:var(--itk-section-space); }
+  .phishing-decisions { --decision-bg:var(--itk-bg); --decision-surface:var(--itk-surface-raised); --decision-ink:var(--itk-text); --decision-muted:var(--itk-muted); --decision-accent:var(--itk-brand-cyan); color:var(--decision-ink); background:var(--decision-bg); padding-block:var(--itk-section-space); scroll-margin-block-start:140px; }
   .decision-inner { max-inline-size:1000px; margin-inline:auto; }
   .phishing-decisions :is(h2,h3,p,dd,dt,button,span) { overflow-wrap:anywhere; }
   .decision-heading { max-inline-size:740px; margin-block-end:32px; }
@@ -99,7 +99,7 @@ const { id = 'phishing-decisions' } = Astro.props;
   .decision-announcement { position:absolute; inline-size:1px; block-size:1px; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
   @media(max-width:600px) { .decision-stage { min-block-size:660px; padding:20px; gap:24px; } .decision-panel,.decision-panel[hidden] { gap:20px; } .decision-progress { gap:16px; } }
   @media(prefers-reduced-motion:reduce) { .phishing-decisions button { transition:none; } }
-  @media(forced-colors:active) { :global(body.home-page) .phishing-decisions { --decision-bg:Canvas; --decision-surface:Canvas; --decision-ink:CanvasText; --decision-muted:CanvasText; --decision-accent:LinkText; } .decision-stage,.phishing-decisions button { border-color:CanvasText; } .decision-segments [data-active="true"] { background:Highlight; } .phishing-decisions :is(button,[tabindex="-1"]):focus-visible { outline-color:Highlight; } }
+  @media(forced-colors:active) { .phishing-decisions { --decision-bg:Canvas; --decision-surface:Canvas; --decision-ink:CanvasText; --decision-muted:CanvasText; --decision-accent:LinkText; } .decision-stage,.phishing-decisions button { border-color:CanvasText; } .decision-segments [data-active="true"] { background:Highlight; } .phishing-decisions :is(button,[tabindex="-1"]):focus-visible { outline-color:Highlight; } }
 </style>
 <script>
   import { initializePhishingExperiences } from '../scripts/phishing-decision-experience';

@@ -1,0 +1,33 @@
+---
+import type { NavigationCategory } from '../../data/navigation';
+const { category, prefix } = Astro.props as { category: NavigationCategory; prefix: string };
+const current = Astro.url.pathname.replace(/\/$/, '');
+const isCurrent = (href: string) => !href.includes('#') && current === href.split('?')[0].replace(/\/$/, '');
+---
+<div class="mega-content" data-category={category.id}>
+  <a class="mega-overview" href={category.href}>{category.overview} <span aria-hidden="true">→</span></a>
+  <div class="mega-columns">
+    {category.groups.map(group => (
+      <div class="mega-group">
+        <p class="mega-group-label">{group.label}</p>
+        <ul class="mega-items">
+          {group.items.map(item => (
+            <li>
+              {item.href ? (
+                <a class="mega-item" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}><span class="mega-item-title">{item.title}</span><span class="mega-description">{item.description}</span></a>
+              ) : (
+                <div class="mega-item mega-topic"><span class="mega-item-title">{item.title}</span><span class="mega-description">{item.description}</span></div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <aside class="mega-feature" aria-labelledby={`${prefix}-feature-${category.id}`}>
+      <p class="mega-group-label">{category.feature.eyebrow}</p>
+      <p class="mega-feature-title" id={`${prefix}-feature-${category.id}`}>{category.feature.title}</p>
+      <p class="mega-description">{category.feature.description}</p>
+      <a class="mega-feature-link" href={category.feature.href} data-event={category.feature.playbook ? 'ai-playbook-open' : undefined}>{category.feature.label} <span aria-hidden="true">→</span></a>
+    </aside>
+  </div>
+</div>

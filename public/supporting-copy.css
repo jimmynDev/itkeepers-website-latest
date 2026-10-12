@@ -1,0 +1,73 @@
+/* Readability applies only to audited descriptive/supporting paragraphs.
+   Keep --itk-muted unchanged: navigation, diagrams and indicators use it. */
+:root {
+  --itk-supporting-text: #B8C4D6;
+  --itk-supporting-text-light: var(--itk-light-muted);
+}
+
+:root body main > .section > p:not(.eyebrow),
+:root body main > .section > .split > div > p:not(.eyebrow),
+:root body main > .section.light > .split > div > article > p,
+:root body .service-overview-copy > p,
+:root body .service-story p.service-story-intro,
+:root body .offering-detail > div > p:not(.eyebrow),
+:root body.home-page #offering-web-design-hosting p.lede,
+:root body.home-page #how-we-operate p.operate-intro,
+:root body.home-page #how-we-operate .operate-supporting article > p,
+:root body.home-page #how-we-operate .operate-stories > article > div > p:not(.operate-label),
+:root body .workflow-panels article > p:not(.eyebrow),
+:root body .disclosures details > div > p,
+:root body p.disclosure-limit,
+:root body .phishing-decisions p.decision-intro,
+:root body .phishing-decisions .decision-fallback > p,
+:root body .decision-message > p:not(.decision-sender),
+:root body .phishing-decisions p[data-decision-feedback],
+:root body .decision-final > p:not(.decision-eyebrow):not(.decision-positioning),
+:root body .phishing-decisions .decision-inner > p.decision-note,
+:root body .governance-resource .resource-topics > div > p,
+:root body .governance-resource section > p,
+:root body p.inquiry-intro,
+:root body p.inquiry-help,
+:root body p.inquiry-availability,
+:root body .contact-information .contact-emergency > p:not(.contact-card-label),
+:root body p.closing-description,
+:root body .home-closing .closing-phone > p,
+:root body main > .cta > p:not(.eyebrow),
+:root body .footer-brand > p {
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--itk-supporting-text);
+}
+
+/* Only these paragraphs were smaller than 16px. Existing larger prose stays larger. */
+:root body p.inquiry-help,
+:root body p.inquiry-availability,
+:root body .home-closing .closing-phone > p,
+:root body .phishing-decisions .decision-inner > p.decision-note { font-size: 16px; }
+
+/* These inline links are contact actions; preserve their existing typography. */
+:root body p.inquiry-availability > a { font-size: 14px; line-height: 1.6; }
+
+/* Actual light surfaces, rather than every section carrying a legacy .light class. */
+:root[data-hero-theme="day"] body.home-page .service-story p.service-story-intro,
+:root body .pulse-managed .pulse-reveal-copy > p:not(.eyebrow),
+:root body .pulse-shell .pulse-feature > p,
+:root body .pulse-shell p.pulse-capability-note,
+:root body .pulse-workflow > li > p {
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--itk-supporting-text-light);
+}
+
+/* The same reveal description is supporting-size prose on narrow screens. */
+@media (max-width: 600px) {
+  :root body .pulse-reveal-copy > p:not(.eyebrow) {
+    line-height: 1.6; font-weight: 400; color: var(--itk-supporting-text-light);
+  }
+  :root body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) {
+    color: var(--itk-supporting-text);
+  }
+}
+@media (forced-colors: active) {
+  :root { --itk-supporting-text: CanvasText; --itk-supporting-text-light: CanvasText; }
+}

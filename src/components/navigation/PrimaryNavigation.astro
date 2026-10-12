@@ -1,0 +1,40 @@
+---
+import { navigation } from '../../data/navigation';
+import MegaMenuContent from './MegaMenuContent.astro';
+const current = Astro.url.pathname.replace(/\/$/, '');
+const { mobile = false } = Astro.props;
+---
+{!mobile && <nav class="desktop-navigation mega-navigation" aria-label="Primary navigation" data-desktop-navigation>
+  <ul class="navigation-categories">
+    {navigation.map(category => (
+      <li class="navigation-category" data-nav-category={category.id}>
+        <div class="navigation-category-controls">
+          <a class="navigation-category-link" href={category.href} aria-current={!category.href.includes('#') && current === category.href.replace(/\/$/, '') ? 'page' : undefined}>{category.label}</a>
+          <button class="navigation-toggle" type="button" aria-label={`Show ${category.label} navigation`} aria-expanded="false" aria-controls={`desktop-panel-${category.id}`} data-nav-toggle hidden><span class="navigation-chevron" aria-hidden="true"></span></button>
+        </div>
+        <div class="mega-panel" id={`desktop-panel-${category.id}`} data-nav-panel hidden><MegaMenuContent category={category} prefix="desktop" /></div>
+      </li>
+    ))}
+  </ul>
+</nav>}
+{mobile && <details class="mobile-navigation mega-mobile" data-mobile-navigation>
+  <summary aria-controls="mobile-navigation-panel"><span class="mobile-menu-label">Menu</span><span class="mobile-menu-symbol" aria-hidden="true">+</span></summary>
+  <nav id="mobile-navigation-panel" aria-label="Mobile navigation">
+    <ul class="mobile-categories">
+      {navigation.map(category => (
+        <li>
+          <div class="mobile-category-controls">
+            <a href={category.href} aria-current={!category.href.includes('#') && current === category.href.replace(/\/$/, '') ? 'page' : undefined}>{category.label}</a>
+            <button class="navigation-toggle" type="button" aria-label={`Show ${category.label} navigation`} aria-expanded="false" aria-controls={`mobile-panel-${category.id}`} data-mobile-toggle hidden><span class="navigation-chevron" aria-hidden="true"></span></button>
+          </div>
+          <div id={`mobile-panel-${category.id}`} data-mobile-panel hidden><MegaMenuContent category={category} prefix="mobile" /></div>
+        </li>
+      ))}
+    </ul>
+    <a class="btn header-primary-cta" href="/contact">Talk to our team</a>
+  </nav>
+</details>}
+<script>
+  import { mountNavigation } from '../../scripts/mega-navigation';
+  mountNavigation();
+</script>

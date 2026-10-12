@@ -168,3 +168,67 @@ P3-WHO-02 records the preferred four-item proof-strip change separately. This en
 | P3-HERO-PROOF-05 | 2 locations / Lebanon & USA | Home / hero strip | Jim's 8ef8535e brief explicitly requests this exact fourth item and describes presence in Lebanon and the United States | Employee-reported owner-supplied presence claim; no independent location audit; no city, address, branch, office or legal entity inferred | Explicit current request to publish this exact wording; local implementation authorized | Jim | 2026-10-07 | Location/presence change, supporting evidence or production review |
 
 The initial four fields were unfilled; Jim supplied the above facts before implementation. These owner approvals are separate from independent evidence status. Counts are not summed and endpoints are not relabeled users. Jim also states Microsoft Partner status is not yet official. Microsoft Partner/certification claims and badges are therefore omitted; no certification facts or asset approval were supplied. Existing ecosystem logos elsewhere are unchanged and are not repurposed as accreditation proof.
+
+## 12 October 2026 — V2 homepage consolidation
+
+| Claim ID | Exact wording | Affected component | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-CONSOLIDATE-01 | Monitoring signals and reported problems enter an organized engineering process, with context, ownership and follow-up. | Home / HowWeOperate intro | Jim's d68af4a4 consolidation brief §4; existing P3-OPERATE operating model | Employee-reported qualitative process; no independent operating audit | Authorized local consolidation; no release action authorized | Jim | 2026-10-12 | Process, scope, wording or production release |
+| V2-CONSOLIDATE-02 | Proactive monitoring: Monitoring and security alerts can surface issues before you have to report them. Those signals and user-reported problems enter the workflow for engineer review. / Routine reviews: Review backup jobs, alerts and open actions in context, with the next check and follow-up made clear. Scope and schedule depend on your service agreement. | Home / HowWeOperate supporting copy | Brief §§4,9; existing monitoring and DailyChecks review categories | Employee-reported qualitative practice; daily frequency or coverage is not verified or promised | Authorized local consolidation with scope/schedule qualification; production evidence review separate | Jim | 2026-10-12 | Review scope/schedule, operational evidence or production release |
+| V2-CONSOLIDATE-03 | Your IT shouldn't live in one person's head. / Infrastructure records, configurations, service information, decisions and changes are documented alongside open actions and follow-up. Engineers can continue the work with that context, rather than rebuilding it each time. | Home / HowWeOperate documentation | Brief §§4,7; existing Knowledge and P3-OPERATE documentation content | Employee-reported qualitative practice; not independently audited; no client-facing portal or perfect continuity claim | Exact requested headline and local consolidation authorized; release review separate | Jim | 2026-10-12 | Documentation practice, portal claims, evidence or production release |
+| V2-CONSOLIDATE-04 | We assess workload, condition and supportability before recommending a purchase — not simply more hardware. | Home / HowWeOperate hardware advice | Brief §§4,8; existing Advice and P3-OPERATE-03 | Employee-reported purchasing approach; no financial savings or independence claim | Authorized local consolidation; existing illustrative assessment unchanged | Jim | 2026-10-12 | Purchasing practice, financial claims or production release |
+
+These entries supersede the affected historical homepage copy in P3-OPERATE-01–03.
+The existing seven-stage workflow, knowledge and hardware samples remain illustrative.
+Unconfirmed offerings and unapproved client proof remain excluded. No new facts,
+certifications, testimonials, response times or service availability are inferred.
+
+## 12 October 2026 — V2 contact and closing CTA
+
+| Claim ID | Exact wording / destination | Affected component | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| OWNER-CONTACT-20261012 | +961 81 816 761 / tel:+96181816761; info@itkeepers.com / mailto:info@itkeepers.com | Contact page / src/data/contact.ts | Jim's direct reply: "the same number and for email use info@itkeepers.com"; previous emergency number OWNER-PHONE-20261005 | Verified: owner confirms these business contacts; mailbox/phone reachability not independently tested | Authorized local general-contact display; emergency destination preserved; no release authorized | Jim | 2026-10-12 | Number, mailbox, ownership, routing or production release |
+| V2-CONTACT-COPY-01 | LET'S TALK / See what your IT could do better. / Tell us about your environment. We'll help identify where to start. / Book a free IT review / Talk to our team | Home closing CTA | Jim's 5b532aeb contact/CTA brief §2; exact requested text | Owner-supplied positioning and review offer; no scheduling or response-time guarantee | Authorized local copy and /contact?intent=review or general routing | Jim | 2026-10-12 | Review offer, routing, wording or release |
+| V2-CONTACT-COPY-02 | Talk to our team. / Tell us what you need. We'll take it from there. / Let's start with a conversation. / A few details are enough to get started. / Under attack? / Suspect ransomware, account compromise, or an active security incident? Contact our team immediately. / Get emergency help | Contact form and information column | Same brief §§4,7; existing /emergency/ | Owner-supplied qualitative invitation; no hours, human availability, delivery or response-time promise | Authorized local frontend; unconfigured submission stays explicit; no release authorized | Jim | 2026-10-12 | Submission processing, contact scope, emergency route, copy or release |
+
+The preview cannot deliver inquiries. Required fields are name, email and message;
+company/phone are optional. No delivery-success claim, processor, secret, retention
+policy or availability promise has been invented. Choosing a delivery path and
+approving its processing/privacy controls remains a separate decision.
+
+## 12 October 2026 — Contact corrections superseding the earlier CTA/form layout
+
+| Claim ID | Exact wording / bounded structure | Affected component | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-CONTACT-CORRECTION-01 | Inquiry purpose: A free IT review / General inquiry. Interested in (optional): Managed IT; Cybersecurity; Microsoft 365 & Cloud; Networking & Infrastructure; Backup & Disaster Recovery; AI & Automation; Web Design & Hosting; Not sure yet | Contact / shared InquiryForm | Jim's 8c507b52 correction brief §2; existing V2 service routes/categories | Explicit owner-supplied category labels; not an added capability, availability or response guarantee | Authorized local optional selectors; both submit buttons remain disabled; no release authorized | Jim | 2026-10-12 | Service scope, selection contract, delivery enablement or production release |
+| V2-CONTACT-CORRECTION-02 | Prefer to talk? / +961 81 816 761. Book your free IT review. / A few details are enough to get started. / Request my free IT review. Online requests are unavailable. Please email our team or call us. | Home CTA and shared fallback | Same brief §§1,3; existing OWNER-CONTACT-20261012 verified contact data | Owner-supplied invitation; actual current lack of backend confirmed in source/configuration | Authorized local homepage mini-form and truthful disabled state; no actual scheduling/delivery claim or release | Jim | 2026-10-12 | Delivery backend, contact details, copy or release |
+
+This latest explicit brief supersedes the prior instruction against a homepage form
+and the prior enabled local-validation submit behavior. Both forms are now disabled
+in HTML and JavaScript; one shared frontend component/controller/field schema is
+prepared for a future approved shared backend. No backend integration, server-side
+abuse protection, delivery result, processor or secret is asserted to exist.
+
+## 12 October 2026 — Prompt 1 positioning and team copy
+
+| Claim ID | Exact wording | Affected pages | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-POSITIONING-01 | MANAGED SERVICE PROVIDER • LEBANON / Less IT to worry about. More room to grow. / ITKeepers is a Lebanon-based Managed Service Provider (MSP) helping businesses simplify IT operations and plan for what comes next. | Home / BusinessValue | Jim's explicit Prompt 1 brief4ed5c373 §§2 and expected result | Owner-attested location/business category and qualitative positioning; no independent legal/location audit or guaranteed growth/savings inferred | Exact local wording authorized by current owner request; no release authorized | Jim | 2026-10-12 | Business location, scope, copy or production release |
+| V2-POSITIONING-02 | Managed IT, Cybersecurity, Microsoft 365 & Cloud, Networking & Infrastructure, Backup & Disaster Recovery, AI & Automation, and Web Design & Hosting — All under one roof. | Home / BusinessValue | Same brief §2; existing seven service pages and approved categories | Owner-attested service breadth/coordinated offering; not seven distinct teams, an office claim or an additional unconfirmed capability | Exact local seven-service statement authorized | Jim | 2026-10-12 | Offered services, operating scope, wording or production release |
+| V2-TEAM-01 | HOW OUR TEAM WORKS / The engineer you know. The expertise you need. / Work with engineers familiar with your environment, backed by expertise across infrastructure, cloud, security, networking and support. / A familiar engineer: Someone who understands your systems and business context. / Specialists behind them: Deeper expertise moves inside our team, not back to you. / Expertise that evolves: Continuous technical training, specialist courses and hands-on engineering. | Home / WhoWeAre | Same brief §§3–4; earlier owner-attested P3-WHO-01 and P3-WHO-04 | Owner-attested qualitative team/training description; no named people, staffing counts, credentials, continuous availability or response guarantees inferred | Exact local replacement authorized; old hub/training/proof-strip presentation removed | Jim | 2026-10-12 | Team relationship, training practice, scope, copy or production release |
+
+This brief authorizes Prompt 1 only. It replaces the old Who We Are and separate
+Engineering Development presentation; it does not change documentation/data-control
+claims or authorize Prompts 2/3, service-detail edits, live inquiries or release.
+
+## 12 October 2026 — Prompt 2 operational workflow
+
+| Claim ID | Exact wording | Affected pages | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-OPERATIONS-01 | Monitoring alerts / Routine reviews / Client reports → Issue assessment → Issue detected / Ticket created / Engineer assigned / Client notified / Investigation / Resolved / Documented. Example workflow, not an outcome or timing guarantee. | Home / operational workflow | Jim's Prompt2 briefd9f8a040 §§3–5; existing illustrative incident progression | Illustrative conceptual workflow; source channels owner-attested; signals require assessment and do not universally create incidents or automated tickets | Local refinement explicitly authorized; not a SLA, live ticket, incident result or deployment | Jim | 2026-10-12 | Source/assessment practice, stage meaning, automation claim, timing promise or release |
+| V2-OPERATIONS-02 | Signals are assessed before action is taken, with context, ownership and follow-up. / Reviewed by engineers. / Engineers assess signals in context and follow up on work that needs attention. Scope and schedule depend on your service agreement. | Home / HowWeOperate intro/right copy | Same brief §§3,6; earlier V2-CONSOLIDATE-02 qualified review/follow-up copy | Owner-attested qualitative operating model; no universal prevention, prediction, daily frequency or response coverage inferred | Local consolidation authorized; production evidence/review remains separate | Jim | 2026-10-12 | Review practice, agreed scope/schedules, copy or production release |
+| V2-OPERATIONS-03 | Daily checks, explained. / Security, maintained in layers. / Explore cybersecurity; existing DailyChecks and SecurityLayers explanations unchanged | Home / technical details | Same brief §§7–8; existing components and INTERACT-02 / approved control-category examples | Illustrative review/control explanations; no real records or tested-restore/compliance/coverage guarantee | Authorized local reuse with existing caveats and agreement qualification | Jim | 2026-10-12 | Technical explanation, scope, restore/availability claims or release |
+
+Prompt2 authorizes only this operational refinement. Prompt1 remains intact;
+documentation, ownership/data control and purchasing advice remain unchanged for
+Prompt3. No live inquiry, processor, DNS or deployment action is authorized here.

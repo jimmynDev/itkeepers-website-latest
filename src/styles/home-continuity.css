@@ -1,0 +1,109 @@
+/* V2 homepage only. Shared components, inner UI and animation controllers stay intact. */
+body.home-page {
+  --chapter-space: 64px;
+  --chapter-gap: 32px;
+  --chapter-detail: 24px;
+}
+
+/* The old Web background overlapped the previous service by 220px. Keep its
+   existing grid areas, but confine the continuous canvas to the Web row. */
+body.home-page .digital-transition-zone::before {
+  margin-block-start: 0;
+  background: var(--itk-bg);
+}
+:root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] {
+  background: var(--surface-light);
+}
+body.home-page #offering-web-design-hosting {
+  background: var(--itk-bg);
+  border-block: 0;
+  padding-block: 52px;
+  min-block-size: 0;
+}
+body.home-page #offering-web-design-hosting .bridge-label { font-size: var(--itk-label); }
+body.home-page main > #it-keepers-pulse.pulse-shell,
+body.home-page #technology,
+body.home-page #how-we-operate {
+  --bg: var(--itk-bg);
+  --fg: var(--itk-text);
+  --muted: var(--itk-muted);
+  --accent: var(--itk-brand-cyan);
+  --focus: var(--itk-brand-cyan);
+  background: var(--itk-bg);
+  color: var(--itk-text);
+  padding-block: var(--chapter-space);
+  border-block: 0;
+}
+
+/* Pulse's dashboard retains its light UI, metrics and existing CTA gradient. */
+body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) { color: var(--itk-muted); }
+body.home-page #it-keepers-pulse .pulse-promises li::before { color: var(--itk-success); }
+body.home-page #it-keepers-pulse .btn:focus-visible { outline-color: var(--itk-brand-cyan); }
+body.home-page #it-keepers-pulse .pulse-preview::before { content: none; }
+
+/* Keep the real logos, grayscale treatment, rail motion and hover transforms.
+   Normalize mixed light/dark SVG artwork to readable neutral luminance. */
+body.home-page #technology { padding-block: 40px; }
+body.home-page #technology-title { color: var(--itk-muted); font-size: var(--itk-label); }
+body.home-page #technology .logo-stage { padding-block: 12px 16px; }
+body.home-page #technology .logo-stage::before { background: linear-gradient(90deg, var(--itk-bg), transparent); }
+body.home-page #technology .logo-stage::after { background: linear-gradient(270deg, var(--itk-bg), transparent); }
+body.home-page #technology .technology-logo :is(img, svg) { filter: grayscale(1) saturate(0) brightness(0) invert(.72); }
+body.home-page #technology .technology-logo:hover :is(img, svg) { filter: grayscale(1) saturate(0) brightness(0) invert(.86); }
+
+/* Keep the operational shell compact; protected story visuals remain intact. */
+body.home-page #how-we-operate {
+  --operate-ink: var(--itk-text);
+  --operate-muted: var(--itk-muted);
+  --operate-accent: var(--itk-brand-cyan);
+  --operate-line: var(--itk-border-strong);
+}
+body.home-page #how-we-operate .operate-heading { gap: var(--chapter-gap); margin-block-end: 28px; }
+body.home-page #how-we-operate .operate-primary { gap: clamp(24px, 3vw, 48px); }
+body.home-page #how-we-operate .incident-steps { gap: 10px; }
+body.home-page #how-we-operate .incident-heading { margin-block: 20px 16px; }
+body.home-page #how-we-operate .operate-stories { margin-block-start: var(--chapter-gap); gap: var(--chapter-gap); }
+body.home-page #how-we-operate .operate-stories > .operate-documentation,
+body.home-page #how-we-operate .operate-stories > .operate-decisions {
+  gap: var(--chapter-gap);
+  padding-block-start: var(--chapter-detail);
+  border-block-start: 0;
+}
+/* Captions and stage labels sit on navy; the intentional light record cards
+   retain their original foreground/background contrast and animation states. */
+body.home-page #how-we-operate :is(.operate-process, .knowledge-continuity, .hardware-assessment) figcaption,
+body.home-page #how-we-operate .knowledge-stage-label { color: var(--itk-muted); }
+body.home-page #how-we-operate .knowledge-outcome { color: var(--itk-text); border-color: var(--itk-border-strong); }
+body.home-page #how-we-operate .knowledge-outcome > span { color: var(--itk-brand-cyan); }
+
+@media (max-width: 1100px) {
+  body.home-page { --chapter-space: 52px; --chapter-gap: 28px; }
+}
+@media (max-width: 768px) {
+  body.home-page { --chapter-space: 48px; --chapter-gap: 24px; }
+  body.home-page #technology { padding-block: 32px; }
+  body.home-page #how-we-operate .operate-heading { gap: var(--chapter-gap); }
+}
+@media (max-width: 600px) {
+  body.home-page { --chapter-space: 44px; --chapter-detail: 20px; }
+  body.home-page #offering-web-design-hosting { padding-block: 40px; }
+}
+@media (forced-colors: active) {
+  body.home-page #offering-web-design-hosting,
+  body.home-page main > #it-keepers-pulse.pulse-shell,
+  body.home-page #technology,
+  body.home-page #how-we-operate {
+    --fg: CanvasText; --muted: CanvasText; --accent: LinkText; --focus: Highlight;
+    --operate-ink: CanvasText; --operate-muted: CanvasText; --operate-accent: LinkText;
+    background: Canvas; color: CanvasText;
+  }
+  body.home-page #technology-title,
+  body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow),
+  body.home-page #how-we-operate .knowledge-stage-label,
+  body.home-page #how-we-operate :is(.operate-process, .knowledge-continuity, .hardware-assessment) figcaption,
+  body.home-page #how-we-operate .knowledge-outcome { color: CanvasText; }
+  body.home-page #technology .logo-stage::before,
+  body.home-page #technology .logo-stage::after { content: none; }
+  body.home-page #technology .technology-logo :is(img, svg) { filter: none; }
+  body.home-page #it-keepers-pulse .btn:focus-visible { outline-color: Highlight; }
+}

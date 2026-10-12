@@ -1,28 +1,31 @@
 import { mountAnimation } from './animation-lifecycle';
 type Scheduler={later:(callback:()=>void,delay:number)=>void};
 const incidentPhases=['detect','ticket','assign','notify','investigate','resolve','document'];
-function incident(root:HTMLElement,scheduler:Scheduler) {
+export function createIncidentWorkflow(root:HTMLElement,scheduler:Scheduler) {
   const scene=root.querySelector<HTMLElement>('[data-animation-visual]')!;
   const rail=scene.querySelector<HTMLElement>('.incident-rail')!;
   const steps=[...scene.querySelectorAll<HTMLElement>('[data-process-step]')];
   const ticket=scene.querySelector<HTMLElement>('.incident-ticket')!;
   const fill=scene.querySelector<HTMLElement>('.incident-fill')!;
   const status=scene.querySelector<HTMLElement>('[data-incident-status]')!;
-  scene.dataset.phase='waiting';fill.style.transform='scaleY(0)';status.textContent='Detected';
+  const sources=[...scene.querySelectorAll<HTMLElement>('[data-issue-source]')];
+  scene.dataset.phase='waiting';scene.dataset.inputPhase='waiting';fill.style.transform='scaleY(0)';status.textContent='Assessment';
+  sources.forEach(source=>source.classList.remove('is-visible'));
   steps.forEach(step=>step.classList.remove('is-complete','is-active'));
   const activate=(index:number)=>{
     steps.forEach((step,i)=>{step.classList.toggle('is-complete',i<index);step.classList.toggle('is-active',i===index);});
     scene.dataset.phase=incidentPhases[index];
+    scene.dataset.inputPhase='complete';
     const node=steps[index].querySelector<HTMLElement>('.incident-node')!.getBoundingClientRect();
     const box=rail.getBoundingClientRect();
-    const y=node.top+node.height/2-box.top;
-    ticket.style.top=`${y/box.height*100}%`;
     const axis=scene.querySelector<HTMLElement>('.incident-axis')!.getBoundingClientRect();
+    const y=node.top+node.height/2-box.top;
+    ticket.style.transform=`translateY(${y-11}px)`;
     fill.style.transform=`scaleY(${Math.min(1,Math.max(0,(node.top+node.height/2-axis.top)/axis.height))})`;
     ticket.classList.toggle('is-handoff',index===2);
-    status.textContent=index>=5?'Resolved':index>=2?'Owned':'Detected';
+    status.textContent=['Detected','Recorded','Assigned','Notified','Investigating','Resolved','Documented'][index];
   };
-  return {duration:4800,play(){scene.dataset.phase='entrance';steps.forEach((_,i)=>scheduler.later(()=>activate(i),850+i*480));},settle(){scene.dataset.phase='settled';steps.forEach(step=>{step.classList.add('is-complete');step.classList.remove('is-active');});fill.style.transform='scaleY(1)';ticket.classList.remove('is-handoff');status.textContent='Resolved';}};
+  return {duration:4800,play(){scene.dataset.phase='sources';status.textContent='Assessing';sources.forEach((source,i)=>scheduler.later(()=>source.classList.add('is-visible'),100+i*140));scheduler.later(()=>{scene.dataset.inputPhase='assess';},650);steps.forEach((_,i)=>scheduler.later(()=>activate(i),1100+i*480));},settle(){scene.dataset.phase='settled';scene.dataset.inputPhase='complete';sources.forEach(source=>source.classList.add('is-visible'));steps.forEach(step=>{step.classList.add('is-complete');step.classList.remove('is-active');});fill.style.transform='scaleY(1)';ticket.classList.remove('is-handoff');status.textContent='Documented';}};
 }
 function knowledge(root:HTMLElement,scheduler:Scheduler) {
   const scene=root.querySelector<HTMLElement>('[data-animation-visual]')!;
@@ -42,7 +45,7 @@ function hardware(root:HTMLElement,scheduler:Scheduler) {
   return {duration:3000,play(){scene.dataset.phase='evaluate';signals.forEach((signal,i)=>scheduler.later(()=>signal.classList.add('is-read'),350+i*230));scheduler.later(()=>{scene.dataset.phase='decision';selected.classList.add('is-selected');status.textContent='Example complete';},2100);},settle(){scene.dataset.phase='settled';signals.forEach(signal=>signal.classList.add('is-read'));selected.classList.add('is-selected');status.textContent='Example complete';}};
 }
 function initialize() {
-  for(const [selector,factory] of [['.operate-process',incident],['.knowledge-continuity',knowledge],['.hardware-assessment',hardware]] as const) {
+  for(const [selector,factory] of [['.operate-process',createIncidentWorkflow],['.knowledge-continuity',knowledge],['.hardware-assessment',hardware]] as const) {
     document.querySelectorAll<HTMLElement>(selector).forEach(root=>{
       const dispose=mountAnimation(root,scheduler=>factory(root,scheduler));
       if(!root.dataset.operateCleanup){root.dataset.operateCleanup='true';document.addEventListener('astro:before-swap',dispose,{once:true});}

@@ -1,0 +1,40 @@
+.inquiry-heading { font-size:clamp(24px,2.3vw,30px); line-height:1.2; font-weight:600; margin:0 0 12px; letter-spacing:-.025em; }
+.inquiry-intro { color:var(--itk-muted); font-size:16px; margin:0 0 24px; }
+.inquiry-form { min-inline-size:0; }
+.inquiry-form :is(fieldset,legend) { padding:0; border:0; min-inline-size:0; }
+.inquiry-form fieldset { margin:0 0 22px; }
+.inquiry-form legend { font-weight:600; margin-block-end:10px; }
+.inquiry-form legend > span,.inquiry-field > label span { color:var(--itk-muted); font-size:12px; font-weight:400; }
+.inquiry-radio-options { display:flex; flex-wrap:wrap; gap:4px 24px; }
+.inquiry-radio-options label { display:flex; align-items:center; gap:10px; min-block-size:48px; cursor:pointer; }
+.inquiry-radio-options input { inline-size:20px; block-size:20px; margin:0; flex:none; accent-color:var(--itk-brand-cyan); }
+.inquiry-chips { display:flex; flex-wrap:wrap; gap:8px; }
+.interest-chip { position:relative; display:flex; max-inline-size:100%; cursor:pointer; }
+.interest-chip > input { position:absolute; inline-size:1px; block-size:1px; opacity:0; }
+.interest-chip-content { display:flex; align-items:center; gap:8px; min-block-size:48px; max-inline-size:100%; padding:10px 12px; border:1px solid var(--itk-muted); border-radius:var(--itk-radius-sm); background:var(--itk-surface); color:var(--itk-muted); font-size:14px; line-height:1.4; }
+.interest-chip-text { min-inline-size:0; overflow-wrap:anywhere; }
+.interest-chip-mark { flex:none; inline-size:14px; opacity:0; color:var(--itk-brand-cyan); font-weight:700; }
+.interest-chip:hover .interest-chip-content { border-color:var(--itk-brand-cyan); color:var(--itk-text); }
+.interest-chip input:checked + .interest-chip-content { background:rgba(64,113,181,.18); border-color:var(--itk-brand-cyan); color:var(--itk-text); }
+.interest-chip input:checked + .interest-chip-content .interest-chip-mark { opacity:1; }
+.interest-chip input:focus-visible + .interest-chip-content { outline:3px solid var(--itk-brand-cyan); outline-offset:3px; }
+.inquiry-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.inquiry-field { min-inline-size:0; }
+.inquiry-field > label { display:block; font-weight:600; margin-block-end:8px; }
+.inquiry-field :is(input,textarea) { inline-size:100%; min-inline-size:0; min-block-size:48px; padding:12px 14px; border:1px solid var(--itk-muted); border-radius:var(--itk-radius-sm); background:var(--itk-surface); color:var(--itk-text); font:inherit; line-height:1.5; }
+.inquiry-field textarea { display:block; resize:vertical; min-block-size:120px; }
+.inquiry-field textarea::placeholder { color:var(--itk-muted); opacity:1; }
+.inquiry-message { grid-column:1 / -1; }
+.inquiry-help,.inquiry-privacy { color:var(--itk-muted); font-size:12px; line-height:1.6; margin:8px 0 0; }
+.inquiry-error,.inquiry-status { color:#ffb4b4; font-size:14px; line-height:1.5; margin:8px 0 0; }
+.inquiry-status:empty { margin:0; }
+.inquiry-field [aria-invalid="true"] { border-color:#ffb4b4; }
+body .inquiry-form .inquiry-submit.btn { min-block-size:48px; margin-block-start:22px; padding:12px 20px; font:600 16px/1.5 var(--font-editorial,Arial,sans-serif); }
+body .inquiry-form .inquiry-submit.btn:disabled { color:var(--itk-muted); background:var(--itk-surface); border:1px solid var(--itk-muted); opacity:1; cursor:not-allowed; box-shadow:none; }
+.inquiry-availability { color:var(--itk-muted); font-size:14px; line-height:1.6; margin:12px 0 0; }
+.inquiry-form a { color:var(--itk-text); text-decoration:underline; text-underline-offset:3px; }
+.inquiry-form a:hover { color:var(--itk-brand-cyan); }
+.inquiry-form :is(a,button,input,textarea):focus-visible { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
+.inquiry-compact .inquiry-submit { inline-size:100%; }
+@media(max-width:600px) { .inquiry-fields { grid-template-columns:1fr; gap:18px; } .inquiry-submit { inline-size:100%; } }
+@media(forced-colors:active) { .interest-chip-content,.inquiry-field :is(input,textarea) { background:Canvas; color:CanvasText; border-color:CanvasText; } .interest-chip input:checked + .interest-chip-content { border-color:Highlight; } .interest-chip-mark,.inquiry-error,.inquiry-status { color:CanvasText; } .inquiry-form :is(a,button,input,textarea):focus-visible,.interest-chip input:focus-visible + .interest-chip-content { outline-color:Highlight; } body .inquiry-form .inquiry-submit.btn:disabled { color:GrayText; border-color:GrayText; } }

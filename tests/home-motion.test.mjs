@@ -137,6 +137,7 @@ test('initial HTML contains the Home explanations without a script-added motion 
   assert.ok(html.includes('aria-hidden="true"'));
   assert.ok(!/<(?:main|body)\b[^>]*class="[^"]*home-motion-ready/.test(html));
   assert.ok(html.includes('Your IT person'));
-  assert.ok(html.includes('Not every incident needs escalation.'));
-  assert.equal((html.match(/<article\b[^>]*data-step-panel/g) ?? []).length, 5);
+  assert.ok(html.includes('Your IT shouldn\'t live in one person\'s head.'));
+  assert.ok(html.includes('Routine reviews'));
+  assert.equal((html.match(/<article\b[^>]*data-step-panel/g) ?? []).length, 0);
 });
