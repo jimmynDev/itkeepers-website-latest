@@ -6,7 +6,7 @@ export function mountHeroTheme(): void {
   const root = document.documentElement;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   let transition: ViewTransition | undefined;
-  let selectedTheme = 'day';
+  let selectedTheme = 'night';
   const apply = (theme: string) => {
     const night = theme === 'night';
     root.dataset.heroTheme = night ? 'night' : 'day';
@@ -16,9 +16,8 @@ export function mountHeroTheme(): void {
     button.title = night ? 'Switch to day mode' : 'Switch to night mode';
     selectedTheme = night ? 'night' : 'day';
   };
-  const hour = new Date().getHours();
-  apply(hour >= 7 && hour < 19 ? 'day' : 'night');
-  button.hidden = false;
+  apply('night');
+  button.hidden = button.hasAttribute('data-theme-control-paused');
   button.addEventListener('click', () => {
     const theme = selectedTheme === 'night' ? 'day' : 'night';
     selectedTheme = theme;

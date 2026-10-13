@@ -1,5 +1,6 @@
 ---
 import EmergencyAction from '../components/EmergencyAction.astro';
+import { emergencyPhone, supportEmail } from '../data/contact';
 import PrimaryNavigation from '../components/navigation/PrimaryNavigation.astro';
 import '../styles/mega-navigation.css';
 const {
@@ -30,7 +31,7 @@ const schema = { '@context': 'https://schema.org', '@graph': entities };
 const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
 ---
 <!doctype html>
-<html lang="en" data-hero-theme="day">
+<html lang="en" data-hero-theme="night">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,7 +74,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
       <PrimaryNavigation />
       <EmergencyAction />
       <span class="header-cta-actions"><a class="btn header-primary-cta" href="/contact">Talk to our team</a></span>
-      {Astro.url.pathname === '/' && <button class="hero-theme-toggle" type="button" data-hero-theme-toggle aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" hidden><span data-theme-icon aria-hidden="true">☀</span></button>}
+      {Astro.url.pathname === '/' && <button class="hero-theme-toggle" type="button" data-hero-theme-toggle data-theme-control-paused aria-label="Switch to day mode" title="Switch to day mode" aria-pressed="true" hidden><span data-theme-icon aria-hidden="true">☾</span></button>}
       <EmergencyAction placement="mobile" />
       <PrimaryNavigation mobile />
     </header>
@@ -81,8 +82,56 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     {Astro.url.pathname === '/' && <div class="home-pointer-light" data-tone="cyan" aria-hidden="true"></div>}
     <main id="main-content" tabindex="-1"><slot /></main>
     <footer class="site-footer">
-      <div class="footer-brand"><a href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a><p>Managed IT with familiar people and shared expertise.</p></div>
-      <nav aria-label="Footer navigation"><a href="/how-we-work">How we work</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a></nav>
+      <div class="footer-inner">
+        <div class="footer-columns">
+          <div class="footer-brand">
+            <a href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a>
+            <p>Your IT person is a team.</p>
+          </div>
+          <nav class="footer-group" aria-labelledby="footer-services">
+            <h2 id="footer-services">Services</h2>
+            <ul>
+              <li><a href="/services/managed-it/">Managed IT Services</a></li>
+              <li><a href="/services/microsoft-cloud/">Microsoft 365 &amp; Cloud</a></li>
+              <li><a href="/services/cybersecurity/">Cybersecurity</a></li>
+              <li><a href="/services/backup-recovery/">Backup &amp; Recovery</a></li>
+              <li><a href="/services/networks-infrastructure/">Networking &amp; Infrastructure</a></li>
+              <li><a href="/services/ai-automation/">AI &amp; Automation</a></li>
+              <li><a href="/services/web-design-hosting/">Web Design &amp; Hosting</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-group" aria-labelledby="footer-company">
+            <h2 id="footer-company">Company</h2>
+            <ul>
+              <li><a href="/about/">About Us</a></li>
+              <li><a href="/how-we-work/">How We Work</a></li>
+              <li><a href="/about/">Our Team</a></li>
+              <li><a href="/it-keepers-pulse/">IT Keepers Pulse</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-group" aria-labelledby="footer-resources">
+            <h2 id="footer-resources">Resources</h2>
+            <ul>
+              <li><a href="/resources/ai-governance/">AI Governance Playbook</a></li>
+              <li><a href="/contact/">Free IT Review</a></li>
+              <li><a href="/services/">All Services</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-group" aria-labelledby="footer-support">
+            <h2 id="footer-support">Support</h2>
+            <ul>
+              <li><a href="/contact/">Contact Us</a></li>
+              <li><a class="footer-emergency" href="/emergency/">Under Attack?</a></li>
+              <li><a href={emergencyPhone.href} aria-label={`Call ITKeepers on ${emergencyPhone.display}`}>{emergencyPhone.display}</a></li>
+              <li><a href={supportEmail.href} aria-label={`Email ITKeepers at ${supportEmail.display}`}>{supportEmail.display}</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <p>© {new Date().getFullYear()} ITKeepers</p>
+          <a href="/privacy/">Privacy Policy</a>
+        </div>
+      </div>
     </footer>
     <script>
       import { mountHeroTheme } from '../scripts/hero-theme';

@@ -7,13 +7,14 @@ import HowWeOperate from '../components/HowWeOperate.astro';
 import RecordsAdvice from '../components/RecordsAdvice.astro';
 import ClientProof from '../components/ClientProof.astro';
 import '../styles/home-continuity.css';
-import { videoTestimonials, textTestimonials, videoReady } from '../data/client-proof';
+import '../styles/home-review-sections.css';
+import { videoTestimonials, textTestimonials, videoReady, quoteReady } from '../data/client-proof';
 import AIPlaybook from '../components/AIPlaybook.astro';
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import CTA from '../components/CTA.astro';
-const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimonials.some(item => item.approved && item.quote?.trim());
+const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimonials.some(quoteReady);
 ---
 <Base title="ITKeepers | Managed IT, Cloud, Cybersecurity & Infrastructure" description="ITKeepers is a Lebanon-based MSP offering Managed IT, Cybersecurity, Microsoft 365 & Cloud, Networking & Infrastructure, Backup & Disaster Recovery, AI & Automation, and Web Design & Hosting.">
   <Hero />

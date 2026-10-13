@@ -1,5 +1,5 @@
 <section class="records-advice" id="records-advice" aria-labelledby="records-advice-title">
-  <div class="records-inner">
+  <div class="records-inner home-review-container">
     <p class="eyebrow records-eyebrow">YOUR RECORDS, YOUR CALL</p>
     <h2 id="records-advice-title">Clear records. Honest advice.</h2>
     <div class="records-cards">
@@ -15,13 +15,11 @@
         </ul>
       </article>
     </div>
-    <p class="records-footnote">Examples are illustrative, not a response-time guarantee or a device diagnosis.</p>
   </div>
 </section>
 <style>
-  .records-advice { background:var(--itk-bg); color:var(--itk-text); padding-block:96px; }
-  .records-inner { max-inline-size:1240px; margin-inline:auto; min-inline-size:0; padding-inline:clamp(16px,2vw,24px); }
-  .records-advice .records-inner .records-eyebrow { color:var(--itk-cyan-sky); font-size:13px; font-weight:600; letter-spacing:var(--itk-label-tracking); line-height:1.5; margin:0 0 14px; }
+  .records-advice { background:var(--itk-bg); color:var(--itk-text); }
+  .records-advice .records-inner .records-eyebrow { color:var(--itk-cyan-sky); font-size:var(--itk-label); font-weight:600; letter-spacing:var(--itk-label-tracking); line-height:1.5; margin:0 0 14px; }
   #records-advice-title { font-size:var(--itk-heading); font-weight:600; line-height:1.12; letter-spacing:-.035em; margin:0 0 28px; text-wrap:balance; scroll-margin-block-start:140px; }
   .records-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
   .records-card { min-inline-size:0; margin:0; padding:var(--itk-panel-space); background:var(--itk-surface); border:1px solid color-mix(in srgb,var(--itk-cyan-sky) 40%,transparent); border-radius:var(--itk-radius-md); box-shadow:0 0 24px color-mix(in srgb,var(--itk-brand-cyan) 5%,transparent); }
@@ -29,8 +27,7 @@
   .records-card p { color:var(--itk-supporting-text,#B8C4D6); font-size:16px; line-height:1.6; margin:0; }
   .records-labels { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:20px 0 0; }
   .records-labels li { color:var(--itk-cyan-sky); border:1px solid color-mix(in srgb,var(--itk-cyan-sky) 45%,transparent); border-radius:var(--itk-radius-sm); padding:3px 10px; font-size:14px; line-height:1.6; cursor:default; }
-  .records-advice .records-inner .records-footnote { color:var(--itk-supporting-text,#B8C4D6); font-size:14px; line-height:1.6; margin:20px 0 0; }
   .records-advice :is(h2,h3,p,li) { overflow-wrap:anywhere; }
-  @media(max-width:767px) { .records-advice { padding-block:56px; } .records-cards { grid-template-columns:minmax(0,1fr); gap:20px; } }
+  @media(max-width:767px) { .records-cards { grid-template-columns:minmax(0,1fr); gap:20px; } }
   @media(forced-colors:active) { .records-advice,.records-card { background:Canvas; color:CanvasText; box-shadow:none; } .records-advice :is(h2,h3,p,li) { color:CanvasText; } .records-card,.records-labels li { border-color:CanvasText; } }
 </style>

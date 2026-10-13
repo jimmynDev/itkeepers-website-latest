@@ -1,0 +1,18 @@
+/* One container for the homepage records, permitted client proof and closing CTA. */
+body.home-page main > :is(.records-advice, .client-proof, .home-closing) {
+  padding-inline: 0;
+  padding-block: 96px;
+}
+body.home-page .home-review-container {
+  inline-size: 100%;
+  max-inline-size: 1100px;
+  min-inline-size: 0;
+  margin-inline: auto;
+  padding-inline-start: max(clamp(16px, 2vw, 24px), env(safe-area-inset-left));
+  padding-inline-end: max(clamp(16px, 2vw, 24px), env(safe-area-inset-right));
+}
+@media (max-width: 767px) {
+  body.home-page main > :is(.records-advice, .client-proof, .home-closing) {
+    padding-block: 56px;
+  }
+}

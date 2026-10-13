@@ -188,8 +188,7 @@ test('Cybersecurity contains the relocated exercise while the homepage preserves
   assert.equal((html.match(/data-decision-scenario=/g) ?? []).length, 4);
   assert.equal((html.match(/data-decision-explanation=/g) ?? []).length, 12);
   assert.equal((html.match(/data-decision-segment /g) ?? []).length, 4);
-  assert.doesNotMatch(home, /Client testimonial content is pending|Approved quote and attribution pending|CONTENT PENDING|id="client-proof"/);
+  assert.doesNotMatch(home, /Client testimonial content is pending|Approved quote and attribution pending|CONTENT PENDING/);
   const proof = {}; vm.runInNewContext(compile('src/data/client-proof.ts'), { exports: proof });
-  assert.ok(proof.videoTestimonials.every(item => !item.approved && item.sources.length === 0));
-  assert.ok(proof.textTestimonials.every(item => !item.approved));
+  assert.equal(home.includes('id="client-proof"'), proof.videoTestimonials.some(proof.videoReady) || proof.textTestimonials.some(proof.quoteReady));
 });

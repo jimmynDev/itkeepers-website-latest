@@ -1,82 +1,102 @@
 ---
-import {videoTestimonials,textTestimonials,videoReady} from '../data/client-proof';
+import {videoTestimonials,textTestimonials,videoReady,quoteReady,approvedAttribution} from '../data/client-proof';
 const available=videoTestimonials.filter(videoReady);
+const quotes=textTestimonials.filter(quoteReady);
 const active=available[0];
-const hasQuotes=textTestimonials.some(item=>item.approved&&item.quote);
 const mediaConfig=JSON.stringify(available).replace(/</g,'\\u003c');
 ---
-<section class="client-proof" id="client-proof" aria-labelledby="client-proof-title" data-client-proof>
-  <div class="client-proof-inner">
-    <header class="client-proof-heading"><p class="client-proof-eyebrow">CLIENT PROOF</p><h2 id="client-proof-title">What clients say after the handoff.</h2>{!active&&!hasQuotes&&<p class="proof-content-note">Client testimonial content is pending.</p>}</header>
-    <figure class="client-proof-media">
-      <div class="proof-media-frame" id="client-proof-media">
-        {active ? <>
-          <div class="proof-video-facade" data-proof-facade><img src={active.poster} alt="" width="1280" height="720" loading="lazy" decoding="async" data-proof-poster/><button type="button" class="proof-play" data-proof-play hidden>Play testimonial</button></div>
-          <video class="proof-video" controls playsinline preload="none" poster={active.poster} aria-label={active.label} data-proof-video hidden></video>
-          <noscript><p class="proof-media-nojs"><a href={active.sources[0].src}>Watch testimonial</a><a href={active.transcript}>Read transcript</a></p></noscript>
-        </> : <div class="proof-media-pending"><span class="proof-pending-label">CONTENT PENDING</span><strong>Video testimonial</strong><p>Awaiting approved video, poster and captions.</p></div>}
+{(active || quotes.length > 0) && <section class="client-proof" id="client-proof" aria-labelledby="client-proof-title" data-client-proof>
+  <div class="client-proof-inner home-review-container">
+    <header class="client-proof-heading"><p class="client-proof-eyebrow">WHAT CLIENTS SAY</p><h2 id="client-proof-title">Clients, in their words.</h2></header>
+    {quotes.length > 0 && <div class="proof-carousel" role="region" aria-roledescription="carousel" aria-label="Client testimonials" data-proof-carousel>
+      <div class="proof-stage" id="client-proof-quotes" aria-live="off" data-proof-stage>
+        {quotes.map((item,index)=><blockquote class="proof-slide" role="group" aria-roledescription="slide" aria-label={`Testimonial ${index+1} of ${quotes.length}`} aria-hidden={index!==0} inert={index!==0} data-proof-slide={index}>
+          <p>{item.quote}</p>{approvedAttribution(item) && <cite>{approvedAttribution(item)}</cite>}
+        </blockquote>)}
       </div>
-      <figcaption class="proof-media-caption"><span data-proof-video-label>{active?.label??'Video testimonial content pending'}</span>{active?.transcript&&<a href={active.transcript} data-proof-transcript>Read transcript</a>}</figcaption>
-      <ul class="proof-video-selectors" aria-label="Video testimonials">
-        {videoTestimonials.map((item,index)=><li><button type="button" data-proof-select={item.id} disabled={!videoReady(item)} aria-label={videoReady(item)?item.label:`Video testimonial ${index+1} — content pending`} aria-pressed={videoReady(item)?item.id===active?.id:undefined} aria-controls="client-proof-media"><span>{videoReady(item)?item.label:String(index+1).padStart(2,'0')}</span>{!videoReady(item)&&<span class="proof-slot-state">Pending</span>}</button></li>)}
-      </ul>
-      {active&&<p class="proof-media-status" data-proof-status role="status" aria-live="polite"></p>}
-    </figure>
-    <div class="proof-text-grid" aria-label="Written testimonials">
-      {textTestimonials.map((item,index)=><article class="proof-text-slot" aria-labelledby={`${item.id}-title`}>
-        {item.approved&&item.quote ? <blockquote><p id={`${item.id}-title`}>{item.quote}</p>{item.attribution&&Object.values(item.attribution).some(Boolean)&&<cite>{[item.attribution.name,item.attribution.role,item.attribution.company].filter(Boolean).join(' · ')}</cite>}</blockquote> : <><h3 id={`${item.id}-title`}>Written testimonial {String(index+1).padStart(2,'0')}</h3><p>Approved quote and attribution pending.</p></>}
-      </article>)}
-    </div>
-    {active&&<script type="application/json" data-proof-config set:html={mediaConfig}></script>}
+      {quotes.length > 1 && <div class="proof-control-area">
+        <div class="proof-navigation" data-proof-navigation hidden>
+          <div class="proof-arrows">
+            <button class="proof-arrow" type="button" aria-label="Previous testimonial" aria-describedby="client-proof-navigation-help" aria-controls="client-proof-quotes" data-proof-previous><span aria-hidden="true">←</span></button>
+            <button class="proof-arrow" type="button" aria-label="Next testimonial" aria-describedby="client-proof-navigation-help" aria-controls="client-proof-quotes" data-proof-next><span aria-hidden="true">→</span></button>
+          </div>
+          <div class="proof-dots" role="group" aria-label="Choose a testimonial">
+            {quotes.map((item,index)=><button class="proof-dot" type="button" aria-label={`Show testimonial ${index+1}${approvedAttribution(item)?`: ${approvedAttribution(item)}`:''}`} aria-describedby="client-proof-navigation-help" aria-current={index===0?'true':undefined} aria-controls="client-proof-quotes" data-proof-dot={index}><span aria-hidden="true"></span></button>)}
+          </div>
+        </div>
+      </div>}
+      {quotes.length > 1 && <p class="proof-quote-status" id="client-proof-navigation-help">Use an arrow or dot to stop automatic rotation and choose a testimonial.</p>}
+      <p class="proof-quote-status" role="status" aria-live="polite" aria-atomic="true" data-proof-quote-status></p>
+    </div>}
+    {active && <figure class="client-proof-media">
+      <div class="proof-media-frame" id="client-proof-media">
+        <div class="proof-video-facade" data-proof-facade><img src={active.poster} alt="" width="1280" height="720" loading="lazy" decoding="async" data-proof-poster/><button type="button" class="proof-play" data-proof-play hidden>Play testimonial</button></div>
+        <video class="proof-video" controls playsinline preload="none" poster={active.poster} aria-label={active.label} data-proof-video hidden></video>
+        <noscript><p class="proof-media-nojs"><a href={active.sources[0].src}>Watch testimonial</a><a href={active.transcript}>Read transcript</a></p></noscript>
+      </div>
+      <figcaption class="proof-media-caption"><span data-proof-video-label>{active.label}</span><a href={active.transcript} data-proof-transcript>Read transcript</a></figcaption>
+      {available.length > 1 && <ul class="proof-video-selectors" aria-label="Video testimonials">
+        {available.map(item=><li><button type="button" data-proof-select={item.id} aria-pressed={item.id===active.id} aria-controls="client-proof-media"><span>{item.label}</span></button></li>)}
+      </ul>}
+      <p class="proof-media-status" data-proof-status role="status" aria-live="polite"></p>
+    </figure>}
+    {active && <script type="application/json" data-proof-config set:html={mediaConfig}></script>}
   </div>
-</section>
+</section>}
 <style>
-  :global(body.home-page) .client-proof { --proof-ink:#0b2c5f; --proof-muted:#42566f; --proof-blue:#4071B5; --proof-line:#d0dfea; color:var(--proof-ink); background:linear-gradient(180deg,#edf3f8 0px,#f9fbfd 160px,#fff 65%,#fafcfe 100%); padding-block:clamp(64px,7vw,104px) clamp(64px,6vw,96px); }
-  .client-proof-inner { max-width:1220px; margin-inline:auto; }
-  .client-proof :is(h2,h3,p) { overflow-wrap:anywhere; }
-  .client-proof-heading { display:block; height:auto; padding:0; border:0; margin:0 0 36px; background:transparent; }
-  .client-proof-eyebrow { color:color-mix(in srgb,var(--proof-blue) 90%,var(--proof-ink)); font-size:12px; font-weight:700; letter-spacing:.14em; margin:0 0 22px; }
-  #client-proof-title { font-size:clamp(36px,3.8vw,56px); line-height:1.08; font-weight:600; letter-spacing:-.04em; color:var(--proof-ink); max-width:21ch; margin:0; text-wrap:balance; }
-  .proof-content-note { color:var(--proof-muted); font-size:16px; line-height:1.7; margin:22px 0 0; }
-  .client-proof-media { max-width:1000px; margin:0; }
-  .proof-media-frame { aspect-ratio:16/9; position:relative; display:grid; overflow:hidden; border:1px solid #335778; border-radius:18px; background:#102641; color:#f6fbff; }
-  .proof-media-pending { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:24px; text-align:center; }
-  .proof-pending-label { color:#afd7ec; font-size:12px; font-weight:700; letter-spacing:.12em; }
-  .proof-media-pending strong { font-size:clamp(20px,2.5vw,30px); line-height:1.3; font-weight:600; letter-spacing:-.02em; }
-  .proof-media-pending p { color:#c8daeb; font-size:16px; line-height:1.6; margin:0; max-width:36ch; }
+  .client-proof { --proof-ink:var(--itk-text); --proof-muted:var(--itk-supporting-text,#B8C4D6); --proof-blue:var(--itk-cyan-sky); color:var(--proof-ink); background:var(--itk-bg); scroll-margin-block-start:140px; }
+  .client-proof :is(h2,p,cite,button) { overflow-wrap:anywhere; }
+  .client-proof-heading { display:block; height:auto; padding:0; border:0; margin:0 0 36px; background:transparent; text-align:center; }
+  .client-proof-eyebrow { color:var(--proof-blue); font-size:var(--itk-label); font-weight:600; letter-spacing:var(--itk-label-tracking); line-height:1.5; margin:0 0 14px; }
+  #client-proof-title { font-size:var(--itk-heading); line-height:1.12; font-weight:600; letter-spacing:-.035em; color:#fff; margin:0; text-wrap:balance; scroll-margin-block-start:180px; }
+  .proof-carousel { max-inline-size:900px; margin-inline:auto; text-align:center; }
+  /* Invisible slides still size this single shared track to its longest quote. */
+  .proof-stage { display:grid; min-block-size:260px; }
+  .proof-slide { grid-area:1 / 1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; min-inline-size:0; margin:0; padding:0; border:0; background:transparent; visibility:hidden; opacity:0; pointer-events:none; }
+  .proof-slide[aria-hidden="false"] { visibility:visible; opacity:1; pointer-events:auto; }
+  .proof-slide p { max-inline-size:48ch; color:#fff; font-size:clamp(26px,2.1vw,30px); line-height:1.5; white-space:pre-wrap; margin:0; }
+  .proof-slide cite { color:var(--proof-muted); font-size:16px; line-height:1.6; font-style:normal; }
+  .proof-stage[data-phase="out"] .proof-slide[aria-hidden="false"],.proof-stage[data-phase="in"] .proof-slide[aria-hidden="false"] { opacity:0; }
+  .proof-control-area { min-block-size:100px; margin-block-start:28px; }
+  .proof-navigation { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .proof-navigation[hidden] { display:none; }
+  .proof-arrows,.proof-dots { display:flex; align-items:center; justify-content:center; }
+  .proof-arrows { gap:16px; }
+  .proof-arrow { inline-size:48px; block-size:48px; display:grid; place-items:center; padding:0; border:0; border-radius:50%; background:#14283f; color:var(--itk-cyan-sky); font:26px/1 var(--font-editorial,Arial,sans-serif); cursor:pointer; }
+  .proof-arrow:hover { background:var(--itk-brand-cyan); color:var(--itk-bg); }
+  .proof-dot { inline-size:44px; block-size:44px; display:grid; place-items:center; border:0; padding:0; background:transparent; cursor:pointer; }
+  .proof-dot span { inline-size:8px; block-size:8px; border-radius:50%; background:var(--proof-muted); }
+  .proof-dot[aria-current="true"] span { inline-size:10px; block-size:10px; background:var(--itk-brand-cyan); }
+  .proof-arrow:focus-visible,.proof-dot:focus-visible { outline:3px solid var(--itk-brand-cyan); outline-offset:3px; border-radius:50%; }
+  .proof-quote-status { position:absolute; inline-size:1px; block-size:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  .client-proof-media { max-inline-size:1000px; margin:0; }
+  .proof-carousel + .client-proof-media { margin-block-start:32px; }
+  .proof-media-frame { aspect-ratio:16/9; position:relative; display:grid; overflow:hidden; border:1px solid #335778; border-radius:var(--itk-radius-lg); background:#102641; color:#f6fbff; }
   .proof-video-facade,.proof-video { width:100%; height:100%; position:absolute; inset:0; object-fit:contain; }
   .proof-video-facade { display:grid; place-items:center; }
   .proof-video-facade[hidden],.proof-video[hidden],.proof-play[hidden] { display:none; }
   .proof-video-facade img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .proof-play { position:relative; z-index:1; min-height:48px; padding:12px 24px; border:1px solid #42BAEB; border-radius:12px; background:#102641; color:#f6fbff; font:700 14px/1.6 Arial,sans-serif; cursor:pointer; }
+  .proof-play { position:relative; z-index:1; min-height:48px; padding:12px 24px; border:1px solid var(--itk-brand-cyan); border-radius:var(--itk-radius-sm); background:#102641; color:#f6fbff; font:700 14px/1.6 Arial,sans-serif; cursor:pointer; }
   .proof-media-nojs { position:absolute; inset-inline:16px; bottom:16px; display:flex; justify-content:center; flex-wrap:wrap; gap:16px; margin:0; }
-  .proof-media-nojs a { display:inline-flex; align-items:center; min-height:44px; padding:8px 16px; background:#102641; color:#f6fbff; border:1px solid #42BAEB; border-radius:10px; text-decoration:underline; }
+  .proof-media-nojs a { display:inline-flex; align-items:center; min-height:44px; padding:8px 16px; background:#102641; color:#f6fbff; border:1px solid var(--itk-brand-cyan); border-radius:var(--itk-radius-sm); text-decoration:underline; }
   .proof-media-caption { display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:16px; color:var(--proof-muted); font-size:14px; line-height:1.6; }
   .proof-media-caption a { color:var(--proof-ink); text-decoration:underline; text-underline-offset:4px; min-height:44px; display:inline-flex; align-items:center; }
-  .proof-video-selectors { list-style:none; padding:0; margin:20px 0 0; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
-  .proof-video-selectors button { width:100%; min-width:0; min-height:56px; display:flex; align-items:center; justify-content:center; gap:12px; border:1px solid #bfcede; border-radius:10px; padding:10px; background:#f5f9fc; color:var(--proof-ink); font:700 14px/1.6 Arial,sans-serif; overflow-wrap:anywhere; cursor:pointer; }
+  .proof-video-selectors { list-style:none; padding:0; margin:20px 0 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr)); gap:12px; }
+  .proof-video-selectors button { width:100%; min-width:0; min-height:56px; display:flex; align-items:center; justify-content:center; border:1px solid var(--itk-cyan-sky); border-radius:var(--itk-radius-sm); padding:10px; background:var(--itk-surface); color:var(--proof-ink); font:700 14px/1.6 Arial,sans-serif; cursor:pointer; }
   .proof-video-selectors button > span { min-width:0; max-width:100%; }
-  .proof-video-selectors button:disabled { color:var(--proof-muted); opacity:1; cursor:default; }
-  .proof-video-selectors button[aria-pressed="true"] { border-color:#4071B5; background:#e9f3fb; box-shadow:inset 0 -2px #4071B5; }
-  .proof-slot-state { font-size:12px; font-weight:400; }
-  .proof-play:focus-visible,.proof-video-selectors button:focus-visible,.proof-video:focus-visible,.proof-media-caption a:focus-visible { outline:3px solid #4071B5; outline-offset:4px; }
-  .proof-play:focus-visible { outline-color:#42BAEB; }
-  .proof-media-nojs a:focus-visible { outline:3px solid #42BAEB; outline-offset:3px; }
+  .proof-video-selectors button[aria-pressed="true"] { box-shadow:inset 0 -2px var(--itk-cyan-sky); }
+  .proof-play:focus-visible,.proof-video-selectors button:focus-visible,.proof-video:focus-visible,.proof-media-caption a:focus-visible,.proof-media-nojs a:focus-visible { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
   .proof-media-status { color:var(--proof-muted); font-size:14px; line-height:1.6; margin:16px 0 0; }
   .proof-media-status:empty { display:none; }
-  .proof-text-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 56px; margin-top:40px; }
-  .proof-text-slot { border:0; border-top:1px solid var(--proof-line); border-radius:0; background:transparent; padding:26px 0; margin:0; }
-  .proof-text-slot h3 { color:var(--proof-ink); font-size:16px; font-weight:700; line-height:1.4; margin:0 0 12px; }
-  .proof-text-slot p { color:var(--proof-muted); font-size:16px; line-height:1.7; margin:0; }
-  .proof-text-slot blockquote { margin:0; padding:0; }
-  .proof-text-slot blockquote p { font-size:20px; color:var(--proof-ink); line-height:1.6; }
-  .proof-text-slot cite { display:block; margin-top:18px; color:var(--proof-muted); font-size:14px; line-height:1.6; font-style:normal; }
-  @media(max-width:768px) { .proof-text-grid { grid-template-columns:1fr; margin-top:32px; } .proof-video-selectors { gap:8px; } .proof-video-selectors button { flex-direction:column; gap:0; padding:8px 4px; } }
-  @media(max-width:480px) { .proof-media-frame { border-radius:14px; } .proof-media-pending { gap:8px; padding:16px; } .proof-media-pending p { font-size:14px; max-width:28ch; } .proof-media-caption { font-size:13px; } }
-  @media(forced-colors:active) { :global(body.home-page) .client-proof { --proof-ink:CanvasText; --proof-muted:CanvasText; --proof-blue:LinkText; --proof-line:CanvasText; background:Canvas; } .proof-media-frame,.proof-video-selectors button,.proof-play { background:Canvas; color:CanvasText; border-color:CanvasText; } .proof-pending-label,.proof-media-pending p { color:CanvasText; } .proof-video-selectors button[aria-pressed="true"] { border-color:Highlight; } }
+  @media(max-width:767px) { .proof-slide p { font-size:clamp(20px,5.8vw,22px); } .proof-stage { min-block-size:0; } }
+  @media(prefers-reduced-motion:no-preference) { .proof-slide { transition:opacity 175ms ease; } }
+  @media(max-width:480px) { .proof-media-frame { border-radius:var(--itk-radius-md); } }
+  @media(forced-colors:active) { .client-proof { --proof-ink:CanvasText; --proof-muted:CanvasText; --proof-blue:LinkText; background:Canvas; } .proof-media-frame,.proof-video-selectors button,.proof-play,.proof-media-nojs a,.proof-arrow { background:Canvas; color:CanvasText; border-color:CanvasText; box-shadow:none; } #client-proof-title,.proof-slide p { color:CanvasText; } .proof-dot span { background:CanvasText; } .proof-dot[aria-current="true"] span { background:Highlight; } .proof-video-selectors button[aria-pressed="true"] { border-color:Highlight; } }
 </style>
 <script>
   import { initializeClientProof } from '../scripts/client-proof';
+  import { initializeClientProofCarousel } from '../scripts/client-proof-carousel';
   initializeClientProof(document);
-  document.addEventListener('astro:page-load',()=>initializeClientProof(document));
+  initializeClientProofCarousel(document);
+  document.addEventListener('astro:page-load',()=>{initializeClientProof(document);initializeClientProofCarousel(document);});
 </script>

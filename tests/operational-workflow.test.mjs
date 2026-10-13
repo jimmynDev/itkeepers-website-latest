@@ -69,7 +69,7 @@ test('production preserves four stages and links to the relocated native securit
   assert.doesNotMatch(figure,/Ticket created automatically|incident-foot|One example, from first signal/);
   assert.equal((figure.match(/class="incident-detail"/g)??[]).length,1,'Documented follow-up remains in accessible HTML');
   assert.match(figure,/aria-label="Example incident workflow from detection to documentation"/);
-  assert.match(html,/Illustrative examples, not a response-time guarantee or a device diagnosis/);
+  assert.doesNotMatch(html,/Illustrative examples, not a response-time guarantee or a device diagnosis/);
   assert.doesNotMatch(html,/class="operate-details"/);
   assert.match(html,/href="\/services\/cybersecurity\/#security-layers"[^>]*>See how we handle security/);
   const security=read('dist/services/cybersecurity/index.html');

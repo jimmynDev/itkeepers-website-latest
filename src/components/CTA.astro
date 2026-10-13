@@ -3,7 +3,7 @@ import InquiryForm from './InquiryForm.astro';
 import { businessPhone } from '../data/contact';
 ---
 <section class="cta home-closing" aria-labelledby="closing-title">
-  <div class="closing-layout">
+  <div class="closing-layout home-review-container">
     <div class="closing-copy">
       <p class="eyebrow">LET'S TALK</p>
       <h2 id="closing-title">See what your IT could do better.</h2>
@@ -14,18 +14,18 @@ import { businessPhone } from '../data/contact';
   </div>
 </section>
 <style>
-  :global(body) main > .home-closing { padding-block:56px; border-block-start:1px solid var(--itk-border-strong); }
+  :global(body) main > .home-closing { border-block-start:1px solid var(--itk-border-strong); }
   .closing-layout { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(32px,4vw,56px); }
-  .home-closing .eyebrow { margin:0 0 20px; font-size:12px; color:var(--itk-brand-cyan); }
+  .home-closing .eyebrow { margin:0 0 20px; font-size:var(--itk-label); color:var(--itk-brand-cyan); }
   .home-closing h2 { font-size:clamp(36px,4.2vw,60px); line-height:1.08; font-weight:600; max-inline-size:16ch; margin:0 0 24px; text-wrap:balance; scroll-margin-block-start:140px; }
-  .closing-description { color:var(--itk-muted); font-size:16px; max-inline-size:42ch; margin:0; }
+  .closing-description { color:var(--itk-supporting-text,#B8C4D6); font-size:16px; line-height:1.6; max-inline-size:42ch; margin:0; }
   .closing-phone { margin-block-start:28px; }
-  .closing-phone p { color:var(--itk-muted); font-size:14px; margin:0 0 6px; }
+  .closing-phone p { color:var(--itk-supporting-text,#B8C4D6); font-size:14px; line-height:1.6; margin:0 0 6px; }
   .closing-phone a { display:inline-flex; align-items:center; min-block-size:48px; color:var(--itk-text); font-size:22px; }
   .closing-phone a:hover { color:var(--itk-brand-cyan); }
   .closing-phone a:focus-visible { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
   .closing-form-card { min-inline-size:0; padding:28px; background:var(--itk-surface-raised); border:1px solid var(--itk-border-strong); border-radius:var(--itk-radius-lg); }
   @media(max-width:900px) { .closing-layout { grid-template-columns:1fr; gap:28px; } .home-closing h2 { max-inline-size:20ch; } }
-  @media(max-width:600px) { :global(body) main > .home-closing { padding-block:44px; } .closing-form-card { padding:20px; } }
+  @media(max-width:600px) { .closing-form-card { padding:20px; } }
   @media(forced-colors:active) { .closing-form-card { background:Canvas; border-color:CanvasText; } .closing-phone a:focus-visible { outline-color:Highlight; } }
 </style>

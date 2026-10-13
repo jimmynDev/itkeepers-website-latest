@@ -242,3 +242,60 @@ Prompt3. No live inquiry, processor, DNS or deployment action is authorized here
 | V2-DATA-03 | We assess workload, condition and supportability before recommending a purchase. / Keep: Still suitable for the work. / Upgrade: A targeted improvement addresses a bottleneck. / Replace: No longer practical to maintain. / Illustrative examples, not a response-time guarantee or a device diagnosis. | Home / purchasing example and operational note | Current concise-copy request; V2-CONSOLIDATE-04 and existing hypothetical hardware example | Owner-reported purchasing approach; device signals and selected outcome remain Illustrative. No financial savings, independent purchasing, response-time or diagnostic guarantee | Local cleanup authorized; technical assessment/controller unchanged | Jim | 2026-10-13 | Purchasing approach, assessment rules, guarantees or release |
 
 V2-DATA-01 supersedes only the documentation wording in V2-CONSOLIDATE-03; V2-DATA-03 shortens V2-CONSOLIDATE-04 without changing its evidence status. The client-ownership circle remains as previously approved; preservation is not independent proof of legal rights. No unrestricted export, ownership of MSP-created records, retention duration, recovery assurance or data portability is established by this pass.
+
+## 13 October 2026 — V2 testimonial publication guard supersedes pending slots
+
+| ID | Exact wording / affected content | Scope and source | Evidence | Publication approval | Approver | Date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-PROOF-20261013 | WHAT CLIENTS SAY / What our clients say. | Homepage ClientProof; Jim's current testimonials/alignment request | Heading only; no supplied approved client quote, identity or media | Local implementation authorized; heading/section omitted when no approved content exists. Actual quote/media and attribution publication require explicit separate confirmation before enabling flags | Jim | 2026-10-13 | Adding or changing quotes, names, roles, companies or media; production release |
+
+This request supersedes P3-PROOF-01's historical permission for local pending
+placeholders. There are now no published pending slots, generated claims or
+invented client identities. `src/data/client-proof.ts` holds empty editable
+arrays. Quote approval covers exact text; `attribution.publicationApproved`
+covers every populated attribution field separately. Existing complete approved
+media remains eligible under `videoReady`; no approved media was supplied.
+B15 remains open for client content and consent. Clearly marked synthetic
+render/layout test strings are held outside public data/routes/build output
+and are not evidence or authorized client testimonials.
+
+## 13 October 2026 — Four owner-supplied testimonial excerpts
+
+The current request supersedes the empty-written-data state in
+V2-PROOF-20261013. Jim explicitly supplied the following exact excerpts and
+company attributions for the V2 local homepage review. Each data entry is marked
+excerpt:true. These are attributed client statements supplied by the owner,
+not independently audited performance findings. No quotation was shortened,
+paraphrased, embellished or converted into unattributed marketing copy.
+
+| Claim ID | Exact quote | Exact company attribution | Scope/source | Evidence status | Publication approval | Approver/date | Review trigger |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| V2-QUOTE-SLIDE | Amazing service! The team is fast, reliable, and always ready to help. They make IT simple and stress-free — highly recommended! | Slide Designers | Home ClientProof / Jim's supplied excerpt | Owner-supplied attributed excerpt; not independently audited | Explicitly authorized exact wording and company attribution for local V2 review; no release authorized | Jim / 2026-10-13 | Quote/attribution change or release |
+| V2-QUOTE-PFC | Beyond their reliable support, ITKeepers has played a key role in integrating advanced AI tools into our systems, significantly boosting our efficiency and productivity. | PFC International SAL | Home ClientProof / Jim's supplied excerpt | Owner-supplied attributed excerpt; not independently audited | Explicitly authorized exact wording and company attribution for local V2 review; no release authorized | Jim / 2026-10-13 | Quote/attribution change or release |
+| V2-QUOTE-IMA | The team is professional, responsive, and always ready to support with tailored solutions. I've appreciated the smooth communication and the consistency in delivering what we need. | International Maritime Academy | Home ClientProof / Jim's supplied excerpt | Owner-supplied attributed excerpt; not independently audited | Explicitly authorized exact wording and company attribution for local V2 review; no release authorized | Jim / 2026-10-13 | Quote/attribution change or release |
+| V2-QUOTE-MSAD | Their swift response to any emergency - even to the slightest issue - proves how professional and dedicated the team is. | MSAD — Customs Clearance Agency | Home ClientProof / Jim's supplied excerpt | Owner-supplied attributed excerpt; not independently audited | Explicitly authorized exact wording and company attribution for local V2 review; no release authorized | Jim / 2026-10-13 | Quote/attribution change or release |
+
+No individual names, roles, photos, avatars, logos or video assets were supplied
+or added. B15 is resolved for these exact written excerpts/companies within the
+requested local review; future media remains open. The emergency wording stays
+inside the supplied MSAD quote and is not an ITKeepers support-coverage guarantee.
+
+### 13 October 2026 — Owner-requested homepage note removal
+
+Jim's screenshot follow-up explicitly removes “Illustrative examples, not a
+response-time guarantee or a device diagnosis.” from Home / HowWeOperate.
+This supersedes earlier local approval requiring that exact paragraph in this
+section. The workflow's existing example description and qualitative explanatory
+copy remain. No new response time, coverage, outcome or device claim is added.
+Local review only; no release authorized.
+
+## 13 October 2026 — V2 footer contact authorization
+
+| ID | Exact wording | Affected pages | Source | Evidence status | Publication approval | Approver | Approval date | Review trigger |
+|---|---|---|---|---|---|---|---|---|
+| V2-FOOTER-SUPPORT-20261013 | support@itkeepers.com; mailto:support@itkeepers.com | Shared footer | Jim's direct reply to footer contact question | Verified: owner supplied; mailbox delivery not tested | Requested local implementation; no deployment authorized | Jim | 2026-10-13 | Mailbox ownership/routing change |
+| V2-FOOTER-PHONE-20261013 | +961 81 816 761; tel:+96181816761 | Shared footer | Jim requested the same previously approved number; emergencyPhone/businessPhone shared data | Verified: owner-confirmed; call routing not tested | Requested local implementation; no availability/SLA claim or deployment authorized | Jim | 2026-10-13 | Number/contact ownership change |
+
+## 13 October 2026 — Testimonial carousel presentation
+
+Owner's carousel request supersedes the2x2 card presentation: WHAT CLIENTS SAY / Clients, in their words. / exactly one quote. All four approved quote excerpts/company attributions above remain verbatim and are not new marketing claims. Later direct request in Redesign ITKeepers footer removes the separate pause button; retained. Automatic10second rotation is preserved with persistent stop on any arrow/dot activation, hover/focus/hidden-tab pauses and reduced-motion support. No photos/logos/media invented. Local visual review only; no release authorized. Implementation/validation: docs/V2_TESTIMONIAL_CAROUSEL.md.

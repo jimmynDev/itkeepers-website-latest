@@ -22,7 +22,7 @@ test('homepage presents one people section and one operating explanation before 
   assert.match(main, /Clear records\. Honest advice\./);
   for (const value of ['infrastructure records, configurations and decisions', 'Access, ownership, export and handover are agreed with you.', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
   assert.doesNotMatch(main, /knowledge-outcome|class="operate-details"/);
-  assert.match(main, /Illustrative examples, not a response-time guarantee or a device diagnosis/);
+  assert.doesNotMatch(main, /Illustrative examples, not a response-time guarantee or a device diagnosis/);
   assert.match(main, /href="\/contact\?type=review"[^>]*>Book a free IT review/);
   assert.equal((main.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!readdirSync(new URL('../dist/_astro', import.meta.url)).some(name => name.startsWith('TeamThread.')));
@@ -46,7 +46,7 @@ test('documentation and hardware examples live once on Services with the origina
   assert.match(records, /YOUR RECORDS, YOUR CALL/);
   assert.match(records, /Your records stay yours\./);
   assert.match(records, /Honest hardware advice\./);
-  assert.match(records, /Examples are illustrative, not a response-time guarantee or a device diagnosis\./);
+  assert.doesNotMatch(records, /Examples are illustrative, not a response-time guarantee or a device diagnosis\./);
   assert.doesNotMatch(records, /<button\b|<a\b|tabindex=|role="button"/);
 });
 
