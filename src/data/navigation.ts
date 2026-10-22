@@ -20,10 +20,10 @@ export const navigation: NavigationCategory[] = [
       ] },
       { label: 'Projects & Advisory', items: [
         { title: 'Technology Planning', description: 'Equipment lifecycle decisions with your business context in view.', href: '/services/#operate-decisions-title' },
-        { title: 'Free IT Review', description: 'Start a conversation about your environment and priorities.', href: '/contact?type=review' },
+        { title: 'Free IT Review', description: 'Start a conversation about your environment and priorities.', href: '/contact/?type=review' },
       ] },
     ],
-    feature: { eyebrow: 'Free IT Review', title: 'Know where your IT stands.', description: 'Get a clearer view of your infrastructure, security and operational priorities.', label: 'Book a free IT review', href: '/contact?type=review' },
+    feature: { eyebrow: 'Free IT Review', title: 'Know where your IT stands.', description: 'Get a clearer view of your infrastructure, security and operational priorities.', label: 'Book a free IT review', href: '/contact/?type=review' },
   },
   {
     id: 'security', label: 'Cybersecurity', href: '/services/cybersecurity/', overview: 'Explore Cybersecurity',
@@ -59,13 +59,13 @@ export const navigation: NavigationCategory[] = [
     groups: [
       { label: 'AI for Business', items: [
         { title: 'AI & Automation', description: 'Explore a sample business workflow with human review.', href: '/services/ai-automation/' },
-        { title: 'AI Governance', description: 'A practical starting point for permitted uses, data access and review.', href: '/resources/ai-governance' },
+        { title: 'AI Governance', description: 'A practical starting point for permitted uses, data access and review.', href: '/resources/ai-governance/' },
       ] },
       { label: 'Build & Assess', items: [
         { title: 'Workflow Automation', description: 'Plan a repeatable task, its inputs and who checks the result.', href: '/services/ai-automation/#ai-automation-details' },
       ] },
     ],
-    feature: { eyebrow: 'AI Governance', title: 'AI is already inside your business.', description: "Make sure your data isn't leaving with it.", label: 'View the AI Governance Playbook', href: '/resources/ai-governance', playbook: true },
+    feature: { eyebrow: 'AI Governance', title: 'AI is already inside your business.', description: "Make sure your data isn't leaving with it.", label: 'View the AI Governance Playbook', href: '/resources/ai-governance/', playbook: true },
   },
   {
     id: 'digital', label: 'Digital', href: '/services/web-design-hosting/', overview: 'Explore Digital Services',
@@ -83,20 +83,20 @@ export const navigation: NavigationCategory[] = [
     feature: { eyebrow: 'Digital Services', title: 'Your website is business infrastructure.', description: 'From initial design through hosting, security and ongoing maintenance, with an agreed scope.', label: 'Explore Web Design & Hosting', href: '/services/web-design-hosting/' },
   },
   {
-    id: 'why', label: 'Why ITKeepers', href: '/#who-we-are', overview: 'Discover ITKeepers',
+    id: 'why', label: 'Why ITKeepers', href: '/#why-itkeepers', overview: 'Discover ITKeepers',
     groups: [
       { label: 'Our Approach', items: [
-        { title: 'Why ITKeepers', description: 'How our operating model is different.', href: '/#who-we-are' },
-        { title: 'How We Work', description: 'Monitoring, escalation, documentation and follow-up.', href: '/how-we-work' },
-        { title: 'Our Team', description: 'Your IT person is a team.', href: '/about' },
+        { title: 'Why ITKeepers', description: 'How our operating model is different.', href: '/#why-itkeepers' },
+        { title: 'How We Work', description: 'Monitoring, escalation, documentation and follow-up.', href: '/how-we-work/' },
+        { title: 'Our Team', description: 'Your IT person is a team.', href: '/about/' },
         { title: 'Technology Ecosystem', description: 'The platforms and technologies behind our operations.', href: '/#technology' },
       ] },
       { label: 'Resources', items: [
-        { title: 'IT Keepers Pulse', description: 'Technology visibility for your organization.', href: '/it-keepers-pulse' },
-        { title: 'AI Governance Playbook', description: 'A practical guide to business AI policy and human review.', href: '/resources/ai-governance' },
-        { title: 'Contact', description: 'Talk directly with our team.', href: '/contact' },
+        { title: 'IT Keepers Pulse', description: 'Client IT visibility platform under development.', href: '/it-keepers-pulse/' },
+        { title: 'AI Governance Playbook', description: 'A practical guide to business AI policy and human review.', href: '/resources/ai-governance/' },
+        { title: 'Contact', description: 'Talk directly with our team.', href: '/contact/' },
       ] },
     ],
-    feature: { eyebrow: 'The ITKeepers Approach', title: 'Your IT person is a team.', description: "Engineers who know your environment, backed by broader technical expertise when it's needed.", label: 'Meet ITKeepers', href: '/#who-we-are' },
+    feature: { eyebrow: 'The ITKeepers Approach', title: 'Your IT person is a team.', description: "Engineers who know your environment, backed by broader technical expertise when it's needed.", label: 'Meet ITKeepers', href: '/#why-itkeepers' },
   },
 ];

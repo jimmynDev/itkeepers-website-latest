@@ -2,7 +2,7 @@ import { readFile, mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { transform } from '@astrojs/compiler';
+import { transform } from '@astrojs/compiler-rs';
 import ts from 'typescript';
 import { experimental_AstroContainer } from 'astro/container';
 

@@ -5,4 +5,21 @@ dist/
 .codex/
 .env
 .env.*
+.dev.vars
+.dev.vars.*
 structure.zip
+
+# Generated private workers.dev staging artifact; production dist stays separate.
+/dist-staging/
+
+# Local evidence and owner-review reports are not release source inputs.
+/ITKeepers_V2_AI_Audit.zip
+/AI_AUDIT_README.md
+/OVERNIGHT_CHANGELOG.md
+/OVERNIGHT_PRIVATE_PROPOSALS.md
+/OVERNIGHT_V2_IMPROVEMENT_REPORT.md
+/FINAL_RELEASE_READINESS.md
+/V2_PHASE7_FINAL_REPORT.md
+/V2_PHASE8_PUBLICATION_READINESS.md
+__pycache__/
+*.pyc

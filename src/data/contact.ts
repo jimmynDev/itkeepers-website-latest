@@ -6,5 +6,11 @@ export const businessPhone = emergencyPhone;
 /** General business email supplied and authorized by Jim on 2026-10-12. */
 export const contactEmail = { display:'info@itkeepers.com', href:'mailto:info@itkeepers.com' } as const;
 
+/** Owner confirmed this fixed form recipient on 2026-10-20 (Phase 5.4).
+ * Separate from displayed contact details: no visitor or marketing-email change can reroute submissions.
+ * Cloudflare destination verification and controlled inbox receipt are separate release gates.
+ */
+export const contactFormRecipient = 'info@itkeepers.com' as const;
+
 /** Footer support email approved by Jim on 2026-10-13. */
 export const supportEmail = { display:'support@itkeepers.com', href:'mailto:support@itkeepers.com' } as const;

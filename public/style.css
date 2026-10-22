@@ -17,6 +17,8 @@
   --focus: var(--s);
 }
 body { background: var(--bg); color: var(--fg); }
+/* Long page titles must reflow when visitors increase text spacing or size. */
+main h1 { overflow-wrap: anywhere; }
 main > section {
   background: var(--bg);
   color: var(--fg);
@@ -210,8 +212,10 @@ main > section { padding-inline-start: max(var(--layout-gutter), env(safe-area-i
 :root { --journey-surface: #061b3b; --wash-cyan: 1, 190, 255; --wash-blue: 30, 90, 168; }
 .home-page { background: var(--journey-surface); isolation: isolate; }
 .home-page #main-content { position: relative; z-index: 1; }
-.home-pointer-light { position: fixed; inset: 0 auto auto 0; inline-size: 1000px; block-size: 1000px; z-index: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, rgba(var(--wash-cyan), .24) 0%, rgba(var(--wash-cyan), .13) 28%, rgba(var(--wash-cyan), .04) 48%, transparent 70%); }
-.home-pointer-light[data-tone="blue"] { background: radial-gradient(ellipse at center, rgba(var(--wash-blue), .42), rgba(var(--wash-blue), .16) 35%, transparent 70%); }
+/* This viewport layer sits above main's opaque section surfaces. Its clipping
+   applies only at the viewport edge, never at an individual chapter boundary. */
+.home-pointer-layer { position:fixed; inset:0; z-index:2; overflow:hidden; pointer-events:none; }
+.home-pointer-light { position:absolute; inset:0 auto auto 0; inline-size:1000px; block-size:1000px; pointer-events:none; opacity:0; background:radial-gradient(ellipse at center,rgba(66,186,235,.12) 0%,rgba(64,113,181,.07) 28%,rgba(66,186,235,.03) 48%,transparent 70%); }
 .home-page main > section { --bg: var(--journey-surface); --fg: var(--text-light); --muted: var(--text-dark-muted); --accent: var(--s); --focus: var(--s); color: var(--fg); background: transparent; }
 .home-page .home-hero { padding-block: 72px 0; }
 .home-page .home-hero h1 { font-size: clamp(50px, 8vw, 112px); }

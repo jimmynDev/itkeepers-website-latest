@@ -1,0 +1,57 @@
+<itk-particle-logo class="particle-logo is-idle" data-animation="particle-logo">
+  <div class="particle-stage" data-animation-visual aria-hidden="true">
+    <!-- The loading/reduced-motion surface is particles too; no solid logo layer. -->
+    <img class="particle-fallback" src="/assets/itkeepers-particle-k-fallback.svg" width="740" height="830" alt="" loading="lazy" decoding="async" />
+    <canvas aria-hidden="true"></canvas>
+  </div>
+  <div class="particle-controls">
+    <button type="button" data-animation-toggle hidden>Pause animation</button>
+  </div>
+</itk-particle-logo>
+
+<style>
+  .particle-logo { display:block; position:relative; width:100%; min-width:0; max-width:520px; margin-inline:auto; }
+  .particle-stage { position:relative; width:100%; aspect-ratio:1; isolation:isolate; overflow:hidden; border-radius:var(--itk-radius-lg,24px); background:radial-gradient(ellipse at 50% 48%,rgba(38,125,191,.12),transparent 68%); }
+  .particle-fallback { position:absolute; width:62%; height:62%; top:18%; left:19%; display:block; object-fit:contain; animation:none; transition:none; }
+  canvas { position:absolute; inset:0; display:block; width:100%; height:100%; pointer-events:none; animation:none; transition:none; }
+  .particle-controls { min-height:36px; display:flex; justify-content:center; align-items:center; }
+  [data-animation-toggle] { appearance:none; font:400 12px/1.5 var(--font-sans,system-ui,sans-serif); color:var(--itk-muted,#b8c4d6); background:transparent; border:0; border-radius:4px; padding:8px 12px; cursor:pointer; }
+  [data-animation-toggle][hidden] { display:none; }
+  [data-animation-toggle]:focus-visible { outline:2px solid var(--itk-brand-cyan,#42baeb); outline-offset:2px; }
+  @media(max-width:900px) { .particle-logo { max-width:400px; } }
+  @media(prefers-reduced-motion:reduce), (forced-colors:active) {
+    canvas { visibility:hidden; }
+    .particle-controls { visibility:hidden; }
+  }
+</style>
+
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  import { createParticleLogo } from '../../scripts/particle-logo';
+
+  class ITKParticleLogo extends HTMLElement {
+    private unmount?: () => void;
+    private renderer?: ReturnType<typeof createParticleLogo>;
+    connectedCallback() {
+      if (this.unmount) return;
+      this.unmount = mountAnimation(this, () => {
+        this.renderer?.dispose();
+        this.renderer = createParticleLogo(this);
+        return this.renderer;
+      }, { loop: true });
+      window.addEventListener('pagehide', this.pagehide);
+    }
+    private pagehide = (event: PageTransitionEvent) => {
+      if (!event.persisted) this.cleanup();
+    };
+    disconnectedCallback() { this.cleanup(); }
+    private cleanup() {
+      this.unmount?.();
+      this.renderer?.dispose();
+      this.unmount = undefined;
+      this.renderer = undefined;
+      window.removeEventListener('pagehide', this.pagehide);
+    }
+  }
+  if (!customElements.get('itk-particle-logo')) customElements.define('itk-particle-logo', ITKParticleLogo);
+</script>

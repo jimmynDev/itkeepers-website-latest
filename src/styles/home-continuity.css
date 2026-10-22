@@ -10,9 +10,6 @@ body.home-page .digital-transition-zone::before {
   margin-block-start: 0;
   background: var(--itk-bg);
 }
-:root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] {
-  background: var(--surface-light);
-}
 body.home-page #offering-web-design-hosting {
   background: var(--itk-bg);
   border-block: 0;

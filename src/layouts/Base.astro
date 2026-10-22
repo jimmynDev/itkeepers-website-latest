@@ -3,31 +3,16 @@ import EmergencyAction from '../components/EmergencyAction.astro';
 import { emergencyPhone, supportEmail } from '../data/contact';
 import PrimaryNavigation from '../components/navigation/PrimaryNavigation.astro';
 import '../styles/mega-navigation.css';
-const {
-  title = 'ITKeepers | Your IT person is a team.',
-  description = 'Your IT person is a team. Familiar engineers, shared expertise, documented context and follow-up for your business.'
-} = Astro.props;
-
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://itkeepers.com');
-const organizationUrl = new URL('/', Astro.site ?? 'https://itkeepers.com').href;
-const organizationId = `${organizationUrl}#organization`;
-const entities: Record<string, unknown>[] = [{
-  '@type': 'Organization',
-  '@id': organizationId,
-  name: 'ITKeepers',
-  url: organizationUrl
-}];
-if (Astro.url.pathname === '/') {
-  entities.push({
-    '@type': 'WebSite',
-    '@id': `${organizationUrl}#website`,
-    name: 'ITKeepers',
-    description,
-    url: organizationUrl,
-    publisher: { '@id': organizationId }
-  });
-}
-const schema = { '@context': 'https://schema.org', '@graph': entities };
+import { canonicalPath, pages, siteUrl, structuredData } from '../data/seo';
+import { sharedStyles } from '../data/shared-styles';
+import logo192 from '../assets/itkeepers-logo-192.webp?url';
+import logo384 from '../assets/itkeepers-logo-384.webp?url';
+const path = canonicalPath(Astro.url.pathname);
+const page = pages[path];
+if (!page) throw new Error(`Missing SEO metadata for ${path}`);
+const { title, description } = page;
+const canonical = `${siteUrl}${path}`;
+const schema = structuredData(path, page);
 const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
 ---
 <!doctype html>
@@ -37,55 +22,55 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={page.index === false ? 'noindex, follow' : 'index, follow'} />
     <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico?v=itk-symbol-3" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=itk-symbol-3" />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg?v=itk-symbol-3" />
     <link rel="canonical" href={canonical} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={page.articleDate ? 'article' : 'website'} />
     <meta property="og:site_name" content="ITKeepers" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${siteUrl}/assets/itkeepers-logo.png`} />
+    <meta property="og:image:alt" content="ITKeepers logo" />
+    <meta property="og:image:width" content="1747" />
+    <meta property="og:image:height" content="289" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/assets/itkeepers-logo.png`} />
+    <meta name="twitter:image:alt" content="ITKeepers logo" />
 
     <script type="application/ld+json" set:html={schemaJson}></script>
     <slot name="head" />
 
     {Astro.url.pathname === '/' && <script is:inline src="/hero-theme-init.js"></script>}
 
-    <link rel="stylesheet" href="/style.css" />
-    <link rel="stylesheet" href="/mobile.css" />
-    {Astro.url.pathname === '/' && <link rel="stylesheet" href="/services-theme.css" />}
-    <link rel="stylesheet" href="/visual-system-tokens.css" />
-    <link rel="stylesheet" href="/visual-system.css" />
-    <link rel="stylesheet" href="/emergency.css" />
-    <link rel="stylesheet" href="/pulse-navigation.css" />
-    <link rel="stylesheet" href="/supporting-copy.css" />
+    <link rel="stylesheet" href={Astro.url.pathname === '/' ? sharedStyles.home.href : sharedStyles.inner.href} />
   </head>
   <body class={Astro.url.pathname === '/' ? 'home-page' : undefined}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     {Astro.url.pathname === '/' && <svg class="logo-theme-defs" aria-hidden="true" width="0" height="0"><defs><filter id="itkeepers-logo-day" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.043137 0 0 0 0 -0.827451 1 0 0 0 -0.627451 0 1 0 0 0 0 0 1 0" /></filter></defs></svg>}
     <div class="header-region">
     <header class="site-header" data-mega-header>
-      <a class="site-brand" href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" /></a>
+      <a class="site-brand" href="/" aria-label="ITKeepers home"><img src={logo384} srcset={`${logo192} 192w, ${logo384} 384w`} sizes="(max-width: 1439px) 110px, 190px" alt="ITKeepers" width="1747" height="289" /></a>
       <PrimaryNavigation />
       <EmergencyAction />
-      <span class="header-cta-actions"><a class="btn header-primary-cta" href="/contact">Talk to our team</a></span>
+      <span class="header-cta-actions"><a class="btn header-primary-cta" href="/contact/">Talk to our team</a></span>
       {Astro.url.pathname === '/' && <button class="hero-theme-toggle" type="button" data-hero-theme-toggle data-theme-control-paused aria-label="Switch to day mode" title="Switch to day mode" aria-pressed="true" hidden><span data-theme-icon aria-hidden="true">☾</span></button>}
       <EmergencyAction placement="mobile" />
       <PrimaryNavigation mobile />
     </header>
     </div>
-    {Astro.url.pathname === '/' && <div class="home-pointer-light" data-tone="cyan" aria-hidden="true"></div>}
+    {Astro.url.pathname === '/' && <div class="home-pointer-layer" aria-hidden="true"><div class="home-pointer-light"></div></div>}
     <main id="main-content" tabindex="-1"><slot /></main>
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-columns">
           <div class="footer-brand">
-            <a href="/" aria-label="ITKeepers home"><img src="/assets/itkeepers-logo.png" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a>
+            <a href="/" aria-label="ITKeepers home"><img src={logo384} srcset={`${logo192} 192w, ${logo384} 384w`} sizes="150px" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a>
             <p>Your IT person is a team.</p>
           </div>
           <nav class="footer-group" aria-labelledby="footer-services">
@@ -113,7 +98,8 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
             <h2 id="footer-resources">Resources</h2>
             <ul>
               <li><a href="/resources/ai-governance/">AI Governance Playbook</a></li>
-              <li><a href="/contact/">Free IT Review</a></li>
+              <li><a href="/blog/">Blog Archive</a></li>
+              <li><a href="/contact/?type=review">Free IT Review</a></li>
               <li><a href="/services/">All Services</a></li>
             </ul>
           </nav>

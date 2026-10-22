@@ -44,7 +44,8 @@ test('the form remains visible without an endpoint and offers a truthful email h
     assert.match(html, /<form\b[^>]*data-inquiry-form/);
     assert.match(html, /name="type" value="(?:general|review)"/);
     if (/data-inquiry-delivery="backend"/.test(html)) {
-      assert.match(html, /data-inquiry-success/);
+      assert.match(html, /action="\/api\/contact"/);
+      assert.doesNotMatch(html, /data-inquiry-success/);
     } else {
       assert.match(html, /action="mailto:info@itkeepers\.com"/);
       assert.match(html, /Continue to email/);
@@ -71,9 +72,9 @@ test('form source requires name, email and message; company and phone remain opt
 });
 
 test('the review path uses type=review throughout site entry points', () => {
-  assert.match(hero, /href="\/contact\?type=review"/);
-  assert.match(navigation, /\/contact\?type=review/);
-  assert.doesNotMatch(hero + navigation, /\/contact\?intent=review/);
+  assert.match(hero, /href="\/contact\/\?type=review"/);
+  assert.match(navigation, /\/contact\/\?type=review/);
+  assert.doesNotMatch(hero + navigation, /\/contact\/\?intent=review/);
   assert.match(formScript, /searchParams\.get\('type'\)/);
   assert.match(formScript, /I'd like a free IT review\./);
   assert.match(formScript, /intentInput\.value = intent/);
@@ -111,15 +112,15 @@ test('inline errors are accessible and required/optional limits remain enforced'
   assert.match(formCss, /\.inquiry-error,\.inquiry-status \{[^}]*font-size:14px/);
 });
 
-test('backend success requires confirmed JSON and failure preserves the form for retry', () => {
+test('contact API remains fail-closed without durable storage or delivery', () => {
   assert.match(formScript, /fetch\(endpoint/);
   assert.match(formScript, /new FormData\(form\)/);
-  assert.match(formScript, /response\.ok && isJson/);
-  assert.match(formScript, /result\.ok !== true/);
-  assert.match(formScript, /live\.hidden = true/);
-  assert.match(formScript, /success\.hidden = false/);
-  assert.match(formScript, /We could not confirm delivery/);
-  assert.doesNotMatch(formScript, /unavailable\.hidden|Your message was not sent/);
+  assert.match(formScript, /inquiryEndpoint\(action\) === '\/api\/contact'/);
+  assert.match(formScript, /submission_not_stored/);
+  assert.match(formScript, /Your message has not been saved or sent/);
+  assert.match(formScript, /We could not confirm acceptance/);
+  assert.doesNotMatch(formScript, /live\.hidden = true|success\.hidden = false/);
+  assert.doesNotMatch(formTemplate, /data-inquiry-success|Accepted for sending|email service accepted/);
   assert.doesNotMatch(formScript, /localStorage|sessionStorage|innerHTML|sendBeacon|XMLHttpRequest/);
 });
 

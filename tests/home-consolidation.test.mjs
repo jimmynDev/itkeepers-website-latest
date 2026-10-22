@@ -23,7 +23,7 @@ test('homepage presents one people section and one operating explanation before 
   for (const value of ['infrastructure records, configurations and decisions', 'Access, ownership, export and handover are agreed with you.', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
   assert.doesNotMatch(main, /knowledge-outcome|class="operate-details"/);
   assert.doesNotMatch(main, /Illustrative examples, not a response-time guarantee or a device diagnosis/);
-  assert.match(main, /href="\/contact\?type=review"[^>]*>Book a free IT review/);
+  assert.match(main, /href="\/contact\/\?type=review"[^>]*>Book a free IT review/);
   assert.equal((main.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!readdirSync(new URL('../dist/_astro', import.meta.url)).some(name => name.startsWith('TeamThread.')));
 });
@@ -66,7 +66,7 @@ test('Playbook keeps its corner feature and a script-free resource fallback with
   assert.match(source, /<noscript><aside class="playbook-reference"[\s\S]*?<\/aside><\/noscript>/);
   assert.equal((source.match(/class="playbook-card"/g) ?? []).length, 1);
   assert.match(source, /data-event="ai-playbook-dismiss"/);
-  assert.match(source, /href="\/resources\/ai-governance"/);
+  assert.match(source, /href="\/resources\/ai-governance\/"/);
   assert.match(source, /itkeepers-ai-playbook-cover\.webp/);
   const index = read('src/pages/index.astro');
   assert.match(index, /hasApprovedClientProof && <ClientProof/);

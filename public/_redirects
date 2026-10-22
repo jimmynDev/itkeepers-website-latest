@@ -1,0 +1,30 @@
+# Verified legacy URLs; rationale and evidence in redirects.csv and docs/V2_TECHNICAL_SEO_AUDIT.md.
+# Retain for at least one year after production migration. Exact rules only; no catch-all.
+/solutions/1 /services/cybersecurity/ 301
+/solutions/1/ /services/cybersecurity/ 301
+/solutions/2 /services/microsoft-cloud/ 301
+/solutions/2/ /services/microsoft-cloud/ 301
+/solutions/3 /services/managed-it/ 301
+/solutions/3/ /services/managed-it/ 301
+/solutions/4 /services/networks-infrastructure/ 301
+/solutions/4/ /services/networks-infrastructure/ 301
+/solutions/5 /services/microsoft-cloud/ 301
+/solutions/5/ /services/microsoft-cloud/ 301
+/solutions/6 /services/web-design-hosting/ 301
+/solutions/6/ /services/web-design-hosting/ 301
+/solutions/7 /services/ai-automation/ 301
+/solutions/7/ /services/ai-automation/ 301
+/managed-it /services/managed-it/ 301
+/managed-it/ /services/managed-it/ 301
+/cloud-services /services/microsoft-cloud/ 301
+/cloud-services/ /services/microsoft-cloud/ 301
+/security-solutions /services/cybersecurity/ 301
+/security-solutions/ /services/cybersecurity/ 301
+/email-management /services/microsoft-cloud/ 301
+/email-management/ /services/microsoft-cloud/ 301
+/computer-networking /services/networks-infrastructure/ 301
+/computer-networking/ /services/networks-infrastructure/ 301
+/server-management /services/networks-infrastructure/ 301
+/server-management/ /services/networks-infrastructure/ 301
+/contact-us /contact/ 301
+/contact-us/ /contact/ 301

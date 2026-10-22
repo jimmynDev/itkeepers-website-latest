@@ -1,20 +1,20 @@
-import { normalizeContactIntent, contactSubmitLabel, contactFieldError, validateServiceInterests, composeInquiryEmail, type InquiryField } from '../data/inquiry';
+import { inquiryEndpoint, normalizeContactIntent, contactSubmitLabel, contactFieldError, validateServiceInterests, composeInquiryEmail, type InquiryField } from '../data/inquiry';
 import { contactEmail } from '../data/contact';
+import { createInquiryVerification } from './inquiry-verification';
 export { normalizeContactIntent, contactSubmitLabel, contactFieldError, validateServiceInterests, inquiryLimits as contactLimits } from '../data/inquiry';
 
-/** The endpoint must return application/json with { ok: true } after durable delivery. */
+/** Contact validation has no durable sink yet; never present API responses as receipt. */
 export function initializeContactForms(scope: ParentNode = document): void {
   scope.querySelectorAll<HTMLFormElement>('form[data-inquiry-form]').forEach(form => {
     if (form.dataset.inquiryInitialized) return;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const status = form.querySelector<HTMLElement>('[data-inquiry-status]');
     const live = form.closest<HTMLElement>('.inquiry-widget')?.querySelector<HTMLElement>('[data-inquiry-live]');
-    const success = form.closest<HTMLElement>('.inquiry-widget')?.querySelector<HTMLElement>('[data-inquiry-success]');
     const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.inquiry-field input, .inquiry-field textarea')];
     const chips = [...form.querySelectorAll<HTMLButtonElement>('button[data-interest]')];
     if (!button || !status || !live) return;
     const action = form.getAttribute('action');
-    const endpoint = form.dataset.inquiryDelivery === 'backend' && action && /^\/(?!\/)[a-zA-Z0-9/_-]+$/.test(action) && action !== '/contact' ? action : null;
+    const endpoint = form.dataset.inquiryDelivery === 'backend' && inquiryEndpoint(action) === '/api/contact' ? '/api/contact' : null;
 
     const compact = form.dataset.inquiryMode === 'review';
     const intent = compact ? 'review' : normalizeContactIntent(new URL(window.location.href).searchParams.get('type'));
@@ -27,8 +27,12 @@ export function initializeContactForms(scope: ParentNode = document): void {
     button.textContent = endpoint ? contactSubmitLabel(intent) : 'Continue to email';
 
     const controller = new AbortController();
+    const verification = endpoint ? createInquiryVerification(form, status) : null;
+    let pendingRequest: { data: string; id: string } | undefined;
     const options = { signal: controller.signal };
     form.dataset.inquiryInitialized = 'true';
+    // Backend native submission remains disabled without JS; direct contacts stay usable.
+    button.disabled = false;
 
     const validate = (field: HTMLInputElement | HTMLTextAreaElement): boolean => {
       const name = field.name as InquiryField;
@@ -87,6 +91,17 @@ export function initializeContactForms(scope: ParentNode = document): void {
         window.location.assign(composeInquiryEmail(contactEmail.display, values, intent, data.getAll('interests')));
         return;
       }
+      const token = verification?.token();
+      if (!token) {
+        status.textContent = 'Please complete security verification, or use the email or telephone contact options.';
+        status.focus();
+        return;
+      }
+      const payload = new FormData(form);
+      const fingerprint = JSON.stringify([...payload].filter(([name]) => !['cf-turnstile-response', 'request_id'].includes(name)));
+      if (!pendingRequest || pendingRequest.data !== fingerprint) pendingRequest = { data: fingerprint, id: crypto.randomUUID() };
+      payload.set('request_id', pendingRequest.id);
+      payload.set('cf-turnstile-response', token);
       status.textContent = 'Sending your message…';
       button.disabled = true;
       form.setAttribute('aria-busy', 'true');
@@ -95,25 +110,31 @@ export function initializeContactForms(scope: ParentNode = document): void {
       const abortRequest = (): void => requestController.abort();
       controller.signal.addEventListener('abort', abortRequest, { once: true });
       const timeout = window.setTimeout(abortRequest, 15000);
+      let failureMessage = 'We could not confirm acceptance. Please contact our team by email or telephone before resending.';
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
-          body: new FormData(form),
+          body: payload,
           headers: { Accept: 'application/json' },
           credentials: 'same-origin',
           redirect: 'error',
           signal: requestController.signal
         });
         const isJson = response.headers.get('content-type')?.toLowerCase().includes('application/json');
-        const result: unknown = response.ok && isJson ? await response.json() : null;
-        if (!response.ok || !result || typeof result !== 'object' || !('ok' in result) || result.ok !== true || !success) throw new Error('Delivery not confirmed');
-        live.hidden = true;
-        success.hidden = false;
-        status.textContent = '';
-        success.focus?.();
+        const result: unknown = isJson ? await response.json() : null;
+        if (response.status === 429) failureMessage = 'Too many requests. Please wait or use the email or telephone contact options.';
+        if (response.status === 400) failureMessage = 'We could not verify your request. Please check your details and complete security verification again.';
+        if (response.status === 503 && result && typeof result === 'object' && 'code' in result
+          && ['contact_unavailable', 'submission_not_stored'].includes(String(result.code))) {
+          failureMessage = 'Online submissions are unavailable. Your message has not been saved or sent. Please use email or telephone.';
+        }
+        // Even a stray 2xx/legacy email response cannot hide the form or claim receipt.
+        // Add success handling only alongside an approved durable storage/delivery contract.
+        throw new Error('Submission not confirmed');
       } catch {
         if (controller.signal.aborted) return;
-        status.textContent = 'We could not confirm delivery. Please try again or contact our team using the contact details.';
+        verification?.reset();
+        status.textContent = failureMessage;
         status.focus();
       } finally {
         window.clearTimeout(timeout);
@@ -122,7 +143,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
         button.disabled = false;
       }
     }, options);
-    document.addEventListener('astro:before-swap', () => controller.abort(), { once: true });
+    document.addEventListener('astro:before-swap', () => { controller.abort(); verification?.dispose(); }, { once: true });
   });
 }
 

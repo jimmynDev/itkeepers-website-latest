@@ -1,0 +1,29 @@
+# Separate public-link personal-account preview. Never use production configuration.
+name = "itkeepers-v2-staging"
+main = "worker/staging.ts"
+compatibility_date = "2026-09-29"
+send_metrics = false
+workers_dev = true
+preview_urls = false
+routes = []
+
+[build]
+command = "npm run build:staging"
+
+[vars]
+# Only the primary workers.dev hostname may serve this public preview.
+STAGING_HOSTNAME = "itkeepers-v2-staging.jimnassar99.workers.dev"
+CONTACT_VALIDATION_ENABLED = "false"
+CONTACT_DELIVERY_ENABLED = "false"
+
+[assets]
+directory = "./dist-staging"
+binding = "ASSETS"
+# Apply hostname, noindex and contact controls to every request.
+run_worker_first = true
+
+[observability]
+enabled = false
+
+# Intentionally NO account/zone ID, custom domain, Access, DO/migration, email,
+# database, service binding, cron or secret.

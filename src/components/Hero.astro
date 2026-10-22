@@ -2,9 +2,8 @@
 import HeroHeadline from './HeroHeadline.astro';
 ---
 <section class="hero home-hero" aria-labelledby="home-title">
-  <div class="hero-day-light" aria-hidden="true"></div>
   <div class="hero-heading"><HeroHeadline /></div>
-  <div class="hero-bottom"><p class="lead">Familiar engineers. Shared context. A whole team behind the work.</p><a class="btn hero-cta" href="/contact?type=review">Book a free IT review</a></div>
+  <div class="hero-bottom"><p class="lead">Familiar engineers. Shared context. A whole team behind the work.</p><a class="btn hero-cta" href="/contact/?type=review">Book a free IT review</a></div>
   <div class="hero-tenets" role="group" aria-label="ITKeepers proof points"><p><span class="tenet-number" aria-hidden="true">01</span><strong>15+ years</strong><span>Experience</span></p><p><span class="tenet-number" aria-hidden="true">02</span><strong>50+</strong><span>Clients supported</span></p><p><span class="tenet-number" aria-hidden="true">03</span><strong>1,500+</strong><span>Endpoints managed</span></p><p><span class="tenet-number" aria-hidden="true">04</span><strong>2 locations</strong><span>Lebanon &amp; USA</span></p></div>
 </section>
 
@@ -48,17 +47,9 @@ import HeroHeadline from './HeroHeadline.astro';
     background: radial-gradient(ellipse 42% 75% at 85% 35%, var(--c), transparent 70%);
     opacity: .12;
   }
-  .home-hero > div:not(.hero-day-light) {
+  .home-hero > div {
     position: relative;
     z-index: 1;
-  }
-  .home-hero .hero-day-light {
-    display: none;
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(circle 420px at var(--hero-mouse-x, 50%) var(--hero-mouse-y, 50%), color-mix(in srgb,var(--itk-brand-cyan) 20%,transparent), transparent 70%);
   }
   :global([data-hero-theme="day"] .home-page) .home-hero {
     --fg: var(--n);
@@ -74,7 +65,6 @@ import HeroHeadline from './HeroHeadline.astro';
   :global([data-hero-theme="day"]) .home-hero .tenet-number { color: var(--accent); }
   :global([data-hero-theme="day"]) .home-hero .hero-tenets,
   :global([data-hero-theme="day"]) .home-hero .hero-tenets p { border-color: #97c8df; }
-  :global([data-hero-theme="day"]) .home-hero[data-mouse-light] .hero-day-light { display: block; }
   :global(.home-page) .home-hero .hero-bottom {
     flex-direction: column;
     align-items: flex-start;
@@ -98,7 +88,6 @@ import HeroHeadline from './HeroHeadline.astro';
   @media (forced-colors: active) {
     .home-hero::before,
     .home-hero::after { display: none; }
-    .home-hero .hero-day-light { display: none !important; }
   }
 </style>
 

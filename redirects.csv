@@ -1,0 +1,29 @@
+source,destination,status,evidence,verified_on
+/solutions/1,/services/cybersecurity/,301,Security; live bundle zb id 1 and Yj branch 1,2026-10-19
+/solutions/1/,/services/cybersecurity/,301,Security; live bundle zb id 1 and Yj branch 1,2026-10-19
+/solutions/2,/services/microsoft-cloud/,301,Cloud; live bundle zb id 2 and Yj branch 2,2026-10-19
+/solutions/2/,/services/microsoft-cloud/,301,Cloud; live bundle zb id 2 and Yj branch 2,2026-10-19
+/solutions/3,/services/managed-it/,301,Managed IT; live bundle zb id 3 and Yj branch 3,2026-10-19
+/solutions/3/,/services/managed-it/,301,Managed IT; live bundle zb id 3 and Yj branch 3,2026-10-19
+/solutions/4,/services/networks-infrastructure/,301,Networking; live bundle zb id 4 and Yj branch 4,2026-10-19
+/solutions/4/,/services/networks-infrastructure/,301,Networking; live bundle zb id 4 and Yj branch 4,2026-10-19
+/solutions/5,/services/microsoft-cloud/,301,Email; live bundle zb id 5; V2 Microsoft page contains Exchange Online and email administration,2026-10-19
+/solutions/5/,/services/microsoft-cloud/,301,Email; live bundle zb id 5; V2 Microsoft page contains Exchange Online and email administration,2026-10-19
+/solutions/6,/services/web-design-hosting/,301,Web Dev; live bundle zb id 6 and Yj branch 6,2026-10-19
+/solutions/6/,/services/web-design-hosting/,301,Web Dev; live bundle zb id 6 and Yj branch 6,2026-10-19
+/solutions/7,/services/ai-automation/,301,AI and Automation; live bundle zb id 7 and Yj branch 7,2026-10-19
+/solutions/7/,/services/ai-automation/,301,AI and Automation; live bundle zb id 7 and Yj branch 7,2026-10-19
+/managed-it,/services/managed-it/,301,Former privacy-page navigation: Managed IT,2026-10-19
+/managed-it/,/services/managed-it/,301,Former privacy-page navigation: Managed IT,2026-10-19
+/cloud-services,/services/microsoft-cloud/,301,Former privacy-page navigation: Cloud Services,2026-10-19
+/cloud-services/,/services/microsoft-cloud/,301,Former privacy-page navigation: Cloud Services,2026-10-19
+/security-solutions,/services/cybersecurity/,301,Former privacy-page navigation: Security Solutions,2026-10-19
+/security-solutions/,/services/cybersecurity/,301,Former privacy-page navigation: Security Solutions,2026-10-19
+/email-management,/services/microsoft-cloud/,301,Former privacy-page navigation: Email Management; V2 Exchange Online content,2026-10-19
+/email-management/,/services/microsoft-cloud/,301,Former privacy-page navigation: Email Management; V2 Exchange Online content,2026-10-19
+/computer-networking,/services/networks-infrastructure/,301,Former privacy-page navigation: Computer Networking,2026-10-19
+/computer-networking/,/services/networks-infrastructure/,301,Former privacy-page navigation: Computer Networking,2026-10-19
+/server-management,/services/networks-infrastructure/,301,Former privacy-page navigation: Server Management; V2 servers and endpoints scope,2026-10-19
+/server-management/,/services/networks-infrastructure/,301,Former privacy-page navigation: Server Management; V2 servers and endpoints scope,2026-10-19
+/contact-us,/contact/,301,Former privacy-page navigation: Contact Us,2026-10-19
+/contact-us/,/contact/,301,Former privacy-page navigation: Contact Us,2026-10-19

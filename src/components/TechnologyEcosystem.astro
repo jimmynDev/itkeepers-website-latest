@@ -168,6 +168,11 @@ const logos = [
       animation-play-state: paused;
     }
 
+    .logo-track.is-offscreen {
+      animation-play-state: paused;
+      will-change: auto;
+    }
+
     .logo-group {
       display: flex;
       align-items: center;
@@ -344,3 +349,36 @@ const logos = [
   }
   @media(forced-colors:active) { .logo-stage::before,.logo-stage::after { display:none; } #technology-title { color:CanvasText; } }
 </style>
+
+<script>
+  const section = document.getElementById('technology');
+  const track = section?.querySelector<HTMLElement>('.logo-track');
+  if (section && track && 'IntersectionObserver' in window) {
+    let visible = false;
+    let parked = false;
+    const reconcile = () => track.classList.toggle('is-offscreen', !visible || document.hidden || parked);
+    const observer = new IntersectionObserver(entries => {
+      const entry = entries.find(item => item.target === section);
+      if (entry) { visible = entry.isIntersecting; reconcile(); }
+    });
+    reconcile();
+    observer.observe(section);
+    document.addEventListener('visibilitychange', reconcile);
+    const pagehide = (event: PageTransitionEvent) => {
+      parked = true;
+      reconcile();
+      if (!event.persisted) dispose();
+    };
+    const pageshow = () => { parked = false; reconcile(); };
+    const dispose = () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', reconcile);
+      window.removeEventListener('pagehide', pagehide);
+      window.removeEventListener('pageshow', pageshow);
+      document.removeEventListener('astro:before-swap', dispose);
+    };
+    window.addEventListener('pagehide', pagehide);
+    window.addEventListener('pageshow', pageshow);
+    document.addEventListener('astro:before-swap', dispose, { once: true });
+  }
+</script>

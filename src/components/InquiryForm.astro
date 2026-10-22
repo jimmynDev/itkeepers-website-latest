@@ -1,15 +1,15 @@
 ---
-import { contactEmail } from '../data/contact';
-import { inquiryLimits, serviceInterests } from '../data/inquiry';
+import { contactEmail, businessPhone } from '../data/contact';
+import { inquiryEndpoint, inquiryLimits, serviceInterests } from '../data/inquiry';
 import '../styles/inquiry-form.css';
 
 const { compact=false, id='contact' } = Astro.props as { compact?: boolean; id?: string };
 const Heading = compact ? 'h3' : 'h2';
-const rawEndpoint = (import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT ?? '').trim();
 // Restrict delivery to a configured same-origin API route; never POST contact data to an arbitrary URL.
-const endpoint = /^\/(?!\/)[a-zA-Z0-9/_-]+$/.test(rawEndpoint)
-  && !rawEndpoint.split('/').includes('..')
-  && rawEndpoint !== '/contact' ? rawEndpoint : null;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim();
+const configuredEndpoint = inquiryEndpoint(import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT);
+const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENABLED === 'true' && siteKey && configuredEndpoint === '/api/contact'
+  ? configuredEndpoint : null;
 const fields = compact ? ['name','email','phone','company'] as const : ['name','email','company','phone'] as const;
 const labels = { name:'Full name', email:'Work email', company:'Company', phone:'Phone' };
 const types = { name:'text', email:'email', company:'text', phone:'tel' };
@@ -19,7 +19,7 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
   <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : 'Send us a message'}</Heading>
     <div data-inquiry-live>
       <p class="inquiry-intro">A few details are enough to get started.</p>
-      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method={endpoint ? 'post' : 'get'} action={endpoint ?? contactEmail.href} novalidate data-inquiry-form data-inquiry-delivery={endpoint ? 'backend' : 'email'} data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
+      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method={endpoint ? 'post' : 'get'} action={endpoint ?? contactEmail.href} novalidate data-inquiry-form data-inquiry-delivery={endpoint ? 'backend' : 'email'} data-turnstile-sitekey={endpoint ? siteKey : undefined} data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
         <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
         {compact && <input type="hidden" name="message" value="I'd like a free IT review." />}
@@ -50,19 +50,20 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
             </div>
           </fieldset>
         </details>}
-        <button class="btn inquiry-submit" type="submit" aria-describedby={!endpoint ? id + '-email-help' : undefined}>{!endpoint ? 'Continue to email' : compact ? 'Request my free IT review' : 'Send my message'}</button>
+        {endpoint && <>
+          <div hidden aria-hidden="true"><label for={id + '-website'}>Website<input id={id + '-website'} name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+          <div data-inquiry-verification role="group" aria-label="Inquiry security verification"></div>
+          <p class="inquiry-email-note">If security verification is unavailable, <a href={contactEmail.href}>email our team</a> or <a href={businessPhone.href}>call {businessPhone.display}</a>.</p>
+        </>}
+        <button class="btn inquiry-submit" type="submit" disabled={endpoint ? true : undefined} aria-describedby={!endpoint ? id + '-email-help' : undefined}>{!endpoint ? 'Continue to email' : compact ? 'Request my free IT review' : 'Send my message'}</button>
         {!endpoint && <p class="inquiry-email-note" id={id + '-email-help'}>Your email app will open. Review and send your message there.</p>}
         <noscript><p class="inquiry-email-note">To include all your details automatically, enable JavaScript. You can also <a href={contactEmail.href}>email our team directly</a>.</p></noscript>
         <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
         <!-- TODO: Add a verified "what happens next" response-time sentence only after ITKeepers approves the claim. -->
       </form>
     </div>
-    {endpoint && <div class="inquiry-result" data-inquiry-success role="status" aria-live="polite" tabindex="-1" hidden>
-      <h3>Message sent.</h3>
-      <p>Thank you. Your message has been received by ITKeepers.</p>
-    </div>}
-    <!-- TODO: Configure PUBLIC_CONTACT_FORM_ENDPOINT after server validation, spam controls, mail delivery and privacy requirements are verified. -->
-  {!compact && <p class="inquiry-privacy"><a href="/privacy/">Privacy notice</a></p>}
+    <!-- API success UI remains deferred until an approved durable sink is implemented. -->
+  {(!compact || endpoint) && <p class="inquiry-privacy"><a href="/privacy/">Privacy notice</a></p>}
 </section>
 <script>
   import { initializeContactForms } from '../scripts/contact-form';

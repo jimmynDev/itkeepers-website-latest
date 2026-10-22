@@ -1,0 +1,10 @@
+{
+  "origin": "https://itkeepers-v2-staging.jimnassar99.workers.dev",
+  "noindex": {
+    "/privacy/": "Final Privacy notice and legal approval pending.",
+    "/blog/": "Archive contains articles with pending publication-rights/editorial approval.",
+    "/2023/09/the-future-of-artificial-intelligence-ai/": "Publication rights and editorial qualifications pending; V2_RELEASE_PREPARATION.md.",
+    "/2023/09/understanding-datafication/": "Publication rights and editorial qualifications pending; V2_RELEASE_PREPARATION.md.",
+    "/2023/10/how-do-ai-and-ml-differ/": "Publication rights and editorial qualifications pending; V2_RELEASE_PREPARATION.md."
+  }
+}

@@ -6,7 +6,7 @@ const outcomes=[['Keep','Still suitable for the work.'],['Upgrade','A targeted i
 <figure class="hardware-assessment is-idle" data-animation="hardware-assessment" aria-label="Example hardware assessment comparing keep, upgrade and replace options">
   <div class="assessment-scene" data-animation-visual data-phase="settled">
     <div class="assessment-diagnostics"><div class="assessment-heading"><strong>Sample assessment</strong><span data-assessment-status>Example complete</span></div><dl>{signals.map(([name,fill,state,tone],index)=><div class="assessment-signal" data-assessment-signal={index}><dt>{name}</dt><dd><span class:list={['assessment-meter',`meter-${tone}`]} aria-hidden="true">{Array.from({length:8},(_,i)=><i class:list={{'is-filled':i<Number(fill)}}></i>)}</span><span class="assessment-reading">{state}</span></dd></div>)}</dl></div>
-    <div class="assessment-options" aria-label="Three possible hardware decisions">{outcomes.map(([name,copy])=><div class:list={['assessment-option',{'is-selected':name==='Upgrade'}]} data-assessment-outcome={name.toLowerCase()}><div class="assessment-option-title"><strong>{name}</strong>{name==='Upgrade'&&<span class="assessment-selection">Example outcome</span>}</div><p>{copy}</p></div>)}</div>
+    <div class="assessment-options" role="group" aria-label="Three possible hardware decisions">{outcomes.map(([name,copy])=><div class:list={['assessment-option',{'is-selected':name==='Upgrade'}]} data-assessment-outcome={name.toLowerCase()}><div class="assessment-option-title"><strong>{name}</strong>{name==='Upgrade'&&<span class="assessment-selection">Example outcome</span>}</div><p>{copy}</p></div>)}</div>
   </div>
 </figure>
 <style>

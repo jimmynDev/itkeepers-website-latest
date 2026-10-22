@@ -1,0 +1,50 @@
+---
+// Static adaptation of the approved knowledge handoff and WhoWeAre icon language.
+const stages = [
+  { title: 'Client environment', detail: 'Users · systems · applications', icon: 'M5 6h22v17H5zM10 28h12M16 23v5M9 11h4M9 16h10' },
+  { title: 'Familiar engineer', detail: 'Working with your context', icon: 'M16 16a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM6 28v-3a10 10 0 0 1 20 0v3' },
+  { title: 'Specialist expertise', detail: 'Internal escalation', icon: 'M16 7v5M7 23l6-6M25 23l-6-6M19 4a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM10 26a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM28 26a3 3 0 1 0-6 0 3 3 0 0 0 6 0ZM20 16a4 4 0 1 0-8 0 4 4 0 0 0 8 0Z' }
+];
+---
+<figure class="about-team-context" aria-labelledby="about-context-title">
+  <figcaption>
+    <span class="context-eyebrow">Illustrative team handoff</span>
+    <span class="context-title" id="about-context-title">One team. Shared context.</span>
+  </figcaption>
+  <ol class="context-stages" role="list">
+    {stages.map(stage => <li>
+      <svg viewBox="0 0 32 34" width="40" height="42" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={stage.icon} /></svg>
+      <strong>{stage.title}</strong>
+      <span>{stage.detail}</span>
+    </li>)}
+  </ol>
+  <div class="context-record">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5" /></svg>
+    <div><strong>Shared IT record</strong><span>Configurations · decisions · prior incidents</span></div>
+  </div>
+</figure>
+<style>
+  .about-team-context { margin:0; padding-block:32px; border-block:1px solid var(--about-rule,var(--itk-border-strong)); color:var(--about-text,var(--itk-text)); }
+  figcaption { display:flex; flex-direction:column; gap:8px; margin-block-end:32px; }
+  .context-eyebrow { font-size:12px; line-height:1.5; letter-spacing:.1em; text-transform:uppercase; color:var(--about-muted,var(--itk-muted)); }
+  .context-title { font-size:clamp(24px,2.5vw,32px); font-weight:600; line-height:1.2; letter-spacing:-.025em; }
+  .context-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:48px; margin:0; padding:0; list-style:none; }
+  .context-stages li { position:relative; display:flex; align-items:center; flex-direction:column; gap:10px; min-inline-size:0; text-align:center; }
+  .context-stages li + li::before { content:'→'; position:absolute; inset-inline-start:-36px; inset-block-start:8px; font-size:24px; line-height:1; color:var(--about-accent,var(--itk-brand-cyan)); }
+  svg { flex:none; color:var(--about-accent,var(--itk-brand-cyan)); }
+  .context-stages strong,.context-record strong { font-size:16px; line-height:1.5; font-weight:600; }
+  .context-stages li > span,.context-record span { font-size:14px; line-height:1.6; color:var(--about-muted,var(--itk-muted)); }
+  .context-record { position:relative; display:flex; align-items:center; justify-content:center; gap:14px; margin-block-start:32px; padding-block-start:24px; border-block-start:1px solid var(--about-rule,var(--itk-border-strong)); }
+  .context-record::before { content:''; position:absolute; inset-block-start:-17px; inset-inline-start:50%; block-size:16px; border-inline-start:1px solid var(--about-accent,var(--itk-brand-cyan)); }
+  .context-record div { display:flex; flex-direction:column; gap:3px; min-inline-size:0; }
+  @media(max-width:600px) {
+    .context-stages { grid-template-columns:1fr; gap:30px; }
+    .context-stages li { display:grid; grid-template-columns:40px minmax(0,1fr); gap:2px 16px; text-align:start; align-items:start; }
+    .context-stages li svg { grid-row:1 / span 2; }
+    .context-stages li + li::before { content:'↓'; inset-inline-start:12px; inset-block-start:-26px; font-size:18px; }
+    .context-record { justify-content:flex-start; gap:16px; }
+    .context-record::before { inset-inline-start:20px; }
+    .context-record svg { inline-size:40px; }
+  }
+  @media(forced-colors:active) { .about-team-context,.context-record { border-color:CanvasText; } svg,.context-stages li + li::before { color:CanvasText; } }
+</style>

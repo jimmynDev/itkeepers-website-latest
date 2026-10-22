@@ -26,13 +26,12 @@ const serviceGroups = [
   ['Managed IT', 'Security', 'Cloud'],
   ['Infrastructure', 'AI', 'Web'],
 ];
-const services = serviceGroups.flat();
 ---
 <section class="business-value" id="business-value" aria-labelledby="business-value-title">
   <div class="business-inner">
     <h2 id="business-value-title" class="business-sr-only">ITKeepers: Managed Services and Client Commitments</h2>
 
-    <div class="business-circles">
+    <div class="business-circles" id="why-itkeepers">
       {circles.map((circle) => (
         <article class="business-circle" data-orbit-stage aria-label={circle.eyebrow}>
           <svg class="business-ring" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
@@ -70,9 +69,9 @@ const services = serviceGroups.flat();
       ))}
     </div>
 
-    <div class="business-services" aria-label="ITKeepers service areas">
+    <div class="business-services">
       <div class="business-service-hairline" aria-hidden="true"></div>
-      <p class="business-service-line" aria-label={services.join(', ')}>
+      <p class="business-service-line">
         {serviceGroups.map((group, groupIndex) => (
           <span class="business-service-group">
             {groupIndex > 0 && <span class="business-service-separator business-service-bridge" aria-hidden="true" style="--reveal-delay:460ms"></span>}
@@ -119,6 +118,8 @@ const services = serviceGroups.flat();
     border: 0;
   }
   .business-circles {
+    /* The document already reserves sticky-header clearance via scroll-padding. */
+    scroll-margin-block-start: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     justify-items: center;
@@ -323,6 +324,7 @@ const services = serviceGroups.flat();
   @media (max-width: 767px) {
     .business-services { --business-service-size: clamp(20px, 5.8vw, 22px); margin-top: 48px; }
     .business-service-line { flex-direction: column; row-gap: .18em; }
+    .business-service-group { flex-wrap: wrap; max-inline-size: 100%; white-space: normal; row-gap: .18em; }
     .business-service-bridge { display: none; }
   }
   @media (max-width: 420px) {

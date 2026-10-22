@@ -14,15 +14,15 @@ import AIAutomationAnimation from './animations/NeuralSphereAnimation.astro';
 
 const offerings = [
 
-  { id: 'managed', name: 'Managed IT Services', intro: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it', component: ManagedITAnimation, wide: false, steps: [] },
+  { id: 'managed', name: 'Managed IT Services', intro: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it/', component: ManagedITAnimation, wide: false, steps: [] },
 
-  { id: 'cloud', name: 'Microsoft 365 & Cloud', intro: 'Manage users, access, devices and Microsoft cloud services with the surrounding business context in view.', href: '/services/microsoft-cloud', component: MicrosoftCloudAnimation, wide: false, steps: [] },
+  { id: 'cloud', name: 'Microsoft 365 & Cloud', intro: 'Manage users, access, devices and Microsoft cloud services with the surrounding business context in view.', href: '/services/microsoft-cloud/', component: MicrosoftCloudAnimation, wide: false, steps: [] },
 
-  { id: 'security', name: 'Cybersecurity', intro: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/#cybersecurity-animation', component: CybersecurityAnimation, wide: false, steps: [] },
+  { id: 'security', name: 'Cybersecurity', intro: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/', component: CybersecurityAnimation, wide: false, steps: [] },
 
-  { id: 'networking', name: 'Networking & Infrastructure', intro: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure', component: NetworkingInfrastructureAnimation, wide: false, steps: [] },
+  { id: 'networking', name: 'Networking & Infrastructure', intro: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure/', component: NetworkingInfrastructureAnimation, wide: false, steps: [] },
 
-  { id: 'ai', name: 'AI & Automation', intro: 'Automate repetitive work without removing human oversight.', support: 'Turn repeatable requests into reviewed workflows that connect the tools your business already uses.', href: '/services/ai-automation', component: AIAutomationAnimation, wide: false, steps: [] },
+  { id: 'ai', name: 'AI & Automation', intro: 'Automate repetitive work without removing human oversight.', support: 'Turn repeatable requests into reviewed workflows that connect the tools your business already uses.', href: '/services/ai-automation/', component: AIAutomationAnimation, wide: false, steps: [] },
 
 ];
 
@@ -75,14 +75,12 @@ const offerings = [
   body.home-page .digital-transition-zone > .digital-bridge { grid-area:2 / 1; z-index:1; background:transparent; }
   body.home-page .digital-transition-zone #services > [id="services/ai"] { background:transparent; }
   .home-page .digital-transition-zone::before { content:''; grid-area:2 / 1; margin-block-start:-220px; min-block-size:0; position:relative; z-index:0; pointer-events:none; background:radial-gradient(ellipse at 82% 64%,rgba(129,117,232,.12),transparent 44%),radial-gradient(ellipse at 58% 78%,rgba(118,86,214,.08),transparent 48%),linear-gradient(180deg,var(--digital-entry) 0px,var(--digital-entry) var(--digital-entry-hold),#102038 var(--digital-bridge-stop),#1B2346 var(--digital-indigo-stop),#221F45 420px,#281F4E 560px,#2D2155 100%); }
-  /* The parent also owns Web's local cursor wash; keep it separate from the
-     uninterrupted background field and contain its light to Web's grid area. */
-  .home-page .digital-transition-zone::after { content:''; grid-area:2 / 1; position:relative; min-block-size:0; z-index:0; pointer-events:none; }
   :root[data-hero-theme="day"] .home-page .digital-transition-zone { --digital-entry:var(--surface-light); --digital-entry-hold:120px; --digital-bridge-stop:260px; --digital-indigo-stop:360px; }
-  :root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] { background:linear-gradient(180deg,var(--surface-light) calc(100% - 220px),transparent calc(100% - 220px)); }
+  /* Blend only through the existing empty bottom padding. The former equal
+     gradient stops cut the day canvas off 220px before the section boundary. */
+  :root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] { background:linear-gradient(180deg,var(--surface-light) calc(100% - var(--itk-section-space)),var(--itk-bg) 100%); }
   @media (max-width:900px) { :root[data-hero-theme="day"] .home-page .digital-transition-zone { --digital-entry-hold:180px; --digital-bridge-stop:300px; --digital-indigo-stop:380px; } }
-  @media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) { .home-page .digital-transition-zone::after { display:none; } }
-  @media (forced-colors:active) { .home-page .digital-transition-zone::before,.home-page .digital-transition-zone::after { display:none; } body.home-page .digital-transition-zone #services > [id="services/ai"] { background:Canvas; } }
+  @media (forced-colors:active) { .home-page .digital-transition-zone::before { display:none; } body.home-page .digital-transition-zone #services > [id="services/ai"] { background:Canvas; } }
 
   .home-page .service-story { padding-block: var(--itk-section-space); padding-inline: max(var(--layout-gutter), calc((100% - var(--layout-max)) / 2)); color: var(--itk-text); background: var(--itk-bg); border-block-start: 1px solid var(--itk-border); scroll-margin-block-start: 24px; --accent: var(--itk-brand); --focus: var(--itk-brand); }
 

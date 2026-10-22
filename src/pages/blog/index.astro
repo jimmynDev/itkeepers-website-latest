@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import articles from '../../data/legacy-articles.json';
+const date = (value: string) => new Date(value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Base>
+  <section class="section">
+    <p class="eyebrow">ITKeepers blog archive</p>
+    <h1>Earlier ideas. Original context.</h1>
+    <p class="lead">Explore retained articles on AI, machine learning and data use, with their original publication dates.</p>
+    <ul class="archive-list">
+      {[...articles].sort((a, b) => b.published.localeCompare(a.published)).map(article => <li>
+        <h2><a class="disclosure-link" href={article.path}>{article.title}</a></h2>
+        <p>Originally published <time datetime={article.published}>{date(article.published)}</time></p>
+      </li>)}
+    </ul>
+    <p>For current guidance, explore the <a class="disclosure-link" href="/resources/ai-governance/">AI Governance Playbook</a> or <a class="disclosure-link" href="/contact/">talk to our team</a>.</p>
+  </section>
+</Base>
+<style>
+  .archive-list { list-style:none; padding:0; margin-block:48px; }
+  .archive-list li { padding-block:28px; border-block-start:1px solid var(--itk-border-strong); }
+  .archive-list h2 { font-size:clamp(26px,3vw,36px); line-height:1.25; }
+  .archive-list p { color:var(--itk-supporting-text); }
+</style>

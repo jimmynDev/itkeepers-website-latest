@@ -1,5 +1,12 @@
 export type InquiryIntent = 'review' | 'general';
 export type InquiryField = 'name' | 'email' | 'company' | 'phone' | 'message';
+/** Build and browser must agree on a same-origin delivery path, never the contact page. */
+export function inquiryEndpoint(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const path = value.trim();
+  return /^\/(?!\/)[a-zA-Z0-9/_-]+$/.test(path)
+    && !/^\/contact\/*$/i.test(path) ? path : null;
+}
 export const inquiryLimits: Record<InquiryField,number> = { name:120,email:254,company:160,phone:40,message:3000 };
 export const serviceInterests = [
   { value:'managed-it', label:'Managed IT' },

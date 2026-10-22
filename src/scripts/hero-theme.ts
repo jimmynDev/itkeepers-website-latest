@@ -30,29 +30,4 @@ export function mountHeroTheme(): void {
       apply(theme);
     }
   });
-  const allowed = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-  let frame = 0;
-  let x = 0;
-  let y = 0;
-  const clear = () => {
-    cancelAnimationFrame(frame);
-    frame = 0;
-    delete hero.dataset.mouseLight;
-  };
-  hero.addEventListener('pointermove', event => {
-    if (!allowed.matches || event.pointerType !== 'mouse') return;
-    const bounds = hero.getBoundingClientRect();
-    x = event.clientX - bounds.left;
-    y = event.clientY - bounds.top;
-    if (!frame) frame = requestAnimationFrame(() => {
-      frame = 0;
-      hero.style.setProperty('--hero-mouse-x', `${x}px`);
-      hero.style.setProperty('--hero-mouse-y', `${y}px`);
-      hero.dataset.mouseLight = '';
-    });
-  }, { passive: true });
-  hero.addEventListener('pointerleave', clear);
-  allowed.addEventListener('change', clear);
-  window.addEventListener('blur', clear);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) clear(); });
 }

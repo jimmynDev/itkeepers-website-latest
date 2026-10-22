@@ -3,4 +3,20 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Frame-Options: DENY
-  Content-Security-Policy: default-src 'self'; img-src 'self' https://itkeepers.com data:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; font-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+
+# Stage HSTS on the verified HTTPS apex only; no subdomain or preload commitment.
+https://itkeepers.com/*
+  Strict-Transport-Security: max-age=86400
+
+# Only content-fingerprinted assets receive immutable caching.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/styles/site-*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# Workers default, version and alias URLs must not become indexed duplicates.
+# This is an indexing safeguard; private previews still require Cloudflare Access.
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

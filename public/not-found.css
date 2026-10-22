@@ -1,0 +1,22 @@
+/* Recovery page uses the existing navy/cyan identity and Arial system font. */
+:root { color-scheme: dark; font: 16px/1.6 Arial, sans-serif; color: #fff; background: #0b2c5f; }
+* { box-sizing: border-box; }
+body { margin: 0; min-block-size: 100svh; display: flex; flex-direction: column; }
+header, main, footer { inline-size: min(100% - 40px, 1180px); margin-inline: auto; }
+header { padding-block: 28px; }
+.brand { display: inline-flex; padding-block: 10px; }
+.brand img { inline-size: 190px; block-size: auto; max-inline-size: 100%; }
+main { flex: 1; padding-block: clamp(48px, 10vh, 110px); }
+.eyebrow { color: #5cc5ff; font-size: 14px; font-weight: 700; letter-spacing: .08em; }
+h1 { max-inline-size: 18ch; font-size: clamp(36px, 6vw, 72px); line-height: 1.12; letter-spacing: -.04em; margin-block: 20px; overflow-wrap: anywhere; }
+main > p:not(.eyebrow) { max-inline-size: 55ch; color: #d6e4f5; font-size: 18px; }
+nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-block-start: 32px; }
+nav a { display: inline-block; min-block-size: 44px; padding-block: 12px; text-underline-offset: 5px; }
+a { color: inherit; }
+.primary { padding-inline: 20px; color: #0b2c5f; background: #42baeb; border-radius: 7px; font-weight: 700; text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 3px solid #5cc5ff; outline-offset: 5px; }
+footer { padding-block: 28px; border-block-start: 1px solid #57738f; color: #d6e4f5; }
+.skip-link { position: fixed; inset: 8px auto auto 8px; padding: 12px; background: #fff; color: #0b2c5f; transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
+@media (forced-colors: active) { .primary { border: 1px solid ButtonText; } a:focus-visible { outline-color: Highlight; } }

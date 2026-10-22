@@ -2,15 +2,15 @@
 import Base from '../layouts/Base.astro';
 import { emergencyPhone, contactEmail } from '../data/contact';
 ---
-<Base title="Under Attack? | ITKeepers Emergency Contact" description="Practical first steps for an active cyberattack, ransomware incident or account compromise, and how to contact ITKeepers.">
+<Base>
   <section class="section emergency-page" aria-labelledby="emergency-title">
     <div class="emergency-container">
       <div class="emergency-intro">
-        <p class="eyebrow emergency-eyebrow">Emergency cybersecurity response</p>
+        <p class="eyebrow emergency-eyebrow">Security incident contact</p>
         <h1 id="emergency-title">Under attack?</h1>
-        <p class="emergency-lead">If you believe your business is experiencing a cyberattack, ransomware incident, account compromise or active security breach, contact ITKeepers immediately.</p>
+        <p class="emergency-lead">ITKeepers accepts security incident enquiries from existing and new clients. If you suspect a cyberattack, ransomware incident or account compromise, contact our team.</p>
         <div class="emergency-actions">
-          <a class="emergency-link emergency-link--primary" href={emergencyPhone.href} aria-label={'Call ITKeepers on ' + emergencyPhone.display}>
+          <a class="emergency-link emergency-link--primary" href={emergencyPhone.href}>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.57 2.8.7A2 2 0 0 1 22 16.92Z"/></svg>
             Call {emergencyPhone.display}
           </a>
@@ -19,18 +19,18 @@ import { emergencyPhone, contactEmail } from '../data/contact';
             Email our team
           </a>
         </div>
-        <p class="emergency-call-first">Call first. Then follow the steps below while you wait.</p>
+        <p class="emergency-call-first">Call first. Review the general guidance below.</p>
         <!-- TODO: Add response-time or after-hours availability wording only when ITKeepers has approved a verified claim. -->
       </div>
 
-      <section class="emergency-guidance" aria-label="Immediate incident response guidance">
+      <section class="emergency-guidance" aria-label="General security incident guidance">
         <div class="emergency-cards">
           <article class="emergency-card emergency-card--do" aria-labelledby="emergency-do-title">
             <div class="emergency-card-heading">
               <span class="emergency-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></span>
               <h2 id="emergency-do-title">Do this now</h2>
             </div>
-            <p class="emergency-card-subheading">Limit the damage while we get to work.</p>
+            <p class="emergency-card-subheading">General steps for a suspected incident.</p>
             <ul class="emergency-checklist">
               <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Call ITKeepers</strong> right away.</span></li>
               <li><span class="emergency-list-icon" aria-hidden="true">✓</span><span><strong>Disconnect affected devices</strong> from the network (unplug the cable, turn off Wi-Fi). Leave them powered on if you can.</span></li>
@@ -57,7 +57,7 @@ import { emergencyPhone, contactEmail } from '../data/contact';
             </ul>
           </article>
         </div>
-        <p class="emergency-footnote">General guidance. Your situation may need different steps, so call us first.</p>
+        <p class="emergency-footnote">General guidance. Your situation may need different steps, so call us first. For ongoing protection planning, explore our <a class="disclosure-link" href="/services/cybersecurity/">cybersecurity controls and service scope</a>.</p>
       </section>
 
     </div>

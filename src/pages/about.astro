@@ -1,4 +1,95 @@
 ---
 import Base from '../layouts/Base.astro';
+import AboutTeamContext from '../components/about/AboutTeamContext.astro';
 ---
-<Base title="Our Team | ITKeepers"><section class="section"><p class="eyebrow">Our team</p><h1>Outsourced IT.<br>Without feeling outsourced.</h1><p class="lead">ITKeepers works as a coordinated engineering team: familiar people supported by colleagues with deeper expertise when the work calls for it.</p></section><section class="section light"><div class="split"><h2>Small enough for context.<br>Built for collaboration.</h2><div><p>Clients should not have to explain their environment from scratch every time they need help. Familiarity matters, and so does shared documentation.</p><p>Approved names, roles and real team photography will be added here rather than using stock employees or invented titles.</p></div></div></section></Base>
+<Base>
+  <section class="section about-section about-intro">
+    <p class="eyebrow">ABOUT ITKEEPERS</p>
+    <h1>Your IT person is a team.</h1>
+    <p class="lead">ITKeepers brings familiar engineers and shared technical expertise to the day-to-day work of <a class="disclosure-link" href="/services/managed-it/">managing business IT</a>.</p>
+    <p>You work with people who understand your environment, backed by colleagues who can contribute when a question needs deeper expertise. The relationship stays personal, while the knowledge and responsibility extend across the team.</p>
+  </section>
+  <section class="section light about-section">
+    <div class="split about-row">
+      <h2>Familiar people. Shared expertise.</h2>
+      <div>
+        <p>Knowing your systems matters. So does knowing how your business uses them.</p>
+        <p>We build context around the people, applications and infrastructure that support your work. When an issue needs specialist attention, escalation happens inside the team, with the relevant context carried into the investigation.</p>
+        <p>You should not have to coordinate that handoff yourself.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section about-section">
+    <div class="split about-row">
+      <h2>Proactive work, connected to follow-through.</h2>
+      <div>
+        <p>Managing IT includes the work between support requests: reviewing monitoring signals, following up on open issues, maintaining systems and considering what needs attention next.</p>
+        <p><a class="disclosure-link" href="/how-we-work/">Our approach to monitoring and follow-up</a> connects that ongoing work with engineer review and practical decisions. Automated monitoring can surface issues continuously. Human coverage and response commitments depend on your service agreement.</p>
+      </div>
+    </div>
+  </section>
+  <section class="about-context-section" aria-label="Team collaboration illustration">
+    <AboutTeamContext />
+  </section>
+  <section class="section light about-section">
+    <div class="split about-row">
+      <h2>Knowledge that stays with the work.</h2>
+      <div>
+        <p>Useful documentation helps the next conversation start with context.</p>
+        <p>We maintain records of relevant systems, configurations, changes and decisions so engineers can continue work with a clearer understanding of what came before. Shared knowledge supports internal handoffs and operational continuity as people, projects and priorities change.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section about-section">
+    <div class="split about-row">
+      <h2>Expertise that keeps developing.</h2>
+      <div>
+        <p>Technology changes, and so do the environments our clients depend on.</p>
+        <p>Our engineers continue developing through technical training, specialist courses and hands-on work. Learning stays connected to practical engineering, with knowledge shared across the team.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section light about-section">
+    <div class="split about-row">
+      <h2>A relationship that develops with your business.</h2>
+      <div>
+        <p>Our approach is built around long-term relationships.</p>
+        <p>As your organization adds people, changes applications or plans its next stage of growth, IT decisions need to reflect that context. We help you consider what remains useful, what needs attention and what should change.</p>
+        <p>The aim is steady involvement: familiar people, informed advice and follow-through as your business evolves.</p>
+      </div>
+    </div>
+  </section>
+  <section class="cta about-section about-closing">
+    <h2>Let’s talk about your environment.</h2>
+    <p>Explore our <a class="disclosure-link" href="/services/">business IT services</a> or tell us what you manage today and where you need support.</p>
+    <a class="btn white" href="/contact/">Talk to our team</a>
+  </section>
+</Base>
+<style>
+  .about-section,.about-context-section {
+    --about-bg:var(--itk-bg); --about-text:var(--itk-text); --about-muted:var(--itk-supporting-text,var(--itk-muted));
+    --about-accent:var(--itk-brand-cyan); --about-rule:var(--itk-border-strong);
+    color:var(--about-text); background:var(--about-bg);
+    padding-inline:max(var(--layout-gutter),calc((100% - 1120px)/2));
+  }
+  .about-section { padding-block:calc(var(--itk-section-space) * .75); }
+  .about-context-section { padding-block:0; }
+  .about-section .about-row { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(32px,5vw,72px); align-items:start; }
+  .about-section h1 { max-inline-size:20ch; font-size:clamp(40px,5.2vw,72px); line-height:1.08; color:var(--about-text); }
+  .about-section h2 { font-size:clamp(28px,2.65vw,38px); line-height:1.18; color:var(--about-text); }
+  .about-section p:not(.eyebrow),.about-section .about-row p {
+    max-inline-size:68ch; font-size:clamp(16px,1.3vw,18px); line-height:1.7; color:var(--about-muted);
+  }
+  .about-section .about-row p:first-child { margin-block-start:0; }
+  .about-section .about-row p:last-child,.about-intro > p:last-child { margin-block-end:0; }
+  .about-section > .eyebrow { color:var(--about-accent); }
+  .about-closing p { margin-block-end:24px; }
+  :global(:root[data-hero-theme="day"]) :is(.about-section,.about-context-section) {
+    --about-bg:var(--surface-light); --about-text:var(--itk-light-text); --about-muted:var(--itk-light-muted);
+    --about-accent:var(--itk-light-accent); --about-rule:var(--itk-light-border);
+  }
+  @media(max-width:700px) { .about-section .about-row { grid-template-columns:1fr; gap:20px; } .about-row h2 { margin-block-end:0; } }
+  @media(forced-colors:active) {
+    .about-section,.about-context-section { --about-bg:Canvas; --about-text:CanvasText; --about-muted:CanvasText; --about-accent:LinkText; --about-rule:CanvasText; }
+  }
+</style>

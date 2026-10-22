@@ -1,6 +1,6 @@
 /* Pulse is a scoped product surface within the existing ITKeepers shell. */
 body main > section.pulse-shell, body .pulse-page .pulse-shell {
-  --bg:var(--surface-light); --fg:var(--itk-light-text); --muted:var(--itk-light-muted); --accent:var(--itk-light-accent); --focus:var(--itk-light-text);
+  --bg:var(--pulse-page-bg,var(--surface-light)); --fg:var(--pulse-page-text,var(--itk-light-text)); --muted:var(--pulse-page-muted,var(--itk-light-muted)); --accent:var(--pulse-page-accent,var(--itk-light-accent)); --focus:var(--pulse-page-accent,var(--itk-light-text));
   background:var(--bg); color:var(--fg); padding-block:var(--itk-section-space);
   padding-inline:max(var(--layout-gutter),calc((100% - var(--layout-max))/2));
 }
@@ -26,7 +26,24 @@ body .pulse-shell .pulse-text-link { display:inline-flex; min-block-size:48px; a
 .pulse-promises li { margin-block:8px; display:flex; gap:10px; }
 .pulse-promises li::before { content:'✓'; color:#137549; }
 .pulse-managed { grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); }
-.pulse-page { border:0; border-radius:0; padding:0; }
+.pulse-page {
+  --pulse-page-bg:var(--itk-bg); --pulse-page-alt:var(--itk-bg-alt);
+  --pulse-page-text:var(--itk-text); --pulse-page-muted:var(--itk-supporting-text,var(--itk-muted));
+  --pulse-page-accent:var(--itk-brand-cyan); --pulse-page-border:var(--itk-border-strong);
+  --itk-supporting-text-light:var(--pulse-page-muted);
+  border:0; border-radius:0; padding:0; background:var(--pulse-page-bg);
+}
+:root[data-hero-theme="day"] .pulse-page {
+  --pulse-page-bg:var(--surface-light); --pulse-page-alt:#fff;
+  --pulse-page-text:var(--itk-light-text); --pulse-page-muted:var(--itk-light-muted);
+  --pulse-page-accent:var(--itk-light-accent); --pulse-page-border:var(--itk-light-border);
+}
+/* Theme the marketing shell without recoloring the product UI inside it. */
+.pulse-page .pulse-preview-visual {
+  --bg:var(--surface-light); --fg:var(--itk-light-text); --muted:var(--itk-light-muted);
+  --accent:var(--itk-light-accent); --focus:var(--itk-light-text);
+  --itk-supporting-text-light:var(--itk-light-muted);
+}
 body .pulse-page > .pulse-hero { block-size:auto; display:grid; justify-content:initial; border:0; }
 body .pulse-page > .pulse-hero h1 { font-size:clamp(40px,5vw,68px); }
 .pulse-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; margin-block-start:32px; }
@@ -39,7 +56,10 @@ body .pulse-page > .pulse-hero h1 { font-size:clamp(40px,5vw,68px); }
 .pulse-feature p { line-height:1.7; }
 body .pulse-shell .pulse-feature-note { font-weight:600; color:var(--fg); }
 .pulse-feature-detail { border-inline-start:2px solid var(--itk-brand-deep); padding-inline-start:12px; }
-body .pulse-page .pulse-capabilities { background:#fff; }
+body .pulse-page :is(.pulse-capabilities,.pulse-ownership) { --bg:var(--pulse-page-alt); }
+.pulse-page :is(.pulse-feature,.pulse-capability-note,.pulse-closing) { border-color:var(--pulse-page-border); }
+.pulse-page .pulse-feature-index { color:var(--accent); }
+.pulse-page :is(.pulse-feature-detail,.pulse-workflow li) { border-color:var(--accent); }
 .pulse-capability-note { border-block-start:1px solid var(--itk-light-border); padding-block-start:24px; max-inline-size:75ch; }
 .pulse-workflow { list-style:none; margin:40px 0 0; padding:0; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:24px; }
 .pulse-workflow li { position:relative; padding-block-start:24px; border-block-start:2px solid var(--itk-brand-deep); min-inline-size:0; }
@@ -47,14 +67,17 @@ body .pulse-page .pulse-capabilities { background:#fff; }
 body .pulse-workflow h3 { font-size:20px; margin-block-end:12px; }
 .pulse-workflow p { font-size:16px; line-height:1.6; }
 .pulse-workflow-arrow { position:absolute; inset-inline-end:0; inset-block-start:20px; color:var(--accent); }
-body .pulse-page .pulse-ownership { background:var(--itk-bg); --bg:var(--itk-bg); --fg:var(--itk-text); --muted:#b7c6da; --accent:var(--itk-brand-cyan); --focus:var(--itk-brand-cyan); }
 .pulse-ownership > div { max-inline-size:840px; }
 .pulse-ownership p { font-size:18px; line-height:1.7; }
 .pulse-closing { border-block-start:1px solid var(--itk-light-border); }
 @media (max-width:1100px) { .pulse-reveal { grid-template-columns:1fr; } .pulse-reveal-copy { max-inline-size:760px; } .pulse-reveal > .pulse-preview { inline-size:100%; max-inline-size:760px; } .pulse-workflow { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media (max-width:768px) { .pulse-features { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:600px) { .pulse-features { grid-template-columns:1fr; gap:0; } .pulse-workflow { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; } body .pulse-shell :is(h1,h2) { font-size:clamp(30px,8vw,40px); } .pulse-actions { align-items:stretch; flex-direction:column; } .pulse-reveal-copy > p:not(.eyebrow) { font-size:16px; } .pulse-shell .btn { max-inline-size:100%; padding-inline:18px; gap:12px; font-size:16px; } }
-@media (forced-colors:active) { body .pulse-shell,body .pulse-page .pulse-ownership { background:Canvas; --fg:CanvasText; --muted:CanvasText; --accent:LinkText; --focus:Highlight; } .pulse-feature,.pulse-workflow li { border-color:CanvasText; } }
+@media (forced-colors:active) {
+  :root .pulse-page { --pulse-page-bg:Canvas; --pulse-page-alt:Canvas; --pulse-page-text:CanvasText; --pulse-page-muted:CanvasText; --pulse-page-accent:LinkText; --pulse-page-border:CanvasText; }
+  body .pulse-shell,body .pulse-page .pulse-ownership { background:Canvas; --fg:CanvasText; --muted:CanvasText; --accent:LinkText; --focus:Highlight; }
+  .pulse-feature,.pulse-workflow li { border-color:CanvasText; }
+}
 
 /* Homepage product reveal only: light UI, restrained surface separation. */
 body main > #it-keepers-pulse.pulse-shell {

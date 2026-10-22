@@ -46,28 +46,11 @@
 .home-page [id="services/networking"] { --service-accent:#36b8d0; --service-accent-rgb:54,184,208; }
 .home-page [id="services/ai"] { --service-accent:#8175e8; --service-accent-rgb:129,117,232; }
 :root:not([data-hero-theme="day"]) .home-page [id="services/ai"] { --service-readable-accent:color-mix(in srgb,var(--service-accent) 82%,white); }
-.home-page .service-story::before { content:''; position:absolute; inset:0; z-index:0; pointer-events:none; opacity:var(--service-pointer-visible,0); background:radial-gradient(circle 420px at var(--service-pointer-x,50%) var(--service-pointer-y,50%),rgba(var(--service-accent-rgb),.09),transparent 72%); }
+/* Cursor lighting belongs to the shared viewport overlay, above chapter shells.
+   Keep divider geometry so removing its paint cannot shift any content. */
 .home-page .service-story-body { position:relative; z-index:1; }
-/* All service chapters share the body's --itk-bg canvas and continuous pointer light. */
-:root:not([data-hero-theme="day"]) .home-page .home-pointer-light:not([data-tone="blue"]) { background:radial-gradient(ellipse at center,rgba(var(--wash-cyan),.06) 0%,rgba(var(--wash-cyan),.035) 28%,rgba(var(--wash-cyan),.015) 48%,transparent 70%); }
+:root body.home-page .service-story { border-block-start-color:transparent; }
 :root:not([data-hero-theme="day"]) .home-page :is(.service-story,.digital-service-banner) { background:transparent; border-color:transparent; }
-/* Local service washes share one footprint, brightness and soft boundary fade. */
-.home-page .service-story, .home-page .digital-transition-zone { --glow-core:66,186,235; --glow-mid:64,113,181; }
-.home-page [id="services/cloud"] { --glow-core:90,169,255; --glow-mid:66,186,235; }
-.home-page [id="services/security"] { --glow-core:45,212,167; --glow-mid:32,118,68; }
-.home-page [id="services/networking"] { --glow-core:54,184,208; --glow-mid:8,114,134; }
-.home-page [id="services/backup"] { --glow-core:59,130,246; --glow-mid:45,212,167; }
-.home-page [id="services/ai"] { --glow-core:129,117,232; --glow-mid:93,75,176; }
-.home-page .digital-transition-zone { --glow-core:129,117,232; --glow-mid:64,113,181; }
-.home-page .service-story::before, .home-page .digital-transition-zone::after {
-  content:''; pointer-events:none; opacity:var(--service-pointer-visible,0);
-  background:radial-gradient(ellipse at center,rgba(var(--glow-core),.12) 0%,rgba(var(--glow-mid),.07) 28%,rgba(var(--glow-core),.03) 48%,transparent 70%) no-repeat;
-  background-size:1000px 1000px;
-  background-position:calc(var(--service-pointer-x,50%) - 500px) calc(var(--service-pointer-y,50%) - 500px);
-  mask-image:linear-gradient(180deg,transparent,#000 48px,#000 calc(100% - 48px),transparent);
-  transition:opacity 300ms ease;
-}
-@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce), (forced-colors:active) { .home-page .service-story::before,.home-page .digital-transition-zone::after { display:none; transition:none; } }
 /* Only the controller-enhanced artwork enters; its full layout space remains reserved. */
 .home-page .service-story [data-animation-enhanced][data-animation-entrance] [data-animation-visual] { opacity:1; transform:translateY(0); transition:opacity 600ms cubic-bezier(.22,1,.36,1),transform 600ms cubic-bezier(.22,1,.36,1); }
 .home-page .service-story [data-animation-enhanced][data-animation-entrance="waiting"] [data-animation-visual] { opacity:0; transform:translateY(16px); transition:none; }
@@ -75,7 +58,6 @@
 .home-page .service-story:first-child { padding-block-start:32px; }
 @media (max-width:1100px) { .home-page .service-story:first-child { padding-block-start:24px; } }
 @media (max-width:600px) { .home-page .service-story:first-child { padding-block-start:12px; } }
-@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) { .home-page .service-story::before { display:none; } }
 :root[data-hero-theme="day"] .home-page .service-story { --service-readable-accent:#075d7d; }
 :root[data-hero-theme="day"] .home-page [id="services/cloud"] { --service-readable-accent:#2763a5; }
 :root[data-hero-theme="day"] .home-page [id="services/networking"] { --service-readable-accent:#087286; }

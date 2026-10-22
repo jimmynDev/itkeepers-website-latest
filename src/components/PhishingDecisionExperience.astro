@@ -11,7 +11,7 @@ const { id = 'phishing-decisions' } = Astro.props;
     </div>
     <div class="decision-stage">
       <div class="decision-progress" data-decision-progress hidden>
-        <span data-decision-count aria-label="Message 1 of 4">01 / 04</span>
+        <span data-decision-count role="status" aria-live="off" aria-label="Message 1 of 4">01 / 04</span>
         <div class="decision-segments" aria-hidden="true">{phishingScenarios.map((_, index) => <span data-decision-segment data-active={index === 0 ? 'true' : 'false'}></span>)}</div>
       </div>
       <div class="decision-body">
@@ -21,7 +21,7 @@ const { id = 'phishing-decisions' } = Astro.props;
           <p>You don’t need to become the IT expert. You need a team that knows what to check.</p>
         </div>
         {phishingScenarios.map((scenario, index) => <>
-          <div class="decision-panel" data-decision-scenario={index} hidden inert aria-labelledby={`${id}-${scenario.id}-title`}>
+          <div class="decision-panel" data-decision-scenario={index} role="group" hidden inert aria-labelledby={`${id}-${scenario.id}-title`}>
             <div class="decision-message">
               <p class="decision-sender">{scenario.sender}<span class="decision-address">{scenario.address}</span></p>
               <h3 id={`${id}-${scenario.id}-title`} data-decision-heading tabindex="-1">{scenario.subject}</h3>
@@ -31,7 +31,7 @@ const { id = 'phishing-decisions' } = Astro.props;
               {scenario.options.map(option => <button type="button" data-decision-option={option.id} aria-pressed="false" aria-controls={`${id}-${scenario.id}-${option.id}`}>{option.label}</button>)}
             </fieldset>
           </div>
-          {scenario.options.map(option => <div class="decision-panel decision-explanation" id={`${id}-${scenario.id}-${option.id}`} data-decision-explanation={option.id} data-decision-index={index} hidden inert aria-labelledby={`${id}-${scenario.id}-${option.id}-title`}>
+          {scenario.options.map(option => <div class="decision-panel decision-explanation" id={`${id}-${scenario.id}-${option.id}`} data-decision-explanation={option.id} data-decision-index={index} role="group" hidden inert aria-labelledby={`${id}-${scenario.id}-${option.id}-title`}>
             <p class="decision-eyebrow">ITKEEPERS VIEW</p>
             <h3 id={`${id}-${scenario.id}-${option.id}-title`}>{option.response}</h3>
             <dl class="decision-checks">{scenario.checks.map(check => <div><dt>{check.label}</dt><dd>{check.detail}</dd></div>)}</dl>

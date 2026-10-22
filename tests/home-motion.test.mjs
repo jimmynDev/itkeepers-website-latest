@@ -53,42 +53,29 @@ test('rapid pointer events batch into one frame and draw the latest coordinates'
   flow.flush();
   assert.equal(flow.wash.style.transform, 'translate3d(310px, 140px, 0)');
   assert.equal(flow.wash.style.opacity, '1');
-  assert.equal(flow.wash.dataset.tone, 'blue');
+  const color = flow.wash.dataset.tone;
   flow.move(500, 500); assert.equal(flow.frames.size, 1); flow.flush();
-  assert.equal(flow.wash.dataset.tone, 'cyan', 'No section tone falls back to cyan');
+  assert.equal(flow.wash.dataset.tone, color, 'Crossing a section cannot switch spotlight color');
 });
 
-test('service light follows local coordinates and clears the previous section and stop state', () => {
+test('one light stays active through hero, service, Web and adjacent section boundaries', () => {
   const flow = fixture();
-  const section = () => ({ style: { setProperty(key, value) { this[key] = value; }, removeProperty(key) { delete this[key]; } }, getBoundingClientRect: () => ({ left:60, top:100 }) });
-  const first = section(), second = section();
-  flow.move(180, 300, { service:first }); flow.flush();
-  assert.equal(first.style['--service-pointer-x'], '120px');
-  assert.equal(first.style['--service-pointer-y'], '200px');
-  assert.equal(first.style['--service-pointer-visible'], '1');
-  flow.move(400, 400, { service:second }); flow.flush();
-  assert.equal(first.style['--service-pointer-visible'], undefined);
-  assert.equal(second.style['--service-pointer-visible'], '1');
-  flow.page.emit('pointerleave'); flow.flush();
-  assert.equal(second.style['--service-pointer-visible'], undefined);
-});
-
-test('Web light paints on its shared parent using Web coordinates without a second global wash', () => {
-  const flow = fixture();
-  const host = { style: { setProperty(key,value) { this[key]=value; }, removeProperty(key) { delete this[key]; } } };
-  const digital = { closest: () => host, getBoundingClientRect: () => ({ left:0,top:240 }) };
-  flow.move(620,480,{ digital }); flow.flush();
-  assert.equal(host.style['--service-pointer-x'],'620px');
-  assert.equal(host.style['--service-pointer-y'],'240px');
-  assert.equal(host.style['--service-pointer-visible'],'1');
-  assert.equal(flow.wash.style.opacity,'0');
-  flow.move(620,480); flow.flush();
-  assert.equal(host.style['--service-pointer-visible'],undefined);
-  assert.equal(flow.wash.style.opacity,'1');
+  // Section geometry is deliberately unavailable: drawing never reads it or
+  // writes local styles, even when a target identifies a service or Web region.
+  const section = { getBoundingClientRect() { throw new Error('Unexpected layout read'); } };
+  for (const target of [{}, { service: section }, { digital: section }, {}]) {
+    for (const y of [449, 450, 451]) {
+      flow.move(720, y, target); flow.flush();
+      assert.equal(flow.wash.style.opacity, '1');
+      assert.equal(flow.wash.style.transform, `translate3d(220px, ${y - 500}px, 0)`);
+    }
+  }
+  flow.window.emit('scroll'); flow.flush();
+  assert.equal(flow.wash.style.opacity, '1', 'Scrolling under a stationary pointer must not reset the light');
 });
 
 test('leave, blur and hidden document clear light even with a pointer frame pending', () => {
-  for (const stop of [flow => flow.page.emit('pointerleave'), flow => flow.window.emit('blur'), flow => { flow.document.hidden = true; flow.document.emit('visibilitychange'); }]) {
+  for (const stop of [flow => flow.page.emit('pointerleave'), flow => flow.window.emit('blur'), flow => flow.page.emit('pointercancel'), flow => flow.page.emit('keydown', { key: 'Tab' }), flow => { flow.document.hidden = true; flow.document.emit('visibilitychange'); }]) {
     const flow = fixture();
     flow.move(800, 400); stop(flow);
     assert.equal(flow.frames.size, 1, 'Stop reuses the pending frame');
