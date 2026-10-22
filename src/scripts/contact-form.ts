@@ -74,7 +74,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
       if (button.disabled) return;
       const invalid = fields.filter(field => !validate(field));
       if (invalid.length) {
-        status.textContent = 'Please correct the highlighted fields before sending.';
+        status.textContent = endpoint ? 'Please correct the highlighted fields before sending.' : 'Please correct the highlighted fields before opening your email app.';
         invalid[0].focus();
         return;
       }
@@ -87,7 +87,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
       if (!endpoint) {
         const data = new FormData(form);
         const values = Object.fromEntries(['name','email','company','phone','message'].map(name => [name, String(data.get(name) ?? '')])) as Record<InquiryField,string>;
-        status.textContent = 'Your email app will open. Review and send your message there.';
+        status.textContent = 'Your email app will open. Review and send your message there. Nothing is sent by this website.';
         window.location.assign(composeInquiryEmail(contactEmail.display, values, intent, data.getAll('interests')));
         return;
       }

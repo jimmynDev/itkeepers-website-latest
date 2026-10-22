@@ -68,7 +68,7 @@ export const navigation: NavigationCategory[] = [
     feature: { eyebrow: 'AI Governance', title: 'AI is already inside your business.', description: "Make sure your data isn't leaving with it.", label: 'View the AI Governance Playbook', href: '/resources/ai-governance/', playbook: true },
   },
   {
-    id: 'digital', label: 'Digital', href: '/services/web-design-hosting/', overview: 'Explore Digital Services',
+    id: 'digital', label: 'Web & Hosting', href: '/services/web-design-hosting/', overview: 'Explore Web Design & Hosting',
     groups: [
       { label: 'Web', items: [
         { title: 'Web Design & Development', description: 'Design, content and navigation around your business audience.', href: '/services/web-design-hosting/' },

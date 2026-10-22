@@ -21,7 +21,7 @@ const api = context.exports;
 test('contact route has the approved heading hierarchy and updated metadata', () => {
   assert.equal([...contactHtml.matchAll(/<h1\b/g)].length, 1);
   assert.match(contactHtml, />Talk to our team\.<\/h1>/);
-  assert.match(contactHtml, /Send us a message/);
+  assert.match(contactHtml, /Prepare an email/);
   assert.match(contactHtml, /<title>Contact ITKeepers \| Talk to Our Team<\/title>/);
   assert.match(contactHtml, /<link rel="canonical" href="https:\/\/itkeepers\.com\/contact\/?"/);
   assert.equal((contactHtml.match(/"@type":"Organization"/g) ?? []).length, 1);
@@ -31,7 +31,7 @@ test('contact route has the approved heading hierarchy and updated metadata', ()
 
 test('contact cards retain exact destinations, headings and emergency wording', () => {
   assert.match(contactHtml, />Call us<\/h2>/);
-  assert.match(contactHtml, />Write to us\.<\/h2>/);
+  assert.match(contactHtml, />Email our team<\/h2>/);
   assert.match(contactHtml, /href="tel:\+96181816761"/);
   assert.match(contactHtml, /href="mailto:info@itkeepers\.com"/);
   assert.match(contactHtml, /href="\/emergency\/"[^>]*>Get emergency help<\/a>/);
@@ -50,6 +50,7 @@ test('the form remains visible without an endpoint and offers a truthful email h
       assert.match(html, /action="mailto:info@itkeepers\.com"/);
       assert.match(html, /Continue to email/);
       assert.match(html, /Your email app will open\. Review and send your message there\./);
+      assert.match(html, /Nothing is sent by this website\./);
       assert.doesNotMatch(html, /data-inquiry-success|Message sent\.|message has been received/);
     }
     assert.doesNotMatch(html, /Online requests are unavailable|data-inquiry-unavailable|inquiry-direct-actions/);

@@ -19,8 +19,8 @@ export const pages: Record<string, PageSEO> = {
     articleDate: article.published
   }])),
   '/': {
-    title: 'ITKeepers | Managed Service Provider in Lebanon',
-    description: 'ITKeepers is a Lebanon-based MSP offering Managed IT with familiar engineers, shared context and a team behind ongoing business IT.'
+    title: 'Managed IT, Cybersecurity & Cloud in Lebanon | ITKeepers',
+    description: 'ITKeepers provides managed IT services, cybersecurity, Microsoft 365, networking and backup for businesses in Lebanon, backed by proactive engineering.'
   },
   '/about/': {
     title: 'About ITKeepers | Familiar Engineers, Shared Expertise',

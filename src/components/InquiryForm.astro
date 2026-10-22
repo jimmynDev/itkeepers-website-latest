@@ -16,9 +16,9 @@ const types = { name:'text', email:'email', company:'text', phone:'tel' };
 const autocomplete = { name:'name', email:'email', company:'organization', phone:'tel' };
 ---
 <section class:list={['inquiry-widget', { 'inquiry-widget--compact': compact }]} aria-labelledby={id + '-form-title'}>
-  <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : 'Send us a message'}</Heading>
+  <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : endpoint ? 'Send us a message' : 'Prepare an email'}</Heading>
     <div data-inquiry-live>
-      <p class="inquiry-intro">A few details are enough to get started.</p>
+      <p class="inquiry-intro">{endpoint ? 'A few details are enough to get started.' : 'Fill in the details you want to include in an email.'}</p>
       <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method={endpoint ? 'post' : 'get'} action={endpoint ?? contactEmail.href} novalidate data-inquiry-form data-inquiry-delivery={endpoint ? 'backend' : 'email'} data-turnstile-sitekey={endpoint ? siteKey : undefined} data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
         <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
@@ -56,7 +56,7 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
           <p class="inquiry-email-note">If security verification is unavailable, <a href={contactEmail.href}>email our team</a> or <a href={businessPhone.href}>call {businessPhone.display}</a>.</p>
         </>}
         <button class="btn inquiry-submit" type="submit" disabled={endpoint ? true : undefined} aria-describedby={!endpoint ? id + '-email-help' : undefined}>{!endpoint ? 'Continue to email' : compact ? 'Request my free IT review' : 'Send my message'}</button>
-        {!endpoint && <p class="inquiry-email-note" id={id + '-email-help'}>Your email app will open. Review and send your message there.</p>}
+        {!endpoint && <p class="inquiry-email-note" id={id + '-email-help'}>Your email app will open. Review and send your message there. Nothing is sent by this website.</p>}
         <noscript><p class="inquiry-email-note">To include all your details automatically, enable JavaScript. You can also <a href={contactEmail.href}>email our team directly</a>.</p></noscript>
         <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
         <!-- TODO: Add a verified "what happens next" response-time sentence only after ITKeepers approves the claim. -->
