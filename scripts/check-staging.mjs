@@ -19,7 +19,10 @@ for(const staged of files('dist-staging')){
   assert.equal(restoredHead,before.slice(0,before.indexOf('<body')),'Unexpected head change: '+relative);
   assert(html.includes(`rel="canonical" href="${policy.origin}${route}"`),relative);
   assert(html.includes(`property="og:url" content="${policy.origin}${route}"`),relative);
-  assert(!html.includes('data-inquiry-delivery="backend"'));forms+=(html.match(/data-inquiry-form/g)||[]).length;
+  assert(!html.includes('data-inquiry-delivery="backend"'));
+  const formTags=html.match(/<form\b[^>]*data-inquiry-form[^>]*>/g)||[];
+  for(const form of formTags) { assert(form.includes('action="https://formspree.io/f/mrppzvpo"'));assert(form.includes('method="post"'));assert(form.includes('data-inquiry-delivery="formspree"')); }
+  forms+=formTags.length;
  }else if(relative==='robots.txt'){
   assert.equal(actual.toString(),`User-agent: *\nAllow: /\nSitemap: ${policy.origin}/sitemap.xml\n`);
  }else if(relative==='_headers'){
@@ -33,4 +36,4 @@ for(const staged of files('dist-staging')){
 const sitemap=readFileSync('dist-staging/sitemap.xml','utf8');
 assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]).sort(),urls.sort());
 assert.equal(files('dist-staging').length,files('dist').length);assert.equal(pages,20);assert.equal(forms,2);assert.equal(held,5);assert.equal(urls.length,15);
-console.log(JSON.stringify({pages,indexable:urls.length,held,forms,assetsAndBodyIdentical:true,canonicals:policy.origin,contact:'email handoff only',redirectRules:28}));
+console.log(JSON.stringify({pages,indexable:urls.length,held,forms,assetsAndBodyIdentical:true,canonicals:policy.origin,contact:'direct Formspree; local APIs disabled; Privacy approval pending',redirectRules:28}));

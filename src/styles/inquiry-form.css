@@ -1,4 +1,4 @@
-/* Contact form and homepage review panel; email handoff until an endpoint is configured. */
+/* Contact form and homepage review panel; approved direct Formspree submission. */
 .inquiry-widget { --inquiry-text:var(--itk-text); --inquiry-muted:#B8C4D6; --inquiry-bg:var(--itk-surface); --inquiry-border:rgba(159,176,199,.65); min-inline-size:0; color:var(--inquiry-text); }
 .inquiry-widget [hidden] { display:none !important; }
 .inquiry-heading { font-size:clamp(24px,2.3vw,30px); line-height:1.2; font-weight:600; margin:0 0 12px; letter-spacing:-.025em; color:var(--inquiry-text); }
@@ -20,6 +20,11 @@
 .inquiry-email-note { color:var(--inquiry-muted); font-size:14px; line-height:1.6; margin:12px 0 0; }
 .inquiry-error,.inquiry-status { color:#FCA5A5; font-size:14px; line-height:1.5; margin:8px 0 0; }
 .inquiry-status:empty { display:none; }
+.inquiry-widget .inquiry-status[data-state="success"],.inquiry-widget .inquiry-status[data-state="info"] { color:var(--inquiry-text); }
+.inquiry-form[data-inquiry-initialized] .interest-native-label { display:none; }
+.interest-native-label { cursor:pointer; line-height:1.5; }
+.interest-native { inline-size:18px; block-size:18px; accent-color:var(--itk-brand-cyan); }
+.inquiry-provider-submit { margin-block-start:12px; }
 .inquiry-field [aria-invalid="true"] { border-color:#FCA5A5; border-width:2px; }
 .inquiry-details { margin-block-start:22px; padding:0; border:0; }
 .inquiry-details > summary { display:list-item; cursor:pointer; width:fit-content; min-block-size:44px; padding:8px 0; color:var(--itk-brand-cyan); font-size:16px; font-weight:600; }

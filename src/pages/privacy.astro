@@ -1,4 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
+import { contactEmail } from '../data/contact';
 ---
-<Base><section class="section"><p class="eyebrow">Privacy</p><h1>Privacy matters.</h1><p class="lead">This redesign minimizes data collection by default. V1 ships without analytics or a contact-form processor.</p></section><section class="section light"><h2>Before launch</h2><p>The final notice should identify the actual form processor, purpose, retention, analytics choices and contact-data handling. Until those systems are verified, this page avoids inventing practices.</p></section></Base>
+<Base>
+  <section class="section">
+    <p class="eyebrow">Privacy</p>
+    <h1>Privacy matters.</h1>
+    <p class="lead">This notice covers inquiries sent through ITKeepers' website contact and free IT review forms.</p>
+  </section>
+  <section class="section light">
+    <h2>Information you submit</h2>
+    <p>The forms collect your name and email address, any company or phone details you choose to provide, your message or free IT review request, and any selected service interests. Please do not submit passwords or confidential technical information.</p>
+    <h2>Purpose and delivery</h2>
+    <p>ITKeepers uses these details to respond to your inquiry and discuss the services or free IT review you request. Formspree is our external form-processing provider. It processes submissions for delivery to the configured ITKeepers notification inbox and applies its spam protections. Website acceptance confirms provider acceptance, not that an email has reached the inbox or been read.</p>
+    <h2>Provider processing and retention</h2>
+    <p>Formspree may store submissions and process technical information, such as IP address and browser details, to operate and protect its service. Formspree describes processing in the United States and other countries where it operates.</p>
+    <p>How long Formspree makes submissions available depends on the account plan; its Privacy Policy describes additional retention for service, security and legal purposes. Copies delivered by email are retained separately in the notification mailbox. See <a class="disclosure-link" href="https://formspree.io/legal/privacy-policy/">Formspree's Privacy Policy</a> and its <a class="disclosure-link" href="https://formspree.io/plans/">submission archive information</a>.</p>
+    <h2>Privacy questions and requests</h2>
+    <p>For questions about your inquiry or to request access, correction or deletion, email <a class="disclosure-link" href={contactEmail.href}>{contactEmail.display}</a>. You can also use this address to contact ITKeepers directly instead of submitting a form.</p>
+  </section>
+</Base>

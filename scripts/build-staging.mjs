@@ -42,4 +42,4 @@ const normalized = sourceHeaders.replaceAll('\r\n', '\n');
 if (!normalized.includes(guard)) throw new Error('Review changed workers.dev header guard before public indexing.');
 await writeFile(headers, normalized.replace(guard, '# Approved public workers.dev site; per-page indexing handled by Worker.')
   .replaceAll('https://itkeepers.com', policy.origin));
-console.log(`Public site artifact ready: ${indexable.size} indexable pages, ${Object.keys(policy.noindex).length} held routes; contact disabled.`);
+console.log(`Site artifact ready: ${indexable.size} indexable pages, ${Object.keys(policy.noindex).length} held routes; local APIs disabled; Formspree publication requires Privacy approval.`);

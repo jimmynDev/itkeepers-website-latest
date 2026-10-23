@@ -3,7 +3,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   X-Frame-Options: DENY
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; font-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://formspree.io/f/mrppzvpo; font-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; base-uri 'none'; form-action 'self' https://formspree.io; frame-ancestors 'none'; object-src 'none'
 
 # Stage HSTS on the verified HTTPS apex only; no subdomain or preload commitment.
 https://itkeepers.com/*

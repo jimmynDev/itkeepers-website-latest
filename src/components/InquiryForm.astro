@@ -1,27 +1,26 @@
 ---
 import { contactEmail, businessPhone } from '../data/contact';
-import { inquiryEndpoint, inquiryLimits, serviceInterests } from '../data/inquiry';
+import { inquiryLimits, serviceInterests } from '../data/inquiry';
+import { formspreeEndpoint } from '../data/formspree';
 import '../styles/inquiry-form.css';
 
 const { compact=false, id='contact' } = Astro.props as { compact?: boolean; id?: string };
 const Heading = compact ? 'h3' : 'h2';
-// Restrict delivery to a configured same-origin API route; never POST contact data to an arbitrary URL.
-const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim();
-const configuredEndpoint = inquiryEndpoint(import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT);
-const endpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENABLED === 'true' && siteKey && configuredEndpoint === '/api/contact'
-  ? configuredEndpoint : null;
+// The approved provider is direct browser-to-Formspree; both ITKeepers APIs stay disabled.
 const fields = compact ? ['name','email','phone','company'] as const : ['name','email','company','phone'] as const;
 const labels = { name:'Full name', email:'Work email', company:'Company', phone:'Phone' };
 const types = { name:'text', email:'email', company:'text', phone:'tel' };
 const autocomplete = { name:'name', email:'email', company:'organization', phone:'tel' };
 ---
 <section class:list={['inquiry-widget', { 'inquiry-widget--compact': compact }]} aria-labelledby={id + '-form-title'}>
-  <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : endpoint ? 'Send us a message' : 'Prepare an email'}</Heading>
+  <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT review.' : 'Send us a message'}</Heading>
     <div data-inquiry-live>
-      <p class="inquiry-intro">{endpoint ? 'A few details are enough to get started.' : 'Fill in the details you want to include in an email.'}</p>
-      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method={endpoint ? 'post' : 'get'} action={endpoint ?? contactEmail.href} novalidate data-inquiry-form data-inquiry-delivery={endpoint ? 'backend' : 'email'} data-turnstile-sitekey={endpoint ? siteKey : undefined} data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'}>
+      <p class="inquiry-intro">A few details are enough to get started.</p>
+      <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method="post" action={formspreeEndpoint} data-inquiry-form data-inquiry-delivery="formspree" data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'} aria-describedby={id + '-processor-note'}>
         <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
+        <input type="hidden" name="_subject" value={compact ? 'ITKeepers — Free IT review request' : 'ITKeepers — Website inquiry'} />
+        <div hidden aria-hidden="true"><label for={id + '-gotcha'}>Leave this field empty<input id={id + '-gotcha'} name="_gotcha" type="text" tabindex="-1" autocomplete="off" /></label></div>
         {compact && <input type="hidden" name="message" value="I'd like a free IT review." />}
         <div class="inquiry-fields">
           {fields.map(name => <div class="inquiry-field">
@@ -42,28 +41,28 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
             <legend>Interested in <span>(optional)</span></legend>
             <div class="inquiry-chips">
               {serviceInterests.map(item => <div class="interest-option">
-                <input type="checkbox" name="interests" value={item.value} id={id + '-interest-' + item.value} hidden />
-                <button class="interest-chip" type="button" data-interest={item.value} aria-pressed="false" aria-controls={id + '-interest-' + item.value}>
+                <input class="interest-native" type="checkbox" name="interests" value={item.value} id={id + '-interest-' + item.value} />
+                <label class="interest-native-label" for={id + '-interest-' + item.value}>{item.label}</label>
+                <button class="interest-chip" type="button" data-interest={item.value} aria-pressed="false" aria-controls={id + '-interest-' + item.value} hidden>
                   <span class="interest-chip-mark" aria-hidden="true">✓</span><span>{item.label}</span>
                 </button>
               </div>)}
             </div>
           </fieldset>
         </details>}
-        {endpoint && <>
-          <div hidden aria-hidden="true"><label for={id + '-website'}>Website<input id={id + '-website'} name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
-          <div data-inquiry-verification role="group" aria-label="Inquiry security verification"></div>
-          <p class="inquiry-email-note">If security verification is unavailable, <a href={contactEmail.href}>email our team</a> or <a href={businessPhone.href}>call {businessPhone.display}</a>.</p>
-        </>}
-        <button class="btn inquiry-submit" type="submit" disabled={endpoint ? true : undefined} aria-describedby={!endpoint ? id + '-email-help' : undefined}>{!endpoint ? 'Continue to email' : compact ? 'Request my free IT review' : 'Send my message'}</button>
-        {!endpoint && <p class="inquiry-email-note" id={id + '-email-help'}>Your email app will open. Review and send your message there. Nothing is sent by this website.</p>}
-        <noscript><p class="inquiry-email-note">To include all your details automatically, enable JavaScript. You can also <a href={contactEmail.href}>email our team directly</a>.</p></noscript>
+        <p class="inquiry-email-note" id={id + '-processor-note'}>We use your details to respond to your inquiry. Formspree processes your submission for delivery to our configured notification inbox. Read our <a href="/privacy/">Privacy notice</a>.</p>
+        <button class="btn inquiry-submit" type="submit">{compact ? 'Request my free IT review' : 'Send my message'}</button>
+        <div data-formspree-verification hidden>
+          <p class="inquiry-email-note">Continue on Formspree to complete any required verification. This submits your details and leaves this website.</p>
+          <button class="btn inquiry-provider-submit" type="submit" data-formspree-native>Continue on Formspree</button>
+        </div>
+        <p class="inquiry-email-note">You can also <a href={contactEmail.href}>email our team directly</a> or <a href={businessPhone.href}>call {businessPhone.display}</a>.</p>
+        <noscript><p class="inquiry-email-note">Submitting opens Formspree, where you can complete any required spam check and see its confirmation or error page. Your selected services are included.</p></noscript>
         <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
         <!-- TODO: Add a verified "what happens next" response-time sentence only after ITKeepers approves the claim. -->
       </form>
     </div>
-    <!-- API success UI remains deferred until an approved durable sink is implemented. -->
-  {(!compact || endpoint) && <p class="inquiry-privacy"><a href="/privacy/">Privacy notice</a></p>}
+    <!-- Provider acceptance is distinct from verified inbox delivery. -->
 </section>
 <script>
   import { initializeContactForms } from '../scripts/contact-form';

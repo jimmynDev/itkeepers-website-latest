@@ -21,7 +21,7 @@ const api = context.exports;
 test('contact route has the approved heading hierarchy and updated metadata', () => {
   assert.equal([...contactHtml.matchAll(/<h1\b/g)].length, 1);
   assert.match(contactHtml, />Talk to our team\.<\/h1>/);
-  assert.match(contactHtml, /Prepare an email/);
+  assert.match(contactHtml, /Send us a message/);
   assert.match(contactHtml, /<title>Contact ITKeepers \| Talk to Our Team<\/title>/);
   assert.match(contactHtml, /<link rel="canonical" href="https:\/\/itkeepers\.com\/contact\/?"/);
   assert.equal((contactHtml.match(/"@type":"Organization"/g) ?? []).length, 1);
@@ -39,25 +39,20 @@ test('contact cards retain exact destinations, headings and emergency wording', 
   assert.match(contactSource, /font-size:20px/);
 });
 
-test('the form remains visible without an endpoint and offers a truthful email handoff', () => {
+test('both forms use the approved Formspree endpoint with honest processing and native fallback', () => {
   for (const html of [contactHtml, homeHtml]) {
     assert.match(html, /<form\b[^>]*data-inquiry-form/);
     assert.match(html, /name="type" value="(?:general|review)"/);
-    if (/data-inquiry-delivery="backend"/.test(html)) {
-      assert.match(html, /action="\/api\/contact"/);
-      assert.doesNotMatch(html, /data-inquiry-success/);
-    } else {
-      assert.match(html, /action="mailto:info@itkeepers\.com"/);
-      assert.match(html, /Continue to email/);
-      assert.match(html, /Your email app will open\. Review and send your message there\./);
-      assert.match(html, /Nothing is sent by this website\./);
-      assert.doesNotMatch(html, /data-inquiry-success|Message sent\.|message has been received/);
-    }
+    assert.match(html, /action="https:\/\/formspree\.io\/f\/mrppzvpo"/);
+    assert.match(html, /method="post"[^>]*data-inquiry-form[^>]*data-inquiry-delivery="formspree"/);
+    assert.match(html, /Formspree processes your submission for delivery to our configured notification inbox/);
+    assert.match(html, /name="_gotcha"/);
+    assert.doesNotMatch(html, /<form[^>]*novalidate|data-inquiry-delivery="backend"|Message sent\.|message has been received/);
     assert.doesNotMatch(html, /Online requests are unavailable|data-inquiry-unavailable|inquiry-direct-actions/);
     assert.doesNotMatch(html, /<button[^>]*type="submit"[^>]*disabled/);
   }
-  assert.match(formTemplate, /PUBLIC_CONTACT_FORM_ENDPOINT/);
-  assert.match(formTemplate, /same-origin API route/);
+  assert.match(formTemplate, /formspreeEndpoint/);
+  assert.match(formTemplate, /both ITKeepers APIs stay disabled/);
 });
 
 test('form source requires name, email and message; company and phone remain optional', () => {
