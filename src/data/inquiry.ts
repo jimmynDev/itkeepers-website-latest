@@ -19,24 +19,21 @@ export const serviceInterests = [
   { value:'not-sure', label:'Not sure yet' }
 ] as const;
 export function normalizeContactIntent(value: unknown): InquiryIntent { return value === 'review' ? 'review' : 'general'; }
-export function contactSubmitLabel(intent: InquiryIntent): string { return intent === 'review' ? 'Request my free IT review' : 'Send my message'; }
+export function contactSubmitLabel(intent: InquiryIntent): string { return intent === 'review' ? 'Request my free IT consultation' : 'Send my message'; }
 /** Encode all visitor text inside one body parameter, never as mail headers. */
-export function composeInquiryEmail(recipient: string, fields: Record<InquiryField,string>, intent: InquiryIntent, interests: unknown[]): string {
-  const selected = validateServiceInterests(interests);
-  const labels = selected.map(value => serviceInterests.find(item => item.value === value)!.label);
-  const subject = intent === 'review' ? 'Free IT review request' : 'General inquiry';
+export function composeInquiryEmail(recipient: string, fields: Record<InquiryField,string>, intent: InquiryIntent): string {
+  const subject = intent === 'review' ? 'Free IT consultation request' : 'General inquiry';
   const lines = [
     `Full name: ${fields.name.trim()}`,
     `Work email: ${fields.email.trim()}`,
     ...(fields.company.trim() ? [`Company: ${fields.company.trim()}`] : []),
     ...(fields.phone.trim() ? [`Phone: ${fields.phone.trim()}`] : []),
     `Inquiry type: ${intent}`,
-    ...(labels.length ? [`Interested in: ${labels.join(', ')}`] : []),
     '', 'How can we help?', fields.message.trim().replace(/\r?\n/g, '\r\n')
   ];
   return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\r\n'))}`;
 }
-/** Native checkbox values become a bounded array; this is not server validation. */
+/** Bound legacy service-interest fields retained by the disabled first-party endpoint. */
 export function validateServiceInterests(values: unknown[]): string[] {
   if(values.some(value=>typeof value!=='string'||!serviceInterests.some(item=>item.value===value))) throw new Error('Unsupported service interest.');
   const result=[...new Set(values as string[])];

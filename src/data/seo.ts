@@ -28,7 +28,7 @@ export const pages: Record<string, PageSEO> = {
   },
   '/contact/': {
     title: 'Contact ITKeepers | Talk to Our Team',
-    description: 'Contact ITKeepers in Lebanon about managed IT, cybersecurity, Microsoft 365, infrastructure, automation or a free IT review.'
+    description: 'Contact ITKeepers in Lebanon about managed IT, cybersecurity, Microsoft 365, infrastructure, automation or a free IT consultation.'
   },
   '/how-we-work/': {
     title: 'How We Work: IT Monitoring & Follow-Up | ITKeepers',
@@ -40,8 +40,8 @@ export const pages: Record<string, PageSEO> = {
   },
   '/privacy/': {
     title: 'Privacy | ITKeepers',
-    description: 'Privacy notice preparation for the ITKeepers redesign, including the data-handling details that require confirmation before launch.',
-    index: false // Existing page explicitly says the final notice is still pending.
+    description: 'Privacy notice for the ITKeepers competition preview, including Formspree inquiry processing and delivery to a temporary administrator-managed inbox.',
+    index: false // Public notice approval remains a recorded release gate.
   },
   '/it-keepers-pulse/': {
     title: 'IT Keepers Pulse | IT Visibility Platform in Development',

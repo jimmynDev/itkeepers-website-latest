@@ -1,8 +1,8 @@
-import { inquiryEndpoint, normalizeContactIntent, contactSubmitLabel, contactFieldError, validateServiceInterests, composeInquiryEmail, type InquiryField } from '../data/inquiry';
+import { inquiryEndpoint, normalizeContactIntent, contactSubmitLabel, contactFieldError, composeInquiryEmail, type InquiryField } from '../data/inquiry';
 import { contactEmail } from '../data/contact';
 import { createInquiryVerification } from './inquiry-verification';
 import { formspreeEndpoint, formspreePayload, formspreeAccepted, formspreeAcceptedMessage, formspreeFailure, formspreeErrors } from '../data/formspree';
-export { normalizeContactIntent, contactSubmitLabel, contactFieldError, validateServiceInterests, inquiryLimits as contactLimits } from '../data/inquiry';
+export { normalizeContactIntent, contactSubmitLabel, contactFieldError, inquiryLimits as contactLimits } from '../data/inquiry';
 
 /** Formspree acceptance is separate from inbox delivery; local APIs never claim receipt. */
 export function initializeContactForms(scope: ParentNode = document): void {
@@ -10,10 +10,8 @@ export function initializeContactForms(scope: ParentNode = document): void {
     if (form.dataset.inquiryInitialized) return;
     const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
     const status = form.querySelector<HTMLElement>('[data-inquiry-status]');
-    const live = form.closest<HTMLElement>('.inquiry-widget')?.querySelector<HTMLElement>('[data-inquiry-live]');
     const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.inquiry-field input, .inquiry-field textarea')];
-    const chips = [...form.querySelectorAll<HTMLButtonElement>('button[data-interest]')];
-    if (!button || !status || !live) return;
+    if (!button || !status) return;
     const action = form.getAttribute('action');
     const provider = form.dataset.inquiryDelivery === 'formspree' && action === formspreeEndpoint;
     const endpoint = provider ? formspreeEndpoint : form.dataset.inquiryDelivery === 'backend' && inquiryEndpoint(action) === '/api/contact' ? '/api/contact' : null;
@@ -21,6 +19,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
     const providerFallback = form.querySelector<HTMLElement>('[data-formspree-verification]');
     let sending = false;
     let accepted = false;
+    const providerRejected = new WeakSet<HTMLInputElement | HTMLTextAreaElement>();
 
     const compact = form.dataset.inquiryMode === 'review';
     const intent = compact ? 'review' : normalizeContactIntent(new URL(window.location.href).searchParams.get('type'));
@@ -28,7 +27,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
     if (intentInput) intentInput.value = intent;
     if (!compact && intent === 'review') {
       const message = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
-      if (message && !message.value.trim()) message.value = "I'd like a free IT review.";
+      if (message && !message.value.trim()) message.value = "I'd like a free IT consultation.";
     }
     button.textContent = endpoint ? contactSubmitLabel(intent) : 'Continue to email';
     const markEdited = (): void => {
@@ -46,15 +45,11 @@ export function initializeContactForms(scope: ParentNode = document): void {
     const options = { signal: controller.signal };
     form.dataset.inquiryInitialized = 'true';
     form.noValidate = true;
-    chips.forEach(chip => {
-      chip.hidden = false;
-      const input = form.querySelector<HTMLInputElement>('input[name="interests"][value="' + chip.dataset.interest + '"]');
-      if (input) input.hidden = true;
-    });
     // Backend native submission remains disabled without JS; direct contacts stay usable.
     button.disabled = false;
 
     const validate = (field: HTMLInputElement | HTMLTextAreaElement): boolean => {
+      providerRejected.delete(field);
       const name = field.name as InquiryField;
       const error = form.querySelector<HTMLElement>('[data-field-error="' + name + '"]');
       if (!error) return true;
@@ -65,28 +60,11 @@ export function initializeContactForms(scope: ParentNode = document): void {
       else field.removeAttribute('aria-invalid');
       return !message;
     };
-    const syncChips = (): void => {
-      chips.forEach(chip => {
-        const input = form.querySelector<HTMLInputElement>('input[name="interests"][value="' + chip.dataset.interest + '"]');
-        chip.setAttribute('aria-pressed', input?.checked ? 'true' : 'false');
-      });
-    };
-    chips.forEach(chip => chip.addEventListener('click', () => {
-      const input = form.querySelector<HTMLInputElement>('input[name="interests"][value="' + chip.dataset.interest + '"]');
-      if (!input) return;
-      input.checked = !input.checked;
-      if (input.checked) {
-        form.querySelectorAll<HTMLInputElement>('input[name="interests"]').forEach(other => {
-          if (input.value === 'not-sure' ? other !== input : other.value === 'not-sure') other.checked = false;
-        });
-      }
-      syncChips();
-      markEdited();
-    }, options));
-    syncChips();
 
     fields.forEach(field => {
-      field.addEventListener('blur', () => { validate(field); }, options);
+      // Keep provider feedback stable while a retry click moves focus away.
+      // Editing or submitting validates again; blur alone must not move the button.
+      field.addEventListener('blur', () => { if (!providerRejected.has(field)) validate(field); }, options);
       field.addEventListener('input', () => {
         if (field.hasAttribute('aria-invalid')) validate(field);
         markEdited();
@@ -103,13 +81,6 @@ export function initializeContactForms(scope: ParentNode = document): void {
         status.dataset.state = 'error';
         status.textContent = endpoint ? 'Please correct the highlighted fields before sending.' : 'Please correct the highlighted fields before opening your email app.';
         invalid[0].focus();
-        return;
-      }
-      try {
-        selectedServiceInterests(form);
-      } catch {
-        event.preventDefault();
-        status.textContent = 'Please review your selected services.';
         return;
       }
       let providerData: FormData | undefined;
@@ -134,7 +105,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
         const data = new FormData(form);
         const values = Object.fromEntries(['name','email','company','phone','message'].map(name => [name, String(data.get(name) ?? '')])) as Record<InquiryField,string>;
         status.textContent = 'Your email app will open. Review and send your message there. Nothing is sent by this website.';
-        window.location.assign(composeInquiryEmail(contactEmail.display, values, intent, data.getAll('interests')));
+        window.location.assign(composeInquiryEmail(contactEmail.display, values, intent));
         return;
       }
       const token = verification?.token();
@@ -191,6 +162,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
           for (const error of formspreeErrors(result)) {
             const field = fields.find(item => item.name === error.field);
             if (!field) continue;
+            providerRejected.add(field);
             const message = form.querySelector<HTMLElement>('[data-field-error="' + field.name + '"]');
             if (message) { message.textContent = error.message;message.hidden = false; }
             field.setAttribute('aria-invalid','true');firstProviderField ??= field;
@@ -224,9 +196,4 @@ export function initializeContactForms(scope: ParentNode = document): void {
     }, options);
     document.addEventListener('astro:before-swap', () => { controller.abort(); verification?.dispose(); }, { once: true });
   });
-}
-
-/** Structured selections for the receiving API; validate these again on the server. */
-export function selectedServiceInterests(form: HTMLFormElement): string[] {
-  return validateServiceInterests(new FormData(form).getAll('interests'));
 }

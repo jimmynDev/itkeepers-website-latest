@@ -45,7 +45,7 @@ test('both forms use the approved Formspree endpoint with honest processing and 
     assert.match(html, /name="type" value="(?:general|review)"/);
     assert.match(html, /action="https:\/\/formspree\.io\/f\/mrppzvpo"/);
     assert.match(html, /method="post"[^>]*data-inquiry-form[^>]*data-inquiry-delivery="formspree"/);
-    assert.match(html, /Formspree processes your submission for delivery to our configured notification inbox/);
+    assert.doesNotMatch(html, /We use your details to respond to your inquiry\.|A few details are enough to get started\./);
     assert.match(html, /name="_gotcha"/);
     assert.doesNotMatch(html, /<form[^>]*novalidate|data-inquiry-delivery="backend"|Message sent\.|message has been received/);
     assert.doesNotMatch(html, /Online requests are unavailable|data-inquiry-unavailable|inquiry-direct-actions/);
@@ -62,9 +62,7 @@ test('form source requires name, email and message; company and phone remain opt
   assert.match(formTemplate, /name="type" value=\{compact \? 'review' : 'general'\}/);
   assert.doesNotMatch(formTemplate, /Inquiry purpose|inquiry-purpose|type="radio"/);
   assert.match(formTemplate, /How can we help\?/);
-  assert.match(formTemplate, /passwords, account credentials/);
-  assert.match(formTemplate, /Privacy notice/);
-  assert.match(formTemplate, /"what happens next" response-time/);
+  assert.doesNotMatch(formTemplate, /passwords, account credentials|processor-note|data-help/);
 });
 
 test('the review path uses type=review throughout site entry points', () => {
@@ -72,21 +70,17 @@ test('the review path uses type=review throughout site entry points', () => {
   assert.match(navigation, /\/contact\/\?type=review/);
   assert.doesNotMatch(hero + navigation, /\/contact\/\?intent=review/);
   assert.match(formScript, /searchParams\.get\('type'\)/);
-  assert.match(formScript, /I'd like a free IT review\./);
+  assert.match(formScript, /I'd like a free IT consultation\./);
   assert.match(formScript, /intentInput\.value = intent/);
   assert.equal(api.normalizeContactIntent('review'), 'review');
   assert.equal(api.normalizeContactIntent('unknown'), 'general');
 });
 
-test('exactly eight optional interests have accessible toggles and no unselected icon gap', () => {
+test('removed optional interests have no rendered selectors or client chip state', () => {
   assert.equal(api.serviceInterests.length, 8);
-  for (const option of api.serviceInterests) assert.ok(formTemplate.includes("data-interest={item.value}"));
-  assert.match(formTemplate, /aria-pressed="false"/);
-  assert.match(formTemplate, /<details class="inquiry-details">/);
-  assert.match(formTemplate, /Add details \(optional\)/);
-  assert.match(formCss, /interest-chip-mark \{ display:none/);
-  assert.match(formCss, /\[aria-pressed="true"\] \.interest-chip-mark \{ display:inline/);
-  assert.match(formScript, /syncChips/);
+  assert.doesNotMatch(formTemplate, /data-interest|inquiry-details|Add details|name="interests"/);
+  assert.doesNotMatch(formCss, /interest-chip|inquiry-details|inquiry-interests/);
+  assert.doesNotMatch(formScript, /syncChips|selectedServiceInterests|data-interest/);
   assert.deepEqual([...api.validateServiceInterests(['managed-it','cybersecurity','managed-it'])], ['managed-it','cybersecurity']);
   assert.throws(() => api.validateServiceInterests(['not-sure','managed-it']), /Choose services/);
   assert.throws(() => api.validateServiceInterests(['unknown']), /Unsupported/);
@@ -104,7 +98,6 @@ test('inline errors are accessible and required/optional limits remain enforced'
     assert.equal(api.contactFieldError(field, 'x'.repeat(limit)), '');
     assert.match(api.contactFieldError(field, 'x'.repeat(limit+1)), /characters/);
   }
-  assert.match(formCss, /\.inquiry-help,\.inquiry-privacy \{[^}]*font-size:14px/);
   assert.match(formCss, /\.inquiry-error,\.inquiry-status \{[^}]*font-size:14px/);
 });
 
@@ -121,31 +114,31 @@ test('contact API remains fail-closed without durable storage or delivery', () =
 });
 
 const emailFields = { name:'Example Person',email:'person@example.com',company:'Example & Co',phone:'+961 81 000 000',message:'First line\nSecond line: café & cloud? #priority' };
-test('email composition includes completed fields and readable selected service labels', () => {
-  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', emailFields, 'general', ['managed-it','microsoft-cloud']));
+test('email fallback composition includes completed fields without removed service selections', () => {
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', emailFields, 'general'));
   assert.equal(draft.protocol, 'mailto:');
   assert.equal(draft.pathname, 'info@itkeepers.com');
   assert.equal(draft.searchParams.get('subject'), 'General inquiry');
   const body = draft.searchParams.get('body');
-  for (const text of ['Full name: Example Person','Work email: person@example.com','Company: Example & Co','Phone: +961 81 000 000','Inquiry type: general','Interested in: Managed IT, Microsoft 365 and Cloud','First line\r\nSecond line: café & cloud? #priority']) assert.ok(body.includes(text));
+  for (const text of ['Full name: Example Person','Work email: person@example.com','Company: Example & Co','Phone: +961 81 000 000','Inquiry type: general','First line\r\nSecond line: café & cloud? #priority']) assert.ok(body.includes(text));
+  assert.doesNotMatch(body,/Interested in:/);
   assert.equal([...draft.searchParams].length, 2);
 });
 
 test('review email composition keeps the review intent and omits empty optional fields', () => {
-  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,company:' ',phone:'',message:"I'd like a free IT review."}, 'review', []));
-  assert.equal(draft.searchParams.get('subject'), 'Free IT review request');
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,company:' ',phone:'',message:"I'd like a free IT consultation."}, 'review'));
+  assert.equal(draft.searchParams.get('subject'), 'Free IT consultation request');
   assert.match(draft.searchParams.get('body'), /Inquiry type: review/);
-  assert.match(draft.searchParams.get('body'), /I'd like a free IT review\./);
+  assert.match(draft.searchParams.get('body'), /I'd like a free IT consultation\./);
   assert.doesNotMatch(draft.searchParams.get('body'), /Company:|Phone:|Interested in:/);
 });
 
-test('visitor text cannot add mail recipients or headers and interests remain validated', () => {
-  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,name:'Example\r\nBcc: someone@example.com',message:'?subject=changed&bcc=someone@example.com'}, 'general', ['not-sure']));
+test('visitor text cannot add mail recipients or headers to the simplified fallback', () => {
+  const draft = new URL(api.composeInquiryEmail('info@itkeepers.com', {...emailFields,name:'Example\r\nBcc: someone@example.com',message:'?subject=changed&bcc=someone@example.com'}, 'general'));
   assert.equal(draft.pathname, 'info@itkeepers.com');
   assert.equal(draft.searchParams.get('subject'), 'General inquiry');
   assert.equal(draft.searchParams.has('bcc'), false);
-  assert.match(draft.searchParams.get('body'), /Interested in: Not sure yet/);
-  assert.throws(() => api.composeInquiryEmail('info@itkeepers.com', emailFields, 'general', ['unknown']), /Unsupported/);
+  assert.doesNotMatch(draft.searchParams.get('body'), /Interested in:/);
 });
 
 test('submit stays cyan and interactive, with responsive layouts and light/forced-color options', () => {

@@ -151,7 +151,7 @@ async function processInquiry(request: Request, env: Env, dependencies: Dependen
     try {
       const result = await within(env.CONTACT_EMAIL!.send({
         from, to: contactFormRecipient, replyTo: fields.email,
-        subject: type === 'review' ? 'ITKeepers website: free IT review request' : 'ITKeepers website: general inquiry',
+        subject: type === 'review' ? 'ITKeepers website: free IT consultation request' : 'ITKeepers website: general inquiry',
         text: [`Name: ${fields.name}`, `Email: ${fields.email}`, `Company: ${fields.company}`, `Phone: ${fields.phone}`,
           `Interest: ${labels.join(', ') || 'Not specified'}`, '', fields.message].join('\n'),
       }), policy.sendTimeoutMs);

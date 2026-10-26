@@ -1,6 +1,7 @@
 ---
 
 import DigitalServicesTransition from './DigitalServicesTransition.astro';
+import ServicesFlow from './ServicesFlow.astro';
 
 import ManagedITAnimation from './animations/ManagedITDashboardAnimation.astro';
 
@@ -29,11 +30,12 @@ const offerings = [
 ---
 
 <div class="digital-transition-zone">
+<ServicesFlow />
 <div class="service-stories" id="services">
 
   {offerings.map(({ id, name, intro, support, href, component: Animation, wide, steps }, index) => (
 
-    <section class:list={['service-story', { 'service-story-wide': wide, 'service-story-reverse': id === 'ai' }]} id={`services/${id}`} aria-labelledby={`service-${id}-title`} data-light="cyan">
+    <section class:list={['service-story', { 'service-story-wide': wide }]} id={`services/${id}`} aria-labelledby={`service-${id}-title`} data-light="cyan">
 
       <div class="service-story-body">
 
@@ -182,6 +184,21 @@ const offerings = [
   @media (max-width:380px) { .service-story-body { --service-badge-scale:1.5; } }
 
   @media (forced-colors: active) { .home-page .service-story { border-color: CanvasText; } .service-story-copy h2 { color:CanvasText; background:none; text-shadow:none; } .service-story-copy h2::before { display:none; } }
+
+  /* Surfaces sit below one shared line canvas; content and existing visuals stay
+     above it. Keep the approved light-to-dark AI/Web transition underneath. */
+  body.home-page .digital-transition-zone { background:var(--itk-bg); }
+  :root body.home-page .digital-transition-zone #services > .service-story,
+  :root body.home-page .digital-transition-zone > #offering-web-design-hosting { background:transparent; }
+  body.home-page .digital-transition-zone > #services,
+  body.home-page .digital-transition-zone > .digital-bridge { z-index:2; }
+  :root[data-hero-theme="day"] body.home-page .digital-transition-zone { background:var(--surface-light); }
+  :root[data-hero-theme="day"] body.home-page .digital-transition-zone #services > [id="services/ai"] { background:transparent; }
+  :root[data-hero-theme="day"] body.home-page .digital-transition-zone::after { content:''; grid-area:1 / 1; align-self:end; block-size:var(--itk-section-space); z-index:0; pointer-events:none; background:linear-gradient(var(--surface-light),var(--itk-bg)); }
+  @media (forced-colors:active) {
+    :root body.home-page .digital-transition-zone { background:Canvas; }
+    :root body.home-page .digital-transition-zone::after { display:none; }
+  }
 
 </style>
 

@@ -23,7 +23,7 @@ test('homepage presents one people section and one operating explanation before 
   for (const value of ['infrastructure records, configurations and decisions', 'Access, ownership, export and handover are agreed with you.', 'workload, condition and supportability', 'Continuous technical training']) assert.ok(main.includes(value));
   assert.doesNotMatch(main, /knowledge-outcome|class="operate-details"/);
   assert.doesNotMatch(main, /Illustrative examples, not a response-time guarantee or a device diagnosis/);
-  assert.match(main, /href="\/contact\/\?type=review"[^>]*>Book a free IT review/);
+  assert.match(main, /href="\/contact\/\?type=review"[^>]*>Book a Free IT Consultation/);
   assert.equal((main.match(/<h1\b/g) ?? []).length, 1);
   assert.ok(!readdirSync(new URL('../dist/_astro', import.meta.url)).some(name => name.startsWith('TeamThread.')));
 });

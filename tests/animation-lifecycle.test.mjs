@@ -24,7 +24,6 @@ function harness({ reduced = false, observerAvailable = true, entrance = false }
   const media = target({ matches: reduced });
   const document = target({ hidden: false });
   const window = target({ matchMedia: () => media });
-  const button = target({ hidden: true, textContent: '', attributes: {}, setAttribute(name, value) { this.attributes[name] = value; } });
   const visual = {
     innerHTML: '<p>Readable static example</p>', className: 'visual', style: null,
     attributes: {},
@@ -38,7 +37,7 @@ function harness({ reduced = false, observerAvailable = true, entrance = false }
     dataset: {},
     closest() { return entrance ? {} : null; },
     classList: { toggle(name, enabled) { if (enabled) classes.add(name); else classes.delete(name); } },
-    querySelector(selector) { return selector === '[data-animation-toggle]' ? button : visual; },
+    querySelector(selector) { return selector === '[data-animation-visual]' ? visual : null; },
   };
   const observers = new Map();
   class FakeObserver {
@@ -56,7 +55,7 @@ function harness({ reduced = false, observerAvailable = true, entrance = false }
     clearTimeout(key) { timers.delete(key); },
   });
   return {
-    root, button, visual, classes, document, window, media, timers,
+    root, visual, classes, document, window, media, timers,
     mount: (factory, options) => exports.mountAnimation(root, factory, options),
     visible(value = true) { observers.get('0px')?.emit(value); observers.get('-96px 0px')?.emit(value); },
     boundary(margin, value) { observers.get(margin)?.emit(value); },
@@ -81,244 +80,16 @@ function sequence(h, events = []) {
   }));
 }
 
-test('homepage visual enters for 600ms before its internal timeline, without early playback', () => {
-  const h=harness({entrance:true}),events=[];sequence(h,events);
-  assert.equal(h.root.dataset.animationEntrance,'waiting');assert.equal(h.visual.inert,true);
-  h.boundary('0px',true);h.tick(5000);assert.deepEqual(events,[]);
-  h.boundary('-96px 0px',true);assert.equal(h.root.dataset.animationState,'entering');
-  h.tick(599);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
-  assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);
-  h.tick(1000);assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);
+test('homepage entrance takes 600ms once and resumes its remaining delay after a full exit',()=>{
+ const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.leave();h.tick(30000);assert.deepEqual(events,[]);h.visible();h.tick(399);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);h.tick(1000);assert.equal(h.visual.inert,false);h.leave();h.visible();h.tick(30000);assert.deepEqual(events,['play','step','nested','settle']);
 });
-
-test('homepage entrance pauses offscreen and replays only after the existing full-exit boundary', () => {
-  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.visible(false);h.tick(5000);
-  assert.deepEqual(events,[]);h.visible();h.tick(399);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
-  h.leave();assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(599);assert.deepEqual(events,['play']);h.tick(1);assert.deepEqual(events,['play','play']);
-});
-
-test('full exit during entrance resets the visual and cancels the interrupted entrance on re-entry', () => {
-  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.leave();h.tick(5000);
-  assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(599);assert.deepEqual(events,[]);h.tick(1);assert.deepEqual(events,['play']);
-});
-
-test('homepage reduced motion, missing observer and failure reveal the static visual immediately', () => {
-  for(const options of [{reduced:true},{observerAvailable:false}]){const h=harness({entrance:true,...options}),events=[];sequence(h,events);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);assert.deepEqual(events,['settle']);assert.equal(h.timers.size,0);}
-  const h=harness({entrance:true});h.mount(()=>{throw new Error('test renderer failure');});assert.equal(h.visual.inert,false);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.root.dataset.animationEnhanced,undefined);
-});
-
-test('live reduced motion cancels an entering visual and reveals final state without playback', () => {
-  const h=harness({entrance:true}),events=[];sequence(h,events);h.visible();h.tick(200);h.media.matches=true;h.media.emit('change');h.tick(5000);
-  assert.deepEqual(events,['settle']);assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.visual.inert,false);assert.equal(h.timers.size,0);
-});
-
-test('opt-in continuous playback survives duration, pauses offscreen, replays and stops on disposal', () => {
-  const h=harness(), events=[];
-  const dispose=h.mount(() => ({duration:1000,play(){events.push('play');},settle(){events.push('settle');}}),{loop:true});
-  h.visible();h.tick(120000);
-  assert.equal(h.root.dataset.animationState,'running');assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);
-  h.visible(false);assert.equal(h.root.dataset.animationState,'paused');h.visible();assert.equal(h.root.dataset.animationState,'running');assert.deepEqual(events,['play']);
-  h.document.hidden=true;h.document.emit('visibilitychange');assert.equal(h.root.dataset.animationState,'paused');h.document.hidden=false;h.document.emit('visibilitychange');assert.equal(h.root.dataset.animationState,'running');
-  h.leave();h.visible();assert.deepEqual(events,['play','play']);
-  dispose();assert.deepEqual(events,['play','play','settle']);assert.equal(h.timers.size,0);
-});
-
-test('continuous playback still settles immediately for reduced motion', () => {
-  const h=harness({reduced:true}),events=[];
-  h.mount(() => ({duration:1000,play(){events.push('play');},settle(){events.push('settle');}}),{loop:true});
-  h.visible();h.tick(120000);assert.deepEqual(events,['settle']);assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);
-});
-
-test('waits for visibility, completes one sequence, and cancels all work', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.tick(2000);
-  assert.deepEqual(events, []);
-  assert.equal(h.button.hidden, true);
-  h.visible(); h.tick(1000);
-  assert.deepEqual(events, ['play', 'step', 'nested', 'settle']);
-  assert.equal(h.root.dataset.animationState, 'settled');
-  assert.equal(h.classes.has('is-idle'), true);
-  assert.equal(h.button.hidden, true);
-  assert.equal(h.timers.size, 0);
-  h.visible(false); h.visible(); h.tick(2000);
-  assert.equal(events.filter(value => value === 'play').length, 1);
-});
-
-test('offscreen and hidden document pauses preserve time remaining, including nested tasks', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.tick(250); h.visible(false); h.tick(5000);
-  assert.deepEqual(events, ['play']);
-  assert.equal(h.timers.size, 0);
-  h.visible(); h.tick(149); assert.deepEqual(events, ['play']);
-  h.tick(1); assert.deepEqual(events, ['play', 'step']);
-  h.tick(50); h.document.hidden = true; h.document.emit('visibilitychange'); h.tick(5000);
-  assert.deepEqual(events, ['play', 'step']);
-  h.document.hidden = false; h.document.emit('visibilitychange'); h.tick(50);
-  assert.deepEqual(events, ['play', 'step', 'nested']);
-  h.tick(500); assert.equal(events.at(-1), 'settle');
-});
-
-test('user pause persists through viewport and visibility events until explicit resume', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.tick(200); h.button.emit('click');
-  assert.equal(h.button.textContent, 'Resume animation');
-  assert.equal(h.root.dataset.animationState, 'paused');
-  h.visible(false); h.visible(); h.document.emit('visibilitychange'); h.tick(5000);
-  assert.deepEqual(events, ['play']);
-  h.button.emit('click'); assert.equal(h.button.textContent, 'Pause animation');
-  h.tick(200); assert.deepEqual(events, ['play', 'step']);
-});
-
-test('initial reduced motion and missing observer show final state with no motion', () => {
-  for (const options of [{ reduced: true }, { observerAvailable: false }]) {
-    const h = harness(options); const events = [];
-    sequence(h, events); h.visible(); h.tick(5000);
-    assert.deepEqual(events, ['settle']);
-    assert.match(h.visual.innerHTML, /Meaningful final/);
-    assert.equal(h.timers.size, 0);
-    assert.equal(h.root.dataset.animationState, 'settled');
-  }
-});
-
-test('changing reduced motion stops an active timeline permanently', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.tick(200);
-  h.media.matches = true; h.media.emit('change');
-  h.media.matches = false; h.media.emit('change'); h.tick(2000);
-  assert.deepEqual(events, ['play', 'settle']);
-  assert.equal(h.timers.size, 0);
-});
-
-test('bfcache pauses/resumes remaining work; normal page exit removes timers and listeners', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.tick(200);
-  h.window.emit('pagehide', { persisted: true }); h.tick(5000);
-  assert.deepEqual(events, ['play']);
-  h.window.emit('pageshow', { persisted: true }); h.tick(200);
-  assert.deepEqual(events, ['play', 'step']);
-  h.window.emit('pagehide', { persisted: false }); h.tick(5000);
-  assert.deepEqual(events, ['play', 'step', 'settle']);
-  assert.equal(h.timers.size, 0);
-  assert.equal(h.window.listenerCount() + h.document.listenerCount() + h.media.listenerCount() + h.button.listenerCount(), 0);
-});
-
-test('duplicate mounts do not initialize or schedule twice', () => {
-  const h = harness(); const events = [];
-  const dispose = sequence(h, events);
-  assert.equal(h.mount(() => { throw new Error('must not run'); }), dispose);
-  h.visible(); h.tick(1000);
-  assert.deepEqual(events, ['play', 'step', 'nested', 'settle']);
-});
-
-test('completion preserves the focused pause button as an inert named control', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.document.activeElement = h.button;
-  h.tick(1000);
-  assert.equal(h.document.activeElement, h.button);
-  assert.equal(h.button.hidden, false);
-  assert.equal(h.button.textContent, 'Animation complete');
-  assert.equal(h.button.attributes['aria-disabled'], 'true');
-  h.button.emit('click'); h.tick(1000);
-  assert.deepEqual(events, ['play', 'step', 'nested', 'settle']);
-  assert.equal(h.button.textContent, 'Animation complete');
-  assert.equal(h.timers.size, 0);
-});
-
-test('factory, playback, timer and settling errors restore the readable static visual', () => {
-  for (const stage of ['factory', 'play', 'timer', 'settle']) {
-    const h = harness();
-    h.mount(({ later }) => {
-      h.visual.innerHTML = '';
-      if (stage === 'factory') throw new Error(stage);
-      return {
-        duration: 1000,
-        play() { if (stage === 'play') throw new Error(stage); later(() => { if (stage === 'timer') throw new Error(stage); }, 200); },
-        settle() { throw new Error(stage); },
-      };
-    });
-    h.visible(); h.tick(2000);
-    assert.match(h.visual.innerHTML, /Readable static/);
-    assert.equal(h.root.dataset.animationEnhanced, undefined);
-    assert.equal(h.root.dataset.animationState, 'settled');
-    assert.equal(h.timers.size, 0);
-  }
-});
-
-test('meaningful entry and spatial exit hysteresis prevent edge-jitter replays', () => {
-  const h = harness(); const events = [];
-  sequence(h, events);
-  h.boundary('0px', true); h.tick(2000);
-  assert.deepEqual(events, []);
-  h.boundary('-96px 0px', true); h.tick(1000);
-  for (let i = 0; i < 6; i++) { h.visible(false); h.visible(); h.tick(2000); }
-  assert.equal(events.filter(x => x === 'play').length, 1);
-  h.leave(); h.boundary('0px', true); h.tick(2000);
-  assert.equal(events.filter(x => x === 'play').length, 1);
-  h.boundary('-96px 0px', true); h.tick(1000);
-  assert.equal(events.filter(x => x === 'play').length, 2);
-  assert.equal(h.timers.size, 0);
-});
-
-test('repeated real exits restore pristine markup and rebind once without growing timers or listeners', () => {
-  const h = harness(); let factories = 0; let plays = 0;
-  h.mount(({ later }) => {
-    factories++;
-    assert.equal(h.visual.innerHTML, '<p>Readable static example</p>');
-    h.visual.innerHTML += '<i>one generated overlay</i>';
-    return { duration: 1000, play() { plays++; later(() => {}, 500); }, settle() { h.visual.innerHTML = 'final'; } };
-  });
-  const listeners = h.window.listenerCount() + h.document.listenerCount() + h.button.listenerCount();
-  for (let i = 0; i < 8; i++) {
-    h.visible(); h.tick(1000);
-    assert.equal(h.visual.innerHTML, 'final');
-    assert.equal(h.timers.size, 0);
-    assert.equal(plays, i + 1);
-    assert.equal(factories, i + 1);
-    h.leave(); h.tick(2000);
-  }
-  assert.equal(h.window.listenerCount() + h.document.listenerCount() + h.button.listenerCount(), listeners);
-});
-
-test('a real exit cancels the interrupted sequence on replay; shallow exits resume it', () => {
-  const h = harness(); const events = [];
-  sequence(h, events); h.visible(); h.tick(250); h.leave(); h.tick(5000);
-  assert.equal(h.timers.size, 0);
-  h.visible(); h.tick(399);
-  assert.deepEqual(events, ['play', 'play']);
-  h.tick(601);
-  assert.deepEqual(events, ['play', 'play', 'step', 'nested', 'settle']);
-  assert.equal(h.timers.size, 0);
-});
-
-test('reduced motion disables replay after a settled or interrupted exit', () => {
-  for (const duration of [200, 1000]) {
-    const h = harness(); const events = [];
-    sequence(h, events); h.visible(); h.tick(duration); h.leave();
-    h.media.matches = true; h.media.emit('change');
-    h.media.matches = false; h.media.emit('change');
-    for (let i = 0; i < 3; i++) { h.visible(); h.tick(2000); h.leave(); }
-    assert.equal(events.filter(x => x === 'play').length, 1);
-    assert.equal(h.root.dataset.animationState, 'settled');
-    assert.equal(h.timers.size, 0);
-  }
-});
-
-test('opt-in settled ambient uses the same viewport, pause, replay and disposal gates',()=>{
- const h=harness({entrance:true}),activity=[],events=[];
- const dispose=h.mount(()=>({duration:1000,ambient:true,activity(active){activity.push(active)},play(){events.push('play')},settle(){events.push('settle')}}));
- h.visible();h.tick(1600);assert.equal(h.root.dataset.animationState,'settled');assert.equal(activity.at(-1),true);assert.equal(h.timers.size,0);assert.equal(h.button.hidden,false);
- h.button.emit('click');assert.equal(activity.at(-1),false);assert.equal(h.button.textContent,'Resume animation');h.button.emit('click');assert.equal(activity.at(-1),true);
- h.boundary('0px',false);assert.equal(activity.at(-1),false);h.visible();assert.equal(activity.at(-1),true);assert.deepEqual(events,['play','settle']);
- h.document.hidden=true;h.document.emit('visibilitychange');assert.equal(activity.at(-1),false);h.document.hidden=false;h.document.emit('visibilitychange');assert.equal(activity.at(-1),true);
- h.window.emit('pagehide',{persisted:true});assert.equal(activity.at(-1),false);h.window.emit('pageshow');assert.equal(activity.at(-1),true);
- h.leave();assert.equal(activity.at(-1),false);h.boundary('0px',false);assert.equal(h.root.dataset.animationEntrance,'waiting');h.visible();h.tick(600);assert.deepEqual(events,['play','settle','play']);dispose();assert.equal(activity.at(-1),false);assert.equal(h.timers.size,0);
-});
-test('reduced motion stops opt-in ambient permanently without enabling completion controls',()=>{
- for(const reduced of [true,false]){const h=harness({reduced}),activity=[];h.mount(()=>({duration:1000,ambient:true,activity(active){activity.push(active)},play(){},settle(){}}));if(!reduced){h.visible();h.tick(1000);assert.equal(activity.at(-1),true);h.media.matches=true;h.media.emit('change');}assert.equal(activity.at(-1),false);assert.equal(h.button.hidden,true);assert.equal(h.timers.size,0);h.visible();h.tick(10000);assert.equal(activity.at(-1),false);}
-});
-
-test('renderer failure restores the authored final prototype phase and paused motion',()=>{
- const h=harness({entrance:true});h.visual.setAttribute('data-phase','settled');h.visual.setAttribute('data-motion','paused');
- h.mount(()=>{h.visual.setAttribute('data-phase','idle');h.visual.setAttribute('data-motion','running');h.visual.innerHTML='partial';throw new Error('renderer failed')});
- assert.equal(h.visual.getAttribute('data-phase'),'settled');assert.equal(h.visual.getAttribute('data-motion'),'paused');assert.equal(h.visual.innerHTML,'<p>Readable static example</p>');assert.equal(h.root.dataset.animationEntrance,'shown');assert.equal(h.timers.size,0);
-});
+test('a viewport-edge glimpse cannot initialize an explanation',()=>{const h=harness(),events=[];sequence(h,events);h.boundary('0px',true);h.tick(30000);assert.deepEqual(events,[]);h.boundary('-96px 0px',true);h.tick(1000);assert.deepEqual(events,['play','step','nested','settle']);});
+for(const seconds of [3,10,20,30,120])test('ambient renderer remains active at '+seconds+' seconds with no deadline timer',()=>{const h=harness(),events=[],activity=[];h.mount(()=>({duration:0,ambient:true,play(){events.push('play')},settle(){events.push('settle')},activity(v){activity.push(v)}}));h.visible();h.tick(seconds*1000);assert.equal(activity.at(-1),true);assert.equal(h.root.dataset.animationActive,'true');assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);});
+for(const duration of [1000,3100,4400,4700,5000,8300,8400,8700,9200,9300,11800,16660])test('explanation '+duration+'ms completes once; ambient motion survives 30 seconds and re-entry',()=>{const h=harness(),events=[];let factories=0;h.mount(()=>{factories++;return{duration,ambient:true,play(){events.push('play')},settle(){events.push('settle');h.visual.innerHTML='complete'}}});h.visible();h.tick(30000);assert.deepEqual(events,['play','settle']);assert.equal(h.root.dataset.animationActive,'true');const html=h.visual.innerHTML;for(let i=0;i<5;i++){h.leave();h.tick(2000);assert.equal(h.root.dataset.animationActive,'false');h.visible();h.tick(30000);assert.equal(h.visual.innerHTML,html);assert.equal(h.root.dataset.animationActive,'true');}assert.equal(factories,1);assert.deepEqual(events,['play','settle']);assert.equal(h.timers.size,0);});
+for(const kind of ['offscreen','hidden','bfcache'])test(kind+' suspends and resumes remaining nested work without replay',()=>{const h=harness(),events=[];sequence(h,events);h.visible();h.tick(250);if(kind==='offscreen')h.leave();if(kind==='hidden'){h.document.hidden=true;h.document.emit('visibilitychange')}if(kind==='bfcache')h.window.emit('pagehide',{persisted:true});h.tick(30000);assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);if(kind==='offscreen')h.visible();if(kind==='hidden'){h.document.hidden=false;h.document.emit('visibilitychange')}if(kind==='bfcache')h.window.emit('pageshow');h.tick(149);assert.deepEqual(events,['play']);h.tick(1);assert.deepEqual(events,['play','step']);h.tick(100);assert.deepEqual(events,['play','step','nested']);h.tick(500);assert.deepEqual(events,['play','step','nested','settle']);});
+test('finite nonambient APIs retain a static terminal state',()=>{const h=harness(),events=[];sequence(h,events);h.visible();h.tick(30000);assert.deepEqual(events,['play','step','nested','settle']);assert.equal(h.root.dataset.animationActive,'false');assert.ok(h.classes.has('is-idle'));});
+test('initial and live reduced motion expose complete information, then resume only ambient motion',()=>{for(const reduced of [true,false]){const h=harness({reduced}),events=[];h.mount(()=>({duration:1000,ambient:true,play(){events.push('play')},settle(){events.push('settle')}}));h.visible();if(!reduced){h.tick(200);h.media.matches=true;h.media.emit('change')}assert.equal(h.root.dataset.animationActive,'false');assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);h.media.matches=false;h.media.emit('change');h.tick(30000);assert.equal(h.root.dataset.animationActive,'true');assert.equal(events.filter(x=>x==='settle').length,1);assert.equal(events.filter(x=>x==='play').length,reduced?0:1);}});
+test('CSS and SMIL clocks pause offscreen and resume the same animation identity',()=>{const h=harness();let clock={playState:'running',pause(){this.playState='paused'},play(){this.playState='running'}},paused=false;h.root.getAnimations=()=>[clock];h.root.querySelectorAll=()=>[{pauseAnimations(){paused=true},unpauseAnimations(){paused=false}}];h.mount(()=>({duration:0,ambient:true,play(){},settle(){}}));h.visible();assert.equal(clock.playState,'running');assert.equal(paused,false);h.leave();assert.equal(clock.playState,'paused');assert.equal(paused,true);h.visible();assert.equal(clock.playState,'running');assert.equal(paused,false);});
+test('idempotent mount and disposal remove timers, observers, listeners and renderer exactly once',()=>{const h=harness(),events=[];let disposed=0;const factory=()=>({duration:30000,ambient:true,play(){events.push('play')},settle(){events.push('settle')},dispose(){disposed++}});const stop=h.mount(factory);assert.equal(h.mount(factory),stop);h.visible();h.tick(200);stop();stop();h.tick(60000);assert.equal(disposed,1);assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);assert.equal(h.window.listenerCount()+h.document.listenerCount()+h.media.listenerCount(),0);});
+test('missing observer and factory failures reveal readable fallback immediately',()=>{const h=harness({observerAvailable:false,entrance:true}),events=[];sequence(h,events);assert.deepEqual(events,['settle']);assert.equal(h.visual.inert,false);assert.equal(h.timers.size,0);const bad=harness({entrance:true});bad.visual.setAttribute('data-phase','settled');bad.mount(()=>{bad.visual.innerHTML='partial';bad.visual.setAttribute('data-phase','play');throw Error('canvas unavailable')});assert.equal(bad.visual.innerHTML,'<p>Readable static example</p>');assert.equal(bad.visual.getAttribute('data-phase'),'settled');assert.equal(bad.root.dataset.animationEnhanced,undefined);assert.equal(bad.visual.inert,false);});
+test('invalid durations and failing scheduled callbacks retain a static fallback',()=>{for(const value of [-1,Infinity,NaN]){const h=harness();h.mount(()=>({duration:value,play(){},settle(){}}));assert.equal(h.root.dataset.animationEnhanced,undefined);assert.equal(h.timers.size,0);}const h=harness();h.mount(({later})=>({duration:10000,play(){later(()=>{throw Error('bad phase')},100)},settle(){}}));h.visible();h.tick(30000);assert.equal(h.timers.size,0);assert.equal(h.root.dataset.animationActive,'false');assert.equal(h.visual.innerHTML,'<p>Readable static example</p>');});

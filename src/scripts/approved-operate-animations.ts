@@ -22,7 +22,7 @@ export function createIncidentWorkflow(root:HTMLElement,scheduler:Scheduler) {
     ticket.classList.toggle('is-handoff',index===1);
     status.textContent=['Detected','Assigned','Resolved','Documented'][index];
   };
-  return { duration:3100, play(){steps.forEach((_,i)=>scheduler.later(()=>activate(i),400+i*570));}, settle(){
+  return { ambient:true, duration:3100, play(){steps.forEach((_,i)=>scheduler.later(()=>activate(i),400+i*570));}, settle(){
     scene.dataset.phase='settled';steps.forEach(step=>{step.classList.add('is-complete');step.classList.remove('is-active');});
     fill.style.transform='scaleY(1)';ticket.classList.remove('is-handoff');status.textContent='Documented';
   }};

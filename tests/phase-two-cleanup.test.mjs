@@ -9,7 +9,7 @@ test('homepage has one exact semantic H1 with rotating phrases outside it', () =
   assert.equal(headings[0][1], 'Your IT person is a team.');
   assert.ok(html.indexOf('</h1>') < html.indexOf('data-hero-headline'));
   assert.match(html, /class="itk-hero-fixed"[^>]*aria-hidden="true"/);
-  assert.match(html, /class="itk-hero-rotator"[^>]*aria-label="IT capabilities\. Rotation pauses while focused\."[^>]*aria-live="off"/);
+  assert.match(html, /class="itk-hero-rotator"[^>]*aria-label="IT capabilities"[^>]*aria-live="off"/);
   assert.doesNotMatch(html, /data-hero-headline[^>]*aria-hidden="true"/);
   for (const channel of ['og:description', 'twitter:description']) assert.match(html, new RegExp(channel + '" content="ITKeepers provides managed IT services, cybersecurity, Microsoft 365, networking and backup for businesses in Lebanon, backed by proactive engineering\\.'));
   assert.doesNotMatch(html, /Explore a sample request workflow|Follow an example website/);

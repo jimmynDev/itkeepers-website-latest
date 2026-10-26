@@ -48,56 +48,9 @@ function fixture(reduced = false) {
     },
   };
 }
-test('six phrases retain their order with 3-second settled holds, including return', () => {
-  const h = fixture(); h.mount();
-  h.tick(2999); assert.equal(h.current(), 0);
-  h.tick(1); assert.equal(h.current(), 1);
-  for (let role = 2; role < h.roles.length; role++) { h.tick(3349); assert.equal(h.current(), role-1); h.tick(1); assert.equal(h.current(), role); }
-  h.tick(3350); assert.equal(h.current(), 0);
-  h.tick(3349); assert.equal(h.current(), 0);
-  h.tick(1); assert.equal(h.current(), 1);
-  assert.equal(h.roles.filter(x => x.classes.has('is-active')).length, 1);
-  assert.equal(h.timers.size, 1);
-});
-test('hidden document, offscreen and bfcache preserve remaining hold without a pause control', () => {
-  const h = fixture(); const dispose = h.mount(); assert.equal(h.mount(), dispose);
-  h.tick(3000); assert.equal(h.current(), 1);
-  assert.equal(h.button.listeners.size, 0);
-  for (const [pause, resume] of [
-    [() => h.visible(false), () => h.visible(true)],
-    [() => { h.document.hidden = true; h.document.emit('visibilitychange'); }, () => { h.document.hidden = false; h.document.emit('visibilitychange'); }],
-    [() => h.window.emit('pagehide', { persisted: true }), () => h.window.emit('pageshow')],
-  ]) { pause(); h.tick(10000); assert.equal(h.current(), 1); assert.equal(h.timers.size, 0); resume(); assert.equal(h.timers.size, 1); }
-  h.window.emit('pagehide', { persisted: false });
-  assert.equal(h.timers.size + h.frames.size, 0);
-  assert.equal(h.button.listeners.size + h.window.listeners.size + h.document.listeners.size + h.media.listeners.size, 0);
-  assert.equal(h.rotator.listeners.size, 0);
-  assert.ok(!h.rotator.attributes.has('tabindex'));
-});
-test('reduced motion swaps at 3-second intervals without reserving transition time', () => {
-  const h = fixture(true); h.mount(); assert.ok(h.root.attributes.has('data-reduced'));
-  h.tick(3000); assert.equal(h.current(), 1);
-  h.tick(2999); assert.equal(h.current(), 1);
-  h.tick(1); assert.equal(h.current(), 2);
-  h.media.matches = false; h.media.emit('change'); assert.ok(!h.root.attributes.has('data-reduced'));
-  h.media.matches = true; h.media.emit('change'); assert.ok(h.root.attributes.has('data-reduced'));
-});
-test('hover and keyboard focus independently pause and preserve the remaining hold', () => {
-  const h = fixture(); h.mount();
-  assert.equal(h.rotator.attributes.get('tabindex'), '0');
-  h.tick(1000); h.rotator.emit('mouseenter'); h.tick(10000);
-  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
-  h.rotator.emit('focusin'); h.rotator.emit('mouseleave'); h.tick(10000);
-  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
-  h.rotator.emit('focusout'); h.tick(1999); assert.equal(h.current(), 0);
-  h.tick(1); assert.equal(h.current(), 1);
-  h.rotator.emit('mouseenter'); h.rotator.emit('focusin'); h.rotator.emit('focusout');
-  h.tick(10000); assert.equal(h.current(), 1); assert.equal(h.timers.size, 0);
-  h.rotator.emit('mouseleave'); h.tick(3350); assert.equal(h.current(), 2);
-});
-test('leaving hover cannot resume rotation while offscreen', () => {
-  const h = fixture(); h.mount(); h.tick(1000); h.rotator.emit('mouseenter');
-  h.visible(false); h.rotator.emit('mouseleave'); h.tick(10000);
-  assert.equal(h.current(), 0); assert.equal(h.timers.size, 0);
-  h.visible(true); h.tick(2000); assert.equal(h.current(), 1);
-});
+
+test('headline preserves six-role choreography through 30 seconds without settling at five',()=>{const h=fixture();h.mount();h.tick(2999);assert.equal(h.current(),0);h.tick(1);assert.equal(h.current(),1);for(let i=2;i<=9;i++){h.tick(3350);assert.equal(h.current(),i%6);assert.equal(h.roles.filter(r=>r.classes.has('is-active')).length,1);}assert.equal(h.timers.size,1);});
+test('offscreen, document and bfcache suspension preserve remaining dwell time',()=>{for(const kind of ['viewport','hidden','bfcache']){const h=fixture();h.mount();h.tick(1000);if(kind==='viewport')h.visible(false);if(kind==='hidden'){h.document.hidden=true;h.document.emit('visibilitychange')}if(kind==='bfcache')h.window.emit('pagehide',{persisted:true});h.tick(30000);assert.equal(h.current(),0);assert.equal(h.timers.size,0);if(kind==='viewport')h.visible(true);if(kind==='hidden'){h.document.hidden=false;h.document.emit('visibilitychange')}if(kind==='bfcache')h.window.emit('pageshow');h.tick(1999);assert.equal(h.current(),0);h.tick(1);assert.equal(h.current(),1);}});
+test('reduced motion suspends role rotation and can resume without a jump',()=>{for(const reduced of [true,false]){const h=fixture(reduced);h.mount();if(!reduced){h.tick(3000);h.media.matches=true;h.media.emit('change')}const before=h.current();h.tick(30000);assert.equal(h.current(),before);assert.equal(h.timers.size,0);h.media.matches=false;h.media.emit('change');h.tick(3350);assert.notEqual(h.current(),before);}});
+test('hover and focus remain independent, smooth temporary suspensions',()=>{const h=fixture();h.mount();h.tick(1000);h.rotator.emit('mouseenter');h.rotator.emit('focusin');h.tick(30000);h.rotator.emit('mouseleave');h.tick(30000);assert.equal(h.current(),0);h.rotator.emit('focusout');h.tick(1999);assert.equal(h.current(),0);h.tick(1);assert.equal(h.current(),1);});
+test('duplicate mount and normal exit clean all timers, frames and input listeners',()=>{const h=fixture(),dispose=h.mount();assert.equal(h.mount(),dispose);h.window.emit('pagehide',{persisted:false});assert.equal(h.timers.size+h.frames.size,0);assert.equal(h.rotator.listeners.size+h.window.listeners.size+h.document.listeners.size+h.media.listeners.size,0);});

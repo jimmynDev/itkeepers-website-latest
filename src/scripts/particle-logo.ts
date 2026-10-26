@@ -293,7 +293,7 @@ export function createParticleLogo(root: HTMLElement) {
     duration:0, ambient:true,
     play() {playing=true;prepare();},
     settle() {if(reduced.matches || forced.matches || !logoReady) fallback(); else draw(0,true);},
-    activity(value: boolean) {visible=value;if(!value) stop();else if(playing) prepare();},
+    activity(value: boolean) {visible=value;if(!value) stop();else {playing=true;prepare();}},
     dispose() {
       if(disposed) return;
       disposed=true;visible=false;stop();observer?.disconnect();

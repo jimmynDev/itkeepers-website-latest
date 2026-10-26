@@ -65,23 +65,24 @@ Maintain dependency updates, claims reviews, tool-rule versions, inquiry handlin
 
 ## Package validation
 
-All six TOMLs parse; role names are unique and referenced role files exist. Required package files and explicit root source paths were checked, and root `AGENTS.md` fits the configured 65,536-byte budget. Installed runtime discovery, website builds and deployed behavior remain untested; see `PROJECT_STATUS.md`.
+All six TOMLs parse; role names are unique and referenced role files exist. Required package files and explicit root source paths were checked, and root `AGENTS.md` fits the configured 65,536-byte budget. These archive-package checks did not test the application runtime; current application and deployment results are recorded below and in `PROJECT_STATUS.md`.
 
-## Installed workspace — verified local commands (30 September 2026)
+## Installed workspace — verified commands (22 October 2026)
 
-This checkout also contains the existing Astro application; the archive itself did not. Use the current package-lock.json and Node 22.x requirement in package.json/.nvmrc. The observed shell currently reports Node 24.21.0 and npm 11.19.0; this merge changes neither.
+This checkout also contains the existing Astro application; the archive itself did not. Use the current package-lock.json and Node 22.12.0 or later within Node 22, as required by package.json/.nvmrc. Astro is pinned to 7.3.3 for the Phase 7 security update and validated with Node 22.23.3. See [the security maintenance decision](docs/adr/2026-10-22-astro-security-update.md) and [Phase 7 release results](V2_PHASE7_FINAL_REPORT.md). The isolated clean-install evidence in docs/V2_SECURITY_ADVISORY_CLOSURE.md records the earlier dependency state.
 
 | Operation | Established command / evidence |
 | --- | --- |
-| Install | npm ci with the existing lockfile; not rerun for a docs-only change |
+| Install | npm ci --ignore-scripts with the existing lockfile; prior isolated-install evidence is historical, while the current security update passed installed-runtime validation |
 | Development | npm run dev -- --host 127.0.0.1; existing local preview http://127.0.0.1:4321/ |
-| Build | npm run build; prior ten-route build passed, not rerun for this merge |
-| Workflow tests | node --test tests/workflow.test.mjs after build; prior four tests passed |
+| Build | npm run build followed by npm run build:staging and npm run check:staging; 20 routes, 15 staging indexable pages and five noindex holds |
+| Tests | node --test tests/*.test.mjs after build; 186/186 passed for Phase 7 |
 | Production-output preview | npm run preview; script exists, not reverified in this merge |
-| Deploy | npm run deploy invokes wrangler deploy; release authorization and gates required |
-| Lint/type | No dedicated scripts currently configured |
+| Personal staging deploy | node node_modules/wrangler/bin/wrangler.js deploy --config wrangler.staging.toml; explicit target authorization and passing gates required |
+| Production deploy | npm run deploy uses the separate production configuration; not authorized by the personal staging release |
+| Lint/type | npm run typecheck checks TypeScript modules; Astro templates compile during build; no dedicated lint script |
 
-wrangler.toml declares Worker static assets from dist; actual deployed environment remains unverified. See PROJECT_STATUS.md and docs/INTERACTION_VALIDATION.md for current implementation and outstanding B9/B14 checks. Draft robots stays under docs/drafts and was not promoted to public/robots.txt.
+wrangler.toml declares the separate production preparation from dist. The personal public Worker uses wrangler.staging.toml and dist-staging; its actual deployed version, public access, headers, redirects and indexing were verified in [V2_PHASE7_FINAL_REPORT.md](V2_PHASE7_FINAL_REPORT.md). The official domain and DNS were not changed. Historical migration/security reports remain in docs; see PROJECT_STATUS.md for outstanding owner and production release gates.
 
 Documentation rollback is available at .codex/backups/structure-before-20260930-a1ce3fe8; copy its matching 20 files back to their original paths, preserving unrelated source. The baseline.json records application hashes and package paths.
 
@@ -119,3 +120,27 @@ Dark sections use one continuous near-black canvas; existing optional homepage d
 ### Emergency header utility
 
 The shared header includes Under Attack? beside Talk to our team on desktop and beside Menu on mobile. It opens /emergency/, where the call button displays owner-supplied +961 81 816 761 and uses tel:+96181816761. Emergency red and reduced-motion handling remain unchanged. Online review booking is not connected and reports no fake submission success. See docs/reviews/2026-10-05-homepage-refinements.md for current validation.
+
+
+### Contact Worker wiring — collection disabled
+
+The shared Home/Contact form now targets only `/api/contact` when explicitly enabled for local validation (`PUBLIC_CONTACT_FORM_ENABLED=true`, `PUBLIC_CONTACT_FORM_ENDPOINT=/api/contact`, and a Turnstile site key). Default builds still use the existing email-app handoff. No email provider is called by the public Worker. The historical email preparation remains in source, disabled and unrouted.
+
+`wrangler.toml` routes `/api/contact` and the former `/api/inquiry` directly to the same non-storing handler, with `CONTACT_VALIDATION_ENABLED=false` and `CONTACT_DELIVERY_ENABLED=false`. Disabled requests return503 before consuming their body. Isolated synthetic tests may enable validation with Worker-only Turnstile/HMAC secrets and the existing Durable Object abuse guard; successful validation returns503 `submission_not_stored`. Abuse counters are not storage of an inquiry. No API success UI is enabled, including for an unexpected legacy202 response.
+
+Production collection remains blocked until an approved durable storage/delivery contract, Privacy approval and successful acceptance testing exist. Do not enable these test settings in production. Existing email/telephone fallback, Microsoft365 MX and all email/DNS/account settings remain unchanged. Never enable remote email bindings during local tests.
+
+See [endpoint wiring and validation evidence](docs/V2_CONTACT_ENDPOINT_WIRING.md). Earlier [Phase5.3](docs/V2_PHASE53_PRIVACY_CONTACT.md) and [Phase5.4](docs/V2_PHASE54_CONTACT_CONFIGURATION.md) reports describe deferred email preparation, not current active collection. The [private Privacy draft](docs/drafts/V2_PRIVACY_NOTICE.md) remains unpublished; this change does not approve a new inquiry database or processor. Build with Node22; run `node --test tests/contact-worker.test.mjs tests/free-it-review.test.mjs tests/security.test.mjs` for focused checks. No new dependencies.
+
+
+### Final candidate validation
+
+Current release gates, exact activation/staging/rollback steps and scoped results are consolidated in [FINAL_RELEASE_READINESS.md](FINAL_RELEASE_READINESS.md). Production collection and email integrations remain disabled/deferred. Node22 setup is reproducible with `npm ci --ignore-scripts` on the tested Windows platform; reviewed optional native binaries work without install hooks. Run `npm run typecheck`, `npm run build`, then `node --test tests/*.test.mjs`. The typecheck covers TypeScript modules; Astro templates compile through the build.
+
+Read-only local release smoke: `python -X utf8 scripts/verify-release.py --base http://127.0.0.1:4377 --local-fixture --output ../v2-final-release-evidence/smoke-local.json`. Remote checks require separate owner authorization and explicit `--allow-production`; no POST or email is sent. Local host fixtures do not verify production TLS, Access or deployment.
+
+### Private personal-account preview
+
+The public workers.dev website uses the separate [Worker configuration](wrangler.staging.toml) and [deployment report](docs/V2_PERSONAL_CLOUDFLARE_STAGING_DEPLOYMENT.md). The owner approved public access and then indexing, superseding earlier Access and staging-wide noindex requirements. Only the exact primary workers.dev hostname is served; version/alias previews and custom routes remain disabled. There are no Access/DO/mail bindings and collection remains disabled. Build with `npm run build` then `npm run build:staging`; validate using `npm run check:staging`, `npm run typecheck` and `node --test tests/*.test.mjs`. Do not use the default production `npm run deploy` command for this Worker.
+
+As of22October,15 approved pages permit indexing, use workers.dev canonical/social/schema URLs and appear in the current-host sitemap. Privacy, the blog archive and3 restored articles awaiting approval retain per-page noindex. The policy is in `worker/public-indexing-policy.json`; standalone artifact generation preserves the official-domain source/build and all visible content/assets. robots.txt allows crawling and advertises the current sitemap. Read-only unauthenticated smoke: `node scripts/verify-public-staging.mjs` (hard-limited to this hostname). The report distinguishes successful crawler-agent checks from Cloudflare's upstream Python-urllib1010 restriction and unverified external auditor networks.

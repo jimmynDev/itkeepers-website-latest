@@ -71,7 +71,7 @@ const logos = [
       <h2 id="technology-title"><span class="ecosystem-title-dot" aria-hidden="true"></span>OUR TECHNOLOGY ECOSYSTEM</h2>
     </div>
   </div>
-  <div class="logo-stage" role="region" aria-labelledby="technology-title" tabindex="0">
+  <div class="logo-stage" id="technology-logo-stage" role="region" aria-labelledby="technology-title" tabindex="0">
     <div class="logo-track">
       {[false, true].map(duplicate => <div class="logo-group" aria-hidden={duplicate ? 'true' : undefined}>
         {logos.map(logo => <div class={'technology-logo logo-' + logo.key}>
@@ -91,7 +91,7 @@ const logos = [
     background:radial-gradient(ellipse at 50% 20%,rgba(66,186,235,.045),transparent 52%),linear-gradient(180deg,#fff 0%,#f8fbff 48%,#f3f8fc 100%);
   }
   .technology-inner { width:min(1180px,calc(100% - 48px)); margin-inline:auto; }
-  .technology-header { display:flex; align-items:center; justify-content:center; text-align:center; margin:0 auto 14px; }
+  .technology-header { position:relative; display:flex; align-items:center; justify-content:center; text-align:center; margin:0 auto 14px; padding-inline:32px; }
   #technology-title { display:inline-flex; align-items:center; justify-content:center; gap:7px; margin:0; padding:0 10px; font-size:10px; line-height:1.4; font-weight:650; letter-spacing:.12em; text-transform:uppercase; color:#53677f; }
   .ecosystem-title-dot { width:4px; height:4px; flex:0 0 4px; border-radius:50%; background:#42BAEB; box-shadow:0 0 0 3px rgba(66,186,235,.05),0 0 8px rgba(66,186,235,.10); }
     .logo-stage {
@@ -101,7 +101,7 @@ const logos = [
 
       padding: 20px 0 24px;
 
-      overflow: hidden;
+      overflow-x: auto;
     }
 
     /*
@@ -158,20 +158,26 @@ const logos = [
 
       width: max-content;
 
-      animation:
-        technology-scroll 38s linear infinite;
-
-      will-change: transform;
+      animation: none;
     }
 
-    .logo-stage:hover .logo-track {
-      animation-play-state: paused;
+    .technology-ecosystem { --technology-duration:38s; --technology-play-state:paused; }
+    .technology-ecosystem[data-marquee-enhanced]:not([data-marquee-static]) .logo-stage { overflow:hidden; }
+    .technology-ecosystem[data-marquee-enhanced]:not([data-marquee-static]) .logo-track {
+      animation:technology-scroll var(--technology-duration) linear infinite;
+      animation-play-state:var(--technology-play-state);
+      will-change:transform;
     }
+    .technology-ecosystem[data-marquee-running] { --technology-play-state:running; }
+    @media(hover:hover) and (pointer:fine) { .logo-stage:hover { --technology-play-state:paused; } }
+    .technology-ecosystem:not([data-marquee-enhanced]) .logo-group[aria-hidden="true"],
+    .technology-ecosystem[data-marquee-static] .logo-group[aria-hidden="true"] { display:none; }
+    .technology-ecosystem:not([data-marquee-enhanced]) .logo-stage::before,
+    .technology-ecosystem:not([data-marquee-enhanced]) .logo-stage::after,
+    .technology-ecosystem[data-marquee-static] .logo-stage::before,
+    .technology-ecosystem[data-marquee-static] .logo-stage::after { content:none; }
 
-    .logo-track.is-offscreen {
-      animation-play-state: paused;
-      will-change: auto;
-    }
+
 
     .logo-group {
       display: flex;
@@ -329,7 +335,7 @@ const logos = [
 
     
   .logo-stage:focus-visible { outline:2px solid #4071B5; outline-offset:-3px; }
-  .logo-stage:focus-within .logo-track { animation-play-state:paused; }
+  .logo-stage:focus-within { --technology-play-state:paused; }
   @media(max-width:768px) {
     :global(body.home-page) .technology-ecosystem { padding:64px 0; }
     .technology-inner { width:min(calc(100% - 32px),1180px); }
@@ -338,47 +344,20 @@ const logos = [
     .technology-logo img,.technology-logo :global(svg) { max-width:165px; max-height:42px; }
     .logo-veeam :global(svg) { width:165px; height:42px; }
     .logo-meraki img { width:138px; max-height:50px; }
-    .logo-track { animation-duration:30s; }
+    .technology-ecosystem { --technology-duration:30s; }
   }
-  @media(prefers-reduced-motion:reduce) {
-    .logo-track { animation:none; }
+  @media(prefers-reduced-motion:reduce),(forced-colors:active) {
+    .technology-ecosystem .logo-track { animation:none !important; }
     .logo-stage { overflow-x:auto; scrollbar-width:none; }
     .logo-stage::-webkit-scrollbar { display:none; }
-    .logo-group[aria-hidden="true"] { display:none; }
+    .technology-ecosystem .logo-group[aria-hidden="true"] { display:none; }
     .technology-logo,.technology-logo img,.technology-logo :global(svg) { transition:none; }
   }
   @media(forced-colors:active) { .logo-stage::before,.logo-stage::after { display:none; } #technology-title { color:CanvasText; } }
 </style>
 
 <script>
-  const section = document.getElementById('technology');
-  const track = section?.querySelector<HTMLElement>('.logo-track');
-  if (section && track && 'IntersectionObserver' in window) {
-    let visible = false;
-    let parked = false;
-    const reconcile = () => track.classList.toggle('is-offscreen', !visible || document.hidden || parked);
-    const observer = new IntersectionObserver(entries => {
-      const entry = entries.find(item => item.target === section);
-      if (entry) { visible = entry.isIntersecting; reconcile(); }
-    });
-    reconcile();
-    observer.observe(section);
-    document.addEventListener('visibilitychange', reconcile);
-    const pagehide = (event: PageTransitionEvent) => {
-      parked = true;
-      reconcile();
-      if (!event.persisted) dispose();
-    };
-    const pageshow = () => { parked = false; reconcile(); };
-    const dispose = () => {
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', reconcile);
-      window.removeEventListener('pagehide', pagehide);
-      window.removeEventListener('pageshow', pageshow);
-      document.removeEventListener('astro:before-swap', dispose);
-    };
-    window.addEventListener('pagehide', pagehide);
-    window.addEventListener('pageshow', pageshow);
-    document.addEventListener('astro:before-swap', dispose, { once: true });
-  }
+  import { mountTechnologyMarquee } from '../scripts/technology-marquee';
+  const section=document.getElementById('technology');
+  if(section) mountTechnologyMarquee(section);
 </script>

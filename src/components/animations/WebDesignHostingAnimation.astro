@@ -1207,14 +1207,11 @@
     .animation-web .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
     .animation-web .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
     .animation-web .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
-    .animation-web [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
-    .animation-web [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
     .animation-web [hidden] { display:none !important; }
     .animation-web.is-idle *, .animation-web.is-idle *::before, .animation-web.is-idle *::after { animation-play-state:paused !important; }
-    .animation-web[data-animation-state="settled"] *, .animation-web[data-animation-state="settled"] *::before, .animation-web[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-web[data-animation-state="settled"] *, .animation-web[data-animation-state="settled"] *::before, .animation-web[data-animation-state="settled"] *::after { transition:none !important; }
     .animation-web:not([data-animation-enhanced]) [data-animation-visual], .animation-web:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
     .animation-web:not([data-animation-enhanced]) .itk-panel { transform:none; }
-    @media (hover:hover) and (pointer:fine) { .animation-web [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
     @media (max-width:560px) {
       .animation-web .animation-caption { align-items:flex-start; }
       .animation-web .animation-caption p { flex-basis:100%; }
@@ -1223,7 +1220,7 @@
       .animation-web .web-hero { min-height:90px; }
     }
     @media (prefers-reduced-motion:reduce) { .animation-web *, .animation-web *::before, .animation-web *::after { animation:none !important; transition:none !important; } }
-    @media (forced-colors:active) { .animation-web .itk-panel, .animation-web [data-animation-toggle] { border:1px solid CanvasText; } }
+    @media (forced-colors:active) { .animation-web .itk-panel { border:1px solid CanvasText; } }
   
 </style>
 
@@ -1423,7 +1420,7 @@
 
     for (var i = 0; i <= 8; i++) rail(i);
   }
-      return { play, settle, duration: 11800 };
+      return { play, settle, ambient: true, duration: 11800 };
     });
   });
 </script>

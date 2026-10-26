@@ -97,14 +97,14 @@ test('a shallow scroll exit pauses the active stage without advancing or restart
   h.visible();h.tick(269);assert.equal(h.active(),0);h.tick(1);assert.equal(h.active(),1);assert.equal(h.status.textContent,'Assigned');
 });
 
-test('full scroll exit replays the four stages once and rebinds through the unchanged lifecycle',()=>{
+test('full scroll exit retains the completed four-stage explanation without replay',()=>{
   const h=harness(),listeners=h.document.count()+h.window.count();
-  for(let i=0;i<3;i++){h.visible();assert.equal(h.active(),-1);h.tick(3100);assert.equal(h.status.textContent,'Documented');assert.equal(h.timers.size,0);h.leave();h.tick(5000);}
-  assert.equal(h.document.count()+h.window.count(),listeners);assert.equal(h.observers.size,3);
+  h.visible();h.tick(3100);for(let i=0;i<3;i++){h.visible();assert.equal(h.active(),-1);h.tick(3100);assert.equal(h.status.textContent,'Documented');assert.equal(h.timers.size,0);h.leave();h.tick(5000);}
+  assert.equal(h.document.count()+h.window.count(),listeners);assert.equal(h.observers.size,2);
 });
 
-test('initial reduced motion shows the complete workflow without timers or observers',()=>{
-  const h=harness(true);assert.equal(h.root.dataset.animationState,'settled');assert.ok(h.steps().every(s=>s.classList.contains('is-complete')));assert.equal(h.status.textContent,'Documented');assert.equal(h.timers.size,0);assert.equal(h.observers.size,0);
+test('initial reduced motion shows the complete workflow without timers, retaining preference observers',()=>{
+  const h=harness(true);assert.equal(h.root.dataset.animationState,'settled');assert.ok(h.steps().every(s=>s.classList.contains('is-complete')));assert.equal(h.status.textContent,'Documented');assert.equal(h.timers.size,0);assert.equal(h.observers.size,2);
 });
 
 test('switching to reduced motion mid-workflow settles once and disables future replay',()=>{
@@ -114,5 +114,5 @@ test('switching to reduced motion mid-workflow settles once and disables future 
 
 test('repeated page initialization does not duplicate stage timers, observers or cleanup listeners',()=>{
   const h=harness();h.visible();h.tick(200);const timers=h.timers.size,listeners=h.document.count()+h.window.count();
-  for(let i=0;i<5;i++)h.document.emit('astro:page-load');assert.equal(h.timers.size,timers);assert.equal(h.document.count()+h.window.count(),listeners);assert.equal(h.observers.size,3);h.tick(4600);assert.equal(h.timers.size,0);
+  for(let i=0;i<5;i++)h.document.emit('astro:page-load');assert.equal(h.timers.size,timers);assert.equal(h.document.count()+h.window.count(),listeners);assert.equal(h.observers.size,2);h.tick(4600);assert.equal(h.timers.size,0);
 });

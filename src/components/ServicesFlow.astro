@@ -1,0 +1,89 @@
+---
+// One coordinate system and uninterrupted paths cover the entire services area.
+// Gather beside the illustrations, then sweep into the open space between them.
+// Asymmetric shoulders keep each transition from repeating the same cable bend.
+const stations = [
+  [1120,-160,32],[1040,450,56],[920,800,90],[460,984,74],
+  [870,1230,100],[1060,1540,66],[1000,1840,108],[620,2060,126],
+  [900,2370,72],[1050,2700,80],[1090,2970,68],[640,3194,145],
+  [1010,3500,70],[1090,3880,65],[460,4270,86],[900,4530,64],
+  [1090,4880,76],[680,5350,120],[1140,5700,58],[1040,6160,32],
+];
+const lanes = [-3,-2,-1,0,1,2,3];
+const points = lanes.map(lane=>stations.map(([x,y,spread],i)=>({
+  x:x+lane*spread*(.68+.28*Math.cos(i*.8+lane*.5))+Math.sin(i*.95+lane*1.4)*(38+Math.abs(lane)*10),
+  y:y+(i===0||i===stations.length-1?0:Math.sin(i*.72+lane*1.1)*(36+Math.abs(lane)*12)),
+})));
+const n = (value:number) => +value.toFixed(2);
+function spline(list:{x:number;y:number}[]) {
+  return list.slice(0,-1).reduce((d,a,i)=>{
+    const b=list[i+1],before=list[Math.max(0,i-1)],after=list[Math.min(list.length-1,i+2)];
+    return d+`C${n(a.x+(b.x-before.x)/6)} ${n(a.y+(b.y-before.y)/6)} ${n(b.x-(after.x-a.x)/6)} ${n(b.y-(after.y-a.y)/6)} ${n(b.x)} ${n(b.y)}`;
+  },`M${n(list[0].x)} ${n(list[0].y)}`);
+}
+const paths = points.map(spline);
+const junctions = [[2,4],[6,8],[9,11],[12,14],[15,17],[17,18]];
+const bridges = lanes.slice(0,-1).map((_,i)=>{
+  const [start,end]=junctions[i],a=points[i][start],b=points[i+1][end],reach=(b.y-a.y)*.38;
+  return {from:i,to:i+1,path:`M${n(a.x)} ${n(a.y)}C${n(a.x)} ${n(a.y+reach)} ${n(b.x)} ${n(b.y-reach)} ${n(b.x)} ${n(b.y)}`};
+});
+---
+<div class="services-flow-system" data-services-flow>
+  <svg class="services-flow-canvas" viewBox="0 0 1440 6000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- One uninterrupted ink gradient gently illuminates the five transitions. -->
+      <linearGradient id="services-flow-ink" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="6000">
+        <stop offset="0" stop-color="var(--services-line-blue)" stop-opacity=".1" />
+        <stop offset=".075" stop-color="var(--services-line-blue)" stop-opacity=".08" />
+        <stop offset=".164" stop-color="var(--services-line-cyan)" stop-opacity=".3" />
+        <stop offset=".252" stop-color="var(--services-line-blue)" stop-opacity=".075" />
+        <stop offset=".343" stop-color="var(--services-line-cyan)" stop-opacity=".28" />
+        <stop offset=".438" stop-color="var(--services-line-blue)" stop-opacity=".08" />
+        <stop offset=".532" stop-color="var(--services-line-cyan)" stop-opacity=".3" />
+        <stop offset=".622" stop-color="var(--services-line-blue)" stop-opacity=".075" />
+        <stop offset=".712" stop-color="var(--services-line-cyan)" stop-opacity=".28" />
+        <stop offset=".802" stop-color="var(--services-line-blue)" stop-opacity=".08" />
+        <stop offset=".891" stop-color="var(--services-line-cyan)" stop-opacity=".3" />
+        <stop offset=".948" stop-color="var(--services-line-blue)" stop-opacity=".14" />
+        <stop offset="1" stop-color="var(--services-line-blue)" stop-opacity=".1" />
+      </linearGradient>
+    </defs>
+    <g class="services-flow-strands">{paths.map((d,i)=><path d={d} data-flow-lane={i} style={`--flow-width:${.6+(i%3)*.15}`} />)}</g>
+    <g class="services-flow-bridges">{bridges.map(link=><path d={link.path} data-flow-from={link.from} data-flow-to={link.to} />)}</g>
+    <path class="services-flow-bloom" d={paths[3]} />
+    <!-- Reuse the two existing trace paths for sparse, slow-moving light signals. -->
+    <g class="services-flow-breath"><path d={paths[1]} pathLength="1000" /><path d={paths[5]} pathLength="1000" /></g>
+  </svg>
+</div>
+
+<style>
+  .services-flow-system { position:absolute; inset:0; pointer-events:none; --services-line-cyan:var(--itk-brand-cyan); --services-line-blue:var(--itk-brand-deep); }
+  .services-flow-canvas { position:absolute; inset:0; inline-size:100%; block-size:100%; z-index:1; fill:none; stroke:url(#services-flow-ink); overflow:hidden; mask-image:linear-gradient(transparent,#000 4%,#000 96%,transparent),linear-gradient(to right,transparent,rgba(0,0,0,.4) 20%,rgba(0,0,0,.6) 38%,#000 56%,#000 94%,transparent); mask-composite:intersect; }
+  .services-flow-canvas path { vector-effect:non-scaling-stroke; }
+  .services-flow-strands path { stroke-width:var(--flow-width); }
+  .services-flow-bridges { stroke-width:.6; opacity:.65; }
+  .services-flow-bloom { stroke-width:3; opacity:.12; }
+  .services-flow-breath { display:none; stroke:var(--services-line-cyan); stroke-width:1.2; stroke-linecap:round; stroke-dasharray:1.5 248.5; opacity:.24; }
+  :global([data-hero-theme="day"]) .services-flow-system { --services-line-cyan:var(--itk-light-accent); }
+  @media (prefers-reduced-motion:no-preference) and (min-width:901px) {
+    .services-flow-system[data-ambient-enhanced] .services-flow-breath { display:inline; animation:services-flow-breathe 64s ease-in-out infinite alternate; animation-play-state:paused; }
+    .services-flow-system[data-ambient-enhanced] .services-flow-breath path { animation:services-flow-signal 42s linear infinite; animation-delay:-17s; animation-play-state:paused; }
+    .services-flow-system[data-ambient-enhanced] .services-flow-breath path:nth-child(2) { animation-duration:31s; animation-delay:-8s; animation-direction:reverse; }
+    .services-flow-system[data-ambient-running] .services-flow-breath,.services-flow-system[data-ambient-running] .services-flow-breath path { animation-play-state:running; }
+  }
+  .services-flow-system[data-ambient-settled] .services-flow-breath,.services-flow-system[data-ambient-settled] .services-flow-breath path { animation:none; }
+  .services-flow-system[data-ambient-settled] .services-flow-breath { display:none; }
+  @keyframes services-flow-breathe { from { opacity:.24; } to { opacity:.48; } }
+  @keyframes services-flow-signal { to { stroke-dashoffset:-250; } }
+  @media (max-width:900px) {
+    .services-flow-canvas { opacity:.3; mask-image:linear-gradient(transparent,#000 4%,#000 96%,transparent),linear-gradient(to right,rgba(0,0,0,.08) 35%,rgba(0,0,0,.2) 46%,#000 70%,transparent); }
+    .services-flow-strands path:not([data-flow-lane="0"]):not([data-flow-lane="3"]):not([data-flow-lane="6"]),.services-flow-bridges,.services-flow-bloom,.services-flow-breath { display:none; }
+  }
+  @media (prefers-reduced-motion:reduce) { .services-flow-breath { display:none; } }
+  @media (forced-colors:active) { .services-flow-system { display:none; } }
+</style>
+
+<script>
+  import { mountAmbientPreview } from '../scripts/ambient-preview';
+  document.querySelectorAll<HTMLElement>('[data-services-flow]').forEach(root=>mountAmbientPreview(root));
+</script>

@@ -18,8 +18,6 @@ import fallback from '../../assets/neural-sphere-fallback.svg?raw';
   import { createDeferredCanvas } from '../../scripts/deferred-canvas';
   import { createNeuralSphere } from '../../scripts/neural-sphere';
   document.querySelectorAll<HTMLElement>('.animation-neural-sphere').forEach(root => {
-    let renderer: ReturnType<typeof createDeferredCanvas> | undefined;
-    mountAnimation(root, () => { renderer?.dispose(); renderer=createDeferredCanvas(root, createNeuralSphere); return renderer; });
-    window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
+    mountAnimation(root, () => createDeferredCanvas(root, createNeuralSphere));
   });
 </script>

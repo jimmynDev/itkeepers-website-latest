@@ -18,9 +18,7 @@ import fallback from '../../assets/isometric-network-fallback.svg?raw';
   import { createDeferredCanvas } from '../../scripts/deferred-canvas';
   import { createIsometricNetwork } from '../../scripts/isometric-network';
   document.querySelectorAll<HTMLElement>('.animation-isometric-network').forEach(root => {
-    let renderer: ReturnType<typeof createDeferredCanvas> | undefined;
-    mountAnimation(root, () => { renderer?.dispose(); renderer=createDeferredCanvas(root, createIsometricNetwork); return renderer; });
-    window.addEventListener('pagehide', event => { if(!event.persisted) renderer?.dispose(); });
+    mountAnimation(root, () => createDeferredCanvas(root, createIsometricNetwork));
   });
 </script>
 

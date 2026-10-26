@@ -40,7 +40,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   };
   const reconcile = () => {
     if (disposed) return;
-    if (!visible || document.hidden || parked || hovered || focused) {
+    if (!visible || document.hidden || parked || hovered || focused || media.matches) {
       if (timer !== undefined) {
         clearTimeout(timer); timer = undefined;
         remaining = Math.max(0, remaining - (performance.now() - since));
@@ -52,7 +52,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
       timer = setTimeout(advance, remaining);
     }
   };
-  const preference = () => { root.toggleAttribute('data-reduced', media.matches); };
+  const preference = () => { root.toggleAttribute('data-reduced', media.matches); reconcile(); };
   const enter = () => { hovered = true; reconcile(); };
   const leave = () => { hovered = false; reconcile(); };
   const focus = () => { focused = true; reconcile(); };

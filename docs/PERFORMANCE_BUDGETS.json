@@ -1,0 +1,16 @@
+{
+  "status": "Proposed monitoring budgets; not new CI gates or owner-approved release thresholds",
+  "measuredOn": "2026-10-19",
+  "basis": "Cold-load Lighthouse 13.5.0 simulated mobile on the local Workers production build; transfer includes response headers",
+  "routes": {
+    "/": { "totalTransferKiB": 200, "scriptTransferKiB": 45, "stylesheetTransferKiB": 45 },
+    "/services/managed-it/": { "totalTransferKiB": 100, "scriptTransferKiB": 10, "stylesheetTransferKiB": 28 },
+    "/contact/": { "totalTransferKiB": 90, "scriptTransferKiB": 8, "stylesheetTransferKiB": 22 },
+    "/services/cybersecurity/": { "totalTransferKiB": 100, "scriptTransferKiB": 12, "stylesheetTransferKiB": 24 }
+  },
+  "notes": [
+    "Existing project mobile Lighthouse target remains at least 90; no threshold was lowered.",
+    "No field INP, field Core Web Vitals or device-power budget is established by these lab tests.",
+    "Unmeasured routes and warm-cache production behavior require their own measurements before adding gates."
+  ]
+}

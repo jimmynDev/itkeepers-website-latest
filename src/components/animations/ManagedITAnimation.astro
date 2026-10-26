@@ -815,18 +815,19 @@
     .animation-managed .mits-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
     .animation-managed .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
     .animation-managed .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
-    .animation-managed [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
-    .animation-managed [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
     .animation-managed [hidden] { display:none !important; }
     .animation-managed.is-idle *, .animation-managed.is-idle *::before, .animation-managed.is-idle *::after { animation-play-state:paused !important; }
-    .animation-managed[data-animation-state="settled"] *, .animation-managed[data-animation-state="settled"] *::before, .animation-managed[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-managed[data-animation-state="settled"] *, .animation-managed[data-animation-state="settled"] *::before, .animation-managed[data-animation-state="settled"] *::after { transition:none !important; }
     .animation-managed:not([data-animation-enhanced]) [data-animation-visual], .animation-managed:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
     .animation-managed:not([data-animation-enhanced]) .mits-panel { transform:none; }
-    @media (hover:hover) and (pointer:fine) { .animation-managed [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
     @media (max-width:560px) { .animation-managed .animation-caption { align-items:flex-start; } .animation-managed .animation-caption p { flex-basis:100%; } }
     @media (prefers-reduced-motion:reduce) { .animation-managed *, .animation-managed *::before, .animation-managed *::after { animation:none !important; transition:none !important; } }
-    @media (forced-colors:active) { .animation-managed .mits-panel, .animation-managed [data-animation-toggle] { border:1px solid CanvasText; } }
+    @media (forced-colors:active) { .animation-managed .mits-panel { border:1px solid CanvasText; } }
   
+  @media (max-width:900px) and (prefers-reduced-motion:no-preference) {
+    .animation-managed[data-animation-enhanced] .mits.is-complete .mits-mobile__sys::before { animation:managed-node-breathe 4s ease-in-out infinite; }
+  }
+  @keyframes managed-node-breathe { 0%,100% { opacity:1; } 50% { opacity:.6; } }
 </style>
 
 <script>
@@ -933,7 +934,7 @@
         Object.values(mobileSteps).forEach(step => step.classList.add('is-on'));
         resolveIssue();
       }
-      return { play, settle, duration: 4700 };
+      return { play, settle, ambient: true, duration: 4700 };
     });
   });
 </script>

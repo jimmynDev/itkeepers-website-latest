@@ -1,4 +1,4 @@
-import { contactFieldError, serviceInterests, validateServiceInterests, type InquiryField } from './inquiry';
+import { contactFieldError, type InquiryField } from './inquiry';
 
 // Owner-provided public form ID, not an API key. No other destination is allowed.
 export const formspreeEndpoint = 'https://formspree.io/f/mrppzvpo';
@@ -14,12 +14,9 @@ export function formspreePayload(data: FormData, intent: 'general' | 'review', c
   const gotcha = data.get('_gotcha') ?? '';
   if (typeof gotcha !== 'string' || gotcha.trim()) throw new Error('This request could not be submitted. Please use email or telephone.');
   payload.set('_gotcha', gotcha);
-  const interests = validateServiceInterests(data.getAll('interests'));
-  for (const value of interests) payload.append('interests', value);
-  payload.set('services', interests.map(value => serviceInterests.find(item => item.value === value)!.label).join(', '));
   payload.set('type', intent);
   payload.set('form_kind', compact ? 'review' : 'contact');
-  payload.set('_subject', compact || intent === 'review' ? 'ITKeepers — Free IT review request' : 'ITKeepers — Website inquiry');
+  payload.set('_subject', compact || intent === 'review' ? 'ITKeepers — Free IT consultation request' : 'ITKeepers — Website inquiry');
   return payload;
 }
 

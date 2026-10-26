@@ -59,7 +59,7 @@ function play(h) {h.renderer.activity(true);h.renderer.play();h.load();}
 
 test('starts fully formed with no reveal, retains reference colors, and caps density',()=>{
   const h=harness();assert.equal(h.images[0].src,undefined);assert.equal(h.frames.size,0);
-  h.renderer.activity(true);assert.equal(h.images[0].src,undefined);h.renderer.play();h.load();
+  h.renderer.activity(true);assert.equal(h.images[0].src,'/assets/itkeepers-particle-k.png');assert.equal(h.frames.size,0);h.renderer.play();h.load();
   assert.equal(h.stage.dataset.particleReady,'true');assert.equal(h.frames.size,1);
   assert.equal(h.stage.querySelector('.particle-fallback'),undefined,'Remove the fallback DOM after painting the particle frame');
   assert.deepEqual(Array.from(h.crop()),[0,0,740,830]);assert.equal(h.canvas.width,910);
@@ -139,3 +139,5 @@ test('fallback asset contains only colored dots and no solid-logo primitives or 
   assert.ok((fallback.match(/<circle\b/g)||[]).length>2000);
   assert.match(fallback,/viewBox="0 0 74 83"/);
 });
+
+test('an initially reduced-motion particle fallback can resume ambient motion without replaying a reveal',()=>{const h=harness({reduced:true});h.renderer.settle();assert.equal(h.frames.size,0);const media=h.media.get('(prefers-reduced-motion: reduce)');media.matches=false;media.emit('change');h.renderer.activity(true);h.load();assert.equal(h.stage.dataset.particleReady,'true');assert.equal(h.frames.size,1);const first=logoPoints(h).map(p=>({...p}));h.frame(100);h.frame(116);assert.ok(logoPoints(h).some((p,i)=>p.x!==first[i].x));h.renderer.dispose();assert.equal(h.frames.size,0);});

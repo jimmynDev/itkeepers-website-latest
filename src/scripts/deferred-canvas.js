@@ -1,5 +1,5 @@
 /** Prepare this below-fold canvas near the viewport, retaining the same renderer. */
-export function createDeferredCanvas(root, factory, duration = 12000) {
+export function createDeferredCanvas(root, factory) {
   let renderer, observer, disposed = false;
   const prepare = () => {
     if (!disposed && !renderer) renderer = factory(root);
@@ -14,10 +14,12 @@ export function createDeferredCanvas(root, factory, duration = 12000) {
     observer.observe(root);
   }
   return {
-    duration,
+    duration: 0,
+    ambient: true,
+    activity(active) { renderer?.activity?.(active); },
     play() { prepare()?.play(); },
     // Reduced motion / missing lifecycle observer still receives the exact final frame.
     settle() { prepare()?.settle(); },
-    dispose() { disposed = true; observer?.disconnect(); renderer?.dispose(); }
+    dispose() { if (disposed) return; disposed = true; observer?.disconnect(); renderer?.dispose(); }
   };
 }

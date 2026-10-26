@@ -1,13 +1,37 @@
 ---
 import HeroHeadline from './HeroHeadline.astro';
+import HeroStatusPanel from './HeroStatusPanel.astro';
 ---
 <section class="hero home-hero" aria-labelledby="home-title">
   <div class="hero-heading"><HeroHeadline /></div>
-  <div class="hero-bottom"><p class="lead">Familiar engineers. Shared context. A whole team behind the work.</p><a class="btn hero-cta" href="/contact/?type=review">Book a free IT review</a></div>
-  <div class="hero-tenets" role="group" aria-label="ITKeepers proof points"><p><span class="tenet-number" aria-hidden="true">01</span><strong>15+ years</strong><span>Experience</span></p><p><span class="tenet-number" aria-hidden="true">02</span><strong>50+</strong><span>Clients supported</span></p><p><span class="tenet-number" aria-hidden="true">03</span><strong>1,500+</strong><span>Endpoints managed</span></p><p><span class="tenet-number" aria-hidden="true">04</span><strong>2 locations</strong><span>Lebanon &amp; USA</span></p></div>
+  <div class="hero-bottom"><p class="lead">Familiar engineers. Shared context. A whole team behind the work.</p><a class="btn hero-cta" href="/contact/?type=review">Book a Free IT Consultation</a></div>
+  <div class="hero-visual"><HeroStatusPanel /></div>
+  <div class="hero-tenets" role="group" aria-label="ITKeepers proof points"><p><span class="tenet-number" aria-hidden="true">01</span><strong>15+<span class="metric-unit"> years</span></strong><span>Experience</span></p><p><span class="tenet-number" aria-hidden="true">02</span><strong>50+</strong><span>Clients supported</span></p><p><span class="tenet-number" aria-hidden="true">03</span><strong>1,500+</strong><span>Endpoints managed</span></p><p><span class="tenet-number" aria-hidden="true">04</span><strong>2<span class="metric-unit"> locations</span></strong><span>Lebanon &amp; USA</span></p></div>
 </section>
 
 <style>
+  /* Stage 2 — reserve the right column without changing headline behavior. */
+  :global(body.home-page) .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    column-gap: clamp(20px, 3vw, 48px);
+    row-gap: 0;
+    align-items: center;
+  }
+  .hero-heading { grid-column: 1; grid-row: 1; min-inline-size: 0; align-self: end; }
+  .hero-bottom { grid-column: 1; grid-row: 2; align-self: start; }
+  .hero-visual { grid-column: 2; grid-row: 1 / 3; min-inline-size: 0; padding-block-end: 40px; }
+  .hero-tenets { grid-column: 1 / -1; }
+  .home-hero :global(.itk-hero-title) { font-size: clamp(50px, 6.5vw, 96px); }
+  @media (max-width: 900px) {
+    :global(body.home-page) .home-hero { grid-template-columns: minmax(0, 1fr); }
+    .hero-heading, .hero-bottom, .hero-visual, .hero-tenets { grid-column: 1; grid-row: auto; }
+    .hero-visual { padding-block: 0 24px; }
+    :global(body.home-page) .home-hero .hero-bottom { margin-block-end: 20px; }
+  }
+  @media (max-width: 480px) {
+    .home-hero :global(.itk-hero-title) { font-size: clamp(34px, 10.6vw, 50px); }
+  }
   .home-hero .hero-tenets { grid-template-columns:repeat(4,minmax(0,1fr)); }
   @media (max-width:900px) {
     .home-hero .hero-tenets { grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -19,44 +43,59 @@ import HeroHeadline from './HeroHeadline.astro';
   :global(.home-page) .home-hero {
     position: relative;
     isolation: isolate;
+    overflow: visible;
+    /* Extend this same canvas into the existing header offset; retain side and
+       bottom clipping so the network cannot spill into other sections. */
+    clip-path: inset(calc(-1 * var(--hero-grid-offset)) 0 0);
     background: transparent;
     --hero-grid-ink: var(--text-light);
+    --hero-light-cyan: color-mix(in srgb, var(--itk-brand-cyan) 14%, transparent);
+    --hero-light-blue: color-mix(in srgb, var(--itk-brand-deep) 28%, transparent);
+    --hero-flow-color: var(--itk-brand-cyan);
+    --hero-canvas-base: var(--itk-bg);
   }
-  .home-hero::before,
-  .home-hero::after {
+  .home-hero::before {
     content: '';
     position: absolute;
     inset: 0;
+    inset-block-start: calc(-1 * var(--hero-grid-offset));
     pointer-events: none;
     z-index: 0;
   }
-  .home-hero::before {
+  /* One document-aligned grid and light field, from page top to the proof band. */
+  :global(:root) :global(body.home-page) .home-hero::before {
     background-image:
-      linear-gradient(var(--hero-grid-ink) 1px, transparent 1px),
-      linear-gradient(90deg, var(--hero-grid-ink) 1px, transparent 1px);
-    background-size: 48px 48px;
-    background-position: 0 calc(-1 * var(--hero-grid-offset));
-    opacity: .05;
-    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.75) 82%, rgba(0,0,0,.30) 92%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 0%, #000 72%, rgba(0,0,0,.75) 82%, rgba(0,0,0,.30) 92%, transparent 100%);
+      linear-gradient(color-mix(in srgb,var(--hero-grid-ink) 3.5%,transparent) 1px, transparent 1px),
+      linear-gradient(90deg,color-mix(in srgb,var(--hero-grid-ink) 3.5%,transparent) 1px, transparent 1px),
+      radial-gradient(ellipse 60% 90% at 22% 18%, var(--hero-light-cyan), transparent 76%),
+      radial-gradient(ellipse 84% 44% at 56% 52%, color-mix(in srgb, var(--hero-flow-color) 4%, transparent), transparent 80%),
+      radial-gradient(ellipse 56% 94% at 88% 28%, var(--hero-light-blue), transparent 78%);
+    background-color: var(--hero-canvas-base);
+    background-size: 48px 48px,48px 48px,100% 100%,100% 100%,100% 100%;
+    background-position: 0 0;
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(#000 80%,transparent);
+    mask-image: linear-gradient(#000 80%,transparent);
     mask-position: 0 0;
     mask-size: 100% 100%;
     mask-repeat: no-repeat;
   }
-  .home-hero::after {
-    background: radial-gradient(ellipse 42% 75% at 85% 35%, var(--c), transparent 70%);
-    opacity: .12;
-  }
+  .home-hero::after { content: none; }
   .home-hero > div {
     position: relative;
     z-index: 1;
   }
+  .home-hero :is(.hero-heading,.hero-bottom) { z-index: 2; }
   :global([data-hero-theme="day"] .home-page) .home-hero {
     --fg: var(--n);
     --muted: #42566f;
     --accent: #075d7d;
     --focus: var(--n);
     --hero-grid-ink: var(--n);
+    --hero-light-cyan: color-mix(in srgb, var(--itk-brand-cyan) 10%, transparent);
+    --hero-light-blue: color-mix(in srgb, var(--itk-brand-deep) 12%, transparent);
+    --hero-flow-color: var(--itk-light-accent);
+    --hero-canvas-base: var(--surface-light);
     color: var(--fg);
     background: var(--surface-light);
   }
@@ -88,6 +127,57 @@ import HeroHeadline from './HeroHeadline.astro';
   @media (forced-colors: active) {
     .home-hero::before,
     .home-hero::after { display: none; }
+  }
+
+  /* Stage 3 — one continuous proof band, with numbers as the primary rhythm. */
+  :global(body.home-page) .home-hero .hero-tenets {
+    --metrics-bleed: max(var(--layout-gutter), calc((100vw - var(--layout-max)) / 2));
+    --metrics-rule: color-mix(in srgb, var(--itk-brand-cyan) 20%, transparent);
+    margin-inline: calc(-1 * var(--metrics-bleed));
+    padding-inline: var(--metrics-bleed);
+    padding-block: 30px;
+    gap: 0;
+    background: color-mix(in srgb, var(--itk-brand-deep) 9%, var(--itk-bg));
+    border-block: 1px solid var(--metrics-rule);
+  }
+  :global(body.home-page) .home-hero .hero-tenets p {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0 28px;
+    border: 0;
+    min-inline-size: 0;
+  }
+  :global(body.home-page) .home-hero .hero-tenets p:first-child { padding-inline-start: 0; }
+  :global(body.home-page) .home-hero .hero-tenets p:not(:first-child) { border-inline-start: 1px solid var(--metrics-rule); }
+  .home-hero .hero-tenets .tenet-number { display: none; }
+  .home-hero .hero-tenets strong {
+    color: var(--itk-text);
+    font-size: clamp(32px, 3.2vw, 44px);
+    line-height: 1.15;
+    font-weight: 650;
+    letter-spacing: -.035em;
+    font-variant-numeric: tabular-nums;
+  }
+  .home-hero .metric-unit { font-size: .52em; font-weight: 500; letter-spacing: -.015em; }
+  .home-hero .hero-tenets p > span:last-child { color: var(--itk-muted); line-height: 1.5; }
+  :global([data-hero-theme="day"] body.home-page) .home-hero .hero-tenets {
+    background: color-mix(in srgb, var(--itk-brand-deep) 7%, var(--surface-light));
+  }
+  :global([data-hero-theme="day"]) .home-hero .hero-tenets strong { color: var(--itk-light-text); }
+  :global([data-hero-theme="day"]) .home-hero .hero-tenets p > span:last-child { color: var(--itk-light-muted); }
+  @media (max-width: 900px) {
+    :global(body.home-page) .home-hero .hero-tenets { row-gap: 22px; padding-block: 24px; }
+    :global(body.home-page) .home-hero .hero-tenets p { padding-inline: 0 16px; }
+    :global(body.home-page) .home-hero .hero-tenets p:nth-child(even) { padding-inline: 20px 0; }
+    :global(body.home-page) .home-hero .hero-tenets p:nth-child(3) { border-inline-start: 0; }
+  }
+  @media (forced-colors: active) {
+    :global(body.home-page) .home-hero .hero-tenets { background: Canvas; --metrics-rule: CanvasText; }
+    .home-hero .hero-tenets strong,
+    .home-hero .hero-tenets p > span:last-child { color: CanvasText; }
   }
 </style>
 

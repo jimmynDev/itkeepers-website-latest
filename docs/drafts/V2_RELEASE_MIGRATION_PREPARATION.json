@@ -1,0 +1,720 @@
+{
+  "prepared": "2026-10-20",
+  "status": "Private preparation only. Not publication/legal approval. No production changes.",
+  "evidence_root": "../v2-phase52-migration-evidence/",
+  "retention_decisions": "Unchanged; do not infer retirement from blocked 404. Preserve all 28 redirects.",
+  "articles": [
+    {
+      "path": "/2022/12/welcome-to-our-blog/",
+      "source_url": "https://itkeepers.com/2022/12/welcome-to-our-blog/",
+      "source_snapshot": "https://web.archive.org/web/20231210230705id_/https://itkeepers.com/2022/12/welcome-to-our-blog/",
+      "source_sha256": "17bb769d2203684f671039988588677571d866122a1648d19727405b0924241b",
+      "published_time": "2022-12-21T19:13:20+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Recovered body is a coming-soon announcement, not substantive article content; no placeholder 200. Retention decision stands pending a supported presentation/content decision.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/06/the-importance-of-it-in-business/",
+      "source_url": "https://itkeepers.com/2023/06/the-importance-of-it-in-business/",
+      "source_snapshot": "https://web.archive.org/web/20231211002634id_/https://itkeepers.com/2023/06/the-importance-of-it-in-business/",
+      "source_sha256": "62088083e92a68572acee8842bf4a6df61db6bc1dc784fc42ab1d448b455c6e5",
+      "published_time": "2023-06-28T20:10:43+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review unqualified instant-response/24-hour-support implications and dated technology statements before republishing.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/07/benefits-of-cloud-migration/",
+      "source_url": "https://itkeepers.com/2023/07/benefits-of-cloud-migration/",
+      "source_snapshot": "https://web.archive.org/web/20231210230033id_/https://itkeepers.com/2023/07/benefits-of-cloud-migration/",
+      "source_sha256": "c603551ca1c913e4502f6516bcaa4ce5c7e85a6d00fe85fa6387a27dbc66200f",
+      "published_time": "2023-07-31T18:19:29+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review broad cost/license-elimination, security and migration benefit assertions against current qualified guidance.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/07/network-security-protects-your-business-from-online-threats/",
+      "source_url": "https://itkeepers.com/2023/07/network-security-protects-your-business-from-online-threats/",
+      "source_snapshot": "https://web.archive.org/web/20231210223526id_/https://itkeepers.com/2023/07/network-security-protects-your-business-from-online-threats/",
+      "source_sha256": "7be9a81c4e4b59f76f48601f715c1fa544d2036581f4b44506a133377899ba4b",
+      "published_time": "2023-07-05T17:58:36+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Technical/legal review of security and GDPR/HIPAA compliance statements; no new compliance assurance.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/07/the-benefits-of-using-robotic-process-automation-to-reduce-cost-human-error/",
+      "source_url": "https://itkeepers.com/2023/07/the-benefits-of-using-robotic-process-automation-to-reduce-cost-human-error/",
+      "source_snapshot": "https://web.archive.org/web/20231211001745id_/https://itkeepers.com/2023/07/the-benefits-of-using-robotic-process-automation-to-reduce-cost-human-error/",
+      "source_sha256": "14aa2ad0a33b7d494746b3a13d3efffd4e0609cab9728208ab473c7444e087c5",
+      "published_time": "2023-07-07T18:17:00+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review uninterrupted-operation/error and savings generalizations; prevent implications that held E1 implementation scope is confirmed.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/09/the-future-of-artificial-intelligence-ai/",
+      "source_url": "https://itkeepers.com/2023/09/the-future-of-artificial-intelligence-ai/",
+      "source_snapshot": "https://web.archive.org/web/20231210225837id_/https://itkeepers.com/2023/09/the-future-of-artificial-intelligence-ai/",
+      "source_sha256": "22cf27c91c8367894714328008848fdbd2be49257adff0c228ce3377588b0060",
+      "published_time": "2023-09-28T18:18:26+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": true,
+      "release_status": "blocked",
+      "editorial_issue": "Core historical text retained with original date; old shared sales module/theme/schema excluded; no current-service promise or new author/date.",
+      "accuracy_review": {
+        "status": "historical forecast; editorial qualification required before release",
+        "findings": [
+          "Predictions of inevitable growth, savings and improved accuracy are opinion, not verified outcomes.",
+          "More data does not by itself establish valid, reliable or unbiased predictions. Historical banner is present; do not market this as reviewed current guidance."
+        ],
+        "proposed_correction": "Benefits and accuracy depend on the task, data quality, evaluation and controls; these outcomes are not guaranteed.",
+        "sources": [
+          "https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/"
+        ]
+      },
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/09/understanding-datafication/",
+      "source_url": "https://itkeepers.com/2023/09/understanding-datafication/",
+      "source_snapshot": "https://web.archive.org/web/20231210233305id_/https://itkeepers.com/2023/09/understanding-datafication/",
+      "source_sha256": "225d0507bfb726149a214667257f072b76800b9be94335ccbce21bf574bad823",
+      "published_time": "2023-09-04T18:15:21+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": true,
+      "release_status": "blocked",
+      "editorial_issue": "Core historical text retained with original date; old shared sales module/theme/schema excluded; no current-service promise or new author/date.",
+      "accuracy_review": {
+        "status": "historical overview; legal/editorial qualification required before release",
+        "findings": [
+          "Core examples describe collection/use of data, not proven ITKeepers practices.",
+          "Access/edit/delete rights and consent are normative recommendations here, not a determination of applicable law. Avoid implying consent is the only lawful basis.",
+          "No current company privacy policy or assurance can be inferred."
+        ],
+        "proposed_correction": "Applicable rights and legal requirements depend on the processing and jurisdiction; this historical overview is not legal advice.",
+        "sources": [
+          "https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/"
+        ]
+      },
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/10/12-ways-to-reduce-your-it-spending/",
+      "source_url": "https://itkeepers.com/2023/10/12-ways-to-reduce-your-it-spending/",
+      "source_snapshot": "https://web.archive.org/web/20231210232903id_/https://itkeepers.com/2023/10/12-ways-to-reduce-your-it-spending/",
+      "source_sha256": "bda32190875ee2175ba817942404a9bc42bdd2cc4c535b7c0883c76249210ba8",
+      "published_time": "2023-10-23T17:04:42+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review dated licensing/cloud/outsourcing cost assumptions; no invented or unconditional savings.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/10/building-a-comprehensive-computer-security-strategy-for-your-business/",
+      "source_url": "https://itkeepers.com/2023/10/building-a-comprehensive-computer-security-strategy-for-your-business/",
+      "source_snapshot": "https://web.archive.org/web/20240222012340id_/https://itkeepers.com/2023/10/building-a-comprehensive-computer-security-strategy-for-your-business/",
+      "source_sha256": "6a6639cced23379b4a96ec6e51362c5edee92a355d350b9d55e91034424188e1",
+      "published_time": "2023-10-26T22:57:11+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review dated security guidance; exclude unverified Parkland sales module and business claims.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/10/how-do-ai-and-ml-differ/",
+      "source_url": "https://itkeepers.com/2023/10/how-do-ai-and-ml-differ/",
+      "source_snapshot": "https://web.archive.org/web/20231210225756id_/https://itkeepers.com/2023/10/how-do-ai-and-ml-differ/",
+      "source_sha256": "a22d87361bbc42947dc5ec491bf30eafcaa604c99dc056aa8c76b37a9fa149c0",
+      "published_time": "2023-10-05T17:04:42+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": true,
+      "release_status": "blocked",
+      "editorial_issue": "Core historical text retained with original date; old shared sales module/theme/schema excluded; no current-service promise or new author/date.",
+      "accuracy_review": {
+        "status": "technical corrections required before release",
+        "findings": [
+          "The AI/ML subset distinction is supported, but AI also includes manually defined rule-based systems, which need not learn from training data.",
+          "The claim that algorithms evolve/adapt as they process more data and thereby improve accuracy is too broad: a deployed model may remain fixed, and updates require evaluation.",
+          "NLP and computer vision are application areas that can themselves use ML; they are not clean examples separating AI from ML."
+        ],
+        "proposed_correction": "Machine learning is one approach within AI. Models learn patterns during training; deployed models do not necessarily keep learning, and more data does not guarantee better performance. Other AI approaches can use explicitly defined rules.",
+        "sources": [
+          "https://www.ibm.com/think/topics/machine-learning",
+          "https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/"
+        ]
+      },
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/10/the-future-of-managed-it-services-trends-and-predictions/",
+      "source_url": "https://itkeepers.com/2023/10/the-future-of-managed-it-services-trends-and-predictions/",
+      "source_snapshot": "https://web.archive.org/web/20240222003636id_/https://itkeepers.com/2023/10/the-future-of-managed-it-services-trends-and-predictions/",
+      "source_sha256": "d75aa6f4146f9c39dda327423247d9c15dc02f2201ff9e3f231eeddffdddbde2",
+      "published_time": "2023-10-09T22:57:10+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review provider-availability/security and service-scope implications in the dated forecast; do not imply current inclusions.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/11/robotic-process-automation-rpa-in-parkland-fl/",
+      "source_url": "https://itkeepers.com/2023/11/robotic-process-automation-rpa-in-parkland-fl/",
+      "source_snapshot": "https://web.archive.org/web/20240221235755id_/https://itkeepers.com/2023/11/robotic-process-automation-rpa-in-parkland-fl/",
+      "source_sha256": "f523ac3fad90b4339ee2ae82e438dcdad331fed9b873f3de9ae77b99cbb5169e",
+      "published_time": "2023-11-10T22:31:15+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Verify Parkland service/local-business and RPA implementation claims; article retention does not establish a seventh office/service promise.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    },
+    {
+      "path": "/2023/11/the-importance-of-having-an-it-team-manage-your-cloud-service/",
+      "source_url": "https://itkeepers.com/2023/11/the-importance-of-having-an-it-team-manage-your-cloud-service/",
+      "source_snapshot": "https://web.archive.org/web/20240222014659id_/https://itkeepers.com/2023/11/the-importance-of-having-an-it-team-manage-your-cloud-service/",
+      "source_sha256": "fcd4c4be0127634009569edc886635a6563a39035613a2e5a7cc6c7be3d6f750",
+      "published_time": "2023-11-27T22:31:16+00:00",
+      "source_verified": true,
+      "publication_rights": "Not documented. Retention instruction and old-site presence do not establish authorship, assignment or third-party license.",
+      "public_candidate": false,
+      "release_status": "blocked",
+      "editorial_issue": "Review availability/management promises; exclude unverified Parkland sales module and qualify current scope.",
+      "accuracy_review": null,
+      "assets": "Original image rights/availability not established; no image imported.",
+      "owner_action": "Content owner supplies authorship/assignment/license and approves corrections; legal reviewer resolves any third-party rights. No new route until both gates close."
+    }
+  ],
+  "service_areas": [
+    {
+      "path": "/managed-it-specialists-in-fort-lauderdale-fl/",
+      "city": "Fort Lauderdale",
+      "source_snapshot": "https://web.archive.org/web/20231210222747id_/https://itkeepers.com/managed-it-specialists-in-fort-lauderdale-fl/",
+      "source_sha256": "0c5ab01bfac749c7e29f9ccdc1720d2e884d461dfbd5f13f22b00d77c545e440",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "Which service delivery or onboarding arrangement is genuinely specific to this area?",
+        "Can the local-provider/certified-technician claims be evidenced? Do not reuse home-to or office wording."
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    },
+    {
+      "path": "/managed-it-specialists-in-boca-raton-fl/",
+      "city": "Boca Raton",
+      "source_snapshot": "https://web.archive.org/web/20231210222229id_/https://itkeepers.com/managed-it-specialists-in-boca-raton-fl/",
+      "source_sha256": "b197bb83cda961945b1529488eec54066e1c3e869dc91a983181b671b9a01106",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "Which actual current business need/workflow differs from other service areas?",
+        "What documented delivery arrangement supports backup/network continuity statements?"
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    },
+    {
+      "path": "/managed-it-specialists-in-hollywood-fl/",
+      "city": "Hollywood",
+      "source_snapshot": "https://web.archive.org/web/20231210232750id_/https://itkeepers.com/managed-it-specialists-in-hollywood-fl/",
+      "source_sha256": "9c5f27b1cf776a78e0eebdc16d155759586f1bbb22a83539c7fbd7efd6b6d849",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "What area-specific intake or service-delivery facts are documented?",
+        "What boundaries replace old always-available/peak-performance promises?"
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    },
+    {
+      "path": "/managed-it-specialists-in-orlando-fl/",
+      "city": "Orlando",
+      "source_snapshot": "https://web.archive.org/web/20231210222919id_/https://itkeepers.com/managed-it-specialists-in-orlando-fl/",
+      "source_sha256": "f54a2ea01d508f5e46d37bd0658805c80a02e42d876a02183fa5c9b239ca9b64",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "How is delivery arranged here, and what genuinely distinguishes it from the other areas?",
+        "What human coverage is approved instead of round-the-clock/certified-engineer claims?"
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    },
+    {
+      "path": "/managed-it-specialists-in-hialeah-fl/",
+      "city": "Hialeah",
+      "source_snapshot": "https://web.archive.org/web/20231210225714id_/https://itkeepers.com/managed-it-specialists-in-hialeah-fl/",
+      "source_sha256": "9b639de01ce96f6cec6adb2f77132c7e9a4ae420294562bba57f70e9633d960e",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "Which actual delivery constraints or customer needs distinguish this area?",
+        "What coverage can be agreed without always-available or certification claims?"
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    },
+    {
+      "path": "/managed-it-specialists-in-miami-fl/",
+      "city": "Miami",
+      "source_snapshot": "https://web.archive.org/web/20231210225342id_/https://itkeepers.com/managed-it-specialists-in-miami-fl/",
+      "source_sha256": "bcd87d818b5d5f43e411aa116b2e76b469a2bddde3913432e9317fc15c0914a9",
+      "verified_for_preparation": [
+        "Historical path and original content exist.",
+        "Owner explicitly approved retention of this service-area path."
+      ],
+      "distinct_current_service_facts_verified": [],
+      "release_status": "blocked; no public page, link, schema or sitemap entry",
+      "owner_evidence_needed": [
+        "What actual migration assessment/delivery arrangements are specific to this area?",
+        "What evidence supports the proposed scope without the old flawless-migration guarantee?"
+      ],
+      "required_common_decisions": [
+        "Ops confirms current service-area coverage, remote/on-site boundaries, travel/geography and inquiry handling.",
+        "Provide a genuinely area-specific fact or permitted operational example; if none exists, record an owner-approved scope strategy instead of city-swapped prose."
+      ],
+      "prohibited_inferences": [
+        "Physical office/address/map",
+        "Local staff, certifications, clients or testimonials",
+        "Guaranteed availability/response/performance"
+      ],
+      "private_page_structure": [
+        "Area-specific verified need and delivery explanation",
+        "Applicable approved services and explicit coverage boundaries",
+        "Permitted process/example with evidence",
+        "Contextual links to relevant services and Contact; no invented local FAQ"
+      ],
+      "copy_prepared": false,
+      "reason_no_page_copy": "Only historical existence/retention are verified; no distinct current facts to support publishable prose."
+    }
+  ],
+  "client_story_index": {
+    "path": "/clients",
+    "status": "blocked until approved substantive stories exist; do not publish empty collection"
+  },
+  "client_stories": [
+    {
+      "path": "/clients/corning-insurance-solutions",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "corning-insurance-solutions",
+          "purpose": "logo",
+          "reference": "I7",
+          "source": "https://itkeepers.com/assets/corning-6WMAhsx_.png",
+          "status": 200,
+          "type": "image/png",
+          "content_length": "36510"
+        },
+        {
+          "story": "corning-insurance-solutions",
+          "purpose": "video",
+          "reference": "$7",
+          "source": "https://itkeepers.com/assets/corning-video-CVHxinAr.mp4",
+          "status": 200,
+          "type": "video/mp4",
+          "content_length": "9918729"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    },
+    {
+      "path": "/clients/drugstore3u",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "drugstore3u",
+          "purpose": "logo",
+          "reference": "H7",
+          "source": "https://itkeepers.com/assets/Drugstore3U-cjSxhQ6m.png",
+          "status": 200,
+          "type": "image/png",
+          "content_length": "12206"
+        },
+        {
+          "story": "drugstore3u",
+          "purpose": "video",
+          "reference": "G7",
+          "source": "https://itkeepers.com/assets/drugstore-DOa8vc9w.webm",
+          "status": 200,
+          "type": "video/webm",
+          "content_length": "1609188"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    },
+    {
+      "path": "/clients/international-maritime-academy",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "international-maritime-academy",
+          "purpose": "logo",
+          "reference": "Bb",
+          "source": "https://itkeepers.com/assets/IMA%20LOGO%20(2)-BXCRpjJ_.png",
+          "status": 200,
+          "type": "image/png",
+          "content_length": "194485"
+        },
+        {
+          "story": "international-maritime-academy",
+          "purpose": "video",
+          "reference": "F7",
+          "source": "https://itkeepers.com/assets/IMA-video-AkFsBZwR.webm",
+          "status": 200,
+          "type": "video/webm",
+          "content_length": "7312598"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    },
+    {
+      "path": "/clients/transglobal",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "transglobal",
+          "purpose": "logo",
+          "reference": "q7",
+          "source": "embedded data URI",
+          "mime": "image/png",
+          "bytes": 3652,
+          "sha256": "a94056b003ea41c4b2a6d3012f0e7be663efb1382b8ce84d1d32ce63afc086a0"
+        },
+        {
+          "story": "transglobal",
+          "purpose": "video",
+          "reference": "K7",
+          "source": "https://itkeepers.com/assets/TransGlobal-ovRfN0Q8.webm",
+          "status": 200,
+          "type": "video/webm",
+          "content_length": "11520389"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    },
+    {
+      "path": "/clients/pfc-international",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "pfc-international",
+          "purpose": "logo",
+          "reference": "kr",
+          "source": "embedded data URI",
+          "mime": "image/svg+xml",
+          "bytes": 1452,
+          "sha256": "dbbc88ecf4d291b05f9c04130cfcf0bfd5aec6a30941280547d37b1de96d04af"
+        },
+        {
+          "story": "pfc-international",
+          "purpose": "video",
+          "reference": "Y7",
+          "source": "https://itkeepers.com/assets/pfc-BxMp_K3i.mp4",
+          "status": 200,
+          "type": "video/mp4",
+          "content_length": "5285238"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    },
+    {
+      "path": "/clients/sawaya-group",
+      "source_evidence": "../v2-phase52-migration-evidence/legacy-static-data.json; live-rendered-stories.json; live-content-comparison.json",
+      "source_verified": "Legacy body exists and matches rendered source; outcomes not independently verified.",
+      "publication_permission": "No scoped full-story/name/logo/video/testimonial permission record found. Existing approved homepage excerpts retain their separate exact scope.",
+      "release_status": "blocked",
+      "asset_candidates": [
+        {
+          "story": "sawaya-group",
+          "purpose": "logo",
+          "reference": "Ub",
+          "source": "https://itkeepers.com/assets/sawaya-C2YW_aBC.svg",
+          "status": 200,
+          "type": "image/svg+xml",
+          "content_length": "22894"
+        },
+        {
+          "story": "sawaya-group",
+          "purpose": "video",
+          "reference": "X7",
+          "source": "https://itkeepers.com/assets/sawaya-CH02z4pE.mp4",
+          "status": 200,
+          "type": "video/mp4",
+          "content_length": "3398729"
+        }
+      ],
+      "asset_handling": "References only; no download, public import or route. Optional media require license/consent, approved alt text, metadata inspection; video also captions/transcript, poster, controls and no autoplay.",
+      "required_record": [
+        "Project fact owner and dated evidence for scope/process/outcome",
+        "Client authorized signatory, permission reference/date, exact permitted name/body/quote/media and allowed channels/duration",
+        "Editorial approval of corrected copy; no absolute security/availability guarantees",
+        "Separate asset license, alt/caption/transcript approvals if media used"
+      ],
+      "private_page_structure": [
+        "Approved title and permitted client identity",
+        "Verified context/challenge",
+        "Agreed work and delivery boundaries",
+        "Evidence-backed outcome without invented metrics",
+        "Optional separately permitted media/quote",
+        "Relevant service links and inquiry CTA"
+      ]
+    }
+  ],
+  "privacy_and_inquiry": {
+    "current_mode": "email handoff; no backend enabled",
+    "legal_notice_draft": "docs/drafts/V2_PRIVACY_NOTICE.md",
+    "public_privacy": "/privacy/ remains incomplete and noindex; /privacy-policy/ unmapped pending approved equivalent",
+    "current_data_flow": [
+      "Browser validates form fields in memory.",
+      "Fixed recipient info@itkeepers.com; encoded subject/body handed to visitor email client.",
+      "Visitor reviews and sends; website does not confirm delivery.",
+      "Application does not persist inquiry fields; browser/email client may retain autofill/drafts.",
+      "Only AI prompt preference in application localStorage; no automatic expiry/deletion."
+    ],
+    "launch_owner_decisions": [
+      "CEO/Ops approves mailto-only launch or requests separately approved backend.",
+      "Privacy reviewer confirms controller/jurisdictions, purposes, rights, processors, transfers, mailbox/log retention, storage notice and effective date.",
+      "Cloudflare owner confirms actual logging/cookies/analytics/access configuration.",
+      "Inquiry owner confirms mailbox access and authorizes controlled delivery test."
+    ],
+    "backend_contract_if_later_approved": {
+      "activation": "Do not set PUBLIC_CONTACT_FORM_ENDPOINT until server/data-handling acceptance signed off.",
+      "request": "Same-origin POST multipart FormData, fields type/form_kind/name/email/company/phone/message/interests; current client limits name120/email254/company160/phone40/message3000. Server independently bounds total body and repeated/unknown fields.",
+      "validation": "Server validates schema, email/header controls, allowed interests, origin/CSRF policy, fixed recipient/sender, rate/bot limits and idempotency; no file uploads or visitor URL fetches.",
+      "success": "2xx application/json {ok:true} only after defined durable acceptance/delivery. Client rejects HTML 200, {ok:false}, malformed JSON, non-2xx and redirects. Define what acceptance guarantees before claiming receipt.",
+      "failure": "Truthful accessible failure, enabled retry, direct email/phone fallback; abort/15s client timeout.",
+      "privacy": "No-store API responses, no wildcard CORS, minimized/redacted logs, confirmed processor/retention and approved effective notice before collection."
+    }
+  }
+}

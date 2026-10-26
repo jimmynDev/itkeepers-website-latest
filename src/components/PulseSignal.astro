@@ -51,9 +51,9 @@ const signalPath = 'M 2 31 L 78 31 L 101 31 L 111 27 L 120 35 L 131 31 L 173 31 
   .pulse-atmosphere { position:absolute; inline-size:190px; block-size:70px; inset-block-start:-5px; inset-inline-start:33%; border-radius:50%; background:radial-gradient(ellipse,rgba(66,186,235,.10),rgba(64,113,181,.035) 45%,transparent 72%); filter:blur(10px); pointer-events:none; }
   /* Static full-gradient signal is the no-JavaScript and reduced-motion fallback. */
   @media (prefers-reduced-motion:no-preference) {
-    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-active { stroke-dasharray:115 600; animation:pulseTravel 3.4s linear infinite; }
-    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-live-dot { animation:liveDot 2.8s ease-in-out infinite; }
-    .pulse-signal[data-animation-enhanced]:not([data-animation-state="settled"]) .pulse-node--active { animation:nodePulse 3.4s ease-in-out infinite; }
+    .pulse-signal[data-animation-enhanced] .pulse-active { stroke-dasharray:115 600; animation:pulseTravel 3.4s linear infinite; }
+    .pulse-signal[data-animation-enhanced] .pulse-live-dot { animation:liveDot 2.8s ease-in-out infinite; }
+    .pulse-signal[data-animation-enhanced] .pulse-node--active { animation:nodePulse 3.4s ease-in-out infinite; }
     .pulse-signal[data-animation-enhanced].is-idle :is(.pulse-active,.pulse-live-dot,.pulse-node--active) { animation-play-state:paused; }
   }
   @keyframes pulseTravel { from { stroke-dashoffset:115; } to { stroke-dashoffset:-600; } }
@@ -66,6 +66,6 @@ const signalPath = 'M 2 31 L 78 31 L 101 31 L 111 27 L 120 35 L 131 31 L 173 31 
 <script>
   import { mountAnimation } from '../scripts/animation-lifecycle';
   document.querySelectorAll<HTMLElement>('[data-pulse-signal]').forEach(root => {
-    mountAnimation(root, () => ({ play() {}, settle() {}, duration:3400 }), { loop:true });
+    mountAnimation(root, () => ({ play() {}, settle() {}, ambient:true, duration:3400 }), { loop:true });
   });
 </script>

@@ -32,7 +32,7 @@ test('every staging share image resolves to a real PNG whose dimensions match th
     const nodes = walk(parse(read(file).toString()));
     const meta = key => nodes.filter(n => n.tagName === 'meta' && (attr(n,'name') === key || attr(n,'property') === key)).map(n => attr(n,'content'));
     assert.deepEqual(meta('twitter:card'),['summary_large_image'],file);
-    assert.deepEqual(meta('og:image'),[origin+'/assets/itkeepers-og.png'],file);
+    assert.deepEqual(meta('og:image'),[origin+'/assets/itkeepers-og-v2.png'],file);
     assert.deepEqual(meta('twitter:image'),meta('og:image'),file);
     assert.deepEqual(meta('og:image:type'),['image/png']);
     const image = read('dist-staging'+new URL(meta('og:image')[0]).pathname);

@@ -121,10 +121,15 @@ const areas = ['Overview', 'Users', 'Devices', 'Security', 'Licenses', 'Reports'
   }
   @keyframes pulse-mobile-in { from { opacity:0; } to { opacity:1; } }
   @media (forced-colors:active) { .pulse-preview-visual,.pulse-health,.pulse-metric,.pulse-attention { border-color:CanvasText; } .pulse-meter i { background:Highlight; } }
+  @media (prefers-reduced-motion:no-preference) {
+    [data-animation-enhanced] .pulse-ring-progress { animation:pulse-health-breathe 4s ease-in-out infinite; }
+    [data-animation-enhanced].is-idle .pulse-ring-progress { animation-play-state:paused; }
+  }
+  @keyframes pulse-health-breathe { 0%,100% { opacity:1; } 50% { opacity:.6; } }
 </style>
 <script>
   import { mountAnimation } from '../scripts/animation-lifecycle';
   document.querySelectorAll<HTMLElement>('[data-pulse-animation]').forEach(root => {
-    mountAnimation(root, () => ({ play() {}, settle() {}, duration: window.matchMedia('(max-width:600px)').matches ? 300 : 1000 }));
+    mountAnimation(root, () => ({ play() {}, settle() {}, ambient: true, duration: window.matchMedia('(max-width:600px)').matches ? 300 : 1000 }));
   });
 </script>

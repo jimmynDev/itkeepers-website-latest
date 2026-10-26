@@ -13,6 +13,27 @@ body .site-header[data-mega-header] {
   --nav-danger: var(--itk-danger);
   --nav-focus: var(--itk-brand-cyan);
 }
+/* Homepage glass sits on the hero's extended canvas; inner-page chrome is kept. */
+:root body.home-page .site-header[data-mega-header] {
+  background: color-mix(in srgb,var(--itk-bg) 62%,transparent);
+  border-color: color-mix(in srgb,var(--itk-brand-cyan) 14%,transparent);
+  border-radius: 28px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px -20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035);
+}
+:root body.home-page .site-header[data-mega-header]:hover {
+  translate: none;
+  box-shadow: 0 8px 24px -20px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035);
+}
+:root[data-hero-theme="day"] body.home-page .site-header[data-mega-header] {
+  background: color-mix(in srgb,var(--surface-light) 78%,transparent);
+  border-color: color-mix(in srgb,var(--itk-light-accent) 18%,transparent);
+  box-shadow: 0 8px 24px -20px rgba(11,44,95,.15),inset 0 1px 0 rgba(255,255,255,.3);
+}
+:root[data-hero-theme="day"] body.home-page .site-header[data-mega-header] .emergency-action {
+  --emergency-red: color-mix(in srgb,var(--nav-danger) 80%,var(--itk-bg));
+}
 [data-hero-theme="day"] body.home-page .site-header[data-mega-header] {
   --nav-surface: var(--surface-light);
   --nav-ink: var(--itk-light-text);
@@ -110,6 +131,7 @@ body :is(#who-we-are, #technology, #operate-decisions-title, #phishing-decisions
   .mega-panel, .mega-content, .navigation-chevron, body .site-header .mega-mobile > nav { animation: none; transition: none; }
 }
 @media (forced-colors: active) {
+  :root[data-hero-theme] body.home-page .site-header[data-mega-header] { background:Canvas; border-color:CanvasText; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; }
   body .site-header[data-mega-header], [data-hero-theme="day"] body.home-page .site-header[data-mega-header] { --nav-surface: Canvas; --nav-raised: Canvas; --nav-ink: CanvasText; --nav-muted: CanvasText; --nav-rule: CanvasText; --nav-accent: LinkText; --nav-danger: LinkText; --nav-digital: LinkText; --nav-focus: Highlight; }
   .mega-content { box-shadow: none; }
   .navigation-toggle[aria-expanded="true"] { outline: 1px solid Highlight; }

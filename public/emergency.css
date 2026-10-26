@@ -10,7 +10,7 @@
 .home-page .site-header .emergency-action:hover { border-color:var(--emergency-red); }
 .site-header .emergency-action:focus-visible { outline:3px solid var(--itk-brand); outline-offset:4px; }
 .site-header .emergency-action-mobile { display:none; }
-@media (prefers-reduced-motion:no-preference) { .emergency-status-dot { animation:emergency-dot-breathe 3.2s ease-in-out infinite; } }
+@media (prefers-reduced-motion:no-preference) { .emergency-status-dot { animation:emergency-dot-breathe 3.2s ease-in-out 1; } }
 @keyframes emergency-dot-breathe { 0%,100% { opacity:.72; } 50% { opacity:1; } }
 @media (min-width:901px) {
   .site-header,.home-page .site-header { grid-template-columns:minmax(150px,1fr) auto minmax(0,1fr) auto 60px; column-gap:clamp(8px,1vw,16px); }

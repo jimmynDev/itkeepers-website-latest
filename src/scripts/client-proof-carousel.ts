@@ -21,19 +21,26 @@ export function initializeClientProofCarousel(scope: ParentNode) {
     let focused = root.contains(document.activeElement);
     let manuallyPaused = false, pageHidden = false, disposed = false;
     let automaticFade = false;
+    let visible = !('IntersectionObserver' in window);
+    let remaining = rotationDelay, since = 0;
+    let observer: IntersectionObserver | undefined;
     let autoTimer: ReturnType<typeof setTimeout> | undefined;
     let fadeTimer: ReturnType<typeof setTimeout> | undefined;
     let settleTimer: ReturnType<typeof setTimeout> | undefined;
-    const clearAuto = () => { clearTimeout(autoTimer); autoTimer = undefined; };
+    const clearAuto = (preserve = false) => {
+      if (preserve && autoTimer !== undefined) remaining = Math.max(0, remaining - (performance.now() - since));
+      else if (!preserve) remaining = rotationDelay;
+      clearTimeout(autoTimer); autoTimer = undefined;
+    };
     const clearFade = () => { clearTimeout(fadeTimer); clearTimeout(settleTimer); fadeTimer = settleTimer = undefined; automaticFade = false; stage.dataset.phase = 'idle'; };
-    const pauseAutomatic = () => {
-      clearAuto();
+    const pauseAutomatic = (preserve = false) => {
+      clearAuto(preserve);
       if (automaticFade) { clearFade(); desired = current; }
     };
-    const paused = () => manuallyPaused || hovered || focused || document.hidden || pageHidden || reduced.matches;
+    const paused = () => !visible || manuallyPaused || hovered || focused || document.hidden || pageHidden || reduced.matches;
     const schedule = () => {
-      clearAuto();
-      if (!disposed && !paused()) autoTimer = setTimeout(() => go((current + 1) % slides.length, false), rotationDelay);
+      clearAuto(true);
+      if (!disposed && !paused()) { since = performance.now(); autoTimer = setTimeout(() => { autoTimer = undefined; remaining = rotationDelay; go((current + 1) % slides.length, false); }, remaining); }
     };
     const show = (index: number) => {
       current = index;
@@ -101,7 +108,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
     window.addEventListener('pagehide', onPageHide); window.addEventListener('pageshow', onPageShow);
     reduced.addEventListener('change', onReduced);
     const dispose = () => {
-      disposed = true; clearAuto(); clearFade();
+      disposed = true; clearAuto(); clearFade(); observer?.disconnect();
       root.removeEventListener('mouseenter', onEnter); root.removeEventListener('mouseleave', onLeave);
       root.removeEventListener('focusin', onFocus); root.removeEventListener('focusout', onBlur);
       previous.removeEventListener('click', onPrevious); next.removeEventListener('click', onNext);
@@ -114,6 +121,15 @@ export function initializeClientProofCarousel(scope: ParentNode) {
     };
     mounted.set(root, dispose);
     document.addEventListener('astro:before-swap', dispose, { once: true });
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => {
+        const entry = entries.find(entry => entry.target === root);
+        if (!entry || disposed) return;
+        visible = entry.isIntersecting;
+        if (visible) schedule(); else pauseAutomatic(true);
+      });
+      observer.observe(root);
+    }
     show(0); updateRotation(); navigation.hidden = false; schedule();
   });
 }

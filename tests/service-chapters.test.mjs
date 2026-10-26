@@ -66,8 +66,8 @@ test('offscreen pause, threshold jitter and genuine re-entry are isolated per ch
   h.enter(1); h.tick(1000); assert.deepEqual(h.roots[0].events,['play']);
   h.enter(0); h.tick(200); assert.deepEqual(h.roots[0].events,['play','step']);
   h.leave(0); assert.equal(h.timers.size,0); h.enter(0);
-  assert.equal(h.roots[0].visual.innerHTML,'initial'); h.tick(1000);
-  assert.deepEqual(h.roots[0].events,['play','step','play','step','settle']);
+  assert.equal(h.roots[0].visual.innerHTML,'step'); h.tick(1000);
+  assert.deepEqual(h.roots[0].events,['play','step','settle']);
   assert.deepEqual(h.roots[1].events,['play','step','settle']);
 });
 test('reduced motion settles all five roots immediately without any timers', () => {
@@ -78,5 +78,5 @@ test('reduced motion settles all five roots immediately without any timers', () 
 test('repeat mounting and disposal do not duplicate or cancel another chapter timers', () => {
   const h=harness();const first=h.roots[0];assert.equal(h.exports.mountAnimation(first.root,first.factory),first.dispose);
   h.enter(0);h.enter(1);first.dispose();h.tick(1000);
-  assert.deepEqual(first.events,['play','settle']);assert.deepEqual(h.roots[1].events,['play','step','settle']);assert.equal(h.timers.size,0);
+  assert.deepEqual(first.events,['play']);assert.deepEqual(h.roots[1].events,['play','step','settle']);assert.equal(h.timers.size,0);
 });

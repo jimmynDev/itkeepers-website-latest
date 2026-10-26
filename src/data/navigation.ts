@@ -20,10 +20,10 @@ export const navigation: NavigationCategory[] = [
       ] },
       { label: 'Projects & Advisory', items: [
         { title: 'Technology Planning', description: 'Equipment lifecycle decisions with your business context in view.', href: '/services/#operate-decisions-title' },
-        { title: 'Free IT Review', description: 'Start a conversation about your environment and priorities.', href: '/contact/?type=review' },
+        { title: 'Free IT Consultation', description: 'Start a conversation about your environment and priorities.', href: '/contact/?type=review' },
       ] },
     ],
-    feature: { eyebrow: 'Free IT Review', title: 'Know where your IT stands.', description: 'Get a clearer view of your infrastructure, security and operational priorities.', label: 'Book a free IT review', href: '/contact/?type=review' },
+    feature: { eyebrow: 'Free IT Consultation', title: 'Know where your IT stands.', description: 'Get a clearer view of your infrastructure, security and operational priorities.', label: 'Book a Free IT Consultation', href: '/contact/?type=review' },
   },
   {
     id: 'security', label: 'Cybersecurity', href: '/services/cybersecurity/', overview: 'Explore Cybersecurity',

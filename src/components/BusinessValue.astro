@@ -153,12 +153,12 @@ const serviceGroups = [
   .business-orbit {
     transform-origin: 200px 200px;
     animation: business-circle-orbit 13s linear infinite;
+    animation-play-state: paused;
     will-change: transform;
   }
   .business-circle:nth-child(2) .business-orbit { animation-delay: -4s; }
   .business-circle:nth-child(3) .business-orbit { animation-delay: -8s; }
-  .business-value.is-orbit-ready .business-orbit { animation-play-state: paused; }
-  .business-value.is-orbit-ready .business-circle.is-orbit-active .business-orbit { animation-play-state: running; }
+  .business-circle[data-ambient-running] .business-orbit { animation-play-state: running; }
   .business-trail-glow { opacity: .6; }
   .business-value :global(.business-trail-segment) {
     fill: none;
@@ -354,6 +354,7 @@ const serviceGroups = [
 </style>
 
 <script>
+  import { mountAmbientPreview } from '../scripts/ambient-preview';
   const section = document.getElementById('business-value');
   if (section) {
     const ns = 'http://www.w3.org/2000/svg';
@@ -392,8 +393,7 @@ const serviceGroups = [
       }
     }
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reducedMotion && 'IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) {
       const services = section.querySelector<HTMLElement>('.business-services');
       if (services) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -408,13 +408,7 @@ const serviceGroups = [
         section.classList.add('is-motion-ready');
       }
 
-      const orbitObserver = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          entry.target.classList.toggle('is-orbit-active', entry.isIntersecting);
-        }
-      });
-      section.classList.add('is-orbit-ready');
-      stages.forEach(stage => orbitObserver.observe(stage));
+      stages.forEach(stage => mountAmbientPreview(stage));
     }
   }
 </script>

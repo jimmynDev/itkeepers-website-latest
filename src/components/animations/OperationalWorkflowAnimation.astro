@@ -50,4 +50,9 @@ const stages = ['Issue detected', 'Engineer assigned', 'Resolved', 'Documented']
   .operate-process[data-animation-state="replay-ready"] .incident-panel[data-phase="settled"] .incident-ticket { display:none; }
   @media(max-width:480px) { .incident-panel { padding:18px 16px; } .incident-step { gap:10px; } }
   @media(forced-colors:active) { .incident-panel { --incident-cyan:Highlight; background:Canvas; color:CanvasText; border-color:CanvasText; } .incident-panel :is(h3,strong,.incident-detail,.incident-chrome,.incident-status) { color:CanvasText; } .incident-status,.incident-node { border-color:CanvasText; } }
+  @media (prefers-reduced-motion:no-preference) {
+    [data-animation-enhanced] [data-phase="settled"] .incident-node { animation:incident-node-breathe 4s ease-in-out infinite; }
+    [data-animation-enhanced].is-idle .incident-node { animation-play-state:paused; }
+  }
+  @keyframes incident-node-breathe { 0%,100% { opacity:1; } 50% { opacity:.65; } }
 </style>

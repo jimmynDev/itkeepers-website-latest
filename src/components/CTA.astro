@@ -7,7 +7,6 @@ import { businessPhone } from '../data/contact';
     <div class="closing-copy">
       <p class="eyebrow">LET'S TALK</p>
       <h2 id="closing-title">See what your IT could do better.</h2>
-      <p class="closing-description">Tell us about your environment and the <a class="disclosure-link" href="/services/">IT services</a> you need, including any <a class="disclosure-link" href="/services/backup-recovery/">backup and recovery requirements</a>.</p>
       <div class="closing-phone"><p>Prefer to talk?</p><a href={businessPhone.href}>{businessPhone.display}</a></div>
     </div>
     <div class="closing-form-card"><InquiryForm compact id="home-review" /></div>
@@ -18,7 +17,6 @@ import { businessPhone } from '../data/contact';
   .closing-layout { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(32px,4vw,56px); }
   .home-closing .eyebrow { margin:0 0 20px; font-size:var(--itk-label); color:var(--itk-brand-cyan); }
   .home-closing h2 { font-size:clamp(36px,4.2vw,60px); line-height:1.08; font-weight:600; max-inline-size:16ch; margin:0 0 24px; text-wrap:balance; scroll-margin-block-start:140px; }
-  .closing-description { color:var(--itk-supporting-text,#B8C4D6); font-size:16px; line-height:1.6; max-inline-size:42ch; margin:0; }
   .closing-phone { margin-block-start:28px; }
   .closing-phone p { color:var(--itk-supporting-text,#B8C4D6); font-size:14px; line-height:1.6; margin:0 0 6px; }
   .closing-phone a { display:inline-flex; align-items:center; min-block-size:48px; color:var(--itk-text); font-size:22px; }

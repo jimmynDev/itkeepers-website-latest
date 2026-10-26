@@ -19,7 +19,7 @@ function fixture(observerAvailable = true, fail = false) {
 test('offscreen network defers initialization, prepares once near viewport and preserves renderer controls', () => {
   const f = fixture(); assert.deepEqual(f.events, []); f.near(false); assert.deepEqual(f.events, []);
   f.near(true); f.near(true); assert.deepEqual(f.events, ['create']); f.timeline.play(); f.timeline.settle();
-  assert.deepEqual(f.events, ['create', 'play', 'settle']); assert.equal(f.timeline.duration, 12000);
+  assert.deepEqual(f.events, ['create', 'play', 'settle']); assert.equal(f.timeline.duration, 0); assert.equal(f.timeline.ambient,true);
   f.timeline.dispose(); f.near(true); assert.deepEqual(f.events, ['create','play','settle','disconnect','dispose']);
 });
 test('reduced-motion settling and missing observer retain the original final-frame renderer', () => {

@@ -1114,17 +1114,14 @@
     .animation-backup .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
     .animation-backup .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
     .animation-backup .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
-    .animation-backup [data-animation-toggle] { font:inherit; font-size:14px; min-height:44px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; cursor:pointer; }
-    .animation-backup [data-animation-toggle]:focus-visible { outline:3px solid var(--focus,#5cc5ff); outline-offset:4px; }
     .animation-backup [hidden] { display:none !important; }
     .animation-backup.is-idle *, .animation-backup.is-idle *::before, .animation-backup.is-idle *::after { animation-play-state:paused !important; }
-    .animation-backup[data-animation-state="settled"] *, .animation-backup[data-animation-state="settled"] *::before, .animation-backup[data-animation-state="settled"] *::after { animation:none !important; transition:none !important; }
+    .animation-backup[data-animation-state="settled"] *, .animation-backup[data-animation-state="settled"] *::before, .animation-backup[data-animation-state="settled"] *::after { transition:none !important; }
     .animation-backup:not([data-animation-enhanced]) [data-animation-visual], .animation-backup:not([data-animation-enhanced]) [data-animation-visual] * { opacity:1 !important; animation:none !important; transition:none !important; }
     .animation-backup:not([data-animation-enhanced]) .itk-panel { transform:none; }
-    @media (hover:hover) and (pointer:fine) { .animation-backup [data-animation-toggle]:hover { background:rgba(92,197,255,.12); } }
     @media (max-width:560px) { .animation-backup .animation-caption { align-items:flex-start; } .animation-backup .animation-caption p { flex-basis:100%; } }
     @media (prefers-reduced-motion:reduce) { .animation-backup *, .animation-backup *::before, .animation-backup *::after { animation:none !important; transition:none !important; } }
-    @media (forced-colors:active) { .animation-backup .itk-panel, .animation-backup [data-animation-toggle] { border:1px solid CanvasText; } }
+    @media (forced-colors:active) { .animation-backup .itk-panel { border:1px solid CanvasText; } }
   
 </style>
 
@@ -1380,7 +1377,7 @@
 
     for (var i = 0; i <= 8; i++) rail(i);
   }
-      return { play, settle, duration: 9200 };
+      return { play, settle, ambient: true, duration: 9200 };
     });
   });
 </script>

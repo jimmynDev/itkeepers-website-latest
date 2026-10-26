@@ -473,6 +473,12 @@
     @media (max-width:980px) { .digital-bridge-content { grid-template-columns:minmax(0,1fr); gap:40px; } }
     @media (max-width:640px) { .digital-bridge-content { gap:32px; } }
     @media (forced-colors:active) { .digital-bridge { background:Canvas; color:CanvasText; border-color:CanvasText; } .digital-bridge::before,.digital-bridge::after { display:none; } .digital-bridge :is(.bridge-label,.eyebrow,h2,.lede) { color:CanvasText; text-shadow:none; } .digital-bridge .digital-link { color:LinkText; border-color:LinkText; } }
+  @media (prefers-reduced-motion:no-preference) {
+    [data-animation-enhanced] .digital-bridge-content[data-phase="settled"] .accent-node { animation:bridge-node-breathe 4s ease-in-out infinite; }
+    [data-animation-enhanced] .digital-bridge-content[data-phase="settled"] .accent-node.two { animation-delay:-1.3s; }
+    [data-animation-enhanced] .digital-bridge-content[data-phase="settled"] .accent-node.three { animation-delay:-2.6s; }
+  }
+  @keyframes bridge-node-breathe { 0%,100% { opacity:1; } 50% { opacity:.65; } }
 </style>
 <script>
   import { mountAnimation } from '../scripts/animation-lifecycle';
@@ -485,6 +491,7 @@
       visual.dataset.motion = 'paused';
       return {
         duration: 1400,
+        ambient: true,
         play() { link.inert = false; visual.dataset.phase = 'play'; },
         settle() { link.inert = false; visual.dataset.phase = 'settled'; },
         activity(active: boolean) { visual.dataset.motion = active ? 'running' : 'paused'; },

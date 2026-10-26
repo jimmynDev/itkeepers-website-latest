@@ -8,7 +8,7 @@ function events(properties={}) {
   const handlers=new Map();
   return Object.assign(properties,{addEventListener(name,fn){if(!handlers.has(name))handlers.set(name,new Set());handlers.get(name).add(fn);},removeEventListener(name,fn){handlers.get(name)?.delete(fn);},emit(name,extra={}){for(const fn of [...(handlers.get(name)??[])])fn({currentTarget:this,...extra});},count(name){return handlers.get(name)?.size??0;}});
 }
-function fixture({reduced=false,rotationControl=true}={}) {
+function fixture({reduced=false,rotationControl=true,observerAvailable=false}={}) {
   let now=0,id=0;const timers=new Map();
   const document=events({hidden:false,activeElement:null}),window=events(),media=events({matches:reduced});
   const stage={dataset:{}},navigation={hidden:true},previous=events(),next=events(),icon={textContent:''},status={textContent:''};
@@ -19,11 +19,12 @@ function fixture({reduced=false,rotationControl=true}={}) {
   const controls=[previous,next,rotation,...dots];
   const selectors={'[data-proof-stage]':stage,'[data-proof-navigation]':navigation,'[data-proof-previous]':previous,'[data-proof-next]':next,'[data-proof-rotation]':rotationControl?rotation:null,'[data-proof-rotation-icon]':rotationControl?icon:null,'[data-proof-quote-status]':status};
   const root=events({dataset:{},matches:()=>false,contains:item=>controls.includes(item),querySelector:s=>selectors[s],querySelectorAll:s=>s==='[data-proof-slide]'?slides:dots});
-  const exports={};vm.runInNewContext(compiled,{exports,document,window,matchMedia:()=>media,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id;},clearTimeout:id=>timers.delete(id)});
+  let observe,disconnected=0;class Observer{constructor(fn){observe=fn}observe(){}disconnect(){disconnected++}}if(observerAvailable)window.IntersectionObserver=Observer;
+  const exports={};vm.runInNewContext(compiled,{exports,document,window,IntersectionObserver:Observer,performance:{now:()=>now},matchMedia:()=>media,setTimeout:(fn,delay)=>{timers.set(++id,{at:now+delay,fn});return id;},clearTimeout:id=>timers.delete(id)});
   const initialize=()=>exports.initializeClientProofCarousel({querySelectorAll:()=>[root]});
   const tick=ms=>{const target=now+ms;while(true){const next=[...timers].filter(([,t])=>t.at<=target).sort((a,b)=>a[1].at-b[1].at)[0];if(!next)break;now=next[1].at;timers.delete(next[0]);next[1].fn();}now=target;};
   const visible=()=>slides.filter(s=>s.attributes['aria-hidden']==='false');
-  return {initialize,tick,root,stage,slides,dots,previous,next,rotation,navigation,status,media,document,window,timers,visible};
+  return {initialize,tick,root,stage,slides,dots,previous,next,rotation,navigation,status,media,document,window,timers,visible,viewport:v=>observe?.([{target:root,isIntersecting:v}]),disconnected:()=>disconnected};
 }
 test('actual carousel rotates all four quotes after 10-second holds with one visible slide throughout',()=>{
   const h=fixture();h.initialize();assert.equal(h.navigation.hidden,false);
@@ -95,3 +96,5 @@ test('without a separate pause button automatic rotation works until an arrow or
   const dot=fixture({rotationControl:false});dot.initialize();dot.dots[0].emit('click');
   dot.tick(30000);assert.equal(dot.root.dataset.activeQuote,'0');assert.equal(dot.timers.size,0);
 });
+
+test('offscreen carousel retains its remaining ten-second hold without rotating or duplicating timers',()=>{const h=fixture({observerAvailable:true,rotationControl:false});h.initialize();h.tick(30000);assert.equal(h.root.dataset.activeQuote,'0');assert.equal(h.timers.size,0);h.viewport(true);h.tick(3000);h.viewport(false);h.tick(30000);assert.equal(h.root.dataset.activeQuote,'0');assert.equal(h.timers.size,0);h.viewport(true);h.tick(6999);assert.notEqual(h.stage.dataset.phase,'out');h.tick(1);assert.equal(h.stage.dataset.phase,'out');h.tick(175);assert.equal(h.root.dataset.activeQuote,'1');h.document.emit('astro:before-swap');assert.equal(h.disconnected(),1);assert.equal(h.timers.size,0);});

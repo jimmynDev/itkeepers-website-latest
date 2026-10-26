@@ -1,0 +1,82 @@
+<!-- Source-panel design retained; Example view identifies the simulated content.
+     Continuous motion follows visibility and reduced-motion preferences. -->
+<figure class="hero-status" data-hero-status aria-label="Example view of IT operations. Sample data, not live monitoring.">
+  <div class="vis" id="hero-status-visual" style="position:relative;width:500px;max-width:100%;background:var(--status-surface);border:1px solid var(--status-border);border-radius:20px;box-shadow:0 24px 48px -24px rgba(0,0,0,.4);overflow:hidden">
+    <div class="scan" aria-hidden="true"></div>
+    <div class="row" style="position:relative;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--status-rule)">
+      <span style="font-weight:600;font-size:15px">Example view</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--status-success);display:flex;align-items:center;gap:8px"><span class="dot" aria-hidden="true"></span>ALL SYSTEMS NORMAL</span>
+      <div class="beam" style="bottom:-1px;top:auto" aria-hidden="true"></div>
+    </div>
+    <div class="row" style="animation-delay:0.15s;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--status-rule)">
+      <div><div style="font-weight:600;font-size:15px">Endpoints</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Patched and monitored</div></div>
+      <span class="badge" style="color:var(--status-success);background:var(--status-success-bg)">Healthy</span>
+    </div>
+    <div class="row" style="animation-delay:0.3s;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--status-rule)">
+      <div><div style="font-weight:600;font-size:15px">Email security</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Phishing attempt quarantined</div></div>
+      <span class="badge" style="color:var(--status-cyan);background:var(--status-cyan-bg)">Handled</span>
+    </div>
+    <div class="row" style="animation-delay:0.45s;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--status-rule)">
+      <div><div style="font-weight:600;font-size:15px">Backups</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Last run verified</div></div>
+      <span class="badge" style="color:var(--status-success);background:var(--status-success-bg)">Healthy</span>
+    </div>
+    <div class="row" style="animation-delay:.6s;display:grid;align-items:center;padding:18px 24px;background:var(--status-footer);min-height:48px" aria-live="off">
+      <div class="ev"><div><div style="font-weight:600;font-size:15px">Support ticket</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Auto-resolved, engineer notified</div></div><span class="badge" style="color:var(--status-cyan);background:var(--status-cyan-bg)">Handled</span></div>
+      <div class="ev"><div><div style="font-weight:600;font-size:15px">Patching</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Endpoints updated overnight</div></div><span class="badge" style="color:var(--status-success);background:var(--status-success-bg)">Done</span></div>
+      <div class="ev"><div><div style="font-weight:600;font-size:15px">Sign-in protection</div><div style="font-size:13px;color:var(--status-muted);margin-top:2px">Suspicious login blocked</div></div><span class="badge" style="color:var(--status-cyan);background:var(--status-cyan-bg)">Blocked</span></div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  @font-face { font-family:'Instrument Sans'; font-style:normal; font-weight:400 700; font-stretch:100%; font-display:swap; src:url('/fonts/hero-status/instrument-sans-latin.woff2') format('woff2'); }
+  @font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:500; font-display:swap; src:url('/fonts/hero-status/jetbrains-mono-latin-500.woff2') format('woff2'); }
+  .hero-status {
+    --status-surface:var(--itk-surface); --status-footer:var(--itk-surface-raised); --status-border:var(--itk-border-strong); --status-rule:var(--itk-border);
+    --status-muted:var(--itk-muted); --status-success:var(--itk-success); --status-cyan:#38bdf8;
+    --status-success-bg:color-mix(in srgb,var(--status-success) 12%,var(--status-surface)); --status-cyan-bg:color-mix(in srgb,var(--status-cyan) 12%,var(--status-surface));
+    --status-motion:paused;
+    position:relative; box-sizing:border-box; width:100%; max-width:502px; margin:0 auto; padding-inline-end:2px; color:var(--itk-text); font-family:'Instrument Sans',system-ui,sans-serif; font-weight:400; font-size:16px; line-height:normal; letter-spacing:normal; text-align:left;
+  }
+  /* The source uses content-box sizing; isolate it from the site's border-box reset. */
+  .vis,.vis * { box-sizing:content-box; }
+  .scan { position:absolute; left:0; right:0; top:0; height:110px; pointer-events:none; background:linear-gradient(180deg,rgba(56,189,248,0),rgba(56,189,248,.07) 70%,rgba(56,189,248,.22) 99%,rgba(56,189,248,0)); transform:translateY(-120px); }
+  .beam { position:absolute; left:0; top:0; height:2px; width:35%; background:linear-gradient(90deg,transparent,var(--status-cyan),transparent); }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--status-success); }
+  .ev { grid-area:1/1; display:flex; align-items:center; justify-content:space-between; opacity:0; }
+  .ev:first-child { opacity:1; }
+  .hero-status:not([data-status-enhanced]) .ev:not(:first-child) { display:none; }
+  .scan,.beam { display:none; }
+  .badge { font-size:13px; font-weight:600; padding:6px 12px; border-radius:999px; }
+  .hero-status[data-status-enhanced] .vis { animation:floaty 7s ease-in-out infinite; }
+  .hero-status[data-status-enhanced]:not([data-status-entered]) .row { animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
+  .hero-status[data-status-enhanced] .scan { display:block; animation:scan 5s linear infinite; }
+  .hero-status[data-status-enhanced] .beam { display:block; animation:beam 3.2s ease-in-out infinite; }
+  .hero-status[data-status-enhanced] .dot { animation:ring 2s ease-out infinite; }
+  .hero-status[data-status-enhanced] .ev { animation:cyc 12s cubic-bezier(.4,0,.2,1) infinite both; }
+  .hero-status[data-status-enhanced] .ev:nth-child(2) { animation-delay:4s; }
+  .hero-status[data-status-enhanced] .ev:nth-child(3) { animation-delay:8s; }
+  .hero-status[data-status-enhanced] :is(.vis,.row,.scan,.beam,.dot,.ev) { animation-play-state:var(--status-motion); }
+  .hero-status[data-status-running] { --status-motion:running; }
+  .hero-status[data-status-static] :is(.vis,.row,.scan,.beam,.dot,.ev) { animation:none !important; }
+  .hero-status[data-status-static] .ev:not(:first-child),.hero-status[data-status-static] :is(.scan,.beam) { display:none; }
+  @keyframes floaty { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+  @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  @keyframes scan { 0% { transform:translateY(-120px); } 100% { transform:translateY(420px); } }
+  @keyframes beam { 0% { left:-35%; } 100% { left:100%; } }
+  @keyframes ring { 0% { box-shadow:0 0 0 0 color-mix(in srgb,var(--status-success) 50%,transparent); } 100% { box-shadow:0 0 0 10px color-mix(in srgb,var(--status-success) 0%,transparent); } }
+  @keyframes cyc { 0% { opacity:0; transform:translateY(10px); } 6% { opacity:1; transform:none; } 30% { opacity:1; transform:none; } 36% { opacity:0; transform:translateY(-10px); } 100% { opacity:0; } }
+  @media (prefers-reduced-motion:reduce) {
+    .hero-status[data-status-enhanced] :is(.vis,.row,.scan,.beam,.dot,.ev) { animation:none !important; }
+  }
+  @media (forced-colors:active) {
+    :global([data-hero-theme]) .hero-status { color:CanvasText; --status-surface:Canvas; --status-footer:Canvas; --status-border:CanvasText; --status-rule:CanvasText; --status-muted:CanvasText; --status-success:CanvasText; --status-success-bg:Canvas; --status-cyan:LinkText; --status-cyan-bg:Canvas; }
+    .scan,.beam { display:none; }
+    .badge { outline:1px solid CanvasText; }
+  }
+</style>
+
+<script>
+  import { mountHeroStatusMotion } from '../scripts/hero-status-motion';
+  document.querySelectorAll<HTMLElement>('[data-hero-status]').forEach(mountHeroStatusMotion);
+</script>

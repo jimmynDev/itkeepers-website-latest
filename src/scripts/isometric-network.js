@@ -193,10 +193,10 @@ export function createIsometricNetwork(root) {
   }
 
   let raf=null;
-  function frame(now) { raf=null;if(root.dataset.animationState!=='running') return;const dt=Math.min((now-last)/1000,.05);last=now;draw(dt);raf=requestAnimationFrame(frame); }
+  function frame(now) { raf=null;if(root.dataset.animationActive!=='true') return;const dt=Math.min((now-last)/1000,.05);last=now;draw(dt);raf=requestAnimationFrame(frame); }
   function stop() { if(raf!==null) cancelAnimationFrame(raf);raf=null; }
-  function start() { if(raf!==null || root.dataset.animationState!=='running') return;last=performance.now();raf=requestAnimationFrame(frame); }
-  const stateObserver=new MutationObserver(()=>root.dataset.animationState==='running'?start():stop());stateObserver.observe(root,{attributes:true,attributeFilter:['data-animation-state']});
+  function start() { if(raf!==null || root.dataset.animationActive!=='true') return;last=performance.now();raf=requestAnimationFrame(frame); }
+  const stateObserver=new MutationObserver(()=>root.dataset.animationActive==='true'?start():stop());stateObserver.observe(root,{attributes:true,attributeFilter:['data-animation-active']});
   const themeObserver=new MutationObserver(()=>draw(0));themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-hero-theme']});
   const sizeObserver=new ResizeObserver(resize);sizeObserver.observe(canvas);resize();canvas.parentElement.dataset.networkReady='true';
   return {play:start,settle(){stop();packets=[];ripples=[];t=7;nodes.forEach(n=>n.glow=n.hub?.5:.2);routes.forEach(r=>r.glow=.2);draw(0);},duration:12000,dispose(){stop();stateObserver.disconnect();themeObserver.disconnect();sizeObserver.disconnect();}};

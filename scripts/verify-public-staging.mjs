@@ -32,8 +32,8 @@ for (const file of artifact.filter(f => f.endsWith('.html'))) {
   assert(body.includes(`<meta name="robots" content="${held?'noindex':'index'}, follow">`),route);
   assert(body.includes(`rel="canonical" href="${base}${route}"`),route);
   assert(body.includes(`property="og:url" content="${base}${route}"`),route);
-  assert(body.includes(`property="og:image" content="${base}/assets/itkeepers-logo.png"`),route);
-  assert(body.includes(`name="twitter:image" content="${base}/assets/itkeepers-logo.png"`),route);
+  assert(body.includes(`property="og:image" content="${base}/assets/itkeepers-og-v2.png"`),route);
+  assert(body.includes(`name="twitter:image" content="${base}/assets/itkeepers-og-v2.png"`),route);
   const graph=JSON.parse(body.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert(!JSON.stringify(graph).includes('https://itkeepers.com'),route+' stale schema host');
   assert(graph['@graph'].every(entity=>!entity.url||new URL(entity.url).origin===base),route+' schema origin');
