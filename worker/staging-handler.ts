@@ -37,7 +37,9 @@ function protect(response: Response, pathname = '', request?: Request): Response
   result.headers.set('Cache-Control', immutableAsset(response, request ? new URL(request.url).pathname : pathname, request)
     ? 'public, max-age=31536000, immutable' : 'private, no-store');
   result.headers.set('X-Content-Type-Options', 'nosniff');
-  result.headers.set('Referrer-Policy', 'no-referrer');
+  // Match public/_headers: Formspree domain filtering needs the HTTPS origin,
+  // while cross-origin paths/queries and HTTPS-to-HTTP referrers stay suppressed.
+  result.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   result.headers.set('X-Frame-Options', 'DENY');
   result.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   return result;

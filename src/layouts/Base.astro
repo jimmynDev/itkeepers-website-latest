@@ -5,6 +5,7 @@ import PrimaryNavigation from '../components/navigation/PrimaryNavigation.astro'
 import '../styles/mega-navigation.css';
 import { canonicalPath, pages, siteUrl, structuredData } from '../data/seo';
 import { sharedStyles } from '../data/shared-styles';
+import { offices } from '../data/locations';
 import logo192 from '../assets/itkeepers-logo-192.webp?url';
 import logo384 from '../assets/itkeepers-logo-384.webp?url';
 const path = canonicalPath(Astro.url.pathname);
@@ -73,6 +74,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
           <div class="footer-brand">
             <a href="/" aria-label="ITKeepers home"><img src={logo384} srcset={`${logo192} 192w, ${logo384} 384w`} sizes="150px" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a>
             <p>Your IT person is a team.</p>
+            {offices.map(office => <p><strong>{office.label}</strong><br />{office.detail}</p>)}
           </div>
           <nav class="footer-group" aria-labelledby="footer-services">
             <h2 id="footer-services">Services</h2>

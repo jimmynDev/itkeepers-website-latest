@@ -1,6 +1,7 @@
 ---
 import { inquiryLimits } from '../data/inquiry';
-import { formspreeEndpoint } from '../data/formspree';
+import { formspreeEndpoint, formspreeSubject } from '../data/formspree';
+import { businessPhone, contactEmail } from '../data/contact';
 import '../styles/inquiry-form.css';
 
 const { compact=false, id='contact' } = Astro.props as { compact?: boolean; id?: string };
@@ -14,12 +15,20 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
 <section class:list={['inquiry-widget', { 'inquiry-widget--compact': compact }]} aria-labelledby={id + '-form-title'}>
   <Heading id={id + '-form-title'} class="inquiry-heading">{compact ? 'Book your free IT consultation.' : 'Send us a message'}</Heading>
       <form class:list={['inquiry-form', { 'inquiry-compact': compact }]} method="post" action={formspreeEndpoint} data-inquiry-form data-inquiry-delivery="formspree" data-inquiry-mode={compact ? 'review' : 'contact'} aria-labelledby={id + '-form-title'} aria-describedby={id + '-privacy'}>
-        <input type="hidden" name="type" value={compact ? 'review' : 'general'} />
+        <input type="hidden" name="type" value={compact ? 'review' : 'general'} disabled={!compact} />
         <input type="hidden" name="form_kind" value={compact ? 'review' : 'contact'} />
-        <input type="hidden" name="_subject" value={compact ? 'ITKeepers — Free IT consultation request' : 'ITKeepers — Website inquiry'} />
+        {compact && <input type="hidden" name="_subject" value={formspreeSubject('review')} />}
         <div hidden aria-hidden="true"><label for={id + '-gotcha'}>Leave this field empty<input id={id + '-gotcha'} name="_gotcha" type="text" tabindex="-1" autocomplete="off" /></label></div>
         {compact && <input type="hidden" name="message" value="I'd like a free IT consultation." />}
         <div class="inquiry-fields">
+          {!compact && <div class="inquiry-field inquiry-type">
+            <label for={id + '-type'}>Inquiry type</label>
+            <select id={id + '-type'} name="_subject" data-inquiry-intent>
+              <option value={formspreeSubject('general')}>General inquiry</option>
+              <option value={formspreeSubject('review')}>Free IT Consultation</option>
+            </select>
+            <noscript><p class="inquiry-email-note">For a free IT consultation, select “Free IT Consultation” and briefly describe what you need below.</p></noscript>
+          </div>}
           {fields.map(name => <div class="inquiry-field">
             <label for={id + '-' + name}>{labels[name]} <span>({name === 'name' || name === 'email' ? 'required' : 'optional'})</span></label>
             <input id={id + '-' + name} name={name} type={types[name]} autocomplete={autocomplete[name]} inputmode={name === 'email' ? 'email' : name === 'phone' ? 'tel' : undefined} spellcheck={name === 'email' ? 'false' : undefined} maxlength={inquiryLimits[name]} required={name === 'name' || name === 'email'} aria-describedby={id + '-' + name + '-error'} />
@@ -38,6 +47,7 @@ const autocomplete = { name:'name', email:'email', company:'organization', phone
           <button class="btn inquiry-provider-submit" type="submit" data-formspree-native>Continue on Formspree</button>
         </div>
         <p class="inquiry-status" data-inquiry-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+        <p class="inquiry-email-note" data-inquiry-error-contacts hidden>Prefer another way? <a href={contactEmail.href}>Email {contactEmail.display}</a> or <a href={businessPhone.href}>call {businessPhone.display}</a>.</p>
       </form>
     <!-- Provider acceptance is distinct from verified inbox delivery. -->
 </section>

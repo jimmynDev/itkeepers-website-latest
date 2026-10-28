@@ -3,6 +3,10 @@ import { contactFieldError, type InquiryField } from './inquiry';
 // Owner-provided public form ID, not an API key. No other destination is allowed.
 export const formspreeEndpoint = 'https://formspree.io/f/mrppzvpo';
 export const formspreeAcceptedMessage = 'Formspree accepted your message. Thank you.';
+export const formspreeSubject = (intent: 'general' | 'review') => intent === 'review' ? 'ITKeepers — Free IT consultation request' : 'ITKeepers — Website inquiry';
+export const formspreeSuccessMessage = (intent: 'general' | 'review') => intent === 'review'
+  ? 'Formspree accepted your consultation request. This does not confirm inbox delivery or schedule an appointment.'
+  : formspreeAcceptedMessage;
 
 export function formspreePayload(data: FormData, intent: 'general' | 'review', compact: boolean): FormData {
   const payload = new FormData();
@@ -16,7 +20,7 @@ export function formspreePayload(data: FormData, intent: 'general' | 'review', c
   payload.set('_gotcha', gotcha);
   payload.set('type', intent);
   payload.set('form_kind', compact ? 'review' : 'contact');
-  payload.set('_subject', compact || intent === 'review' ? 'ITKeepers — Free IT consultation request' : 'ITKeepers — Website inquiry');
+  payload.set('_subject', formspreeSubject(compact ? 'review' : intent));
   return payload;
 }
 

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "^22.12.0"
+    "node": "^22.19.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -13,7 +13,9 @@
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
     "build:staging": "node scripts/build-staging.mjs",
-    "check:staging": "node scripts/check-staging.mjs"
+    "check:staging": "node scripts/check-staging.mjs",
+    "build:rc": "node scripts/build-rc.mjs",
+    "check:rc": "node scripts/check-rc.mjs"
   },
   "dependencies": {
     "astro": "7.3.3"
@@ -23,6 +25,6 @@
     "@types/node": "22.20.5",
     "parse5": "7.3.0",
     "typescript": "5.9.3",
-    "wrangler": "4.151.1"
+    "wrangler": "4.153.0"
   }
 }

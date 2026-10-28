@@ -12,6 +12,9 @@ structure.zip
 # Generated private workers.dev staging artifact; production dist stays separate.
 /dist-staging/
 
+# Separate generated release-candidate artifact; never used by production/staging.
+/dist-rc/
+
 # Local evidence and owner-review reports are not release source inputs.
 /ITKeepers_V2_AI_Audit.zip
 /AI_AUDIT_README.md

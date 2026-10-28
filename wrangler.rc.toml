@@ -1,0 +1,25 @@
+# Separate artifact-only RC. Never use staging/production names or route overrides.
+name = "itkeepers-v2-rc-20261027"
+account_id = "eabf58c0ea3cf8629b95c29042124f72"
+main = "worker/rc.ts"
+compatibility_date = "2026-09-29"
+send_metrics = false
+workers_dev = true
+preview_urls = false
+routes = []
+
+[vars]
+STAGING_HOSTNAME = "itkeepers-v2-rc-20261027.jimnassar99.workers.dev"
+CONTACT_VALIDATION_ENABLED = "false"
+CONTACT_DELIVERY_ENABLED = "false"
+
+[assets]
+directory = "./dist-rc"
+binding = "ASSETS"
+run_worker_first = true
+
+[observability]
+enabled = false
+
+# No build hook: publish only the already checked dist-rc artifact.
+# No custom domains, secret, DO, email, migration, database, service or cron binding.

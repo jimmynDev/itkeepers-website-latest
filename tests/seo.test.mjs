@@ -39,6 +39,23 @@ test('one structured-data graph per route describes only supported entities', ()
     assert.equal(scripts.length, 1, path);
     const graph = JSON.parse(scripts[0][1])['@graph'];
     assert.equal(graph.filter(entity => entity['@type'] === 'Organization').length, 1);
+    const organization = graph.find(entity => entity['@type'] === 'Organization');
+    assert.deepEqual(organization.location, [
+      {
+        '@type': 'Place', name: 'ITKeepers Lebanon office',
+        address: { '@type': 'PostalAddress', addressLocality: 'Dbayeh', addressCountry: 'LB' },
+        containedInPlace: { '@type': 'Place', name: 'Enterprise & Innovation Centre' }
+      },
+      {
+        '@type': 'Place', name: 'ITKeepers USA office',
+        address: { '@type': 'PostalAddress', addressLocality: 'Pompano Beach', addressRegion: 'Florida', addressCountry: 'US' }
+      }
+    ], `Only the two company-verified offices belong in the Organization: ${path}`);
+    const visible = decode(html);
+    for (const location of organization.location) {
+      assert.ok(visible.includes(location.address.addressLocality), path);
+      if (location.containedInPlace) assert.ok(visible.includes(location.containedInPlace.name), path);
+    }
     assert.equal(graph.filter(entity => entity['@type'] === 'WebSite').length, path === '/' ? 1 : 0);
     const ids = graph.map(entity => entity['@id']);
     assert.equal(new Set(ids).size, ids.length);

@@ -30,6 +30,7 @@ function request(path = '/', extra = {}) { return new Request('https://' + hostn
 function stagingResponse(response, expected, noindex = expected >= 400) {
   assert.equal(response.status, expected); assert.equal(response.headers.get('x-robots-tag'), noindex ? 'noindex, follow' : null);
   assert.equal(response.headers.get('cache-control'), 'private, no-store'); assert.equal(response.headers.get('x-content-type-options'), 'nosniff'); assert.equal(response.headers.get('x-frame-options'), 'DENY');
+  assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');
 }
 
 test('staging configuration is public workers.dev link only and has no Access or resource bindings', () => {
@@ -55,6 +56,25 @@ test('pages and unversioned assets retain CSP and no-store despite upstream immu
     const response = await f.handler.fetch(request(path), f.env); stagingResponse(response, 200); assert.equal(response.headers.get('content-security-policy'), "default-src 'self'");
   }
   assert.equal(f.calls.assets, 6);
+});
+
+test('form documents override conflicting upstream referrer policies without changing content or CSP', async () => {
+  for (const route of ['/', '/contact/?type=review&source=synthetic']) {
+    for (const upstream of ['no-referrer', 'unsafe-url']) {
+      const f = fixture({ assets: () => new Response('Synthetic form document', { headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Security-Policy': "default-src 'self'; form-action https://formspree.io",
+        'Referrer-Policy': upstream,
+        'ETag': '"synthetic-form"'
+      } }) });
+      const response = await f.handler.fetch(request(route), f.env);
+      stagingResponse(response, 200);
+      assert.equal(await response.text(), 'Synthetic form document');
+      assert.equal(response.headers.get('content-security-policy'), "default-src 'self'; form-action https://formspree.io");
+      assert.equal(response.headers.get('etag'), '"synthetic-form"');
+      assert.equal(response.headers.get('content-type'), 'text/html; charset=utf-8');
+    }
+  }
 });
 
 test('only successful fingerprinted assets with explicit public immutable policy are cacheable', async () => {

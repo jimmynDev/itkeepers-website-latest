@@ -1,7 +1,7 @@
 import { inquiryEndpoint, normalizeContactIntent, contactSubmitLabel, contactFieldError, composeInquiryEmail, type InquiryField } from '../data/inquiry';
 import { contactEmail } from '../data/contact';
 import { createInquiryVerification } from './inquiry-verification';
-import { formspreeEndpoint, formspreePayload, formspreeAccepted, formspreeAcceptedMessage, formspreeFailure, formspreeErrors } from '../data/formspree';
+import { formspreeEndpoint, formspreePayload, formspreeAccepted, formspreeSuccessMessage, formspreeSubject, formspreeFailure, formspreeErrors } from '../data/formspree';
 export { normalizeContactIntent, contactSubmitLabel, contactFieldError, inquiryLimits as contactLimits } from '../data/inquiry';
 
 /** Formspree acceptance is separate from inbox delivery; local APIs never claim receipt. */
@@ -17,14 +17,17 @@ export function initializeContactForms(scope: ParentNode = document): void {
     const endpoint = provider ? formspreeEndpoint : form.dataset.inquiryDelivery === 'backend' && inquiryEndpoint(action) === '/api/contact' ? '/api/contact' : null;
     const nativeButton = form.querySelector<HTMLButtonElement>('[data-formspree-native]');
     const providerFallback = form.querySelector<HTMLElement>('[data-formspree-verification]');
+    const errorContacts = form.querySelector<HTMLElement>('[data-inquiry-error-contacts]');
+    const intentSelect = form.querySelector<HTMLSelectElement>('[data-inquiry-intent]');
     let sending = false;
     let accepted = false;
     const providerRejected = new WeakSet<HTMLInputElement | HTMLTextAreaElement>();
 
     const compact = form.dataset.inquiryMode === 'review';
-    const intent = compact ? 'review' : normalizeContactIntent(new URL(window.location.href).searchParams.get('type'));
+    let intent = compact ? 'review' as const : normalizeContactIntent(new URL(window.location.href).searchParams.get('type'));
     const intentInput = form.querySelector<HTMLInputElement>('input[name="type"]');
-    if (intentInput) intentInput.value = intent;
+    if (intentInput) { intentInput.value = intent; intentInput.disabled = false; }
+    if (intentSelect) intentSelect.value = formspreeSubject(intent);
     if (!compact && intent === 'review') {
       const message = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
       if (message && !message.value.trim()) message.value = "I'd like a free IT consultation.";
@@ -39,6 +42,31 @@ export function initializeContactForms(scope: ParentNode = document): void {
       status.textContent = 'Your previous message was accepted. Changes have not been sent.';
     };
 
+    // Snapshot before locking: disabled controls are omitted by native form submission.
+    let restoreControls: (() => void) | undefined;
+    let nativePending = false;
+    const lockControls = (nativePayload?: FormData): void => {
+      const controls = nativePayload
+        ? [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input[name],textarea[name],select[name]')]
+        : [...fields, ...(intentSelect ? [intentSelect] : [])];
+      const states = controls.map(control => [control, control.disabled] as const);
+      const copies: HTMLInputElement[] = [];
+      if (nativePayload) {
+        for (const [name, value] of nativePayload) {
+          if (typeof value !== 'string') continue;
+          const copy = document.createElement('input');
+          copy.type = 'hidden';copy.name = name;copy.value = value;
+          form.append(copy);copies.push(copy);
+        }
+      }
+      controls.forEach(control => { control.disabled = true; });
+      restoreControls = () => {
+        states.forEach(([control, disabled]) => { control.disabled = disabled; });
+        copies.forEach(copy => copy.remove());
+        restoreControls = undefined;
+      };
+    };
+
     const controller = new AbortController();
     const verification = endpoint && !provider ? createInquiryVerification(form, status) : null;
     let pendingRequest: { data: string; id: string } | undefined;
@@ -47,6 +75,29 @@ export function initializeContactForms(scope: ParentNode = document): void {
     form.noValidate = true;
     // Backend native submission remains disabled without JS; direct contacts stay usable.
     button.disabled = false;
+
+    intentSelect?.addEventListener('change', () => {
+      if (sending) return;
+      intent = intentSelect.value === formspreeSubject('review') ? 'review' : 'general';
+      if (intentInput) intentInput.value = intent;
+      const message = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+      if (message && (!message.value.trim() || message.value === "I'd like a free IT consultation.")) {
+        message.value = intent === 'review' ? "I'd like a free IT consultation." : '';
+      }
+      markEdited();
+      button.textContent = endpoint ? contactSubmitLabel(intent) : 'Continue to email';
+    }, options);
+
+    // Returning from the external verification page must not leave the cached form locked.
+    window.addEventListener('pageshow', () => {
+      if (!nativePending) return;
+      restoreControls?.();nativePending = false;sending = false;form.noValidate = true;
+      form.removeAttribute('aria-busy');button.disabled = false;
+      if (nativeButton) nativeButton.disabled = false;
+      status.dataset.state = 'error';
+      status.textContent = 'Acceptance on Formspree has not been confirmed here. Check before resending, or use email or telephone.';
+      if (errorContacts) errorContacts.hidden = false;
+    }, options);
 
     const validate = (field: HTMLInputElement | HTMLTextAreaElement): boolean => {
       providerRejected.delete(field);
@@ -80,6 +131,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
         event.preventDefault();
         status.dataset.state = 'error';
         status.textContent = endpoint ? 'Please correct the highlighted fields before sending.' : 'Please correct the highlighted fields before opening your email app.';
+        if (errorContacts) errorContacts.hidden = false;
         invalid[0].focus();
         return;
       }
@@ -89,14 +141,17 @@ export function initializeContactForms(scope: ParentNode = document): void {
         catch (error) {
           event.preventDefault();status.dataset.state = 'error';
           status.textContent = error instanceof Error ? error.message : 'Please check your details.';
+          if (errorContacts) errorContacts.hidden = false;
           status.focus();return;
         }
         if (nativeAttempt) {
           form.noValidate = false;
           if (!form.reportValidity()) { event.preventDefault();return; }
+          lockControls(providerData);nativePending = true;
           sending = true;button.disabled = true;
           if (nativeButton) nativeButton.disabled = true;
           form.setAttribute('aria-busy','true');status.dataset.state = 'loading';
+          if (errorContacts) errorContacts.hidden = true;
           status.textContent = 'Opening Formspree for verification. Acceptance has not been confirmed.';
           return; // User explicitly chose native HTTPS POST; provider handles its challenge/confirmation.
         }
@@ -111,6 +166,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
       const token = verification?.token();
       if (!provider && !token) {
         status.textContent = 'Please complete security verification, or use the email or telephone contact options.';
+        if (errorContacts) errorContacts.hidden = false;
         status.focus();
         return;
       }
@@ -123,6 +179,8 @@ export function initializeContactForms(scope: ParentNode = document): void {
       }
       status.textContent = 'Sending your message…';
       status.dataset.state = 'loading';sending = true;
+      lockControls();
+      if (errorContacts) errorContacts.hidden = true;
       button.disabled = true;
       const submitLabel = button.textContent;
       button.textContent = 'Sending…';
@@ -154,7 +212,7 @@ export function initializeContactForms(scope: ParentNode = document): void {
         if (provider) {
           if (formspreeAccepted(response.status, result)) {
             accepted = true;status.dataset.state = 'success';
-            status.textContent = formspreeAcceptedMessage;
+            status.textContent = formspreeSuccessMessage(intent);
             status.focus();return;
           }
           const failure = formspreeFailure(response.status, result);
@@ -180,14 +238,17 @@ export function initializeContactForms(scope: ParentNode = document): void {
         throw new Error('Submission not confirmed');
       } catch {
         if (controller.signal.aborted) return;
+        restoreControls?.();
         verification?.reset();
         status.dataset.state = 'error';
         status.textContent = failureMessage;
+        if (errorContacts) errorContacts.hidden = false;
         if (providerFallback) providerFallback.hidden = !(allowNative || (provider && !providerResponded));
         if (firstProviderField) firstProviderField.focus();else status.focus();
       } finally {
         window.clearTimeout(timeout);
         controller.signal.removeEventListener('abort', abortRequest);
+        restoreControls?.();
         form.removeAttribute('aria-busy');
         sending = false;button.disabled = accepted;
         button.textContent = accepted ? 'Message accepted' : submitLabel;

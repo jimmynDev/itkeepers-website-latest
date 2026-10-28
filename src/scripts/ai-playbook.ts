@@ -23,19 +23,29 @@ function initializePlaybook() {
   let hideTimer: ReturnType<typeof setTimeout> | undefined;
   let frame = 0;
   let shown = false;
+  let closing = false;
   let returnFocus: HTMLElement | null = null;
   const stopTriggers = () => { clearTimeout(timer); window.removeEventListener('scroll', onScroll); };
-  // Keep fixed controls and the current keyboard focus clear of the card.
+  // Keep fixed controls, keyboard focus and visible form controls clear of the card.
   const position = () => {
     frame = 0;
-    if (card.hidden) return;
+    if (card.hidden || closing) return;
     card.style.setProperty('--playbook-offset', '0px');
     const rect = card.getBoundingClientRect();
+    const headerBottom = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect().bottom ?? 0;
+    const formControls: { control: HTMLElement; rect: DOMRect }[] = [];
     let offset = 0;
-    document.querySelectorAll<HTMLElement>('a,button,[role="button"],[data-floating-control]').forEach(control => {
+    document.querySelectorAll<HTMLElement>('a,button,input,textarea,select,[role="button"],[data-floating-control]').forEach(control => {
       if (card.contains(control)) return;
       const style = getComputedStyle(control);
       if (style.visibility === 'hidden' || style.display === 'none' || style.pointerEvents === 'none') return;
+      if (control.closest('form')) {
+        const field = control.closest<HTMLElement>('.inquiry-field') ?? control;
+        const other = field.getBoundingClientRect();
+        if (other.width && other.height && other.bottom > headerBottom && other.top < window.innerHeight && other.right > rect.left && other.left < rect.right) {
+          formControls.push({ control, rect: other });
+        }
+      }
       let parent: HTMLElement | null = control;
       let floating = false;
       while (parent && parent !== document.body) {
@@ -48,10 +58,29 @@ function initializePlaybook() {
         offset = Math.max(offset, window.innerHeight - other.top + 12 - (window.innerWidth <= 650 ? 16 : 24));
       }
     });
+    const overlaps = (a: DOMRect, b: DOMRect) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
     card.style.setProperty('--playbook-offset', `${Math.max(0, offset)}px`);
+    let suppressed = false;
+    if (formControls.some(field => overlaps(card.getBoundingClientRect(), field.rect))) {
+      const top = Math.min(...formControls.map(field => field.rect.top));
+      // Do not squash the existing card into a tiny scroll area above a form.
+      if (top - 12 - Math.max(12, headerBottom + 12) < rect.height) suppressed = true;
+      else {
+        offset = Math.max(offset, window.innerHeight - top + 12 - (window.innerWidth <= 650 ? 16 : 24));
+        card.style.setProperty('--playbook-offset', `${Math.max(0, offset)}px`);
+        suppressed = formControls.some(field => overlaps(card.getBoundingClientRect(), field.rect));
+      }
+    }
+    if (suppressed && card.contains(document.activeElement)) {
+      formControls.find(({ control }) => !('disabled' in control && control.disabled))?.control.focus({ preventScroll: true });
+    }
+    // Visibility preserves the existing animation clock and the dismissal state.
+    card.style.setProperty('visibility', suppressed ? 'hidden' : 'visible');
+    card.inert = suppressed;
   };
   const schedulePosition = () => { if (!card.hidden && !frame) frame = requestAnimationFrame(position); };
   const hide = (animate = true) => {
+    closing = true;
     stopTriggers();
     if (card.contains(document.activeElement)) {
       const visible = (control: HTMLElement) => {
@@ -96,12 +125,14 @@ function initializePlaybook() {
   window.addEventListener('storage', onStorage);
   window.addEventListener('resize', schedulePosition, { passive: true });
   window.addEventListener('scroll', schedulePosition, { passive: true });
+  window.visualViewport?.addEventListener('resize', schedulePosition, { passive: true });
   document.addEventListener('focusin', schedulePosition);
   document.addEventListener('astro:before-swap', () => {
     stopTriggers(); clearTimeout(hideTimer); cancelAnimationFrame(frame);
     window.removeEventListener('storage', onStorage);
     window.removeEventListener('resize', schedulePosition);
     window.removeEventListener('scroll', schedulePosition);
+    window.visualViewport?.removeEventListener('resize', schedulePosition);
     document.removeEventListener('focusin', schedulePosition);
   }, { once: true });
   if (eligible()) { timer = setTimeout(show, 6000); window.addEventListener('scroll', onScroll, { passive: true }); }

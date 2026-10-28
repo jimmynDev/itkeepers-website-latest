@@ -50,6 +50,25 @@ test('only confirmed successful provider JSON responses can produce acceptance',
  for(const value of [null,{},'html',{ok:false},{ok:true,error:'spam'},{ok:true,errors:[]},{next:'/captcha'},{next:'/verify'}])assert.equal(api.formspreeAccepted(200,value),false);
 });
 
+test('consultation acceptance describes provider acceptance without claiming delivery or an appointment',()=>{
+ assert.equal(api.formspreeSuccessMessage('general'),api.formspreeAcceptedMessage);
+ const message=api.formspreeSuccessMessage('review');
+ assert.match(message,/Formspree accepted your consultation request/);
+ assert.match(message,/does not confirm inbox delivery or schedule an appointment/);
+ assert.doesNotMatch(message,/within|guaranteed|will contact|appointment confirmed/i);
+});
+
+test('native inquiry options and AJAX payload use the same subject for each inquiry type',()=>{
+ const walk=n=>[n,...(n.childNodes??[]).flatMap(walk)],attr=(n,k)=>n.attrs?.find(a=>a.name===k)?.value;
+ const nodes=walk(parse(read('dist/contact/index.html')));
+ const selector=nodes.find(n=>n.tagName==='select'&&attr(n,'name')==='_subject');assert.ok(selector);
+ assert.deepEqual(walk(selector).filter(n=>n.tagName==='option').map(n=>attr(n,'value')),
+  [api.formspreeSubject('general'),api.formspreeSubject('review')]);
+ const intent=nodes.find(n=>n.tagName==='input'&&attr(n,'name')==='type');
+ assert.notEqual(attr(intent,'disabled'),undefined,'Without JS, the selected subject carries intent; do not post a contradictory hidden general type');
+ for(const type of ['general','review'])assert.equal(api.formspreePayload(data(),type,false).get('_subject'),api.formspreeSubject(type));
+});
+
 test('rate limiting, blocked requests, challenge, inactive forms and field errors are distinguished',()=>{
  assert.match(api.formspreeFailure(429,{}).message,/limiting requests/);
  assert.equal(api.formspreeFailure(403,{}).verification,true);

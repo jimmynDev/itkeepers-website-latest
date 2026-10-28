@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import InquiryForm from '../components/InquiryForm.astro';
 import { businessPhone, contactEmail } from '../data/contact';
+import { offices } from '../data/locations';
 ---
 <Base>
   <section class="section contact-page" aria-labelledby="contact-title">
@@ -9,9 +10,10 @@ import { businessPhone, contactEmail } from '../data/contact';
       <div class="contact-heading">
         <p class="eyebrow">LET'S TALK</p>
         <h1 id="contact-title">Talk to our team.</h1>
+        <a class="disclosure-link contact-form-jump" href="#contact-form">Go to the contact form</a>
       </div>
       <div class="contact-layout">
-        <div class="contact-form-panel">
+        <div class="contact-form-panel" id="contact-form" tabindex="-1" aria-labelledby="contact-form-title">
           <InquiryForm id="contact" />
         </div>
         <aside class="contact-information" aria-label="Other ways to contact ITKeepers">
@@ -33,6 +35,10 @@ import { businessPhone, contactEmail } from '../data/contact';
               <span>{contactEmail.display}</span>
             </a>
           </section>
+          <section class="contact-card" aria-labelledby="contact-offices-title">
+            <h2 id="contact-offices-title">Our offices</h2>
+            {offices.map(office => <p class="contact-office"><strong>{office.label}</strong><br />{office.detail}</p>)}
+          </section>
         </aside>
       </div>
     </div>
@@ -46,6 +52,9 @@ import { businessPhone, contactEmail } from '../data/contact';
   }
   .contact-container { inline-size:100%; max-inline-size:1100px; min-inline-size:0; margin-inline:auto; }
   .contact-heading { margin-block-end:36px; }
+  .contact-form-jump { display:inline-flex; align-items:center; min-block-size:44px; }
+  #contact-form { scroll-margin-block-start:140px; }
+  #contact-form:focus { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
   .contact-heading .eyebrow { color:var(--itk-brand-cyan); font-size:12px; margin:0 0 16px; }
   .contact-heading h1 { font-size:clamp(38px,4.6vw,64px); line-height:1.08; font-weight:700; margin:0 0 20px; text-wrap:balance; letter-spacing:-.03em; }
   .contact-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:32px; align-items:start; }
@@ -53,6 +62,9 @@ import { businessPhone, contactEmail } from '../data/contact';
   .contact-information { display:grid; gap:20px; min-inline-size:0; }
   .contact-card { min-inline-size:0; padding:26px; border:1px solid var(--itk-border-strong); border-radius:var(--itk-radius-md); background:var(--itk-bg-alt); }
   .contact-card h2 { color:var(--itk-text); font-size:24px; line-height:1.25; letter-spacing:-.025em; font-weight:600; margin:0 0 16px; }
+  .contact-office { color:var(--itk-supporting-text,var(--itk-muted)); font-size:16px; line-height:1.6; margin:0 0 20px; }
+  .contact-office:last-child { margin-block-end:0; }
+  .contact-office strong { color:var(--itk-text); }
   .contact-detail { display:inline-flex; align-items:center; gap:12px; min-block-size:48px; font-size:20px; line-height:1.4; font-weight:600; color:var(--itk-text); overflow-wrap:anywhere; text-decoration:none; }
   .contact-detail svg { flex:0 0 21px; color:var(--itk-brand-cyan); }
   .contact-detail:hover { color:#7DD3FC; text-decoration:underline; text-underline-offset:4px; }
@@ -65,6 +77,8 @@ import { businessPhone, contactEmail } from '../data/contact';
   :global(html[data-theme="light"]) .contact-heading .eyebrow { color:#075D7D; }
   :global(html[data-theme="light"]) .contact-card,:global(html[data-theme="light"]) .contact-form-panel { background:#FFFFFF; border-color:rgba(11,44,95,.2); }
   :global(html[data-theme="light"]) .contact-card h2,:global(html[data-theme="light"]) .contact-detail { color:#0B2C5F; }
+  :global(html[data-theme="light"]) .contact-office { color:#42566F; }
+  :global(html[data-theme="light"]) .contact-office strong { color:#0B2C5F; }
   :global(html[data-theme="light"]) .contact-detail svg { color:#075D7D; }
   :global(html[data-theme="light"]) .contact-emergency { border-color:rgba(153,27,27,.48); background:#FFF4F4; }
   :global(html[data-theme="light"]) .contact-emergency-link { color:#991B1B; }
@@ -84,6 +98,7 @@ import { businessPhone, contactEmail } from '../data/contact';
   }
   @media(forced-colors:active) {
     .contact-form-panel,.contact-card { background:Canvas; border-color:CanvasText; }
+    .contact-office,.contact-office strong { color:CanvasText; }
     .contact-page a:focus-visible { outline-color:Highlight; }
     .contact-emergency-link { color:LinkText; }
   }

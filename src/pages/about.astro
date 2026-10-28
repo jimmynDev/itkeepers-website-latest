@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import AboutTeamContext from '../components/about/AboutTeamContext.astro';
+import { offices } from '../data/locations';
 ---
 <Base>
   <section class="section about-section about-intro">
@@ -8,6 +9,13 @@ import AboutTeamContext from '../components/about/AboutTeamContext.astro';
     <h1>Your IT person is a team.</h1>
     <p class="lead">ITKeepers brings familiar engineers and shared technical expertise to the day-to-day work of <a class="disclosure-link" href="/services/managed-it/">managing business IT</a>.</p>
     <p>You work with people who understand your environment, backed by colleagues who can contribute when a question needs deeper expertise. The relationship stays personal, while the knowledge and responsibility extend across the team.</p>
+    <div class="split about-row about-offices">
+      <h2>Our offices in Lebanon and the USA.</h2>
+      <div>
+        <p>ITKeepers has two physical offices:</p>
+        {offices.map(office => <p><strong>{office.label}</strong><br />{office.detail}</p>)}
+      </div>
+    </div>
   </section>
   <section class="section light about-section">
     <div class="split about-row">
@@ -74,6 +82,7 @@ import AboutTeamContext from '../components/about/AboutTeamContext.astro';
   }
   .about-section { padding-block:calc(var(--itk-section-space) * .75); }
   .about-context-section { padding-block:0; }
+  .about-offices { margin-block-start:40px; }
   .about-section .about-row { grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(32px,5vw,72px); align-items:start; }
   .about-section h1 { max-inline-size:20ch; font-size:clamp(40px,5.2vw,72px); line-height:1.08; color:var(--about-text); }
   .about-section h2 { font-size:clamp(28px,2.65vw,38px); line-height:1.18; color:var(--about-text); }

@@ -7,8 +7,8 @@ const read = path => readFileSync(new URL('../' + path, import.meta.url));
 const walk = node => [node, ...(node.childNodes ?? []).flatMap(walk)];
 const text = node => node.nodeName === '#text' ? node.value : (node.childNodes ?? []).map(text).join('');
 const attr = (node, name) => node.attrs?.find(a => a.name === name)?.value;
-const title = 'Managed IT, Cybersecurity & Cloud in Lebanon | ITKeepers';
-const description = 'ITKeepers provides managed IT services, cybersecurity, Microsoft 365, networking and backup for businesses in Lebanon, backed by proactive engineering.';
+const title = 'Managed IT, Cybersecurity & Cloud | ITKeepers';
+const description = 'ITKeepers provides managed IT, cybersecurity, Microsoft 365, networking and backup, with offices in Dbayeh, Lebanon and Pompano Beach, Florida, USA.';
 function htmlFiles(path = 'dist-staging') {
   return readdirSync(path, { withFileTypes:true }).flatMap(entry => entry.isDirectory() ? htmlFiles(`${path}/${entry.name}`) : entry.name.endsWith('.html') ? [`${path}/${entry.name}`] : []);
 }

@@ -1,5 +1,6 @@
 import legacyArticles from './legacy-articles.json';
-// Geography/category: claims-register V2-POSITIONING-01. No office address inferred.
+import { offices } from './locations';
+// Office geography: claims-register V2-OFFICES-20261026. Service scope is unchanged.
 export const siteUrl = 'https://itkeepers.com';
 export interface PageSEO {
   title: string;
@@ -19,16 +20,16 @@ export const pages: Record<string, PageSEO> = {
     articleDate: article.published
   }])),
   '/': {
-    title: 'Managed IT, Cybersecurity & Cloud in Lebanon | ITKeepers',
-    description: 'ITKeepers provides managed IT services, cybersecurity, Microsoft 365, networking and backup for businesses in Lebanon, backed by proactive engineering.'
+    title: 'Managed IT, Cybersecurity & Cloud | ITKeepers',
+    description: 'ITKeepers provides managed IT, cybersecurity, Microsoft 365, networking and backup, with offices in Dbayeh, Lebanon and Pompano Beach, Florida, USA.'
   },
   '/about/': {
     title: 'About ITKeepers | Familiar Engineers, Shared Expertise',
-    description: 'Meet the approach behind ITKeepers: familiar engineers, shared expertise, proactive IT operations and documented context that supports your business as it evolves.'
+    description: 'Meet ITKeepers: familiar engineers and shared expertise, with physical offices at Enterprise & Innovation Centre in Dbayeh, Lebanon and in Pompano Beach, Florida, USA.'
   },
   '/contact/': {
     title: 'Contact ITKeepers | Talk to Our Team',
-    description: 'Contact ITKeepers in Lebanon about managed IT, cybersecurity, Microsoft 365, infrastructure, automation or a free IT consultation.'
+    description: 'Contact ITKeepers for IT support or a free IT consultation. Our offices are at Enterprise & Innovation Centre in Dbayeh, Lebanon and in Pompano Beach, Florida, USA.'
   },
   '/how-we-work/': {
     title: 'How We Work: IT Monitoring & Follow-Up | ITKeepers',
@@ -98,7 +99,8 @@ export function structuredData(path: string, page: PageSEO) {
   const url = `${siteUrl}${canonicalPath(path)}`;
   const organizationId = `${siteUrl}/#organization`;
   const entities: Record<string, unknown>[] = [{
-    '@type': 'Organization', '@id': organizationId, name: 'ITKeepers', url: `${siteUrl}/`
+    '@type': 'Organization', '@id': organizationId, name: 'ITKeepers', url: `${siteUrl}/`,
+    location: offices.map(office => office.place)
   }];
   if (path === '/') entities.push({
     '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: 'ITKeepers',

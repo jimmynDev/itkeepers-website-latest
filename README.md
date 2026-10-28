@@ -69,7 +69,7 @@ All six TOMLs parse; role names are unique and referenced role files exist. Requ
 
 ## Installed workspace — verified commands (22 October 2026)
 
-This checkout also contains the existing Astro application; the archive itself did not. Use the current package-lock.json and Node 22.12.0 or later within Node 22, as required by package.json/.nvmrc. Astro is pinned to 7.3.3 for the Phase 7 security update and validated with Node 22.23.3. See [the security maintenance decision](docs/adr/2026-10-22-astro-security-update.md) and [Phase 7 release results](V2_PHASE7_FINAL_REPORT.md). The isolated clean-install evidence in docs/V2_SECURITY_ADVISORY_CLOSURE.md records the earlier dependency state.
+This checkout also contains the existing Astro application; the archive itself did not. Use the current package-lock.json and Node 22.19.0 or later within Node 22, as required by package.json/.nvmrc. Astro remains pinned to 7.3.3 and is validated with Node 22.23.3. The Phase 5 Undici maintenance update pins Wrangler 4.153.0; see [current corrections and validation](docs/V2_PHASE5_TECHNICAL_CORRECTIONS.md). See also [the earlier security maintenance decision](docs/adr/2026-10-22-astro-security-update.md) and [Phase 7 release results](V2_PHASE7_FINAL_REPORT.md). The isolated clean-install evidence in docs/V2_SECURITY_ADVISORY_CLOSURE.md records the earlier dependency state.
 
 | Operation | Established command / evidence |
 | --- | --- |
@@ -85,6 +85,16 @@ This checkout also contains the existing Astro application; the archive itself d
 wrangler.toml declares the separate production preparation from dist. The personal public Worker uses wrangler.staging.toml and dist-staging; its actual deployed version, public access, headers, redirects and indexing were verified in [V2_PHASE7_FINAL_REPORT.md](V2_PHASE7_FINAL_REPORT.md). The official domain and DNS were not changed. Historical migration/security reports remain in docs; see PROJECT_STATUS.md for outstanding owner and production release gates.
 
 Documentation rollback is available at .codex/backups/structure-before-20260930-a1ce3fe8; copy its matching 20 files back to their original paths, preserving unrelated source. The baseline.json records application hashes and package paths.
+
+### Isolated V2 release candidate
+
+Use Node 22.19+ within Node 22 (validated with 22.23.3). Build the standard production/staging artifacts, then `npm run build:rc` and `npm run check:rc`; the complete suite is `node --test tests/*.test.mjs` after all three builds. RC output is the ignored `dist-rc/`, with its own `wrangler.rc.toml` and `worker/rc.ts`. Production `dist/`, existing `dist-staging/` and their configurations are preserved.
+
+The RC uses `https://itkeepers-v2-rc-20261027.jimnassar99.workers.dev`, blanket `noindex, follow` headers (including documents), noindex HTML and an empty, unadvertised sitemap. Robots permits public browser/AI-evaluator access. The new handler accepts only that exact configured hostname. Formspree remains the existing direct form destination; disabled local APIs do not disable those forms.
+
+No deployment is authorized by these scripts. See [Phase 8 validation, exact deployment command and recovery procedure](docs/V2_PHASE8_ISOLATED_RC.md). Use only the dedicated RC configuration after explicit approval; bare `npm run deploy` and the existing staging configuration target other Workers.
+
+The isolated RC is now live at [itkeepers-v2-rc-20261027.jimnassar99.workers.dev](https://itkeepers-v2-rc-20261027.jimnassar99.workers.dev/) under the owner's Phase 9 RC-only authorization. [Deployment identifiers and hosted validation](docs/V2_PHASE9_RC_DEPLOYMENT.md) record the released artifact and preservation of the original staging deployment. No staging promotion or production release is authorized by that RC deployment.
 
 ### Homepage service chapters
 
