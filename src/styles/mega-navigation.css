@@ -66,14 +66,15 @@ body .site-header[data-mega-header] .hero-theme-toggle { min-block-size: 44px; }
 .mega-panel { position: absolute; inset-inline: 0; inset-block-start: 100%; padding-block-start: 10px; color: var(--nav-ink); }
 .mega-content { background: var(--nav-surface); border: 1px solid var(--nav-rule); border-radius: var(--itk-radius-lg); padding: var(--itk-panel-space); max-block-size: calc(100dvh - var(--navigation-bottom, 110px) - 24px); overflow: auto; overscroll-behavior: contain; box-shadow: var(--itk-nav-shadow); }
 .mega-overview { display: inline-flex; align-items: center; gap: 8px; min-block-size: 44px; color: var(--nav-accent); font-size: var(--itk-body); font-weight: 700; margin-block-end: 18px; }
-.mega-overview:hover, .mega-feature-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* Keep shared link states from underlining dropdown titles or descriptions. */
+body .site-header[data-mega-header] .mega-content a,
+body .site-header[data-mega-header] .mega-content a :is(.mega-item-title, .mega-description) { text-decoration: none; }
 .mega-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(240px, .85fr); gap: var(--itk-content-gap); align-items: start; }
 .mega-group-label { color: var(--nav-muted); font-size: var(--itk-label); line-height: 1.5; text-transform: uppercase; letter-spacing: var(--itk-label-tracking); font-weight: 700; margin: 0 0 12px; }
 .mega-items { display: grid; gap: 4px; }
 .mega-item { display: block; padding: 10px 12px; margin-inline: -12px; border-radius: var(--itk-radius-sm); overflow-wrap: anywhere; }
 a.mega-item:hover { background: color-mix(in srgb, var(--nav-accent) 7%, transparent); }
 a.mega-item:hover .mega-item-title { color: var(--nav-accent); }
-a.mega-item[aria-current="page"] .mega-item-title { text-decoration: underline; text-underline-offset: 4px; }
 .mega-item-title { display: block; font-size: var(--itk-body); font-weight: 600; line-height: 1.4; }
 .mega-description { display: block; color: var(--nav-muted); font-size: 14px; line-height: 1.55; margin: 4px 0 0; }
 .mega-topic { border-inline-start: 2px solid var(--nav-rule); margin-inline-start: 0; padding-inline-start: 12px; }

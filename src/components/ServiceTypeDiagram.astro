@@ -1,0 +1,34 @@
+---
+const { kind } = Astro.props as { kind: 'support' | 'managed' | 'co-managed' | 'project' };
+const labels = {
+  support: 'Remote devices and an onsite workstation connected to a support engineer',
+  managed: 'A central engineering team connected to monitoring, maintenance, support and records',
+  'co-managed': 'An internal IT team and ITKeepers connected through shared context',
+  project: 'A project moving from scoping through implementation to review',
+};
+---
+<svg class="service-type-diagram" viewBox="0 0 300 112" role="img" aria-label={labels[kind]}>
+  {kind === 'support' && <>
+    <path class="diagram-track" d="M66 30h64v26h48M66 84h64V56M214 56h42" />
+    <rect class="diagram-node" x="23" y="14" width="44" height="30" rx="5" /><path class="diagram-ink" d="M17 49h56M39 44v5M51 44v5" />
+    <rect class="diagram-node" x="23" y="68" width="44" height="30" rx="5" /><path class="diagram-ink" d="M37 77h16M37 85h10" />
+    <rect class="diagram-hub" x="177" y="30" width="52" height="52" rx="14" /><circle class="diagram-ink" cx="203" cy="49" r="7" /><path class="diagram-ink" d="M190 69c1-13 25-13 26 0M191 48a12 12 0 0 1 24 0M215 49v9h-7" />
+    <circle class="diagram-point" cx="260" cy="56" r="5" />
+  </>}
+  {kind === 'managed' && <>
+    <path class="diagram-track" d="M150 25v21M150 66v21M108 56H66M192 56h42" />
+    <rect class="diagram-hub" x="108" y="30" width="84" height="52" rx="12" /><path class="diagram-ink" d="M132 46h36v20h-36zM142 40v6M158 40v6M142 66v6M158 66v6" />
+    {[{x:150,y:15},{x:150,y:97},{x:48,y:56},{x:252,y:56}].map(({x,y})=><g><rect class="diagram-node" x={x-14} y={y-12} width="28" height="24" rx="6" /><circle class="diagram-point" cx={x} cy={y} r="3" /></g>)}
+  </>}
+  {kind === 'co-managed' && <>
+    <path class="diagram-track" d="M83 56h134M150 56V20M150 56v36" />
+    {[62,238].map(x=><g><rect class="diagram-hub" x={x-25} y="31" width="50" height="50" rx="12" /><circle class="diagram-ink" cx={x} cy="49" r="7" /><path class="diagram-ink" d={`M${x-12} 68c0-13 24-13 24 0`} /></g>)}
+    <rect class="diagram-node" x="135" y="41" width="30" height="30" rx="6" /><path class="diagram-ink" d="m143 56 5 5 10-11" /><circle class="diagram-point" cx="150" cy="17" r="4" /><circle class="diagram-point" cx="150" cy="95" r="4" />
+  </>}
+  {kind === 'project' && <>
+    <path class="diagram-track" d="M62 56h176M105 51l5 5-5 5M190 51l5 5-5 5" />
+    <rect class="diagram-node" x="31" y="31" width="50" height="50" rx="10" /><path class="diagram-ink" d="M46 45h20M46 53h14M46 61h17" />
+    <rect class="diagram-hub" x="125" y="31" width="50" height="50" rx="10" /><path class="diagram-ink" d="m142 46-9 10 9 10M158 46l9 10-9 10M154 43l-8 26" />
+    <rect class="diagram-node" x="219" y="31" width="50" height="50" rx="10" /><path class="diagram-ink" d="m233 56 8 8 15-17" />
+  </>}
+</svg>

@@ -13,13 +13,13 @@
         --accent-glow: rgba(61, 187, 238, 0.126);
         --navy: #1a2a4a;
         --navy-deep: #0f1d33;
-        --bg-outer: #0f1d33;
-        --bg-inner: #162d4a;
-        --panel-bg: #162d4a;
+        --bg-outer: var(--itk-animation-surface);
+        --bg-inner: var(--itk-animation-raised);
+        --panel-bg: var(--itk-animation-surface);
         --row-bg: rgba(61, 187, 238, 0.06);
         --text-muted: #7a9bb5;
         --text-dim: #4a6a8a;
-        --node-fill: #162d4a;
+        --node-fill: var(--itk-animation-raised);
         --node-stroke: #3dbbee;
         --amber: #f0a030;
         --amber-glow: rgba(240, 160, 48, 0.25);

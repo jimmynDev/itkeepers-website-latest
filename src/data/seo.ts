@@ -1,6 +1,6 @@
 import legacyArticles from './legacy-articles.json';
-import { offices } from './locations';
-// Office geography: claims-register V2-OFFICES-20261026. Service scope is unchanged.
+import { offices, serviceRegions } from './locations';
+// Owner-verified offices and client regions: claims-register V2-PARKLAND-MENA-20261028.
 export const siteUrl = 'https://itkeepers.com';
 export interface PageSEO {
   title: string;
@@ -21,15 +21,15 @@ export const pages: Record<string, PageSEO> = {
   }])),
   '/': {
     title: 'Managed IT, Cybersecurity & Cloud | ITKeepers',
-    description: 'ITKeepers provides managed IT, cybersecurity, Microsoft 365, networking and backup, with offices in Dbayeh, Lebanon and Pompano Beach, Florida, USA.'
+    description: 'Managed IT, cybersecurity, Microsoft 365 and infrastructure across MENA and the United States, with offices in Dbayeh, Lebanon and Parkland, Florida.'
   },
   '/about/': {
     title: 'About ITKeepers | Familiar Engineers, Shared Expertise',
-    description: 'Meet ITKeepers: familiar engineers and shared expertise, with physical offices at Enterprise & Innovation Centre in Dbayeh, Lebanon and in Pompano Beach, Florida, USA.'
+    description: 'Meet ITKeepers: familiar engineers and shared expertise, with physical offices in Dbayeh, Lebanon and Parkland, Florida, serving MENA and the United States.'
   },
   '/contact/': {
     title: 'Contact ITKeepers | Talk to Our Team',
-    description: 'Contact ITKeepers for IT support or a free IT consultation. Our offices are at Enterprise & Innovation Centre in Dbayeh, Lebanon and in Pompano Beach, Florida, USA.'
+    description: 'Contact ITKeepers for IT support or a free IT consultation across MENA and the United States. Physical offices in Dbayeh, Lebanon and Parkland, Florida.'
   },
   '/how-we-work/': {
     title: 'How We Work: IT Monitoring & Follow-Up | ITKeepers',
@@ -54,7 +54,7 @@ export const pages: Record<string, PageSEO> = {
   },
   '/services/': {
     title: 'Business IT Services in Lebanon | ITKeepers',
-    description: 'Explore managed IT, cybersecurity, Microsoft 365, infrastructure, backup, AI and web services from ITKeepers, a Lebanon-based Managed Service Provider (MSP).'
+    description: 'ITKeepers provides service desk and onsite support, managed and co-managed IT services, and project consulting and implementation in Lebanon.'
   },
   '/services/managed-it/': {
     title: 'Managed IT Services in Lebanon | ITKeepers MSP',
@@ -100,7 +100,9 @@ export function structuredData(path: string, page: PageSEO) {
   const organizationId = `${siteUrl}/#organization`;
   const entities: Record<string, unknown>[] = [{
     '@type': 'Organization', '@id': organizationId, name: 'ITKeepers', url: `${siteUrl}/`,
-    location: offices.map(office => office.place)
+    location: offices.map(office => office.place),
+    telephone: offices.map(office => office.phone.display),
+    areaServed: serviceRegions
   }];
   if (path === '/') entities.push({
     '@type': 'WebSite', '@id': `${siteUrl}/#website`, name: 'ITKeepers',
@@ -109,7 +111,7 @@ export function structuredData(path: string, page: PageSEO) {
   if (page.service) entities.push({
     '@type': 'Service', '@id': `${url}#service`, name: page.service,
     serviceType: page.service, url, description: page.description,
-    provider: { '@id': organizationId }
+    provider: { '@id': organizationId }, areaServed: serviceRegions
   });
   // Reflect the existing navigation hierarchy without adding commercial claims.
   if (page.service) entities.push({

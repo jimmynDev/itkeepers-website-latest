@@ -11,7 +11,7 @@ test('both normal forms expose the short processing notice and associated Privac
     const form=nodes.find(n=>n.tagName==='form'&&'data-inquiry-form'in attrs(n));assert.ok(form);
     assert.equal(attrs(form).action,'https://formspree.io/f/mrppzvpo');
     const notice=nodes.find(n=>attrs(n).id===attrs(form)['aria-describedby']);assert.ok(notice);
-    assert.match(text(notice),/Competition preview.*Formspree.*temporary administrator-managed inbox/);
+    assert.match(text(notice),/Formspree processes inquiries for a temporary administrator-managed inbox/);
     assert.ok(text(notice).split(/\s+/).length<25);
     assert.ok(elements(notice).some(n=>n.tagName==='a'&&attrs(n).href==='/privacy/'));
   }

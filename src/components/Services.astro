@@ -15,15 +15,15 @@ import AIAutomationAnimation from './animations/NeuralSphereAnimation.astro';
 
 const offerings = [
 
-  { id: 'managed', name: 'Managed IT Services', intro: 'Day-to-day IT management with familiar engineers, proactive attention and a team behind the work.', href: '/services/managed-it/', component: ManagedITAnimation, wide: false, steps: [] },
+  { id: 'managed', name: 'Managed IT Services', intro: 'Engineer-led support, monitoring, patching and shared IT records.', href: '/services/managed-it/', component: ManagedITAnimation, wide: false, steps: [] },
 
-  { id: 'cloud', name: 'Microsoft 365 & Cloud', intro: 'Manage users, access, devices and Microsoft cloud services with the surrounding business context in view.', href: '/services/microsoft-cloud/', component: MicrosoftCloudAnimation, wide: false, steps: [] },
+  { id: 'cloud', name: 'Microsoft 365 & Cloud', intro: 'Microsoft 365 accounts, licenses, access policies and device management.', href: '/services/microsoft-cloud/', component: MicrosoftCloudAnimation, wide: false, steps: [] },
 
   { id: 'security', name: 'Cybersecurity', intro: 'Security maintained in layers across identity, endpoints, networks, operations and recovery.', href: '/services/cybersecurity/', component: CybersecurityAnimation, wide: false, steps: [] },
 
-  { id: 'networking', name: 'Networking & Infrastructure', intro: 'Keep the systems underneath everyday work understandable, maintainable and connected.', href: '/services/networks-infrastructure/', component: NetworkingInfrastructureAnimation, wide: false, steps: [] },
+  { id: 'networking', name: 'Networking & Infrastructure', intro: 'Routing, switching, Wi-Fi, servers and connectivity.', href: '/services/networks-infrastructure/', component: NetworkingInfrastructureAnimation, wide: false, steps: [] },
 
-  { id: 'ai', name: 'AI & Automation', intro: 'Automate repetitive work without removing human oversight.', support: 'Turn repeatable requests into reviewed workflows that connect the tools your business already uses.', href: '/services/ai-automation/', component: AIAutomationAnimation, wide: false, steps: [] },
+  { id: 'ai', name: 'AI & Automation', intro: 'Repeatable request workflows with human review.', href: '/services/ai-automation/', component: AIAutomationAnimation, wide: false, steps: [] },
 
 ];
 
@@ -33,7 +33,7 @@ const offerings = [
 <ServicesFlow />
 <div class="service-stories" id="services">
 
-  {offerings.map(({ id, name, intro, support, href, component: Animation, wide, steps }, index) => (
+  {offerings.map(({ id, name, intro, href, component: Animation, wide, steps }, index) => (
 
     <section class:list={['service-story', { 'service-story-wide': wide }]} id={`services/${id}`} aria-labelledby={`service-${id}-title`} data-light="cyan">
 
@@ -41,7 +41,7 @@ const offerings = [
 
         <div class="service-story-copy">
 
-          <div class="service-story-text"><p class="eyebrow">{String(index + 1).padStart(2, '0')}</p><h2 id={`service-${id}-title`}>{id === 'cloud' ? <><span class="service-title-line">Microsoft 365</span>{' '}<span class="service-title-line">&amp; Cloud</span></> : name}</h2><p class="service-story-intro">{intro}</p>{support && <p class="service-story-intro service-story-support">{support}</p>}</div>
+          <div class="service-story-text"><p class="eyebrow">{String(index + 1).padStart(2, '0')}</p><h2 id={`service-${id}-title`}>{id === 'cloud' ? <><span class="service-title-line">Microsoft 365</span>{' '}<span class="service-title-line">&amp; Cloud</span></> : name}</h2><p class="service-story-intro">{intro}</p></div>
 
           <a class="scene-link" href={href}>Explore {name}</a>
 
@@ -98,7 +98,7 @@ const offerings = [
 
   /* Let gradient-painted descenders extend past the tight line box. Trade padding
      for margin so the heading-to-copy spacing and section geometry stay stable. */
-  .service-story-copy h2 { position:relative; isolation:isolate; font-size:clamp(42px,4.6vw,62px); font-weight:550; line-height:1.08; letter-spacing:-.035em; padding-block-end:.16em; margin:0 0 calc(26px - .16em); text-wrap:balance; text-shadow:0 3px 9px rgba(0,0,0,.16); }
+  .service-story-copy h2 { position:relative; isolation:isolate; font-family:var(--itk-page-heading-family); font-size:clamp(42px,4.6vw,62px); font-weight:600; line-height:1.08; letter-spacing:-.035em; padding-block-end:.16em; margin:0 0 calc(26px - .16em); text-wrap:balance; text-shadow:0 3px 9px rgba(0,0,0,.16); }
 
   .service-story-copy h2::before { content:''; position:absolute; inset:-18px -12px; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 45% 50%,rgba(66,186,235,.06),transparent 72%); }
 

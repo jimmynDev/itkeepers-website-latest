@@ -131,7 +131,7 @@
 
 
 .cs{--itk:#42BAEB;--cloud:#5AA9FF;--ok:var(--itk-success,#2DD4A7);--threat:#FF7A45;
-  --surface:var(--surface-2,#0E1B2E);--surface-hi:var(--surface-3,#13243C);
+  --surface:var(--itk-animation-surface);--surface-hi:var(--itk-animation-raised);
   --text:var(--itk-text,#E8F1FA);--muted:var(--itk-muted,#8FA6BF);
   --ease:cubic-bezier(.33,0,.15,1);
   width:100%;max-width:640px;margin-inline:auto}
@@ -157,7 +157,7 @@
 /* Pills */
 .cs-pill-bg{fill:var(--surface);stroke:rgba(90,169,255,.4);stroke-width:1;filter:drop-shadow(0 4px 10px rgba(0,8,20,.5))}
 .p-ops .cs-pill-bg{stroke:rgba(66,186,235,.7)}
-.p-recovery .cs-pill-bg{stroke:rgba(90,169,255,.34);fill:rgba(14,27,46,.72)}
+.p-recovery .cs-pill-bg{stroke:rgba(90,169,255,.34);fill:color-mix(in srgb,var(--itk-animation-surface) 72%,transparent)}
 .p-recovery .cs-lbl{fill:var(--muted)}
 .cs-ico path,.cs-ico circle{fill:none;stroke:var(--cloud);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 .p-ops .cs-ico path,.p-ops .cs-ico circle{stroke:var(--itk)}

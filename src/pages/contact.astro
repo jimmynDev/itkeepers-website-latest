@@ -10,7 +10,6 @@ import { offices } from '../data/locations';
       <div class="contact-heading">
         <p class="eyebrow">LET'S TALK</p>
         <h1 id="contact-title">Talk to our team.</h1>
-        <a class="disclosure-link contact-form-jump" href="#contact-form">Go to the contact form</a>
       </div>
       <div class="contact-layout">
         <div class="contact-form-panel" id="contact-form" tabindex="-1" aria-labelledby="contact-form-title">
@@ -37,7 +36,7 @@ import { offices } from '../data/locations';
           </section>
           <section class="contact-card" aria-labelledby="contact-offices-title">
             <h2 id="contact-offices-title">Our offices</h2>
-            {offices.map(office => <p class="contact-office"><strong>{office.label}</strong><br />{office.detail}</p>)}
+            {offices.map(office => <p class="contact-office"><strong>{office.label}</strong>{office.addressLines.map(line => <Fragment><br />{line}</Fragment>)}<br /><a class="disclosure-link" href={office.phone.href}>{office.phone.display}</a></p>)}
           </section>
         </aside>
       </div>
@@ -52,7 +51,6 @@ import { offices } from '../data/locations';
   }
   .contact-container { inline-size:100%; max-inline-size:1100px; min-inline-size:0; margin-inline:auto; }
   .contact-heading { margin-block-end:36px; }
-  .contact-form-jump { display:inline-flex; align-items:center; min-block-size:44px; }
   #contact-form { scroll-margin-block-start:140px; }
   #contact-form:focus { outline:3px solid var(--itk-brand-cyan); outline-offset:4px; }
   .contact-heading .eyebrow { color:var(--itk-brand-cyan); font-size:12px; margin:0 0 16px; }

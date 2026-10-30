@@ -74,7 +74,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
           <div class="footer-brand">
             <a href="/" aria-label="ITKeepers home"><img src={logo384} srcset={`${logo192} 192w, ${logo384} 384w`} sizes="150px" alt="ITKeepers" width="1747" height="289" loading="lazy" decoding="async" /></a>
             <p>Your IT person is a team.</p>
-            {offices.map(office => <p><strong>{office.label}</strong><br />{office.detail}</p>)}
+            {offices.map(office => <p><strong>{office.label}</strong>{office.addressLines.map(line => <Fragment><br />{line}</Fragment>)}<br /><a href={office.phone.href}>{office.phone.display}</a></p>)}
           </div>
           <nav class="footer-group" aria-labelledby="footer-services">
             <h2 id="footer-services">Services</h2>

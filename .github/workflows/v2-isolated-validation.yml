@@ -1,0 +1,42 @@
+name: V2 isolated validation (approval required)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/v2-parkland-mena-usa]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v2-isolated-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    # Branch-only bootstrap: an approved push must explicitly include this marker.
+    # workflow_dispatch becomes available only if GitHub has registered the workflow.
+    if: >-
+      github.ref == 'refs/heads/codex/v2-parkland-mena-usa' &&
+      (github.event_name == 'workflow_dispatch' ||
+       contains(github.event.head_commit.message, '[security-validation-approved]'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Prepare tools, prove isolation, then validate
+        env:
+          VALIDATION_COMMIT: ${{ github.sha }}
+        run: python3 security/validation/runner.py
+      - name: Retain bounded reports only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: v2-isolated-validation-${{ github.sha }}
+          path: ${{ runner.temp }}/v2-validation-artifacts/
+          if-no-files-found: warn
+          retention-days: 3
+          include-hidden-files: false

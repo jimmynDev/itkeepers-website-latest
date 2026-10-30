@@ -1032,14 +1032,14 @@
 
     .animation-cloud { width:100%; min-width:0; margin:0; color:var(--fg); font-family:var(--font-editorial,system-ui); }
     .animation-cloud .itk-m365 {
-      --bg:var(--n,#0b2c5f); --panel: #0b2c5f; --panel-top:#0b2c5f; --panel-bottom:#071f44;
-      --surface:#102f59; --surface-2:#123763; --surface-hi:#163b68;
+      --bg:var(--itk-animation-inset); --panel:var(--itk-animation-surface); --panel-top:var(--itk-animation-surface); --panel-bottom:var(--itk-animation-inset);
+      --surface:var(--itk-animation-surface); --surface-2:var(--itk-animation-raised); --surface-hi:var(--itk-animation-raised);
       --text:#ffffff; --muted:#d6e4f5; --dim:#b8cde6;
       --blue:#5cc5ff; --blue-bright:#5cc5ff; --blue-soft:#5cc5ff; --blue-text:#8fcfff;
       --cyan:#42baeb; --cyan-text:#7ee3f5; --line:rgba(184,205,230,.22); --line-strong:rgba(184,205,230,.5);
       padding:0; background:none; overflow:visible; color:var(--text); font-family:inherit;
     }
-    .animation-cloud .itk-panel { margin:0; background:linear-gradient(180deg,#0b2c5f,#071f44); }
+    .animation-cloud .itk-panel { margin:0; background:var(--itk-animation-panel); border-color:var(--itk-animation-border); }
     .animation-cloud .animation-caption { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-block:14px 0; font-size:14px; line-height:1.6; color:inherit; }
     .animation-cloud .animation-caption p { flex:1 1 30ch; margin:0; max-width:80ch; font-size:14px; }
     .animation-cloud [hidden] { display:none !important; }

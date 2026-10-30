@@ -1,0 +1,60 @@
+# V2 OPS-01 / OPS-02 / OPS-04 proposed corrections
+
+27 October 2026. Agent03 review of the retained assessment at `C:/Users/Jim/security-audit-skill/itkeepers-v2/run-1`. Target: current dirty `codex/v2-business-locations`, base `bfcd0322174c6bf5a00ed602c47c633fc9aaf337`, including the separate RC entry. Scope is exclusively these three operational items. Other assessment findings and unrelated working changes are preserved.
+
+**Prepared locally for review; not deployed. Runtime validation and provider-owner verification remain blocked.** No commit, push, merge, dependency installation, real contact submission or provider/account/deployment change occurred. Prior run-1 findings, ledger and reports remain historical and unchanged.
+
+## Verified source path and proposed policy
+
+- `src/components/InquiryForm.astro` uses the fixed public endpoint from `src/data/formspree.ts` for both forms. AJAX in `src/scripts/contact-form.ts` uses allowlisted FormData, credentials omitted, redirects rejected and a 15-second abort timeout. The no-JavaScript form and explicit native verification continuation POST to the same endpoint. No per-form/per-request referrer override was found. Provider messages use textContent; response `next` is classified, never navigated to.
+- `public/_headers` already specifies `strict-origin-when-cross-origin`. Before this proposal, shared `worker/staging-handler.ts` overwrote it with `no-referrer` on every returned response. `worker/staging.ts` exports that handler and `worker/rc.ts` wraps it. Both configurations run the Worker first on every path. Source establishes intended response behavior, not current hosted headers.
+- The proposed one-value correction sets the shared response policy to `strict-origin-when-cross-origin`. All other handler logic, status/body, CSP, cache, host/method/API gates and RC noindex logic remain unchanged. `public/_headers` is already correct and is not edited. `worker/index.ts` keeps `no-referrer` on separate sensitive JSON API replies; it does not serve the active form documents.
+- This is the appropriate policy for these public form documents and their shared Worker responses: cross-origin HTTPS receives the origin without path/query, same-origin requests retain full referrer detail, and HTTPS-to-HTTP downgrade receives none. It matches Formspree's strictest documented compatible policy for its Referer-based domain restriction. No new destination, payload field, browser override, CAPTCHA/processor or public privacy wording is introduced.
+
+The change removes a source-level compatibility conflict. It does **not** establish that domain filtering is enabled, the RC hostname is eligible, the provider accepts an inquiry, or the intended inbox receives it. Referer can be missing or forged, so it is not authorization or a replacement for provider abuse controls. This proposal affects both RC and staging only if a future separately approved release uses the modified shared source. It changes neither deployed environment now.
+
+## OPS-01 documentation and containment
+
+`SECURITY.md` now describes actual direct collection, native submission, provider/archive/inbox copies, client-only limits, truthful acceptance/uncertainty and the independent disabled backend. `THREAT_MODEL.md` maps those paths separately. `FORM_INQUIRY_RUNBOOK.md` defines triage, minimum sanitized evidence, accountable roles, authorized containment decisions, accepted/uncertain-copy reconciliation, recovery and communication.
+
+False kill-switch assumptions are explicitly removed: CONTACT flags do not stop Formspree; disabling notifications need not stop storage; frontend removal/rollback alone does not prevent cached/direct endpoint use; Worker rollback does not recall copies. A provider-enforced stop must be verified against actual account capabilities. No provider setting or runbook incident action was executed.
+
+## OPS-04 owner verification — unresolved
+
+Agent03 coordinates the Formspree/inbox owner and Workflow. Keep named responders, recipient addresses, credentials and message contents private. A sanitized owner attestation should include time, scope and a redacted setting/reference, not secrets.
+
+| Input ID / owner | Evidence required | Exact unresolved effect |
+|---|---|---|
+| FORM-OWNER-01 / Formspree owner | Correct account/project/form mapping for public ID `mrppzvpo`, form activation, approved destination and mailbox ownership/access; enabled notifications, redirects, autoresponders, integrations/webhooks/forwarding. | Source fixes cannot establish who receives data or whether further copies/actions exist. No sender/recipient/account change authorized. |
+| FORM-OWNER-02 / Formspree owner | Actual Restrict to Domain setting, supported matching rules and intended RC/staging/future-production hostname scope. Review explicit intended hosts, not broad shared workers.dev suffixes. Record handling of missing Referer/privacy browsers. | Proposed origin-compatible policy does not prove domain eligibility or authenticate senders. Do not weaken protections to work around an observed failure. |
+| FORM-OWNER-03 / Formspree owner | Actual spam/challenge/honeypot/rules state, form availability, plan quota/over-limit behavior and applicable server-side field/type/size controls. Distinguish provider default/system limits from account-specific evidence. | Browser maxlength/payload checks are bypassable; first-party rate/Turnstile controls do not cover provider submission. Do not assert absence of provider controls or load-test the endpoint. |
+| FORM-OWNER-04 / Formspree + inbox owner | Provider submission/spam archive access, notification failure/suppression evidence, intended inbox spam/quarantine/forwarding, and where accepted/uncertain copies persist and are reconciled/deleted under existing approved handling. | No inbox receipt, archive-access or copy-lifecycle assurance follows from AJAX success or a Worker rollback. Broader production privacy decisions remain outside this change. |
+| FORM-DELIVERY-01 / owner + Workflow | Preserve earlier local manual-delivery attestation (`claims-register.md:494`) within its actual origin/flow/date scope; check latest RC release's explicit untested receipt limit. | Earlier local delivery is not evidence of RC-origin acceptance or current inbox receipt. Existing mocked UI tests did not send to Formspree. |
+| FORM-DELIVERY-02 / owner, only after separate approval | Agree on a controlled authorized destination, harmless unique marker, origin, route, intent and AJAX/native/no-JS case; then correlate minimal browser outcome with provider reference/spam classification and inbox receipt/time. Redact evidence and clean synthetic copies as approved. | This follow-up sends no real test. A success UI alone is insufficient; native return/timeout is uncertain and must not trigger blind retries. No appointment/human-response guarantee follows. |
+| SANDBOX-01 / local validation owner | Establish enforced external-network denial, empty allowlisted environment, read-only target/toolchain, scratch-only writes, explicit CPU/memory/process/file-size/disk/wall-clock bounds and safe artifact handling. | No compliant runtime sandbox established: no Docker/Podman found; prior WSL check reports not installed. Node vm, mocked fetch or a browser route interceptor alone is not OS isolation. |
+
+No Formspree account connector is available in this session. No dashboard, provider endpoint or inbox was accessed. Account verification remains an owner task, not a pass or proof of absence.
+
+## Regression changes and validation status
+
+| Check | Status / limits |
+|---|---|
+| Source policy/integration trace and official guidance | Reviewed. The shared Worker override is corrected in source only; the static header and separate sensitive API policy are preserved. |
+| Staging response regressions | Prepared, **not run**. Existing common assertions now require the compatible policy for pages, redirects, conditional replies and generated failures. One new case overrides both conflicting no-referrer and overly permissive unsafe-url upstream headers on Home/Contact, while retaining content, CSP, MIME and ETag. |
+| RC response regressions | Prepared, **not run**. One new case covers GET/HEAD, 206, 304, redirects, missing/upstream errors and Worker-generated hostname/API/method/dependency failures while retaining RC noindex and representations. These unit fixtures do not compute browser Referer. |
+| Browser behavior | Blocked by SANDBOX-01. Future isolated browser test must capture only synthetic intercepted requests: origin-only cross-origin HTTPS Referer for AJAX and native/no-JS forms, no path/query, full same-origin detail and no downgrade Referer. Include missing-referrer and challenge/native-return handling without real delivery. No mock result proves account filtering/receipt. |
+| Build/typecheck/full suite | Not run: target-controlled execution requires the missing sandbox. Generated artifacts remain at their previous bytes and do not include the proposed Worker bundle. |
+| Provider configuration/real delivery/current hosted policy | Blocked by missing account access/authorization and deliberately unperformed live testing. No cloud settings, account settings or deployed versions were changed. |
+| Preservation and patch inspection | Trusted parent-side static hash/diff checks recorded outside the repository. These checks do not execute application code or constitute a passing test suite. |
+
+When SANDBOX-01 is resolved, first run `node --test tests/staging.test.mjs tests/rc.test.mjs tests/formspree.test.mjs` against synthetic ASSETS/provider data with existing pinned local dependencies. The staging/RC tests transpile into `.wrangler` and spawn Python; RC also invokes its artifact checker. Use a disposable scratch-local project copy and compatible existing artifacts, then the normal isolated build/typecheck/full suite as needed. Do not run these directly on the unrestricted host, fetch dependencies, use a real provider, or deploy. No future command here grants release permission.
+
+## Risk assessment and handoff
+
+- **OPS-01:** authoritative documentation correction prepared; named operator/provider containment capability and operational validation remain owner-dependent. Documentation alone does not contain an incident.
+- **OPS-02:** narrow source policy change prepared. Expected functional risk is low, but it intentionally exposes the public origin to HTTPS third parties where the former Worker policy exposed none. It does not expose cross-origin paths/queries or form bodies through Referer; same-origin behavior is less restrictive than no-referrer. Browser/account behavior remains untested. No confirmed exploit or severity upgrade is asserted.
+- **OPS-04:** owner evidence remains open. Neither proposed code nor docs verify provider enforcement or real delivery. Do not close this item on unit-header tests alone.
+
+**Local review candidate only; not ready for deployment approval until isolated tests and target/provider verification are reviewed.** No new release decision is made for other assessment items. Agent03 owns follow-up; Jim reviews the proposed change, the provider/inbox owner supplies evidence, and Workflow verifies any later target-specific release/recovery plan. No commit/push/merge/deployment/provider change in this task.
+
+Sources checked 27 October 2026: [Formspree domain restriction/referrer requirements](https://help.formspree.io/articles/form-and-project-settings/restrict-to-domain), [system limits](https://help.formspree.io/articles/form-and-project-settings/system-limits), [reCAPTCHA settings](https://help.formspree.io/articles/form-and-project-settings/recaptcha-settings/), [delivery troubleshooting](https://help.formspree.io/articles/troubleshooting/i-m-not-receiving-emails), [Cloudflare asset vs Worker header scope](https://developers.cloudflare.com/workers/static-assets/headers/), [MDN Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy). Vendor descriptions are not account-specific evidence.

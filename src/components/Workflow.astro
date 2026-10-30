@@ -9,7 +9,7 @@ const steps = [
 ];
 ---
 <section class="section dark workflow" data-workflow aria-labelledby={`${id}-title`}>
-  <div class="split"><h2 id={`${id}-title`}>A signal gets noticed.<br />The team gets involved.</h2><div><span class="illustrative-badge">Illustrative</span><p>Follow a storage-warning example from the first signal to the next action. No real incident data or measured timings.</p></div></div>
+  <div class="split"><h2 id={`${id}-title`}>A signal gets noticed.<br />The team gets involved.</h2><div><span class="illustrative-badge">Illustrative</span><p>A storage-warning example with fictional data and no response-time guarantee. Not every incident needs every step.</p></div></div>
   <ol class="workflow-steps" data-step-selectors hidden aria-label="Choose an example step">
     {steps.map(([title], index) => <li><button type="button" data-step={index} aria-controls={`${id}-step-${index}`}><span class="workflow-number" aria-hidden="true">0{index + 1}</span>{title}</button></li>)}
   </ol>

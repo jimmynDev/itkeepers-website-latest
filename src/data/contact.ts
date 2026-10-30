@@ -3,6 +3,8 @@ export const emergencyPhone = { display:'+961 81 816 761', href:'tel:+9618181676
 
 /** Jim approved this number for general inquiries on 2026-10-12. */
 export const businessPhone = emergencyPhone;
+/** Verified US office number supplied and authorized by Jim on 2026-10-28. */
+export const usBusinessPhone = { display:'+1 561 600-9940', href:'tel:+15616009940' } as const;
 /** General business email supplied and authorized by Jim on 2026-10-12. */
 export const contactEmail = { display:'info@itkeepers.com', href:'mailto:info@itkeepers.com' } as const;
 

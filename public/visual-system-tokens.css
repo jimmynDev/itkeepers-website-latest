@@ -21,6 +21,12 @@
   --itk-dim: #61708a;
   --itk-border: rgba(126,156,204,.14);
   --itk-border-strong: rgba(126,156,204,.24);
+  /* Illustration surfaces share the homepage status panel's neutral navy palette. */
+  --itk-animation-surface: var(--itk-surface);
+  --itk-animation-raised: var(--itk-surface-raised);
+  --itk-animation-inset: var(--itk-bg);
+  --itk-animation-border: var(--itk-border-strong);
+  --itk-animation-panel: linear-gradient(180deg,var(--itk-animation-surface),var(--itk-animation-inset));
   --itk-success: #2dd4a7;
   --itk-warning: #f0a93b;
   --itk-danger: #e85d5d;
@@ -46,3 +52,7 @@
 }
 @media (max-width: 1024px) { :root { --itk-section-space: 72px; } }
 @media (max-width: 600px) { :root { --itk-section-space: 56px; --itk-content-gap: 24px; --itk-panel-space: 20px; } }
+
+@media (forced-colors: active) {
+  :root { --itk-animation-surface:Canvas; --itk-animation-raised:Canvas; --itk-animation-inset:Canvas; --itk-animation-border:CanvasText; --itk-animation-panel:Canvas; }
+}

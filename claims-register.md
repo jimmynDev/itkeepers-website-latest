@@ -562,3 +562,43 @@ Pulse now uses the already-approved `Book a Free IT Consultation` wording with `
 Jim explicitly authorized deployment of the reviewed candidate to `itkeepers-v2-rc-20261027` only. Live version `0aec0a19-30dd-49e6-9370-6ca1697fc34e`, deployment `136c9364-5b5d-41f9-90a0-4ada65ac97ec`; approved hashes and hosted checks are recorded in `docs/V2_PHASE9_RC_DEPLOYMENT.md`. No public wording, metric, geography, quotation, attribution or consent flag changed during release.
 
 Owner deployment authorization is separate from evidence/customer permission: the four testimonial gaps remain recorded, no real inquiry/inbox test occurred, and production Privacy/archive decisions remain open. No staging replacement, production release, GitHub push/merge or further deployment is authorized by this entry. Review trigger: changed content, evidence, target or promotion decision.
+
+
+## 28 October 2026 — Verified Parkland office and MENA/USA coverage update
+
+| ID | Exact wording/details | Evidence status/source | Publication authorization | Review trigger |
+|---|---|---|---|---|
+| V2-PARKLAND-MENA-20261028 | Physical US office: ITKeepers, 6778 NW 66th Ave, Parkland, FL 33067, United States; +1 561 600-9940. Lebanon: Enterprise & Innovation Centre, Dbayeh, Lebanon; +961 81 816 761. MENA and United States are client service regions, distinct from two offices. | Company-verified details explicitly supplied by Jim in this task; no independent address/telephone audit claimed. Supersedes the current Pompano office reference, preserving historical records. | Jim authorized exact hero/About positioning and relevant address/telephone/metadata/schema updates locally,2026-10-28. Exact copy in docs/V2_PARKLAND_MENA_USA_UPDATE.md. Backup creation at b35279b explicitly authorized and verified before edits; no development release authorized. | Office, phone, coverage or wording changes. |
+
+Approved hero: “Proactive managed IT, cybersecurity, Microsoft 365 and infrastructure for businesses across MENA and the United States.” Approved About: “With physical offices in Dbayeh, Lebanon, and Parkland, Florida, ITKeepers supports businesses across the Middle East and North Africa (MENA) and the United States.” Existing metrics, H1, SEO title, testimonials and customer-permission boundaries preserved. No new response, staffing, legal-entity or delivery assurance.
+
+
+## 29 October 2026 — V2 content cleanup, no expanded business claims
+
+Jim requested a local sitewide content cleanup. Consolidated existing service/operations descriptions and removed repeated positioning; no new metric, geography, testimonial, coverage guarantee, certification, processor or factual capability introduced. Existing office/coverage approvals remain unchanged. The exact short form notice is now: “Formspree processes inquiries for a temporary administrator-managed inbox.” It retains the existing processing/destination facts; full Privacy wording and all provider/retention/acceptance caveats are unchanged. Workflow examples retain fictional-data, response-guarantee and step-variation limits next to their controls. Pulse remains planned/under development.
+
+Source/authorization: the owner's attached ITKeepers V2 Sitewide Content Audit & Cleanup request,29October2026; existing approved service/operations descriptions, V2 Formspree integration records and V2-PARKLAND-MENA-20261028. This is wording cleanup within existing facts, not independent re-verification or publication/deployment authorization. Review trigger: actual services, coverage, processor/inbox, privacy handling, Pulse release or factual scope changes. Exact before/after and retained caveats: `docs/V2_SITEWIDE_CONTENT_CLEANUP.md`; local review only.
+
+
+## 30 October 2026 — Business IT service delivery types, local review
+
+Jim explicitly directed the Services directory to present Service Desk & IT Support, Managed IT Services, Co-Managed IT Services and Professional IT Services. This current owner-supplied scope supersedes the older open co-managed-scope question for this local content task. It is not independent operational verification or permission to deploy. The current request also supplies onsite intervention, qualitative fast/responsive support, engineering capacity/shared visibility, and project consulting plus implementation as description directions.
+
+| ID | Exact local wording | Evidence and authorization | Boundary/review trigger |
+|---|---|---|---|
+| V2-DELIVERY-20261030-01 | Service Desk & IT Support: Fast remote support and onsite intervention from engineers who know your environment, within your agreed support scope. | Owner-supplied service direction and local implementation authorization, Jim,30October2026; not independently audited. | No quantitative response time, staffed hours, universal onsite coverage, package inclusion or SLA promised. Review when service scope/coverage, client-team responsibilities or publication decision changes. |
+| V2-DELIVERY-20261030-02 | Managed IT Services: ITKeepers takes day-to-day operational ownership, with proactive monitoring, maintenance, patching, documentation and follow-up. | Owner-supplied service direction and local implementation authorization, Jim,30October2026; not independently audited. | No quantitative response time, staffed hours, universal onsite coverage, package inclusion or SLA promised. Review when service scope/coverage, client-team responsibilities or publication decision changes. |
+| V2-DELIVERY-20261030-03 | Co-Managed IT Services: Your internal IT team stays in control. ITKeepers adds engineering capacity, shared visibility and specialist expertise. | Owner-supplied service direction and local implementation authorization, Jim,30October2026; not independently audited. | No quantitative response time, staffed hours, universal onsite coverage, package inclusion or SLA promised. Review when service scope/coverage, client-team responsibilities or publication decision changes. |
+| V2-DELIVERY-20261030-04 | Professional IT Services: Consulting and implementation for IT improvements, process optimization, asset planning, automation and infrastructure or system changes. | Owner-supplied service direction and local implementation authorization, Jim,30October2026; not independently audited. | No quantitative response time, staffed hours, universal onsite coverage, package inclusion or SLA promised. Review when service scope/coverage, client-team responsibilities or publication decision changes. |
+
+The existing verified geography is reused only in the directory metadata. No new metric, certification, client evidence, guarantee or legal/processor claim. Technical capability pages and shared navigation remain separate and unchanged. Copy and validation record: sibling `../v2-service-delivery-types-20261030/README.md`.
+
+
+## 30 October 2026 — Owner-confirmed 24/7 SOC operating model
+
+| ID | Exact wording/scope | Evidence/source | Local wording authorization | Review boundary |
+|---|---|---|---|---|
+| V2-SOC-20261030 | “24/7 SOC Coverage” / “Around-the-clock security monitoring, threat investigation, and escalation through ITKeepers' SOC service.” | Jim explicitly confirmed a real24/7SOC service in the current request,30October2026. Owner-attested service fact; no independent SOC operational audit claimed. | Jim supplied the wording and authorized local Services-page implementation only. | Confirm actual service scope when changed or before a separate release decision. No staffing model, vendor, guaranteed response time or SLA inferred. |
+| V2-OPERATING-MODEL-20261030 | Eyebrow “THE ITKEEPERS OPERATING MODEL”; H2 “Engineered for resilience. Protected around the clock.”; supporting text and four cards Resilient by Design /24/7SOC Coverage / Intelligent Monitoring & Response / Continuous Improvement, as supplied in the current request. | Owner-supplied operating-model direction and exact descriptions; existing operations/maintenance/documentation scope reused. | Current local-only redesign instruction, Jim,30October2026. | Around-the-clock scope is explicitly SOC coverage; no AI-powered threat detection, universal incident prevention, help-desk hours or new metric promised. |
+
+Visible distinction next to SOC copy: “24/7 SOC coverage is separate from general IT help-desk availability.” SOC links to the existing Cybersecurity route. The earlier general ban on implying a24/7SOC does not block this explicitly confirmed local service description; it still supplies no evidence about staffing arrangements or broader help-desk coverage. Other pages/metadata are unchanged by this scoped update. Exact patch, screenshots and validation: sibling `../v2-operating-model-20261030/`.

@@ -1,5 +1,5 @@
 <!-- Source-panel design retained; Example view identifies the simulated content.
-     Continuous motion follows visibility and reduced-motion preferences. -->
+     Internal motion follows visibility and reduced-motion preferences. -->
 <figure class="hero-status" data-hero-status aria-label="Example view of IT operations. Sample data, not live monitoring.">
   <div class="vis" id="hero-status-visual" style="position:relative;width:500px;max-width:100%;background:var(--status-surface);border:1px solid var(--status-border);border-radius:20px;box-shadow:0 24px 48px -24px rgba(0,0,0,.4);overflow:hidden">
     <div class="scan" aria-hidden="true"></div>
@@ -48,7 +48,6 @@
   .hero-status:not([data-status-enhanced]) .ev:not(:first-child) { display:none; }
   .scan,.beam { display:none; }
   .badge { font-size:13px; font-weight:600; padding:6px 12px; border-radius:999px; }
-  .hero-status[data-status-enhanced] .vis { animation:floaty 7s ease-in-out infinite; }
   .hero-status[data-status-enhanced]:not([data-status-entered]) .row { animation:rise .8s cubic-bezier(.2,.8,.2,1) both; }
   .hero-status[data-status-enhanced] .scan { display:block; animation:scan 5s linear infinite; }
   .hero-status[data-status-enhanced] .beam { display:block; animation:beam 3.2s ease-in-out infinite; }
@@ -60,7 +59,6 @@
   .hero-status[data-status-running] { --status-motion:running; }
   .hero-status[data-status-static] :is(.vis,.row,.scan,.beam,.dot,.ev) { animation:none !important; }
   .hero-status[data-status-static] .ev:not(:first-child),.hero-status[data-status-static] :is(.scan,.beam) { display:none; }
-  @keyframes floaty { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
   @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
   @keyframes scan { 0% { transform:translateY(-120px); } 100% { transform:translateY(420px); } }
   @keyframes beam { 0% { left:-35%; } 100% { left:100%; } }

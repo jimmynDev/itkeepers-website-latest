@@ -1,0 +1,25 @@
+/* Primary page titles follow the existing Cybersecurity H1 at every viewport.
+   Main's stable ID keeps page-local legacy type overrides from changing this
+   shared scale. Section headings and the hidden homepage H1 keep their roles. */
+:root {
+  --itk-page-heading-family: var(--font-editorial, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  --itk-page-heading-size: clamp(50px, 6vw, 82px);
+  --itk-page-heading-weight: 700;
+  --itk-page-heading-tracking: -.05em;
+  --itk-page-heading-leading: 1.04;
+}
+@media (max-width: 800px) {
+  :root { --itk-page-heading-size: 48px; }
+}
+#main-content :is(h1, [data-hero-headline]) {
+  font-family: var(--itk-page-heading-family);
+  font-size: var(--itk-page-heading-size);
+  font-weight: var(--itk-page-heading-weight);
+  letter-spacing: var(--itk-page-heading-tracking);
+  line-height: var(--itk-page-heading-leading);
+}
+#main-content :is(h1:not(.itk-hero-accessible), [data-hero-headline]) {
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}

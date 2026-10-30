@@ -1,50 +1,92 @@
 ---
 import Base from '../../layouts/Base.astro';
 import ServiceRecordsAdvice from '../../components/ServiceRecordsAdvice.astro';
+import ServiceTypeDiagram from '../../components/ServiceTypeDiagram.astro';
+import '../../styles/service-delivery-pages.css';
 
 const services = [
-  { id: 'managed-it', title: 'Managed IT', description: 'Ongoing support, monitoring, maintenance and documentation for your business IT.', href: '/services/managed-it/' },
-  { id: 'microsoft-cloud', title: 'Microsoft 365 & Cloud', description: 'Microsoft 365 administration across user accounts, access policies, licensing and devices.', href: '/services/microsoft-cloud/' },
-  { id: 'cybersecurity', title: 'Cybersecurity', description: 'Layered identity, endpoint and network controls, with operational review and follow-up.', href: '/services/cybersecurity/' },
-  { id: 'networking', title: 'Networking & Infrastructure', description: 'Routing, switching, Wi-Fi, servers and connectivity considered as one environment.', href: '/services/networks-infrastructure/' },
-  { id: 'backup-recovery', title: 'Backup & Disaster Recovery', description: 'Backup job monitoring, restore tests and recovery planning around agreed business needs.', href: '/services/backup-recovery/' },
-  { id: 'ai-automation', title: 'AI & Automation', description: 'Explore a sample request workflow with a person reviewing the draft.', href: '/services/ai-automation/' },
-  { id: 'web-design-hosting', title: 'Web Design & Hosting', description: 'Website design, hosting, security and maintenance from launch onward.', href: '/services/web-design-hosting/' },
+  { id: 'service-desk', kind: 'support', title: 'Service Desk & IT Support', description: 'Fast remote support and onsite intervention from engineers who know your environment, within your agreed support scope.', href: '/services/managed-it/#service-desk', linkLabel: 'Explore IT support' },
+  { id: 'managed-it', kind: 'managed', title: 'Managed IT Services', description: 'ITKeepers takes day-to-day operational ownership, with proactive monitoring, maintenance, patching, documentation and follow-up.', href: '/services/managed-it/', linkLabel: 'Explore managed IT' },
+  { id: 'co-managed-it', kind: 'co-managed', title: 'Co-Managed IT Services', description: 'Your internal IT team stays in control. ITKeepers adds engineering capacity, shared visibility and specialist expertise.', href: '/contact/', linkLabel: 'Discuss co-managed IT' },
+  { id: 'professional-it', kind: 'project', title: 'Professional IT Services', description: 'Consulting and implementation for process improvement, asset planning, automation and systems optimization, including infrastructure and system changes.', href: '/contact/', linkLabel: 'Discuss a project' },
+] as const;
+// Owner-confirmed 24/7 SOC service, 30 October 2026. No help-desk hours or SLA inferred.
+const operatingModel = [
+  { id: 'resilient-by-design', title: 'Resilient by Design', description: 'Infrastructure engineered for reliability, recovery, and business continuity, including protection against avoidable operational disruptions.', icon: 'M4 5h16v5H4zM4 14h10v5H4zM7 7.5h.01M7 16.5h.01M17 16l2 2 3-4', soc: false },
+  { id: 'soc-coverage', title: '24/7 SOC Coverage', description: "Around-the-clock security monitoring, threat investigation, and escalation through ITKeepers' SOC service.", icon: 'M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6zM8 12l3 3 5-6', soc: true },
+  { id: 'intelligent-monitoring', title: 'Intelligent Monitoring & Response', description: 'Automated monitoring, early issue detection, and coordinated engineering response to keep business systems operating reliably.', icon: 'M3 4h18v14H3zM8 22h8M12 18v4M6 11h3l2-4 3 8 2-4h2', soc: false },
+  { id: 'continuous-improvement', title: 'Continuous Improvement', description: 'Ongoing system optimization, documentation, process improvements, and infrastructure refinement as business requirements evolve.', icon: 'M20 8a8 8 0 0 0-14-2L3 9M3 4v5h5M4 16a8 8 0 0 0 14 2l3-3M21 20v-5h-5M9 14l3-4 3 2', soc: false },
 ];
 ---
 <Base>
-  <section class="services-page-intro" aria-labelledby="services-page-title">
-    <p class="eyebrow">Your IT person is a team</p>
-    <h1 id="services-page-title">Business IT services</h1>
-    <p class="lead">Seven connected service areas from ITKeepers, a Lebanon-based managed service provider (MSP). Compare the scopes below and see <a class="disclosure-link" href="/how-we-work/">how our team works</a>.</p>
-  </section>
-  {services.map(({ id, title, description, href }, index) => (
-    <section class="service-overview" id={id} aria-labelledby={`${id}-title`}>
-      <span class="service-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-      <h2 id={`${id}-title`}>{title}</h2>
-      <div class="service-overview-copy">
-        <p>{description}</p>
-        <a href={href}>Explore {title}</a>
+  <div class="delivery-page services-page">
+    <section class="delivery-section delivery-hero services-page-intro" aria-labelledby="services-page-title">
+      <div class="services-intro-grid">
+        <div><p class="eyebrow">Your IT person is a team</p><h1 id="services-page-title">Business IT services</h1></div>
+        <div><p class="delivery-lead">IT support, managed and co-managed services, and project delivery from ITKeepers.</p><a class="delivery-primary" href="/contact/?type=review">Book a Free IT Consultation</a></div>
       </div>
     </section>
-  ))}
-  <ServiceRecordsAdvice />
+    <section class="delivery-section offerings-section" aria-label="IT service delivery options">
+      <div class="delivery-offerings">
+        {services.map(({ id, kind, title, description, href, linkLabel }, index) => (
+          <article class="delivery-card" id={id} aria-labelledby={`${id}-title`} data-service-offering>
+            <div class="delivery-card-header"><span class="delivery-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><ServiceTypeDiagram kind={kind} /></div>
+            <h2 id={`${id}-title`}>{title}</h2>
+            <p>{description}</p>
+            <a class="delivery-link" href={href}>{linkLabel}</a>
+          </article>
+        ))}
+      </div>
+    </section>
+    <section class="delivery-section delivery-alt services-operating-model" id="operating-model" aria-labelledby="services-process-title">
+      <header class="delivery-section-heading operating-model-heading">
+        <p class="eyebrow">THE ITKEEPERS OPERATING MODEL</p>
+        <h2 id="services-process-title">Engineered for resilience. Protected around the clock.</h2>
+        <p class="operating-model-intro">Resilient infrastructure, intelligent monitoring, and engineers who understand your environment.</p>
+      </header>
+      <div class="operating-model-grid">
+        {operatingModel.map(({ id, title, description, icon, soc }) => <article class:list={['operating-model-card', { 'operating-model-card--soc': soc }]} id={id} aria-labelledby={`${id}-title`} data-operating-model>
+          <svg class="operating-model-icon" viewBox="0 0 24 24" aria-hidden="true"><path d={icon} /></svg>
+          <h3 id={`${id}-title`}>{title}</h3>
+          <p>{description}</p>
+          {soc && <>
+            <p class="operating-model-scope">24/7 SOC coverage is separate from general IT help-desk availability.</p>
+            <a class="delivery-link" href="/services/cybersecurity/">Explore Cybersecurity</a>
+          </>}
+        </article>)}
+      </div>
+    </section>
+    <ServiceRecordsAdvice />
+  </div>
 </Base>
+
 <style>
-  .services-page-intro { padding-block: 64px 48px; }
-  .services-page-intro h1 { margin-block-end: 20px; }
-  .services-page-intro .lead { max-inline-size: 50ch; margin: 0; }
-  .service-overview { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1.2fr); gap: 32px; padding-block: 40px; border-block-start: 1px solid rgba(184, 205, 230, .3); scroll-margin-block-start: 24px; }
-  .service-number { color: var(--s); font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .service-overview h2 { font-size: clamp(28px, 3vw, 40px); line-height: 1.15; margin: 0; }
-  .service-overview-copy { min-inline-size: 0; }
-  .service-overview-copy p { margin: 0 0 16px; color: var(--text-dark-muted); max-inline-size: 55ch; }
-  .service-overview-copy a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--s); font-weight: 700; text-decoration: none; }
-  .service-overview-copy a:focus-visible { outline: 3px solid var(--s); outline-offset: 6px; }
-  @media (max-width: 700px) {
-    .services-page-intro { padding-block: 40px 32px; }
-    .service-overview { grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: 28px; }
-    .service-overview h2 { font-size: 30px; }
+  .services-operating-model .operating-model-heading { max-inline-size:980px; margin-block-end:36px; }
+  .operating-model-heading h2 { max-inline-size:28ch; margin:0 0 20px; font-size:clamp(36px,4.2vw,58px); font-weight:700; line-height:1.08; letter-spacing:-.04em; text-wrap:balance; }
+  .operating-model-heading .operating-model-intro { max-inline-size:65ch; font-size:18px; line-height:1.65; color:var(--itk-muted); }
+  .operating-model-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+  .operating-model-card { display:flex; flex-direction:column; min-inline-size:0; margin:0; padding:30px 32px; border:1px solid var(--itk-border-strong); border-radius:var(--itk-radius-lg); background:linear-gradient(145deg,var(--itk-surface-raised),var(--itk-surface)); }
+  .operating-model-icon { inline-size:32px; block-size:32px; flex:none; margin-block-end:24px; fill:none; stroke:var(--itk-cyan-sky); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .operating-model-card h3 { font-size:clamp(24px,2.1vw,29px); line-height:1.2; margin:0 0 16px; }
+  .operating-model-card > p { max-inline-size:57ch; }
+  .operating-model-card--soc { border-color:color-mix(in srgb,var(--itk-brand-cyan) 55%,transparent); border-block-start:3px solid var(--itk-brand-cyan); padding-block-start:28px; background:linear-gradient(140deg,color-mix(in srgb,var(--itk-brand-cyan) 6%,var(--itk-surface-raised)),var(--itk-surface)); }
+  .operating-model-card--soc h3 { color:var(--itk-cyan-sky); }
+  .operating-model-card .operating-model-scope { margin-block-start:20px; padding-block-start:16px; border-block-start:1px solid var(--itk-border-strong); color:var(--itk-muted); font-size:14px; line-height:1.6; }
+  .operating-model-card .delivery-link { align-self:flex-start; margin-block-start:14px; }
+  .operating-model-card:focus-within { outline:2px solid var(--itk-cyan-sky); outline-offset:3px; }
+  @media(hover:hover) and (pointer:fine) { .operating-model-card:hover { border-color:var(--itk-cyan-sky); } }
+  @media(max-width:600px) {
+    .operating-model-grid { grid-template-columns:1fr; gap:16px; }
+    .operating-model-card { padding:26px 24px; }
+    .operating-model-card--soc { padding-block-start:24px; }
+    .operating-model-heading h2 { font-size:36px; }
+    .operating-model-heading .operating-model-intro { font-size:17px; }
+    .operating-model-icon { margin-block-end:20px; }
   }
-  @media (forced-colors: active) { .service-overview { border-color: CanvasText; } }
+  @media(forced-colors:active) {
+    .operating-model-card,.operating-model-card--soc { background:Canvas; border-color:CanvasText; }
+    .operating-model-card--soc h3,.operating-model-heading .operating-model-intro,.operating-model-card .operating-model-scope { color:CanvasText; }
+    .operating-model-icon { stroke:CanvasText; }
+    .operating-model-card:focus-within { outline-color:Highlight; }
+  }
 </style>

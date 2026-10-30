@@ -8,12 +8,11 @@ import { offices } from '../data/locations';
     <p class="eyebrow">ABOUT ITKEEPERS</p>
     <h1>Your IT person is a team.</h1>
     <p class="lead">ITKeepers brings familiar engineers and shared technical expertise to the day-to-day work of <a class="disclosure-link" href="/services/managed-it/">managing business IT</a>.</p>
-    <p>You work with people who understand your environment, backed by colleagues who can contribute when a question needs deeper expertise. The relationship stays personal, while the knowledge and responsibility extend across the team.</p>
     <div class="split about-row about-offices">
       <h2>Our offices in Lebanon and the USA.</h2>
       <div>
-        <p>ITKeepers has two physical offices:</p>
-        {offices.map(office => <p><strong>{office.label}</strong><br />{office.detail}</p>)}
+        <p>With physical offices in Dbayeh, Lebanon, and Parkland, Florida, ITKeepers supports businesses across the Middle East and North Africa (MENA) and the United States.</p>
+        {offices.map(office => <p><strong>{office.label}</strong>{office.addressLines.map(line => <Fragment><br />{line}</Fragment>)}<br /><a class="disclosure-link" href={office.phone.href}>{office.phone.display}</a></p>)}
       </div>
     </div>
   </section>
@@ -21,9 +20,7 @@ import { offices } from '../data/locations';
     <div class="split about-row">
       <h2>Familiar people. Shared expertise.</h2>
       <div>
-        <p>Knowing your systems matters. So does knowing how your business uses them.</p>
-        <p>We build context around the people, applications and infrastructure that support your work. When an issue needs specialist attention, escalation happens inside the team, with the relevant context carried into the investigation.</p>
-        <p>You should not have to coordinate that handoff yourself.</p>
+        <p>Engineers share knowledge of your people, applications and infrastructure so you do not have to coordinate internal handoffs.</p>
       </div>
     </div>
   </section>
@@ -31,8 +28,8 @@ import { offices } from '../data/locations';
     <div class="split about-row">
       <h2>Proactive work, connected to follow-through.</h2>
       <div>
-        <p>Managing IT includes the work between support requests: reviewing monitoring signals, following up on open issues, maintaining systems and considering what needs attention next.</p>
-        <p><a class="disclosure-link" href="/how-we-work/">Our approach to monitoring and follow-up</a> connects that ongoing work with engineer review and practical decisions. Automated monitoring can surface issues continuously. Human coverage and response commitments depend on your service agreement.</p>
+        <p>Between support requests, engineers review monitoring signals, maintain systems and follow up on open issues.</p>
+        <p><a class="disclosure-link" href="/how-we-work/">Automated monitoring and engineer follow-up</a> have different coverage: monitoring can run continuously; human coverage and response commitments depend on your service agreement.</p>
       </div>
     </div>
   </section>
@@ -43,8 +40,7 @@ import { offices } from '../data/locations';
     <div class="split about-row">
       <h2>Knowledge that stays with the work.</h2>
       <div>
-        <p>Useful documentation helps the next conversation start with context.</p>
-        <p>We maintain records of relevant systems, configurations, changes and decisions so engineers can continue work with a clearer understanding of what came before. Shared knowledge supports internal handoffs and operational continuity as people, projects and priorities change.</p>
+        <p>We record systems, configurations, changes and decisions so engineers can pick up work with its history.</p>
       </div>
     </div>
   </section>
@@ -52,8 +48,7 @@ import { offices } from '../data/locations';
     <div class="split about-row">
       <h2>Expertise that keeps developing.</h2>
       <div>
-        <p>Technology changes, and so do the environments our clients depend on.</p>
-        <p>Our engineers continue developing through technical training, specialist courses and hands-on work. Learning stays connected to practical engineering, with knowledge shared across the team.</p>
+        <p>Engineers develop through technical training, specialist courses and hands-on work, then share that knowledge with colleagues.</p>
       </div>
     </div>
   </section>
@@ -61,15 +56,12 @@ import { offices } from '../data/locations';
     <div class="split about-row">
       <h2>A relationship that develops with your business.</h2>
       <div>
-        <p>Our approach is built around long-term relationships.</p>
-        <p>As your organization adds people, changes applications or plans its next stage of growth, IT decisions need to reflect that context. We help you consider what remains useful, what needs attention and what should change.</p>
-        <p>The aim is steady involvement: familiar people, informed advice and follow-through as your business evolves.</p>
+        <p>As your organization adds people or changes applications, we review what remains useful, what needs attention and what should change.</p>
       </div>
     </div>
   </section>
   <section class="cta about-section about-closing">
     <h2>Let’s talk about your environment.</h2>
-    <p>Explore our <a class="disclosure-link" href="/services/">business IT services</a> or tell us what you manage today and where you need support.</p>
     <a class="btn white" href="/contact/">Talk to our team</a>
   </section>
 </Base>

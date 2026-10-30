@@ -1,12 +1,12 @@
 ---
 const features = [
-  { title:'IT Health', note:'Understand the current state.', text:'The planned overview would bring identity, devices, security and licensing together, with items requiring attention. The aim is to make the environment understandable without overwhelming you with technical alerts.', detail:'An IT Health summary is a guide to review, not a certified security measurement.' },
-  { title:'Users & Identity', note:'Know who has access.', text:'The planned identity view would show users, licensed users, guest and administrative accounts, MFA registration and account status in your Microsoft 365 environment.' },
-  { title:'Devices', note:'Know what needs attention.', text:'The planned device view would show managed devices, compliance state, encryption, endpoint protection and recent check-in activity, alongside items ITKeepers is working on.' },
-  { title:'Security', note:'See your security priorities.', text:'The planned security view would bring Microsoft Secure Score, active alerts, device protection, identity security, MFA coverage and recommendations into a client-facing view.', detail:'Pulse is designed to surface security information from the underlying technologies; it does not replace them.' },
-  { title:'Microsoft Licensing', note:'Make licensing easier to review.', text:'The planned licensing view would show purchased, assigned and available licenses alongside utilization, highlighting licenses that may warrant review.' },
-  { title:'Reports', note:'From activity to evidence.', text:'Pulse is designed to centralize monthly IT overviews, security posture, device compliance, licensing and identity reports. Planned reports would show changes, open priorities and progress over time in one place.' },
-  { title:'Support', note:'Connect visibility with action.', text:'Pulse is designed to bring open requests, status, assigned engineer or team, and recently resolved requests into the same client view.' }
+  { title:'IT Health', text:'Planned overview of identity, devices, security, licensing and items requiring attention.', detail:'An IT Health summary is a guide to review, not a certified security measurement.' },
+  { title:'Users & Identity', text:'Planned Microsoft 365 view: users, licenses, guest and admin accounts, MFA registration and account status.' },
+  { title:'Devices', text:'Planned view of managed devices, compliance, encryption, endpoint protection, recent check-ins and open work.' },
+  { title:'Security', text:'Planned view of Microsoft Secure Score, alerts, device protection, identity security, MFA coverage and recommendations.', detail:'Pulse is designed to surface security information from the underlying technologies; it does not replace them.' },
+  { title:'Microsoft Licensing', text:'Planned view of purchased, assigned and available licenses, with utilization for review.' },
+  { title:'Reports', text:'Planned monthly IT, security, device, licensing and identity reports showing changes, open priorities and progress.' },
+  { title:'Support', text:'Planned view of open and resolved requests, status and assigned engineer or team.' }
 ];
 ---
-<div class="pulse-features">{features.map(({ title, note, text, detail }, index) => <section class="pulse-feature" aria-labelledby={`pulse-feature-${index}`}><span class="pulse-feature-index" aria-hidden="true">0{index + 1}</span><h3 id={`pulse-feature-${index}`}>{title}</h3><p class="pulse-feature-note">{note}</p><p>{text}</p>{detail && <p class="pulse-feature-detail">{detail}</p>}</section>)}</div>
+<div class="pulse-features">{features.map(({ title, text, detail }, index) => <section class="pulse-feature" aria-labelledby={`pulse-feature-${index}`}><span class="pulse-feature-index" aria-hidden="true">0{index + 1}</span><h3 id={`pulse-feature-${index}`}>{title}</h3><p>{text}</p>{detail && <p class="pulse-feature-detail">{detail}</p>}</section>)}</div>

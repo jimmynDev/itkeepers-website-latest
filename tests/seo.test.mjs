@@ -42,15 +42,21 @@ test('one structured-data graph per route describes only supported entities', ()
     const organization = graph.find(entity => entity['@type'] === 'Organization');
     assert.deepEqual(organization.location, [
       {
-        '@type': 'Place', name: 'ITKeepers Lebanon office',
+        '@type': 'Place', name: 'ITKeepers Lebanon office', telephone: '+961 81 816 761',
         address: { '@type': 'PostalAddress', addressLocality: 'Dbayeh', addressCountry: 'LB' },
         containedInPlace: { '@type': 'Place', name: 'Enterprise & Innovation Centre' }
       },
       {
-        '@type': 'Place', name: 'ITKeepers USA office',
-        address: { '@type': 'PostalAddress', addressLocality: 'Pompano Beach', addressRegion: 'Florida', addressCountry: 'US' }
+        '@type': 'Place', name: 'ITKeepers USA office', telephone: '+1 561 600-9940',
+        address: { '@type': 'PostalAddress', streetAddress: '6778 NW 66th Ave', addressLocality: 'Parkland', addressRegion: 'FL', postalCode: '33067', addressCountry: 'US' }
       }
     ], `Only the two company-verified offices belong in the Organization: ${path}`);
+    assert.deepEqual(organization.telephone, ['+961 81 816 761', '+1 561 600-9940']);
+    assert.deepEqual(organization.areaServed, [
+      { '@type': 'Place', name: 'Middle East and North Africa (MENA)' },
+      { '@type': 'Country', name: 'United States' }
+    ]);
+    for (const service of graph.filter(entity => entity['@type'] === 'Service')) assert.deepEqual(service.areaServed, organization.areaServed);
     const visible = decode(html);
     for (const location of organization.location) {
       assert.ok(visible.includes(location.address.addressLocality), path);

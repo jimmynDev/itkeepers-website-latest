@@ -35,7 +35,10 @@ test('documentation and hardware examples live once on Services with the origina
     assert.ok(!home.includes(`data-animation="${animation}"`));
     assert.equal((services.match(new RegExp(`data-animation="${animation}"`, 'g')) ?? []).length, 1);
   }
-  assert.ok(services.indexOf('id="service-records-advice"') > services.indexOf('id="web-design-hosting"'));
+  const deliveryTypes = ['service-desk', 'managed-it', 'co-managed-it', 'professional-it'];
+  assert.deepEqual([...services.matchAll(/<article class="delivery-card" id="([^"]+)"/g)].map(match => match[1]), deliveryTypes);
+  for (const title of ['Service Desk &amp; IT Support', 'Managed IT Services', 'Co-Managed IT Services', 'Professional IT Services']) assert.ok(services.includes(title), title);
+  assert.ok(services.indexOf('id="service-records-advice"') > services.indexOf('id="professional-it"'));
   for (const value of ['Your IT. Your data. Your control.', 'infrastructure and configuration records', 'ticket history, resolutions, changes and decisions', 'backup and recovery context', 'Agree client access, ownership, export, retention and handover arrangements', 'Client IT Record', 'Engineer handoff', 'Sample assessment']) assert.ok(services.includes(value), value);
   assert.equal((services.match(/data-assessment-outcome=/g) ?? []).length, 3);
   assert.equal((services.match(/data-knowledge-row=/g) ?? []).length, 5);
@@ -48,6 +51,17 @@ test('documentation and hardware examples live once on Services with the origina
   assert.match(records, /Honest hardware advice\./);
   assert.doesNotMatch(records, /Examples are illustrative, not a response-time guarantee or a device diagnosis\./);
   assert.doesNotMatch(records, /<button\b|<a\b|tabindex=|role="button"/);
+});
+
+test('Services separates the confirmed SOC operating model from general help-desk coverage', () => {
+  const html = read('dist/services/index.html');
+  const section = html.match(/<section[^>]+id="operating-model"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.equal((section.match(/data-operating-model(?:\s|=|>)/g) ?? []).length, 4);
+  for (const title of ['Resilient by Design', '24/7 SOC Coverage', 'Intelligent Monitoring &amp; Response', 'Continuous Improvement']) assert.ok(section.includes(title), title);
+  assert.match(section, /24\/7 SOC coverage is separate from general IT help-desk availability\./);
+  assert.match(section, /href="\/services\/cybersecurity\/"/);
+  assert.doesNotMatch(section, /Assess &amp; prioritize|Assign &amp; investigate|Document &amp; follow up/);
 });
 
 test('phishing navigation goes to the existing Cybersecurity exercise without a homepage exercise', () => {
