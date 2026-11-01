@@ -30,7 +30,7 @@ for(const file of files(out)){
   else if(relative==='_headers')assert.equal(actual.toString(),original.toString().replaceAll('\r\n','\n').replace('/*\n','/*\n  X-Robots-Tag: noindex, follow\n').replaceAll('https://itkeepers.com',policy.origin));
   else assert.deepEqual(actual,original,'RC asset/redirect changed: '+relative);
 }
-assert.equal(files(out).length,files(production).length);assert.equal(pages,20);assert.equal(forms,2);
+assert.equal(files(out).length,files(production).length);assert.equal(pages,21);assert.equal(forms,2);
 const parsed=spawnSync('python',['-c','import tomllib,json;print(json.dumps(tomllib.load(open("wrangler.rc.toml","rb"))))'],{cwd:root,encoding:'utf8'});
 assert.equal(parsed.status,0,parsed.stderr);const c=JSON.parse(parsed.stdout);
 assert.deepEqual(c,{name:policy.name,account_id:policy.accountId,main:'worker/rc.ts',compatibility_date:'2026-09-29',send_metrics:false,workers_dev:true,preview_urls:false,routes:[],vars:{STAGING_HOSTNAME:policy.hostname,CONTACT_VALIDATION_ENABLED:'false',CONTACT_DELIVERY_ENABLED:'false'},assets:{directory:'./dist-rc',binding:'ASSETS',run_worker_first:true},observability:{enabled:false}});

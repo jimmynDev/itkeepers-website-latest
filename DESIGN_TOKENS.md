@@ -210,3 +210,19 @@ Actual Chrome rendered-background minimum ratios, including 360px and 1440px def
 ## V2 footer — 13 October 2026
 
 Scoped footer uses existing --itk-bg-alt (#0A1728), --itk-muted (#8A98B2), --itk-brand-cyan (#42BAEB) and --itk-danger (#E85D5D), plus requested #B8C4D6 link/tagline/legal text. Contrast against the fixed navy surface: text10.21:1, labels6.19:1, emergency5.28:1, cyan hover/focus8.11:1. Labels12px, links14px, tagline15px and legal text12px. Container1100px maximum,24px safe-area-aware gutters;5columns above1023px,2at600–1023px,1below600px with dividers. Focus outline3px plus underline. No gradients/cards/animation/glow in this footer. Build-time current year. Existing V2 theme palette retained with night now the default and its control temporarily hidden.
+
+
+## 30 October 2026 — Sitewide typography and readability (local review)
+
+Shared typography now lives in public/visual-system-tokens.css, with primary page-title treatment in primary-headings.css and explicit prose/card/compact-UI roles in supporting-copy.css. Existing system editorial font retained. H1 fluid 38–76px/700/1.04; H2 30–48px/700/1.14; H3 22–26px/650/1.25; card H2 24–30px/700; leads 18–20px/1.65; body 16–18px/1.7; card prose 16–17px; controls 15px; labels 13px. Desktop H1s at 1024/1440/1920 are62.816/76/76px; mobile320/390 are38.88/41.26px. Paragraph gap1em, measure68ch. Compact figure labels remain separate from body prose.
+
+Primary #F3F7FF, secondary #CBD8E6, tertiary #AFC2D4, accent links #38BDF8. Light surfaces retain existing dark ink. Safe Pulse/Playbook CTA colors, stronger AI badge text/diagram initials, explicit dark Pulse percentage ink, and16px explanatory notes fix component-specific gaps. The status panel uses1.4 fixed leading for stable font fallback. Natural text wrapping handles320px text-spacing/doubled-prose stress.
+
+| Role | Value | On raised navy #111A2B | On purple #2D2155 |
+|---|---|---:|---:|
+| Primary | #F3F7FF | 16.21:1 | 13.39:1 |
+| Secondary | #CBD8E6 | 12.02:1 | 9.93:1 |
+| Tertiary | #AFC2D4 | 9.52:1 | 7.87:1 |
+| Accent links | #38BDF8 | 8.13:1 | 6.71:1 |
+
+Validation: 160 Chromium/WebKit page/viewport cases;40 full-page axe scans;3,731 rendered foreground/background samples, minimum4.53desktop/5.28mobile; active-spotlight text minimum10.33:1; gradient heading bound4.11:1 for large text. No claim of complete WCAG certification. Full audit, screenshots, roles/exceptions, source patch and logs: sibling v2-typography-readability-20261030/README.md. No commit or deployment; awaiting Jim's visual review.

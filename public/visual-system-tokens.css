@@ -16,9 +16,10 @@
   --itk-cta-bg: #329dca;
   --itk-cta-hover: #42baeb;
   --itk-cta-text: #071525;
-  --itk-text: #e8eef9;
-  --itk-muted: #9FB0C7;
-  --itk-dim: #61708a;
+  --itk-text: #F3F7FF;
+  --itk-muted: #CBD8E6;
+  --itk-dim: #AFC2D4;
+  --itk-link: #38BDF8;
   --itk-border: rgba(126,156,204,.14);
   --itk-border-strong: rgba(126,156,204,.24);
   /* Illustration surfaces share the homepage status panel's neutral navy palette. */
@@ -37,9 +38,24 @@
   --itk-section-space: 96px;
   --itk-content-gap: 32px;
   --itk-panel-space: 28px;
-  --itk-heading: clamp(30px, 4vw, 48px);
-  --itk-body: 16px;
-  --itk-label: 14px;
+  /* Shared editorial scale. Compact illustration labels keep their own geometry. */
+  --itk-h1: clamp(38px, calc(28px + 3.4vw), 76px);
+  --itk-h2: clamp(30px, calc(24px + 1.7vw), 48px);
+  --itk-h3: clamp(22px, calc(20px + .42vw), 26px);
+  --itk-card-heading: clamp(24px, calc(22px + .56vw), 30px);
+  --itk-hero-copy: clamp(18px, calc(17px + .21vw), 20px);
+  --itk-body: clamp(16px, calc(15px + .21vw), 18px);
+  --itk-card-copy: clamp(16px, calc(15px + .14vw), 17px);
+  --itk-control: 15px;
+  --itk-label: 13px;
+  --itk-heading-weight: 700;
+  --itk-subheading-weight: 650;
+  --itk-body-weight: 400;
+  --itk-body-leading: 1.7;
+  --itk-heading-leading: 1.14;
+  --itk-paragraph-gap: 1em;
+  --itk-prose-measure: 68ch;
+  --itk-heading: var(--itk-h2);
   --itk-label-tracking: .1em;
   --itk-nav-surface: rgba(13,21,37,.94);
   --itk-nav-shadow: 0 8px 24px -16px rgba(0,0,0,.5);

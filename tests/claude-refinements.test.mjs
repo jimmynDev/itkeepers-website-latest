@@ -27,7 +27,7 @@ test('homepage search and social metadata agree and animated roles are outside t
 
 test('every staging share image resolves to a real PNG whose dimensions match the metadata', () => {
   const origin = 'https://itkeepers-v2-staging.jimnassar99.workers.dev';
-  const files = htmlFiles(); assert.equal(files.length,20);
+  const files = htmlFiles(); assert.equal(files.length,21);
   for (const file of files) {
     const nodes = walk(parse(read(file).toString()));
     const meta = key => nodes.filter(n => n.tagName === 'meta' && (attr(n,'name') === key || attr(n,'property') === key)).map(n => attr(n,'content'));

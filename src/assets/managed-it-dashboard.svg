@@ -228,7 +228,7 @@
       }
 
       .mit-mini-avatar-initials {
-        fill: var(--accent);
+        fill: var(--itk-text);
         font-family: system-ui, -apple-system, sans-serif;
         font-size: 5px;
         text-anchor: middle;

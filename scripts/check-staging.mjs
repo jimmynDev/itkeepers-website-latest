@@ -35,5 +35,5 @@ for(const staged of files('dist-staging')){
 }
 const sitemap=readFileSync('dist-staging/sitemap.xml','utf8');
 assert.deepEqual([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]).sort(),urls.sort());
-assert.equal(files('dist-staging').length,files('dist').length);assert.equal(pages,20);assert.equal(forms,2);assert.equal(held,5);assert.equal(urls.length,15);
+assert.equal(files('dist-staging').length,files('dist').length);assert.equal(pages,21);assert.equal(forms,2);assert.equal(held,5);assert.equal(urls.length,16);
 console.log(JSON.stringify({pages,indexable:urls.length,held,forms,assetsAndBodyIdentical:true,canonicals:policy.origin,contact:'direct Formspree; local APIs disabled; Privacy approval pending',redirectRules:28}));

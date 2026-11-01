@@ -1,0 +1,56 @@
+---
+// Owner-confirmed service scope: V2-SOC-CYBERSECURITY-20261031.
+const capabilities = [
+  { title: 'Continuous Monitoring', icon: 'M3 12h4l3-7 4 14 3-7h4' },
+  { title: 'Threat Detection', icon: 'M12 3a9 9 0 1 0 9 9M12 7a5 5 0 1 0 5 5M12 12l8-8M16 4h4v4' },
+  { title: 'Security Investigation', icon: 'M15 15l6 6M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0M7 10h6M10 7v6' },
+  { title: 'Incident Escalation', icon: 'M12 21V3M5 10l7-7 7 7M4 21h16' },
+];
+---
+<section class="section soc-section" id="security-operations-center" aria-labelledby="soc-heading">
+  <div class="soc-header">
+    <div class="soc-copy">
+      <p class="eyebrow">SECURITY OPERATIONS CENTER</p>
+      <h2 id="soc-heading">Threats don't keep business hours. Neither does your SOC.</h2>
+      <p class="lead">24/7 security monitoring, threat investigation, and escalation through ITKeepers' SOC service.</p>
+    </div>
+    <div class="soc-coverage" role="img" aria-label="24/7 SOC">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 2 3 6v6c0 5 9 10 9 10s9-5 9-10V6l-9-4Z"/><path d="m8 12 3 3 5-6"/></svg>
+      <strong aria-hidden="true">24/7 <span>SOC</span></strong>
+    </div>
+  </div>
+  <div class="soc-capabilities">
+    {capabilities.map(({title, icon}) => <article class="soc-capability">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icon}/></svg>
+      <h3>{title}</h3>
+    </article>)}
+  </div>
+  <div class="soc-footer">
+    <p class="soc-scope">24/7 SOC coverage is separate from general IT help-desk availability. SOC services depend on your agreed scope and are not automatically included in every customer contract.</p>
+    <a class="btn" href="/contact/?type=review">Discuss 24/7 SOC coverage <span aria-hidden="true">↗</span></a>
+  </div>
+</section>
+<style>
+  .soc-section { background:var(--itk-bg-alt); border-block:1px solid var(--itk-border-strong); }
+  .soc-header { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(240px,.7fr); gap:48px; align-items:center; }
+  .soc-copy { min-inline-size:0; }
+  .soc-copy .eyebrow { color:var(--itk-link); margin:0 0 18px; }
+  .soc-copy h2 { max-inline-size:25ch; margin:0 0 24px; color:var(--itk-text); }
+  .soc-copy .lead { margin:0; color:var(--itk-muted); }
+  .soc-coverage { display:flex; flex-direction:column; align-items:center; gap:22px; padding:32px 24px; border-inline-start:1px solid var(--itk-border-strong); color:var(--itk-link); }
+  .soc-coverage > svg { inline-size:48px; block-size:48px; }
+  .soc-coverage strong { font-family:var(--font-editorial); font-size:clamp(64px,6vw,96px); font-weight:750; line-height:1; letter-spacing:-.05em; white-space:nowrap; }
+  .soc-coverage strong span { display:block; margin-block-start:14px; text-align:center; color:var(--itk-text); font-size:26px; letter-spacing:.18em; }
+  .soc-capabilities { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-block:40px 28px; }
+  .soc-capability { min-inline-size:0; padding:24px; border:1px solid var(--itk-border-strong); border-radius:var(--itk-radius-sm); background:var(--itk-surface-raised); }
+  .soc-capability svg { display:block; inline-size:28px; block-size:28px; margin-block-end:20px; color:var(--itk-link); }
+  .soc-capability h3 { margin:0; color:var(--itk-text); }
+  .soc-footer { display:flex; justify-content:space-between; gap:32px; align-items:center; }
+  #security-operations-center .soc-scope { margin:0; max-inline-size:69ch; font-size:16px; line-height:1.65; color:var(--itk-muted); }
+  .soc-footer .btn { flex:none; gap:12px; background:var(--itk-brand-cyan); color:var(--itk-cta-text); text-align:center; }
+  .soc-footer .btn:hover { background:var(--itk-cyan-sky); }
+  .soc-footer .btn:focus-visible { outline:3px solid var(--itk-text); outline-offset:5px; }
+  @media(max-width:1100px) { .soc-capabilities { grid-template-columns:repeat(2,minmax(0,1fr)); } .soc-footer { align-items:flex-start; flex-direction:column; gap:24px; } }
+  @media(max-width:700px) { .soc-header { grid-template-columns:1fr; gap:28px; } .soc-coverage { flex-direction:row; justify-content:flex-start; padding:24px 0 0; border-inline-start:0; border-block-start:1px solid var(--itk-border-strong); } .soc-coverage strong { font-size:64px; } .soc-coverage strong span { display:inline; margin:0 0 0 12px; font-size:24px; vertical-align:middle; } .soc-capabilities { margin-block-start:28px; } .soc-capability { padding:20px; } }
+  @media(max-width:480px) { .soc-capabilities { grid-template-columns:1fr; gap:12px; } .soc-capability { display:flex; align-items:center; gap:18px; } .soc-capability svg { flex:none; margin:0; } .soc-footer .btn { inline-size:100%; } }
+</style>

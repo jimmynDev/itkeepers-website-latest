@@ -13,13 +13,13 @@ const routes = files.map(file => ({
   path: file.replace(/^dist/, '').replace(/index\.html$/, ''), html: read(file)
 }));
 
-test('all twenty pages have unique metadata, canonical social URLs and one H1', () => {
-  assert.equal(routes.length, 20);
+test('all twenty-one pages have unique metadata, canonical social URLs and one H1', () => {
+  assert.equal(routes.length, 21);
   for (const tag of ['title', 'description']) {
     const values = routes.map(({ html }) => tag === 'title'
       ? html.match(/<title>(.*?)<\/title>/)[1]
       : html.match(/<meta name="description" content="([^"]+)"/)[1]);
-    assert.equal(new Set(values).size, 20, `unique ${tag}`);
+    assert.equal(new Set(values).size, 21, `unique ${tag}`);
   }
   for (const { path, html } of routes) {
     const canonical = `https://itkeepers.com${path}`;
@@ -85,7 +85,7 @@ test('sitemap contains exactly canonical indexable routes; draft Privacy remains
   const locs = [...read('dist/sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
   const indexable = routes.filter(({ html }) => !html.includes('content="noindex, follow"')).map(({ path }) => `https://itkeepers.com${path}`);
   assert.deepEqual(locs.sort(), indexable.sort());
-  assert.equal(locs.length, 19);
+  assert.equal(locs.length, 20);
   assert.match(read('dist/privacy/index.html'), /name="robots" content="noindex, follow"/);
   const robots = read('dist/robots.txt');
   assert.match(robots, /Sitemap: https:\/\/itkeepers.com\/sitemap.xml/);

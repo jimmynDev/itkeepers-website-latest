@@ -159,3 +159,9 @@ As of22October,15 approved pages permit indexing, use workers.dev canonical/soci
 ### 28 October 2026 — Local Parkland and MENA/USA update
 
 Verified GitHub checkpoint `backup/v2-rc-20261027` at `b35279b5ba4ee0baa20c8004d0260489b956b6b3`; development branch `codex/v2-parkland-mena-usa`. Office/contact and coverage changes are local, not deployed. See [exact copy, file inventory and validation](docs/V2_PARKLAND_MENA_USA_UPDATE.md). Preview: http://127.0.0.1:4512/ and the existing About/Contact routes.
+
+### 1 November 2026 isolated V2 preview release
+
+Use Node22.19+ within Node22. `node scripts/build-release.mjs` builds a separate `dist-release`; `node scripts/check-release.mjs` checks its exact noindex/hostname/asset configuration. The previous `dist-rc`, RC policy and Wrangler config remain independent. Deploy only with `node node_modules/wrangler/bin/wrangler.js deploy --config wrangler.release.toml --var RELEASE_COMMIT:<validated-full-commit-SHA> --message "ITKeepers V2 release <validated-full-commit-SHA>"`. This fixed preview config has no custom routes/domains or storage/mail bindings. Never use the default deploy script for this preview.
+
+Current Home/Contact forms submit directly to the owner-approved Formspree public form ID in src/data/formspree.ts; both server-side collection APIs intentionally stay disabled. Earlier email-handoff notes above are historical. Provider acceptance does not certify inbox delivery. Retain the existing challenge, error/retry and telephone/email fallback behavior.

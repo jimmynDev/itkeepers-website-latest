@@ -28,7 +28,7 @@ test('social artwork is a complete opaque 1200x630 PNG with readable white/cyan 
 
 test('production and staging share the same versioned PNG and complete singleton social metadata on every page',()=>{
   for(const [dir,origin]of [['dist','https://itkeepers.com'],['dist-staging','https://itkeepers-v2-staging.jimnassar99.workers.dev']]){
-    const pages=files(dir);assert.equal(pages.length,20);
+    const pages=files(dir);assert.equal(pages.length,21);
     assert.deepEqual(readFileSync(dir+imagePath),source);
     for(const file of pages){
       const nodes=walk(parse(readFileSync(file,'utf8')));

@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import WhyApproachAnimation from '../components/WhyApproachAnimation.astro';
+const differences = [
+  ['A team, not a single technician', 'Shared environment knowledge and specialist engineering support.'],
+  ['Proactive by design', 'Monitoring, maintenance, security and preventative engineering.'],
+  ['Clear ownership', 'Documented work, accountable follow-up and visibility into decisions.'],
+  ['Built around your business', 'Managed, co-managed and project-based IT services.'],
+];
+const operations = [
+  ['Monitor', 'Identify risks through monitoring and preventative checks.'],
+  ['Investigate', 'Assess signals with knowledge of your environment.'],
+  ['Coordinate', 'Connect the engineering expertise needed for the response.'],
+  ['Improve', 'Document the work and improve systems continuously.'],
+];
+const resilience = [
+  ['24/7 SOC service', 'Security monitoring, threat investigation and escalation.', '/services/cybersecurity/#security-operations-center'],
+  ['Infrastructure resilience', 'Plan and maintain the systems your business relies on.', '/services/networks-infrastructure/'],
+  ['Backup and recovery readiness', 'Connect backup monitoring with restore testing and recovery planning.', '/services/backup-recovery/'],
+  ['Preventative maintenance', 'Keep maintenance, patching and operational follow-up connected.', '/services/managed-it/'],
+];
+---
+<Base>
+  <section class="section why-page why-hero" aria-labelledby="why-title">
+    <div class="why-hero-copy">
+      <p class="eyebrow">WHY ITKEEPERS</p>
+      <h1 id="why-title">Your IT person is <em>a team.</em></h1>
+      <p class="lead">Familiar engineers, shared knowledge, and coordinated IT operations. One team responsible for understanding and supporting your environment.</p>
+      <a class="btn why-primary" href="/contact/?type=review">Book a Free IT Consultation <span aria-hidden="true">↗</span></a>
+    </div>
+    <WhyApproachAnimation />
+  </section>
+
+  <section class="section why-page why-difference" aria-labelledby="why-difference-title">
+    <div class="why-section-intro"><p class="eyebrow">THE DIFFERENCE</p><h2 id="why-difference-title">What makes ITKeepers different.</h2><p>Engineering-led IT operations, built around the environment behind each request.</p></div>
+    <div class="why-difference-rows">
+      {differences.map(([title,copy],index)=><div class="why-difference-row"><span class="why-row-number" aria-hidden="true">0{index+1}</span><div><h3>{title}</h3><p>{copy}</p></div></div>)}
+    </div>
+  </section>
+
+  <section class="section why-page why-operations" aria-labelledby="why-operations-title">
+    <div class="why-section-heading"><div><p class="eyebrow">HOW WE OPERATE</p><h2 id="why-operations-title">The work continues between tickets.</h2></div><p>Support requests are one input. Proactive operations connect monitoring, investigation and engineering follow-through, rather than treating every ticket as an isolated event.</p></div>
+    <ol class="why-operation-steps">{operations.map(([title,copy],index)=><li><span class="why-step-index" aria-hidden="true">0{index+1}</span><h3>{title}</h3><p>{copy}</p></li>)}</ol>
+    <a class="why-text-link" href="/how-we-work/">Explore how we work <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="section why-page why-security" aria-labelledby="why-security-title">
+    <div class="why-section-intro"><p class="eyebrow">SECURITY &amp; RESILIENCE</p><h2 id="why-security-title">Protection and readiness, working together.</h2><p>Security operations, resilient infrastructure and recovery planning belong in the same conversation.</p><p class="why-scope">24/7 SOC coverage is separate from general IT support availability. SOC coverage and other services depend on your agreement and are not automatically included in every contract.</p></div>
+    <div class="why-service-links">{resilience.map(([title,copy,href])=><a href={href} class="why-service-link"><div><h3>{title}</h3><p>{copy}</p></div><span aria-hidden="true">↗</span></a>)}</div>
+  </section>
+
+  <section class="section why-page why-metrics" aria-labelledby="why-metrics-title">
+    <p class="eyebrow">EXPERIENCE &amp; REACH</p><h2 id="why-metrics-title">The scale behind the relationship.</h2>
+    <dl class="why-metric-list">
+      <div><dt>Active clients</dt><dd>50+</dd></div>
+      <div><dt>Managed endpoints</dt><dd>1,500+</dd></div>
+      <div><dt>Experience</dt><dd>15+ <span>years</span></dd></div>
+      <div><dt>Presence</dt><dd class="why-presence">Lebanon <span>&amp;</span> USA</dd></div>
+    </dl>
+    <p class="why-metric-note">Experience refers to professional experience, not the age of ITKeepers as a company.</p>
+    <a class="why-text-link" href="/about/">Meet ITKeepers and explore our offices <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="section why-page why-closing" aria-labelledby="why-closing-title"><p class="eyebrow">LET'S START WITH YOUR BUSINESS</p><h2 id="why-closing-title">Let's talk about your IT environment.</h2><a class="btn why-primary" href="/contact/?type=review">Book a Free IT Consultation <span aria-hidden="true">↗</span></a></section>
+</Base>
+<style>
+  .why-page { color:var(--itk-text); }
+  :global(#main-content) > .why-page { padding-inline:max(var(--layout-gutter),calc((100% - 1320px)/2)); }
+  :global(#main-content) .why-page p { color:var(--itk-muted); }
+  :global(#main-content) .why-page .eyebrow { color:var(--itk-link); margin:0 0 20px; }
+  .why-page h2 { margin:0 0 24px; max-inline-size:22ch; }
+  .why-page h3 { margin:0 0 10px; }
+  .why-page p { margin:0; max-inline-size:64ch; }
+  .why-hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:72px; align-items:center; }
+  :global(#main-content) > .why-hero { background:radial-gradient(ellipse at 85% 20%,rgba(56,189,248,.07),transparent 58%),var(--itk-bg); }
+  .why-hero-copy { min-inline-size:0; }
+  .why-hero h1 { max-inline-size:12ch; margin:0 0 28px; }
+  .why-hero h1 em { color:var(--itk-link); font-style:normal; }
+  .why-hero .lead { margin-block-end:32px; }
+  :global(#main-content) .why-primary { display:inline-flex; align-items:center; justify-content:center; gap:18px; max-inline-size:100%; min-block-size:48px; padding:15px 22px; color:var(--itk-cta-text); background:var(--itk-brand-cyan); font-weight:650; text-align:center; }
+  :global(#main-content) .why-primary:hover { background:var(--itk-cyan-sky); }
+  .why-page a:focus-visible { outline:3px solid var(--itk-link); outline-offset:6px; }
+  :global(#main-content) > .why-difference,:global(#main-content) > .why-security { background:var(--itk-bg-alt); }
+  .why-difference,.why-security { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:80px; }
+  .why-section-intro { min-inline-size:0; }
+  .why-difference-row { display:grid; grid-template-columns:36px minmax(0,1fr); gap:20px; padding-block:26px; border-block-start:1px solid var(--itk-border-strong); }
+  .why-difference-row:last-child { border-block-end:1px solid var(--itk-border-strong); }
+  .why-row-number { padding-block-start:5px; color:var(--itk-link); font-size:13px; font-weight:650; }
+  .why-difference-row h3 { max-inline-size:27ch; }
+  .why-section-heading { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:end; }
+  .why-section-heading h2 { margin-block-end:0; }
+  .why-operation-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:32px; list-style:none; padding:0; margin:48px 0 32px; }
+  .why-operation-steps li { border-block-start:1px solid var(--itk-link); padding-block-start:22px; min-inline-size:0; }
+  .why-step-index { display:block; margin-block-end:22px; color:var(--itk-link); font-size:13px; font-weight:650; }
+  .why-text-link { display:inline-flex; align-items:center; gap:12px; min-block-size:44px; color:var(--itk-link); font-size:16px; font-weight:600; text-decoration:underline; text-underline-offset:5px; }
+  .why-text-link:hover { color:var(--itk-text); }
+  :global(#main-content) .why-security .why-scope { font-size:16px; line-height:1.7; margin-block-start:24px; }
+  .why-service-link { display:flex; align-items:center; justify-content:space-between; gap:28px; padding:24px 12px; border-block-start:1px solid var(--itk-border-strong); border-radius:0; background:transparent; }
+  .why-service-link:last-child { border-block-end:1px solid var(--itk-border-strong); }
+  .why-service-link > span { color:var(--itk-link); font-size:24px; flex:none; }
+  .why-service-link:hover,.why-service-link:focus-visible { background:radial-gradient(ellipse at 0 50%,rgba(56,189,248,.07),transparent 90%); }
+  .why-metric-list { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; margin:48px 0 28px; }
+  .why-metric-list > div { display:flex; flex-direction:column-reverse; gap:14px; align-self:start; min-inline-size:0; border-inline-start:1px solid var(--itk-border-strong); padding-inline-start:24px; }
+  .why-metric-list dt { color:var(--itk-muted); font-size:16px; line-height:1.6; }
+  .why-metric-list dd { margin:0; font-size:clamp(36px,3.4vw,52px); font-weight:700; line-height:1.2; letter-spacing:-.04em; color:var(--itk-text); }
+  .why-metric-list dd span { font-size:22px; letter-spacing:-.02em; }
+  .why-metric-list .why-presence { font-size:clamp(24px,2.3vw,34px); letter-spacing:-.03em; }
+  :global(#main-content) .why-metric-note { font-size:16px; margin-block-end:16px; }
+  :global(#main-content) > .why-closing { border-block-start:1px solid var(--itk-border-strong); background:radial-gradient(ellipse at 50% 100%,rgba(56,189,248,.08),transparent 75%),var(--itk-bg-alt); text-align:center; }
+  .why-closing h2 { max-inline-size:25ch; margin-inline:auto; margin-block-end:32px; }
+  @media(max-width:1100px) { .why-hero { gap:36px; } .why-difference,.why-security { gap:40px; } .why-section-heading { gap:40px; } .why-operation-steps { grid-template-columns:repeat(2,minmax(0,1fr)); } .why-metric-list { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:32px; } }
+  @media(max-width:800px) { .why-hero,.why-difference,.why-security,.why-section-heading { grid-template-columns:1fr; gap:36px; } .why-hero h1 { max-inline-size:14ch; } .why-section-intro h2,.why-section-heading h2 { max-inline-size:24ch; } }
+  @media(max-width:480px) { .why-difference-row { grid-template-columns:26px minmax(0,1fr); gap:12px; } .why-operation-steps { grid-template-columns:1fr; gap:28px; margin-block-start:32px; } .why-step-index { margin-block-end:12px; } .why-metric-list { gap:28px 18px; } .why-metric-list > div { padding-inline-start:12px; } .why-metric-list dd { font-size:34px; } .why-metric-list dd span { display:block; font-size:20px; } .why-metric-list .why-presence { font-size:24px; } :global(#main-content) .why-primary { inline-size:100%; } }
+  @media(forced-colors:active) { .why-difference-row,.why-service-link { border-color:CanvasText; } .why-page a:focus-visible { outline-color:Highlight; } }
+</style>

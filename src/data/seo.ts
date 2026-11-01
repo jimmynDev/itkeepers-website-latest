@@ -27,6 +27,10 @@ export const pages: Record<string, PageSEO> = {
     title: 'About ITKeepers | Familiar Engineers, Shared Expertise',
     description: 'Meet ITKeepers: familiar engineers and shared expertise, with physical offices in Dbayeh, Lebanon and Parkland, Florida, serving MENA and the United States.'
   },
+  '/why-itkeepers/': {
+    title: 'Why ITKeepers | Engineering-Led Managed IT',
+    description: 'Choose engineering-led managed IT with ITKeepers: familiar engineers, shared knowledge, proactive operations and clear ownership of your IT environment.'
+  },
   '/contact/': {
     title: 'Contact ITKeepers | Talk to Our Team',
     description: 'Contact ITKeepers for IT support or a free IT consultation across MENA and the United States. Physical offices in Dbayeh, Lebanon and Parkland, Florida.'
@@ -67,8 +71,8 @@ export const pages: Record<string, PageSEO> = {
     service: 'Microsoft 365 & Cloud'
   },
   '/services/cybersecurity/': {
-    title: 'Cybersecurity Services in Lebanon | ITKeepers',
-    description: 'Explore layered identity, endpoint and network security with ITKeepers in Lebanon. Suitable controls depend on risk, licensing, environment and agreed scope.',
+    title: 'Cybersecurity & 24/7 SOC Services in Lebanon | ITKeepers',
+    description: '24/7 SOC monitoring, threat investigation and escalation from ITKeepers in Lebanon, alongside layered cybersecurity. Coverage depends on your agreed scope.',
     service: 'Cybersecurity'
   },
   '/services/networks-infrastructure/': {

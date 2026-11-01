@@ -149,6 +149,12 @@ function assertMobile(h, index) {
 test('six ordered categories expose buttons and independently toggle one desktop panel', () => {
   assert.deepEqual(Array.from(navigation, item => item.id), categoryIds);
   assert.deepEqual(Array.from(navigation, item => item.label), ['IT Services', 'Cybersecurity', 'Cloud', 'AI & Automation', 'Web & Hosting', 'Why ITKeepers']);
+  const why = navigation.find(item => item.id === 'why');
+  assert.equal(why.href, '/why-itkeepers/');
+  assert.equal(why.groups[0].items.find(item => item.title === 'Why ITKeepers').href, '/why-itkeepers/');
+  assert.equal(why.feature.href, '/why-itkeepers/');
+  assert(why.groups[0].items.some(item => item.title === 'Our Team' && item.href === '/about/'));
+  assert(why.groups[0].items.some(item => item.title === 'How We Work' && item.href === '/how-we-work/'));
   const h = fixture(); h.mount(); assertDesktop(h, -1);
   h.categories.forEach(({ toggle }, index) => {
     assert.equal(toggle.hidden, false);

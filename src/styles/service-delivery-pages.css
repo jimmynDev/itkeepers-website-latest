@@ -6,10 +6,10 @@
 .delivery-page .delivery-hero { background:linear-gradient(130deg,var(--itk-bg-alt),var(--itk-bg) 70%); }
 .delivery-page .eyebrow { color:var(--itk-brand-cyan); font-size:12px; line-height:1.6; font-weight:700; letter-spacing:.12em; margin:0 0 20px; }
 .delivery-page h1 { color:var(--itk-text); margin:0; }
-.delivery-page h2 { font-size:clamp(30px,3.2vw,46px); font-weight:600; line-height:1.12; letter-spacing:-.035em; margin:0 0 24px; }
+.delivery-page h2 { font-size:var(--itk-h2); font-weight:var(--itk-heading-weight); line-height:var(--itk-heading-leading); letter-spacing:-.03em; margin:0 0 24px; }
 .delivery-page h3 { font-size:23px; font-weight:600; line-height:1.25; letter-spacing:-.02em; margin:0 0 12px; }
 .delivery-page p { color:var(--itk-muted); font-size:16px; line-height:1.7; margin:0; }
-.delivery-page .delivery-lead { font-size:18px; line-height:1.65; max-inline-size:54ch; }
+.delivery-page .delivery-lead { font-size:var(--itk-hero-copy); line-height:1.65; max-inline-size:54ch; }
 .delivery-page .delivery-primary { display:inline-flex; gap:12px; align-items:center; justify-content:center; min-block-size:48px; max-inline-size:100%; margin-block-start:26px; padding:14px 22px; background:var(--itk-brand-cyan); color:var(--itk-bg); border:1px solid transparent; border-radius:var(--itk-radius-sm); font-size:15px; font-weight:700; line-height:1.5; text-align:center; text-decoration:none; }
 .delivery-page .delivery-primary:hover { background:var(--itk-cyan-sky); color:var(--itk-bg); }
 .delivery-page a:focus-visible { outline:3px solid var(--itk-cyan-sky); outline-offset:5px; }
@@ -32,7 +32,7 @@
 .delivery-page .diagram-hub { fill:color-mix(in srgb,var(--itk-brand-cyan) 8%,var(--itk-bg)); stroke:var(--itk-brand-cyan); stroke-width:1.5; }
 .delivery-page .diagram-ink { fill:none; stroke:var(--itk-cyan-sky); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
 .delivery-page .diagram-point { fill:var(--itk-cyan-sky); stroke:none; }
-.delivery-page .delivery-card h2 { font-size:clamp(27px,2.3vw,34px); line-height:1.18; margin:0 0 16px; }
+.delivery-page .delivery-card h2 { font-size:var(--itk-card-heading); line-height:1.22; margin:0 0 18px; }
 .delivery-page .delivery-card > p { max-inline-size:57ch; margin-block-end:20px; }
 .delivery-page .delivery-card > .delivery-link { margin-block-start:auto; align-self:flex-start; }
 .delivery-page .delivery-section-heading { display:block; block-size:auto; padding:0; border:0; max-inline-size:760px; margin-block-end:36px; }
@@ -57,7 +57,7 @@
 .delivery-page .managed-capability p { max-inline-size:84ch; }
 .delivery-page .managed-capability .delivery-link { margin-block-start:10px; }
 .delivery-page .pulse-managed { --bg:var(--itk-bg-alt); --fg:var(--itk-text); --muted:var(--itk-muted); --accent:var(--itk-brand-cyan); --focus:var(--itk-cyan-sky); --itk-supporting-text-light:var(--itk-muted); display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); align-items:center; gap:64px; padding:72px max(var(--layout-gutter),calc((100% - var(--layout-max))/2)); background:var(--itk-bg-alt); border-block:1px solid var(--itk-border); }
-.delivery-page .pulse-managed h2 { font-size:clamp(30px,3.2vw,46px); font-weight:600; line-height:1.12; letter-spacing:-.035em; margin:0 0 24px; }
+.delivery-page .pulse-managed h2 { font-size:var(--itk-h2); font-weight:var(--itk-heading-weight); line-height:var(--itk-heading-leading); letter-spacing:-.03em; margin:0 0 24px; }
 .delivery-page .pulse-managed .pulse-reveal-copy > p:not(.eyebrow) { font-size:16px; line-height:1.7; }
 .delivery-page .pulse-managed .btn { min-block-size:44px; margin-block-start:20px; padding:0; border:0; border-radius:0; background:transparent; color:var(--itk-cyan-sky); font-size:15px; font-weight:600; text-decoration:underline; text-underline-offset:6px; }
 .delivery-page .pulse-managed .btn:hover { background:transparent; color:var(--itk-text); }
@@ -72,7 +72,7 @@
   .delivery-page .pulse-managed { padding-block:56px; }
   .delivery-page .services-intro-grid h1 { max-inline-size:20ch; }
   .delivery-page .delivery-card { padding:24px; }
-  .delivery-page .delivery-card h2 { font-size:27px; }
+
   .delivery-page .delivery-process { gap:24px; }
   .delivery-page .delivery-process h3 { font-size:21px; }
   .delivery-page .offerings-section { padding-block-start:0; }
@@ -85,8 +85,8 @@
   .delivery-page .delivery-offerings { gap:16px; }
   .delivery-page .delivery-card-header { margin-block-end:16px; }
   .delivery-page .service-type-diagram { block-size:86px; }
-  .delivery-page .delivery-card h2 { font-size:28px; }
-  .delivery-page .delivery-lead { font-size:17px; }
+
+
   .delivery-page .delivery-primary { inline-size:100%; }
   .delivery-page .offerings-section { padding-block-start:0; }
   .delivery-page .delivery-section-heading { margin-block-end:28px; }

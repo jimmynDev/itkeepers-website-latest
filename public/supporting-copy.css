@@ -1,67 +1,70 @@
-/* Readability applies only to audited descriptive/supporting paragraphs.
-   Keep --itk-muted unchanged: navigation, diagrams and indicators use it. */
+/* V2 editorial typography. Main's ID deliberately outranks legacy page-scoped
+   prose rules; compact product/diagram UI and animation states are excluded. */
 :root {
-  --itk-supporting-text: #B8C4D6;
+  --itk-supporting-text: var(--itk-muted);
   --itk-supporting-text-light: var(--itk-light-muted);
 }
-
-:root body main > .section > p:not(.eyebrow),
-:root body main > .section > .split > div > p:not(.eyebrow),
-:root body main > .section.light > .split > div > article > p,
-:root body .service-overview-copy > p,
-:root body .service-story p.service-story-intro,
-:root body .offering-detail > div > p:not(.eyebrow),
-:root body.home-page #offering-web-design-hosting p.lede,
-:root body.home-page #how-we-operate p.operate-intro,
-:root body.home-page #how-we-operate .operate-supporting article > p,
-:root body .workflow-panels article > p:not(.eyebrow),
-:root body .disclosures details > div > p,
-:root body p.disclosure-limit,
-:root body .phishing-decisions p.decision-intro,
-:root body .phishing-decisions .decision-fallback > p,
-:root body .decision-message > p:not(.decision-sender),
-:root body .phishing-decisions p[data-decision-feedback],
-:root body .decision-final > p:not(.decision-eyebrow):not(.decision-positioning),
-:root body .phishing-decisions .decision-inner > p.decision-note,
-:root body .governance-resource .resource-topics > div > p,
-:root body .governance-resource section > p,
-:root body p.inquiry-intro,
-:root body p.inquiry-help,
-:root body .contact-information .contact-emergency > p:not(.contact-card-label),
-:root body p.closing-description,
-:root body .home-closing .closing-phone > p,
-:root body main > .cta > p:not(.eyebrow),
-:root body .footer-brand > p {
-  line-height: 1.6;
-  font-weight: 400;
-  color: var(--itk-supporting-text);
+body { font-size:var(--itk-body); line-height:var(--itk-body-leading); }
+#main-content :is(h2,h3,p):not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *)) { min-inline-size:0; overflow-wrap:anywhere; }
+#main-content :is(.split,.about-row,.managed-capabilities,.service-story-copy) > * { min-inline-size:0; }
+#main-content :is(.archive-list h2 a,.proof-slide p) { max-inline-size:100%; overflow-wrap:anywhere; }
+#main-content :is(h2,h3):not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *,.technology-ecosystem *,.playbook-card *)) {
+  font-family:var(--itk-page-heading-family);
+  font-weight:var(--itk-heading-weight);
+  line-height:var(--itk-heading-leading);
+  letter-spacing:-.03em;
+  overflow-wrap:break-word;
 }
-
-/* Only these paragraphs were smaller than 16px. Existing larger prose stays larger. */
-:root body p.inquiry-help,
-:root body .home-closing .closing-phone > p,
-:root body .phishing-decisions .decision-inner > p.decision-note { font-size: 16px; }
-
-/* Actual light surfaces, rather than every section carrying a legacy .light class. */
-:root[data-hero-theme="day"] body.home-page .service-story p.service-story-intro,
-:root body .pulse-managed .pulse-reveal-copy > p:not(.eyebrow),
-:root body .pulse-shell .pulse-feature > p,
-:root body .pulse-shell p.pulse-capability-note,
-:root body .pulse-workflow > li > p {
-  line-height: 1.6;
-  font-weight: 400;
-  color: var(--itk-supporting-text-light);
+#main-content h2:not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *,.technology-ecosystem *,.playbook-card *)) { font-size:var(--itk-h2); }
+#main-content h3:not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *)) { font-size:var(--itk-h3); font-weight:var(--itk-subheading-weight); line-height:1.25; letter-spacing:-.02em; }
+#main-content :is(p,li):not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *,blockquote *, .eyebrow,[class*="eyebrow"],[class*="label"],[class*="index"],.bridge-label,.proof-quote-status)) {
+  font-size:var(--itk-body);
+  font-weight:var(--itk-body-weight);
+  line-height:var(--itk-body-leading);
 }
-
-/* The same reveal description is supporting-size prose on narrow screens. */
-@media (max-width: 600px) {
-  :root body .pulse-reveal-copy > p:not(.eyebrow) {
-    line-height: 1.6; font-weight: 400; color: var(--itk-supporting-text-light);
-  }
-  :root body.home-page #it-keepers-pulse > .pulse-reveal-copy > p:not(.eyebrow) {
-    color: var(--itk-supporting-text);
-  }
+#main-content :is(.section,.cta) > p:not(.eyebrow),
+#main-content :is(.about-row,.split) > div > p:not(.eyebrow),
+#main-content :is(.service-story-intro,.offering-detail p,.operate-supporting p,.team-copy p,.closing-description,.emergency-footnote,.emergency-call-first) {
+  color:var(--itk-supporting-text); max-inline-size:var(--itk-prose-measure);
 }
-@media (forced-colors: active) {
-  :root { --itk-supporting-text: CanvasText; --itk-supporting-text-light: CanvasText; }
+#main-content p + p:not(:where(figure *,.pulse-preview *,.business-value *,[data-animation-visual] *)) { margin-block-start:var(--itk-paragraph-gap); }
+#main-content :is(.lead,.delivery-lead,.service-story-intro,.digital-bridge .lede,.pulse-reveal-copy > p:not(.eyebrow),.operating-model-intro) {
+  font-size:var(--itk-hero-copy); line-height:1.65; font-weight:400;
+}
+#main-content .lead { color:var(--itk-supporting-text); max-inline-size:var(--itk-prose-measure); }
+#main-content .service-story-intro { max-inline-size:46ch; }
+#main-content .digital-bridge .lede { color:var(--itk-supporting-text); }
+#main-content :is(.eyebrow,[class*="eyebrow"],.operate-label,.bridge-label):not(:where(figure *,[data-animation-visual] *,.pulse-preview *,.business-value *)) {
+  font-size:var(--itk-label); font-weight:650; line-height:1.55; letter-spacing:.1em;
+}
+/* Semantic H2s in cards have a smaller display role than section headings. */
+#main-content :is(.delivery-card,.contact-card,.playbook-feature,.archive-list) h2 { font-size:var(--itk-card-heading); line-height:1.22; font-weight:700; }
+#main-content :is(.delivery-card,.operating-model-card,.managed-capability) > p { font-size:var(--itk-card-copy); color:var(--itk-supporting-text); line-height:1.7; }
+#main-content .delivery-card h2 { margin-block-end:18px; }
+#main-content .delivery-card > p { margin-block-end:24px; }
+#main-content :is(.delivery-link,.delivery-primary,.scene-link,.btn) { font-size:var(--itk-control); line-height:1.5; font-weight:650; }
+#main-content .delivery-link { color:var(--itk-link); }
+#main-content .delivery-link:hover { color:var(--itk-text); }
+#main-content :is(.delivery-scope,.operating-model-scope,.service-records-footnote,.inquiry-privacy,.inquiry-email-note,.inquiry-error,.inquiry-status) {
+  font-size:16px; line-height:1.65; color:var(--itk-supporting-text);
+}
+/* Captions explain the illustrations; they are content, rather than tiny UI. */
+#main-content p[class$="rail__note"] { font-size:16px; line-height:1.65; color:var(--itk-muted); opacity:1; }
+#main-content .pulse-preview-caption { font-size:14px; line-height:1.6; }
+#main-content .inquiry-widget { --inquiry-muted:var(--itk-muted); }
+.inquiry-field > label { font-size:15px; }
+body .site-footer .footer-brand p { font-size:16px; line-height:1.65; color:var(--itk-muted); }
+body .site-footer .footer-group a { font-size:15px; color:var(--itk-muted); }
+body .site-footer .footer-group h2,body .site-footer .footer-bottom { font-size:13px; color:var(--itk-dim); }
+body .site-footer .footer-group a:is(:hover,:focus-visible) { color:var(--itk-link); }
+body .site-footer .footer-group .footer-emergency { color:var(--itk-danger); }
+/* Existing light surfaces keep their own dark ink. Legacy .light sections on
+   navy intentionally continue using the navy prose tokens. */
+:root[data-hero-theme="day"] body.home-page :is(.service-story,.digital-service-banner) { --itk-supporting-text:var(--itk-light-muted); }
+:root[data-hero-theme="day"] :is(.about-section,.about-context-section,.pulse-page),
+:root[data-theme="light"] :is(.contact-page,.inquiry-widget) { --itk-supporting-text:var(--itk-light-muted); }
+#main-content .pulse-shell .pulse-reveal-copy > p:not(.eyebrow) { color:var(--itk-supporting-text-light); }
+#main-content .delivery-page .pulse-managed { --itk-supporting-text-light:var(--itk-muted); }
+@media(forced-colors:active) {
+  :root { --itk-text:CanvasText; --itk-muted:CanvasText; --itk-dim:CanvasText; --itk-link:LinkText; --itk-supporting-text:CanvasText; --itk-supporting-text-light:CanvasText; --itk-light-muted:CanvasText; }
 }

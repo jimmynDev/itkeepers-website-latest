@@ -103,12 +103,12 @@ body main > #it-keepers-pulse.pulse-shell {
 }
 #it-keepers-pulse .pulse-attention { border-inline-start-color:#a96907; }
 #it-keepers-pulse .btn {
-  /* Keep the white label over brand blue; cyan finishes the decorative edge. */
-  background:linear-gradient(135deg,#4071B5 0%,#4071B5 82%,#42BAEB 100%); color:#FFFFFF;
+  /* Both blue gradient stops keep the white label above 4.5:1. */
+  background:linear-gradient(135deg,#315F9E 0%,#3970AA 100%); color:#FFFFFF;
   box-shadow:0 6px 18px rgba(64,113,181,.16);
 }
 #it-keepers-pulse .btn:is(:hover,:focus-visible) {
-  background:linear-gradient(135deg,#4071B5 0%,#4071B5 82%,#42BAEB 100%); color:#FFFFFF;
+  background:linear-gradient(135deg,#315F9E 0%,#3970AA 100%); color:#FFFFFF;
   box-shadow:0 9px 22px rgba(64,113,181,.22);
 }
 #it-keepers-pulse .btn:focus-visible { outline:3px solid var(--itk-light-text); outline-offset:4px; }

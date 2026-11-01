@@ -1,0 +1,101 @@
+---
+// Adapted from the owner's itkeepers-approach-animation-demo.html, panel only.
+const branches = [
+  { path: 'M280 0 C280 24 98 13 94 93 L94 107', x: 94, title: 'Familiar engineers', detail: 'Know the context', explanation: 'Shared environment knowledge and specialist engineering support.' },
+  { path: 'M280 0 C280 32 280 73 280 107', x: 280, title: 'Shared knowledge', detail: 'Keep the history', explanation: 'We record systems, configurations, changes and decisions so engineers can pick up work with its history.' },
+  { path: 'M280 0 C280 24 462 13 466 93 L466 107', x: 466, title: 'Specialist expertise', detail: 'Support the response', explanation: 'Connect the engineering expertise needed for the response.' },
+];
+---
+<figure class="approach" data-why-approach aria-label="Connected engineering">
+  <button class="approach-pause" type="button" data-approach-pause hidden aria-label="Pause Connected Engineering animation">Pause</button>
+  <div class="environment">
+    <div class="radar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 0v2M12 22v2M0 12h2M22 12h2"/></svg></div>
+    <strong class="environment-title">Your environment</strong>
+  </div>
+  <div class="flow" aria-hidden="true">
+    <div class="flow-center"></div>
+    <svg class="paths" viewBox="0 0 560 113" preserveAspectRatio="none">
+      {branches.map(({path,x},i)=><g class="branch" data-branch={i}>
+        <path class="path-back" d={path}/><path class="path-glow" d={path}/><path class="path-front" d={path}/>
+        <circle class="path-anchor" cx={x} cy="107" r="4"/><circle class="path-anchor-dot" cx={x} cy="107" r="1.5"/>
+        <g class="signal"><circle class="flow-point" r="3.6">
+          <animateMotion path={path} dur="2.8s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.111111;0.888889;1" dur="2.8s" repeatCount="indefinite"/>
+        </circle></g>
+      </g>)}
+    </svg>
+  </div>
+  <div class="capabilities" role="group" aria-label="Three parts of the ITKeepers approach">
+    {branches.map(({title,detail,explanation},i)=><div class="capability-float">
+      <button type="button" class:list={['capability', { 'is-selected': i === 0 }]} data-capability={i} data-explanation={explanation} aria-pressed={String(i === 0)} aria-controls="why-approach-explanation" disabled><span class="number">0{i+1}</span><strong>{title}</strong><small>{detail}</small></button>
+    </div>)}
+  </div>
+  <div class="capability-context" id="why-approach-explanation" role="status" aria-live="polite" aria-atomic="true"><strong data-context-title>{branches[0].title}</strong><p data-context-copy>{branches[0].explanation}</p></div>
+</figure>
+<script>
+  import { mountWhyApproach } from '../scripts/why-approach-animation';
+  document.querySelectorAll<HTMLElement>('[data-why-approach]').forEach(mountWhyApproach);
+</script>
+
+<style>
+    .approach{border:0;background:transparent;padding:0 27px;border-radius:0;box-shadow:none;position:relative;isolation:isolate}
+    .environment{height:168px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:visible;gap:8px}
+    .radar{height:43px;width:43px;display:grid;place-items:center;position:relative;color:var(--cyan-light)}
+    .radar::before,.radar::after{content:"";position:absolute;inset:4px;border:1px solid rgba(56,189,248,.43);border-radius:50%}
+    .radar::before{animation:radar 4.8s ease-out infinite}.radar::after{inset:-3px;border-color:rgba(56,189,248,.16)}
+    .radar svg{width:22px;height:22px;filter:drop-shadow(0 0 8px rgba(48,194,255,.35))}
+    .environment .environment-title{font-size:21px;letter-spacing:-.025em;line-height:1.2;margin:0;font-weight:730;position:relative}
+    .environment p{font-size:12px;color:#bbcbda;line-height:1.2;margin:0;position:relative}
+    .flow{height:113px;width:100%;position:relative;overflow:visible;margin-top:0;margin-bottom:0}
+    /* This ellipse reaches full transparency before its bounds; no clipped glow. */
+    .flow::before{content:"";position:absolute;inset:-16px;z-index:-1;background:radial-gradient(ellipse 45% 42% at 50% 50%,rgba(56,189,248,.045),rgba(56,189,248,.015) 40%,transparent 100%);pointer-events:none}
+    .paths{display:block;width:100%;height:100%;overflow:visible}
+    .path-back{fill:none;stroke:rgba(56,189,248,.14);stroke-width:1.6}
+    .path-front{fill:none;stroke:rgba(56,189,248,.44);stroke-width:1.35;stroke-linecap:round;transition:stroke .35s,stroke-width .35s,opacity .35s}
+    .path-glow{fill:none;stroke:#38bdf8;stroke-width:5;opacity:.0;filter:blur(6px);transition:opacity .35s}
+    .branch.is-active .path-front,.branch.is-selected .path-front{stroke:#70d9ff;stroke-width:2.4}
+    .branch.is-active .path-glow,.branch.is-selected .path-glow{opacity:.36}
+    .flow-point{fill:#9beaff;filter:drop-shadow(0 0 5px #38bdf8);stroke:#b6f0ff;stroke-width:.5}
+    .path-anchor{fill:#081b30;stroke:#38bdf8;stroke-width:1.5}
+    .path-anchor-dot{fill:#8de5ff;filter:drop-shadow(0 0 3px rgba(56,189,248,.5))}
+    .flow-center{position:absolute;left:50%;top:0;width:1px;height:1px;background:var(--cyan);box-shadow:0 0 13px 5px rgba(56,189,248,.4);opacity:.45}
+    .capabilities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:4px 0 12px;gap:12px;position:relative}
+    .capability-float{min-width:0;display:flex;animation:capability-float 4.8s ease-in-out infinite;animation-play-state:paused}
+    .capability-float:nth-child(2){animation-delay:-1.2s}
+    .capability-float:nth-child(3){animation-delay:-2.4s}
+    .capability{position:relative;isolation:isolate;min-width:0;width:100%;display:flex;flex-direction:column;text-align:left;align-items:flex-start;padding:16px 12px 18px;border:1px solid rgba(56,189,248,.25);border-radius:12px;background:var(--itk-surface,#0d1525);color:var(--itk-text);font:inherit;cursor:pointer;box-shadow:0 14px 25px -15px rgba(0,0,0,.8),0 3px 8px rgba(0,0,0,.16);transition:transform .25s,border-color .25s,box-shadow .25s}
+    .capability::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(155deg,rgba(56,189,248,.065),transparent 60%);box-shadow:inset 0 1px 0 rgba(140,229,255,.10),inset 0 -3px 0 rgba(0,0,0,.22);transform-origin:50% 100%;transition:transform .25s,box-shadow .25s;pointer-events:none}
+    .capability:hover,.capability:focus-visible{transform:translateY(-3px);border-color:var(--itk-link,#38bdf8);box-shadow:0 20px 30px -15px rgba(0,0,0,.8),0 0 16px -9px rgba(56,189,248,.45)}
+    .capability:hover::before,.capability:focus-visible::before{transform:perspective(700px) rotateX(5deg);box-shadow:inset 0 1px 0 rgba(140,229,255,.28),inset 0 -4px 0 rgba(0,0,0,.3)}
+    .capability.is-selected{border-color:var(--itk-link,#38bdf8);box-shadow:0 14px 25px -15px rgba(0,0,0,.8),inset 0 2px 0 var(--itk-link,#38bdf8),0 0 18px -12px rgba(56,189,248,.5)}
+    .capability:focus-visible{outline:2px solid #b6f0ff;outline-offset:4px}
+    .capability-context{min-height:116px;padding:18px 2px 0;color:var(--itk-muted,#c4d3e2)}
+    .capability-context > strong{display:block;color:var(--itk-text,#f4f7fd);font-size:14px;line-height:1.5;font-weight:650;margin-bottom:8px}
+    .approach .capability-context p{margin:0;color:var(--itk-muted,#c4d3e2);font-size:16px;line-height:1.65;max-width:none}
+    .number{font-size:12px;color:#44c2fa;font-weight:720;margin-bottom:17px;transition:color .3s}
+    .capability strong{font-size:14px;font-weight:750;line-height:1.35;letter-spacing:-.015em;min-height:39px;display:block}
+    .capability small{color:#bacddd;font-size:12px;margin-top:8px;line-height:1.5}
+    .capability.is-selected small{color:var(--itk-text)}
+    .capability.is-active .number,.capability.is-selected .number{color:#a5edff}
+
+
+    @keyframes radar{0%{opacity:0;transform:scale(.72)}8%{opacity:.65}65%{opacity:0;transform:scale(1.6)}100%{opacity:0;transform:scale(1.6)}}
+    @keyframes capability-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .approach { --cyan:var(--itk-link,#38bdf8); --cyan-light:#8ce5ff; --white:var(--itk-text,#f4f7fd); --muted:var(--itk-muted,#c4d3e2); margin:0; width:100%; min-width:0; color:var(--white); font-family:Inter,"Segoe UI",Arial,sans-serif; }
+    .approach .environment p { margin:0; max-width:none; }
+    .signal { opacity:.22; }
+    .branch.is-active .signal,.branch.is-selected .signal { opacity:1; }
+    .flow-point { stroke-width:.5; }
+    .capability:disabled { cursor:default; opacity:1; }
+    .approach:not([data-enhanced]) .signal { display:none; }
+    .approach .radar::before { animation-play-state:paused; }
+    .approach-pause{position:absolute;inset-block-start:8px;inset-inline-end:16px;z-index:2;padding:6px 10px;min-height:32px;border:1px solid rgba(56,189,248,.25);border-radius:6px;background:var(--itk-surface,#0d1525);color:var(--itk-muted,#c4d3e2);font-family:inherit;font-size:12px;font-weight:600;line-height:1.5;cursor:pointer}
+    .approach-pause:focus-visible{outline:2px solid #b6f0ff;outline-offset:4px}
+    @media(prefers-reduced-motion:reduce),(forced-colors:active){.approach-pause{display:none}}
+    .approach[data-motion="running"] .radar::before { animation-play-state:running; }
+    .approach[data-motion="running"] .capability-float { animation-play-state:running; }
+    @media(max-width:580px){.approach{padding:0 15px}.environment{height:147px}.capabilities{gap:8px}.capability{padding:12px 8px 14px;border-radius:10px}.number{margin-bottom:14px}.capability strong{font-size:12px;min-height:50px}.capability small{font-size:11px}.capability-context{min-height:148px}.flow{height:96px}}
+    @media(prefers-reduced-motion:reduce){.approach :global(*),.radar::before,.radar::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.signal{display:none}.path-front{stroke:rgba(56,189,248,.72)}}
+    @media(forced-colors:active){.signal{display:none}.capability{border-color:ButtonText;background:Canvas;color:CanvasText}.capability.is-selected{border-color:Highlight;outline:2px solid Highlight;outline-offset:2px}.path-front{stroke:CanvasText}.capability:focus-visible{outline:3px dashed Highlight;outline-offset:4px}.flow::before,.capability::before{display:none}}
+
+</style>

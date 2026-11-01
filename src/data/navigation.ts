@@ -83,10 +83,10 @@ export const navigation: NavigationCategory[] = [
     feature: { eyebrow: 'Digital Services', title: 'Your website is business infrastructure.', description: 'From initial design through hosting, security and ongoing maintenance, with an agreed scope.', label: 'Explore Web Design & Hosting', href: '/services/web-design-hosting/' },
   },
   {
-    id: 'why', label: 'Why ITKeepers', href: '/#why-itkeepers', overview: 'Discover ITKeepers',
+    id: 'why', label: 'Why ITKeepers', href: '/why-itkeepers/', overview: 'Discover ITKeepers',
     groups: [
       { label: 'Our Approach', items: [
-        { title: 'Why ITKeepers', description: 'How our operating model is different.', href: '/#why-itkeepers' },
+        { title: 'Why ITKeepers', description: 'How our operating model is different.', href: '/why-itkeepers/' },
         { title: 'How We Work', description: 'Monitoring, escalation, documentation and follow-up.', href: '/how-we-work/' },
         { title: 'Our Team', description: 'Your IT person is a team.', href: '/about/' },
         { title: 'Technology Ecosystem', description: 'The platforms and technologies behind our operations.', href: '/#technology' },
@@ -97,6 +97,6 @@ export const navigation: NavigationCategory[] = [
         { title: 'Contact', description: 'Talk directly with our team.', href: '/contact/' },
       ] },
     ],
-    feature: { eyebrow: 'The ITKeepers Approach', title: 'Your IT person is a team.', description: "Engineers who know your environment, backed by broader technical expertise when it's needed.", label: 'Meet ITKeepers', href: '/#why-itkeepers' },
+    feature: { eyebrow: 'The ITKeepers Approach', title: 'Your IT person is a team.', description: "Engineers who know your environment, backed by broader technical expertise when it's needed.", label: 'Meet ITKeepers', href: '/why-itkeepers/' },
   },
 ];

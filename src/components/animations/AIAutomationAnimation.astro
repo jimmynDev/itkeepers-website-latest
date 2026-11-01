@@ -309,8 +309,8 @@
   --line-strong:   rgba(126, 156, 204, 0.26);
 
   --text:          #E8EEF9;
-  --muted:         #8695B0;
-  --dim:           #5D6B85;
+  --muted:         var(--itk-muted);
+  --dim:           var(--itk-dim);
   --blue:          #3B82F6;
   --blue-soft:     #60A5FA;
   --blue-text:     #8FC0FF;
@@ -692,7 +692,7 @@
 
 .animation-ai .ai-lane--manual .ai-step.is-on .ai-step__label { color: #A9B8CE; }
 
-.animation-ai .ai-lane--manual .ai-step.is-on .ai-step__badge { color: #6D7B94; }
+.animation-ai .ai-lane--manual .ai-step.is-on .ai-step__badge { color: var(--itk-dim); }
 .animation-ai .ai-lane--ai .ai-step.is-on {
   border-color: rgba(139, 92, 246, 0.30);
   background: rgba(139, 92, 246, 0.05);
@@ -804,7 +804,7 @@
   flex: none;
   font-size: 14px;
   line-height: 1;
-  color: #6D7B94;
+  color: var(--itk-dim);
   animation: offering-ai-ai-loop-spin 6s linear infinite;
   transform-origin: 50% 52%;
 }

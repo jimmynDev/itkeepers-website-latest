@@ -4,7 +4,7 @@ type Scheduler = { later: (callback: () => void, delay: number) => void };
 type Task = { callback: () => void; remaining: number; since: number; timer?: ReturnType<typeof setTimeout> };
 const mounted = new WeakMap<HTMLElement, () => void>();
 
-export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler) => Timeline, options: { loop?: boolean } = {}): () => void {
+export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler) => Timeline, options: { loop?: boolean; pauseControl?: HTMLButtonElement | null } = {}): () => void {
   const existing = mounted.get(root);
   if (existing) return existing;
   const visual = root.querySelector<HTMLElement>('[data-animation-visual]');
@@ -17,13 +17,19 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   let timeline: Timeline | undefined;
   let started = false, running = false, settled = false, disposed = false;
   let visible = false, entered = false, parked = false, entering = false, failed = false;
+  let userPaused = false;
   const present = (value: string) => {
     if (!entrance) return;
     root.dataset.animationEntrance = value;
     if (visual) visual.inert = value !== 'shown';
   };
   const activity = () => {
-    const active = (running || (settled && Boolean(timeline?.ambient))) && visible && !document.hidden && !parked && !media.matches && !failed && !disposed;
+    const active = (running || (settled && Boolean(timeline?.ambient))) && visible && !document.hidden && !parked && !userPaused && !media.matches && !failed && !disposed;
+    if (options.pauseControl) {
+      options.pauseControl.disabled = media.matches;
+      options.pauseControl.textContent = userPaused ? 'Resume' : 'Pause';
+      options.pauseControl.setAttribute('aria-label', `${userPaused ? 'Resume' : 'Pause'} Managed IT animation`);
+    }
     root.dataset.animationActive = String(active);
     root.classList.toggle('is-idle', !active);
     const animations = root.getAnimations?.({ subtree: true }) ?? [];
@@ -91,7 +97,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   const reconcile = () => {
     if (disposed || failed) return;
     if (media.matches) { finish(); activity(); return; }
-    if (!visible || document.hidden || parked) { pause(); return; }
+    if (!visible || document.hidden || parked || userPaused) { pause(); return; }
     if (settled) { activity(); return; }
     if ((!started && !entered) || running) return;
     running = true; state(entering ? 'entering' : 'running');
@@ -103,6 +109,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   };
   const pagehide = (event: PageTransitionEvent) => { if (!event.persisted) dispose(); else { parked = true; pause(); } };
   const pageshow = () => { parked = false; reconcile(); };
+  const togglePause = () => { userPaused = !userPaused; reconcile(); };
   const dispose = () => {
     if (disposed) return;
     disposed = true; running = false; cancel(); activity(); timeline?.dispose?.(); held.clear();
@@ -110,6 +117,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     document.removeEventListener('visibilitychange', reconcile); media.removeEventListener('change', reconcile);
     window.removeEventListener('pagehide', pagehide); window.removeEventListener('pageshow', pageshow);
     document.removeEventListener('astro:before-swap', dispose); mounted.delete(root);
+    options.pauseControl?.removeEventListener('click', togglePause);
   };
   mounted.set(root, dispose);
   root.dataset.animationEnhanced = 'true'; present('waiting'); state('waiting');
@@ -121,6 +129,10 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   document.addEventListener('visibilitychange', reconcile); media.addEventListener('change', reconcile);
   window.addEventListener('pagehide', pagehide); window.addEventListener('pageshow', pageshow);
   document.addEventListener('astro:before-swap', dispose);
+  if (options.pauseControl) {
+    options.pauseControl.hidden = false;
+    options.pauseControl.addEventListener('click', togglePause);
+  }
   for (const margin of ['0px', '-96px 0px']) {
     const observer = new IntersectionObserver(entries => {
       const entry = entries.find(item => item.target === root);

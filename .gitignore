@@ -26,3 +26,6 @@ structure.zip
 /V2_PHASE8_PUBLICATION_READINESS.md
 __pycache__/
 *.pyc
+
+# Isolated November V2 preview build; previous competition RC stays untouched.
+/dist-release/
