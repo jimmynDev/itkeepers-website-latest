@@ -1,0 +1,76 @@
+<figure class="cybersecurity-hero-radar animation-radar radar-hero" data-animation="cybersecurity-hero-radar">
+  <div class="radar-composition" data-animation-visual>
+    <div class="itk-radar" role="img" aria-label="Illustrative radar: a blue sweep scans protected endpoints, detects a coral threat, and contains it. This is a demonstration, not live security telemetry.">
+      <canvas aria-hidden="true"></canvas>
+      <svg class="itk-radar__rings" viewBox="0 0 500 500" aria-hidden="true" focusable="false">
+        <circle cx="250" cy="250" r="100" />
+        <circle cx="250" cy="250" r="160" class="dashed" />
+        <circle cx="250" cy="250" r="220" />
+      </svg>
+      <div class="itk-radar__device" aria-hidden="true"><span class="itk-radar__led"></span></div>
+      <div class="itk-radar__badge itk-radar__badge--dynamic" aria-hidden="true"><i class="itk-radar__dot"></i><span data-status>Threat contained</span></div>
+      <div class="itk-radar__badge itk-radar__badge--fixed" aria-hidden="true"><i class="itk-radar__dot"></i><span>Endpoint watched</span></div>
+    </div>
+  </div>
+</figure>
+<style>
+  .animation-radar { margin:0; inline-size:100%; min-inline-size:0; --radar-blue:#42BAEB; --radar-teal:#2DD4A7; --radar-threat:#FF5B77; font-family:var(--itk-page-heading-family,system-ui,sans-serif); }
+  .radar-composition { inline-size:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+    .itk-radar {
+      position: relative;
+      width: min(100%, 520px);
+      aspect-ratio: 1;
+      margin-inline: auto;
+      isolation: isolate;
+    }
+    .itk-radar::before {
+      content: ""; position: absolute; inset: 14%; border-radius: 50%; z-index: -1;
+      background: radial-gradient(circle, rgba(66,186,235,.075), transparent 68%);
+      filter: blur(24px); pointer-events: none;
+    }
+    .itk-radar canvas, .itk-radar__rings { width: 100%; height: 100%; position: absolute; inset: 0; }
+    .itk-radar canvas { display: block; }
+    .itk-radar__rings { pointer-events: none; }
+    .itk-radar__rings circle { fill: none; stroke: var(--radar-blue); stroke-width: 1; opacity: .19; }
+    .itk-radar__rings .dashed { stroke-dasharray: 4 6; }
+    .itk-radar__device {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+      width: 22%; aspect-ratio: 110 / 80; border: 1px solid rgba(66,186,235,.38);
+      border-radius: 8px; background: rgba(11,28,45,.96);
+      box-shadow: 0 0 24px rgba(66,186,235,.12);
+      display: grid; place-items: center; transition: border-color .3s, box-shadow .3s;
+    }
+    .itk-radar__device::before {
+      content: ""; position: absolute; inset: 14%; border: 1px solid rgba(66,186,235,.3); border-radius: 4px;
+    }
+    .itk-radar__led {
+      position: absolute; top: 24%; right: 23%; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--radar-teal); box-shadow: 0 0 7px rgba(45,212,167,.55);
+    }
+    .itk-radar.is-threat .itk-radar__device {
+      border-color: rgba(255,91,119,.84); box-shadow: 0 0 24px rgba(255,91,119,.2);
+    }
+    .itk-radar.is-threat .itk-radar__led { background: var(--radar-threat); box-shadow: 0 0 8px rgba(255,91,119,.7); }
+    .itk-radar__badge {
+      position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border: 1px solid #25435a; border-radius: 999px;
+      color: #c7e0ee; background: rgba(9,26,43,.94); box-shadow: 0 4px 14px #02091065;
+      font-size: clamp(10px,1.7vw,12px); white-space: nowrap;
+    }
+    .itk-radar__badge--dynamic { left: 3%; top: 37%; }
+    .itk-radar__badge--fixed { right: 4%; bottom: 16%; }
+    .itk-radar__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--radar-teal); box-shadow: 0 0 6px rgba(45,212,167,.45); }
+    .itk-radar.is-threat .itk-radar__badge--dynamic .itk-radar__dot { background: var(--radar-threat); box-shadow: 0 0 7px rgba(255,91,119,.65); }
+
+  .radar-hero .radar-composition { aspect-ratio:680/550; }
+  .radar-hero .itk-radar { width:min(66%,520px); }
+  .itk-radar__badge { font-size:12px; line-height:1.35; }
+  @media(max-width:430px) { .itk-radar__badge { padding:6px 8px; gap:5px; font-size:11px; } .itk-radar__badge--dynamic { left:0; top:25%; } .itk-radar__badge--fixed { right:0; } }
+  @media(prefers-reduced-motion:reduce) { .itk-radar__device { transition:none; } }
+  @media(forced-colors:active) { .itk-radar canvas { display:none; } .itk-radar__rings circle { stroke:CanvasText; opacity:1; } .itk-radar__device,.itk-radar__badge { background:Canvas; color:CanvasText; border-color:CanvasText; } }
+</style>
+<script>
+  import { mountAnimation } from '../../scripts/animation-lifecycle';
+  import { createRadarTimeline } from '../../scripts/cybersecurity-radar';
+  document.querySelectorAll<HTMLElement>('[data-animation="cybersecurity-hero-radar"]').forEach(root => mountAnimation(root, () => createRadarTimeline(root), { loop:true }));
+</script>

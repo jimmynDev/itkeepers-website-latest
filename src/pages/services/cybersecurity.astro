@@ -1,10 +1,12 @@
 ---
+import HomeMotionControl from '../../components/HomeMotionControl.astro';
 import Animation from '../../components/animations/CybersecurityAnimation.astro';
 import P from '../../components/ServicePage.astro';const points=[['Identity','MFA, access policy and account controls reduce avoidable exposure.'],['Endpoint','Endpoint protection and application control can add layers around user devices.'],['Network & operations','Firewall, DNS, monitoring, patching and operational follow-up work together as a maintained system.']];
 import SecurityLayers from '../../components/SecurityLayers.astro';
 import DailyChecks from '../../components/DailyChecks.astro';
 import PhishingDecisionExperience from '../../components/PhishingDecisionExperience.astro';
 import CybersecuritySOC from '../../components/CybersecuritySOC.astro';
+import CybersecurityHeroRadar from '../../components/animations/CybersecurityHeroRadar.astro';
 ---
 <style is:global>
   /* Prose only, on this route: long words and URLs may wrap without clipping.
@@ -12,5 +14,10 @@ import CybersecuritySOC from '../../components/CybersecuritySOC.astro';
   #main-content > .section > p,
   #main-content > .section > .split p,
   #main-content > .section > .disclosures p { overflow-wrap:anywhere; }
+  #main-content > .service-hero-with-visual { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.04fr); align-items:center; gap:32px; }
+  .service-hero-with-visual > * { min-inline-size:0; }
+  #main-content .service-hero-copy p:not(.eyebrow) { color:var(--itk-muted); max-inline-size:var(--itk-prose-measure); overflow-wrap:anywhere; }
+  .service-hero-visual { width:100%; max-inline-size:680px; justify-self:center; }
+  @media(max-width:980px) { #main-content > .service-hero-with-visual { grid-template-columns:1fr; gap:16px; } .service-hero-visual { max-inline-size:600px; } }
 </style>
-<P title="Cybersecurity" intro="Identity, endpoint and network controls, with engineer review of alerts, patching and follow-up." scopeHeading="How do the security layers work together?" points={points} boundary="No single stack prevents every incident. Suitable controls depend on risk, licensing, environment and agreement." cta="Discuss your security priorities"><CybersecuritySOC slot="after-hero" /><p slot="context">Pair preventive controls with <a class="disclosure-link" href="/services/backup-recovery/">recovery planning</a>. Suspect an active incident? <a class="disclosure-link" href="/emergency/">Contact our team</a>; existing and new clients can enquire, without a guarantee of availability or response time.</p><section class="section dark" id="security-layers"><h2>Security, maintained in layers.</h2><SecurityLayers /></section><section class="section dark" id="daily-checks"><h2>Daily checks, explained.</h2><DailyChecks /></section><section class="section service-page-example" id="cybersecurity-animation"><h2>Layered checks and human review</h2><Animation /></section><PhishingDecisionExperience /></P>
+<P title="Cybersecurity" intro="Identity, endpoint and network controls, with engineer review of alerts, patching and follow-up." scopeHeading="How do the security layers work together?" points={points} boundary="No single stack prevents every incident. Suitable controls depend on risk, licensing, environment and agreement." cta="Discuss your security priorities"><CybersecurityHeroRadar slot="hero-visual" /><CybersecuritySOC slot="after-hero" /><p slot="context">Pair preventive controls with <a class="disclosure-link" href="/services/backup-recovery/">recovery planning</a>. Suspect an active incident? <a class="disclosure-link" href="/emergency/">Contact our team</a>; existing and new clients can enquire, without a guarantee of availability or response time.</p><section class="section dark" id="security-layers"><h2>Security, maintained in layers.</h2><SecurityLayers /></section><section class="section dark" id="daily-checks"><h2>Daily checks, explained.</h2><DailyChecks /></section><section class="section service-page-example" id="cybersecurity-animation"><h2>Layered checks and human review</h2><Animation /></section><PhishingDecisionExperience /><HomeMotionControl slot="after-footer" /></P>

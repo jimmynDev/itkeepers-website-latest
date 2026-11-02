@@ -12,7 +12,7 @@ test('shared CSS delivery uses content-addressed bundles without changing page o
   const bundles = new Set();
   for (const file of htmlFiles()) {
     const html = readFileSync(file, 'utf8');
-    const links = [...html.matchAll(/<link rel="stylesheet" href="(\/styles\/site-([a-f0-9]{12})\.css)"/g)];
+    const links = [...html.matchAll(/<link (?:data-home-deferred )?rel="stylesheet" href="(\/styles\/site-([a-f0-9]{12})\.css)"/g)];
     assert.equal(links.length, 1, file);
     const [, path, hash] = links[0];
     const css = readFileSync(`dist${path}`, 'utf8');

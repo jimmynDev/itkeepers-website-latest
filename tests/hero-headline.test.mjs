@@ -54,3 +54,11 @@ test('offscreen, document and bfcache suspension preserve remaining dwell time',
 test('reduced motion suspends role rotation and can resume without a jump',()=>{for(const reduced of [true,false]){const h=fixture(reduced);h.mount();if(!reduced){h.tick(3000);h.media.matches=true;h.media.emit('change')}const before=h.current();h.tick(30000);assert.equal(h.current(),before);assert.equal(h.timers.size,0);h.media.matches=false;h.media.emit('change');h.tick(3350);assert.notEqual(h.current(),before);}});
 test('hover and focus remain independent, smooth temporary suspensions',()=>{const h=fixture();h.mount();h.tick(1000);h.rotator.emit('mouseenter');h.rotator.emit('focusin');h.tick(30000);h.rotator.emit('mouseleave');h.tick(30000);assert.equal(h.current(),0);h.rotator.emit('focusout');h.tick(1999);assert.equal(h.current(),0);h.tick(1);assert.equal(h.current(),1);});
 test('duplicate mount and normal exit clean all timers, frames and input listeners',()=>{const h=fixture(),dispose=h.mount();assert.equal(h.mount(),dispose);h.window.emit('pagehide',{persisted:false});assert.equal(h.timers.size+h.frames.size,0);assert.equal(h.rotator.listeners.size+h.window.listeners.size+h.document.listeners.size+h.media.listeners.size,0);});
+
+test('page pause survives focus leaving, viewport return and media changes without advancing text',()=>{
+ const h=fixture();h.mount();h.tick(1000);h.document.emit('itkeepers:motionchange',{detail:true});
+ h.rotator.emit('focusin');h.rotator.emit('focusout');h.visible(false);h.visible(true);
+ h.media.matches=true;h.media.emit('change');h.media.matches=false;h.media.emit('change');
+ h.tick(30000);assert.equal(h.current(),0);assert.equal(h.timers.size,0);
+ h.document.emit('itkeepers:motionchange',{detail:false});h.tick(1999);assert.equal(h.current(),0);h.tick(1);assert.equal(h.current(),1);
+});

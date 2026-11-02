@@ -81,6 +81,20 @@ test('November release local collection APIs and unsupported methods remain disa
   }
   assert.equal((await f.handler.fetch(request('/',{method:'PUT'}),f.env)).status,405);assert.equal(f.calls.length,0);
 });
+
+test('November RC keeps host-only one-day HSTS on generated failures without changing staging',async()=>{
+ const f=fixture();
+ for(const req of[request('/api/contact'),request('/api/contact',{method:'POST'}),request('/',{method:'PUT'}),request('/missing/')]){
+  const r=await f.handler.fetch(req,f.env);assert.equal(r.headers.get('Strict-Transport-Security'),'max-age=86400');
+ }
+ const failed=fixture(()=>{throw Error('Synthetic');});
+ const missing=fixture(()=>new Response('Synthetic missing',{status:404}));
+ assert.equal((await missing.handler.fetch(request('/missing/'),missing.env)).headers.get('Strict-Transport-Security'),'max-age=86400');
+ assert.equal((await failed.handler.fetch(request(),failed.env)).headers.get('Strict-Transport-Security'),'max-age=86400');
+ const staging=await createStagingHandler().fetch(new Request('https://stage.example.workers.dev/api/contact'),{STAGING_HOSTNAME:'stage.example.workers.dev',ASSETS:{fetch:async()=>new Response('unused')}});
+ assert.equal(staging.headers.get('Strict-Transport-Security'),null);
+ assert.equal((await f.handler.fetch(new Request('https://other.example/'),f.env)).headers.get('Strict-Transport-Security'),null);
+});
 test('November release asset errors preserve safe fallback responses and clear stale representation headers',async()=>{
   const f=fixture(()=>new Response('missing',{status:404,headers:{'Content-Length':'7','Content-Encoding':'gzip','ETag':'"missing"','Location':'/incorrect'}}));
   const r=await f.handler.fetch(request('/missing/'),f.env);assert.equal(r.status,404);assert.equal(r.headers.get('X-Robots-Tag'),'noindex, follow');

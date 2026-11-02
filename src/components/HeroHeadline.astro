@@ -50,7 +50,9 @@
   :global([data-hero-theme="day"] .home-hero) .itk-hero-title { --hero-accent-sky:var(--itk-cyan-sky-light); --hero-accent-cyan:var(--itk-cyan-light); --hero-accent-deep:var(--itk-cyan-deep-light); }
   :global([data-hero-theme="day"]) .itk-hero-rotator { filter:none; }
   @media (max-width: 480px) { :global(.home-hero) .itk-hero-title { font-size: clamp(34px, 10.6vw, 50px); } }
-  @media (prefers-reduced-motion: no-preference) { .itk-hero-title[data-enhanced] { animation: itk-hero-in 400ms cubic-bezier(.22,1,.36,1) both; } }
+  /* Start the same entrance with first-screen CSS, rather than fading already
+     painted text again when below-fold modules finish loading. */
+  @media (prefers-reduced-motion: no-preference) { :global(html[data-home-enhanced]) .itk-hero-title:not([data-headline-entered]) { animation: itk-hero-in 400ms cubic-bezier(.22,1,.36,1) both; } }
   @keyframes itk-hero-in { from { opacity: 0; } to { opacity: 1; } }
   /* The local preference attribute also makes a live preference change immediate. */
   .itk-hero-title[data-reduced] { animation: none; }

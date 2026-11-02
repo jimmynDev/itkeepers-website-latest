@@ -17,6 +17,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   let hovered = false;
   let focused = false;
   let disposed = false;
+  let pagePaused = document.documentElement?.hasAttribute('data-motion-paused') ?? false;
   let observer: IntersectionObserver | undefined;
 
   const activate = () => {
@@ -40,7 +41,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   };
   const reconcile = () => {
     if (disposed) return;
-    if (!visible || document.hidden || parked || hovered || focused || media.matches) {
+    if (!visible || document.hidden || parked || hovered || focused || pagePaused || media.matches) {
       if (timer !== undefined) {
         clearTimeout(timer); timer = undefined;
         remaining = Math.max(0, remaining - (performance.now() - since));
@@ -52,6 +53,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
       timer = setTimeout(advance, remaining);
     }
   };
+  const pageMotion = (event: Event) => { pagePaused = (event as CustomEvent<boolean>).detail; reconcile(); };
   const preference = () => { root.toggleAttribute('data-reduced', media.matches); reconcile(); };
   const enter = () => { hovered = true; reconcile(); };
   const leave = () => { hovered = false; reconcile(); };
@@ -68,7 +70,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
     clearTimeout(timer);
     if (frame !== undefined) cancelAnimationFrame(frame);
     observer?.disconnect();
-    document.removeEventListener('visibilitychange', reconcile);
+    document.removeEventListener('itkeepers:motionchange', pageMotion); document.removeEventListener('visibilitychange', reconcile);
     media.removeEventListener('change', preference);
     window.removeEventListener('pagehide', pagehide);
     window.removeEventListener('pageshow', pageshow);
@@ -88,7 +90,7 @@ export function mountHeroHeadline(root: HTMLElement): () => void {
   rotator.addEventListener('focusin', focus);
   rotator.addEventListener('focusout', blur);
   media.addEventListener('change', preference);
-  document.addEventListener('visibilitychange', reconcile);
+  document.addEventListener('itkeepers:motionchange', pageMotion); document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', pagehide);
   window.addEventListener('pageshow', pageshow);
   if ('IntersectionObserver' in window) {

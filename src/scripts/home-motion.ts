@@ -1,4 +1,4 @@
-const page = document.querySelector<HTMLElement>('.home-page');
+const page = document.querySelector<HTMLElement>('[data-spotlight]');
 const wash = page?.querySelector<HTMLElement>('.home-pointer-light');
 if (page && wash) {
   const allowed = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none)');
@@ -26,5 +26,5 @@ if (page && wash) {
   addEventListener('blur', stop);
   document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
   // Content is visible before this one-shot, transform-only entrance is enabled.
-  if (allowed.matches) page.classList.add('home-motion-ready');
+  if (allowed.matches && page.classList.contains('home-page')) page.classList.add('home-motion-ready');
 }

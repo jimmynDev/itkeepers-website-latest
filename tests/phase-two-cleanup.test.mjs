@@ -7,7 +7,8 @@ test('homepage has one exact semantic H1 with rotating phrases outside it', () =
   const headings = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
   assert.equal(headings.length, 1);
   assert.equal(headings[0][1], 'Your IT person is a team.');
-  assert.ok(html.indexOf('</h1>') < html.indexOf('data-hero-headline'));
+  // Critical CSS can mention this data selector before the document body.
+  assert.ok(html.indexOf('</h1>') < html.indexOf('data-hero-headline', html.indexOf('<body')));
   assert.match(html, /class="itk-hero-fixed"[^>]*aria-hidden="true"/);
   assert.match(html, /class="itk-hero-rotator"[^>]*aria-label="IT capabilities"[^>]*aria-live="off"/);
   assert.doesNotMatch(html, /data-hero-headline[^>]*aria-hidden="true"/);

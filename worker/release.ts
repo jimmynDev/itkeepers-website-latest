@@ -17,6 +17,10 @@ function createReleaseHandler() {
     const result = new Response(response.body, response);
     // Covers HTML, PDFs/documents, redirects, errors, HEAD, ranges and 304s.
     result.headers.set('X-Robots-Tag', 'noindex, follow');
+    // Same host-only policy as the RC asset headers, including generated errors.
+    // Keep this in the November wrapper: no staging/production policy change.
+    if (allowed && new URL(request.url).hostname === policy.hostname)
+      result.headers.set('Strict-Transport-Security', 'max-age=86400');
     if (/^[a-f0-9]{40}$/.test(env.RELEASE_COMMIT || '')) result.headers.set('X-ITKeepers-Release', env.RELEASE_COMMIT!);
     return result;
   } };

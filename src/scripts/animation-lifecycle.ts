@@ -18,13 +18,14 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   let started = false, running = false, settled = false, disposed = false;
   let visible = false, entered = false, parked = false, entering = false, failed = false;
   let userPaused = false;
+  let pagePaused = document.documentElement?.hasAttribute('data-motion-paused') ?? false;
   const present = (value: string) => {
     if (!entrance) return;
-    root.dataset.animationEntrance = value;
+    root.dataset.animationEntrance = value === 'shown' && pagePaused && !started ? 'static' : value;
     if (visual) visual.inert = value !== 'shown';
   };
   const activity = () => {
-    const active = (running || (settled && Boolean(timeline?.ambient))) && visible && !document.hidden && !parked && !userPaused && !media.matches && !failed && !disposed;
+    const active = (running || (settled && Boolean(timeline?.ambient))) && visible && !document.hidden && !parked && !userPaused && !pagePaused && !media.matches && !failed && !disposed;
     if (options.pauseControl) {
       options.pauseControl.disabled = media.matches;
       options.pauseControl.textContent = userPaused ? 'Resume' : 'Pause';
@@ -97,7 +98,11 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
   const reconcile = () => {
     if (disposed || failed) return;
     if (media.matches) { finish(); activity(); return; }
-    if (!visible || document.hidden || parked || userPaused) { pause(); return; }
+    // Pausing before an offscreen introduction starts must expose its complete
+    // static explanation, rather than leave the visual invisible and inert.
+    // Resume may restart its ambient clocks, as with reduced-motion fallback.
+    if (pagePaused && entrance && !started && !settled) { finish(); return; }
+    if (!visible || document.hidden || parked || userPaused || pagePaused) { pause(); return; }
     if (settled) { activity(); return; }
     if ((!started && !entered) || running) return;
     running = true; state(entering ? 'entering' : 'running');
@@ -107,6 +112,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
       else startSequence();
     }
   };
+  const pageMotion = (event: Event) => { pagePaused = (event as CustomEvent<boolean>).detail; reconcile(); };
   const pagehide = (event: PageTransitionEvent) => { if (!event.persisted) dispose(); else { parked = true; pause(); } };
   const pageshow = () => { parked = false; reconcile(); };
   const togglePause = () => { userPaused = !userPaused; reconcile(); };
@@ -114,7 +120,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     if (disposed) return;
     disposed = true; running = false; cancel(); activity(); timeline?.dispose?.(); held.clear();
     observers.forEach(observer => observer.disconnect());
-    document.removeEventListener('visibilitychange', reconcile); media.removeEventListener('change', reconcile);
+    document.removeEventListener('itkeepers:motionchange', pageMotion); document.removeEventListener('visibilitychange', reconcile); media.removeEventListener('change', reconcile);
     window.removeEventListener('pagehide', pagehide); window.removeEventListener('pageshow', pageshow);
     document.removeEventListener('astro:before-swap', dispose); mounted.delete(root);
     options.pauseControl?.removeEventListener('click', togglePause);
@@ -126,7 +132,7 @@ export function mountAnimation(root: HTMLElement, factory: (scheduler: Scheduler
     if (!Number.isFinite(timeline.duration) || timeline.duration < 0) throw new Error('Invalid timeline duration');
   } catch { finish(true); return dispose; }
   if (!('IntersectionObserver' in window)) { finish(); return dispose; }
-  document.addEventListener('visibilitychange', reconcile); media.addEventListener('change', reconcile);
+  document.addEventListener('itkeepers:motionchange', pageMotion); document.addEventListener('visibilitychange', reconcile); media.addEventListener('change', reconcile);
   window.addEventListener('pagehide', pagehide); window.addEventListener('pageshow', pageshow);
   document.addEventListener('astro:before-swap', dispose);
   if (options.pauseControl) {

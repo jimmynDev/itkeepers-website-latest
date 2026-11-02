@@ -29,3 +29,6 @@ __pycache__/
 
 # Isolated November V2 preview build; previous competition RC stays untouched.
 /dist-release/
+
+# Distinct November 2 preview; no generated artifacts in Git.
+/dist-isolated-release/

@@ -7,13 +7,15 @@ export function mountTechnologyMarquee(root: HTMLElement): () => void {
   const media = matchMedia('(prefers-reduced-motion: reduce), (forced-colors: active)');
   let visible = !('IntersectionObserver' in window);
   let parked = false, ready = false, requested = false, disposed = false;
+  let pagePaused = document.documentElement?.hasAttribute('data-motion-paused') ?? false;
   let observer: IntersectionObserver | undefined;
 
   const reconcile = () => {
     if (disposed) return;
     root.toggleAttribute('data-marquee-static', media.matches);
-    root.toggleAttribute('data-marquee-running', ready && visible && !document.hidden && !parked && !media.matches);
+    root.toggleAttribute('data-marquee-running', ready && visible && !document.hidden && !parked && !pagePaused && !media.matches);
   };
+  const pageMotion = (event: Event) => { pagePaused = (event as CustomEvent<boolean>).detail; reconcile(); };
   const loadLogos = () => {
     if (requested) return;
     requested = true;
@@ -38,7 +40,7 @@ export function mountTechnologyMarquee(root: HTMLElement): () => void {
     disposed = true;
     observer?.disconnect();
     media.removeEventListener('change', reconcile);
-    document.removeEventListener('visibilitychange', reconcile);
+    document.removeEventListener('itkeepers:motionchange', pageMotion); document.removeEventListener('visibilitychange', reconcile);
     window.removeEventListener('pagehide', onHide);
     window.removeEventListener('pageshow', onShow);
     document.removeEventListener('astro:before-swap', dispose);
@@ -48,7 +50,7 @@ export function mountTechnologyMarquee(root: HTMLElement): () => void {
   mounted.set(root, dispose);
   root.setAttribute('data-marquee-enhanced', '');
   media.addEventListener('change', reconcile);
-  document.addEventListener('visibilitychange', reconcile);
+  document.addEventListener('itkeepers:motionchange', pageMotion); document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', onHide);
   window.addEventListener('pageshow', onShow);
   document.addEventListener('astro:before-swap', dispose);

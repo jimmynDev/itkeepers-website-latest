@@ -9,14 +9,16 @@ export function mountHeroStatusMotion(root: HTMLElement): () => void {
   const media = window.matchMedia('(prefers-reduced-motion: reduce), (forced-colors: active)');
   let visible = !('IntersectionObserver' in window);
   let parked = false, disposed = false;
+  let pagePaused = document.documentElement?.hasAttribute('data-motion-paused') ?? false;
   let observer: IntersectionObserver | undefined;
 
   const reconcile = () => {
     if (disposed) return;
     root.toggleAttribute('data-status-static', media.matches);
     if (media.matches) root.setAttribute('data-status-entered', '');
-    root.toggleAttribute('data-status-running', visible && !document.hidden && !parked && !media.matches);
+    root.toggleAttribute('data-status-running', visible && !document.hidden && !parked && !pagePaused && !media.matches);
   };
+  const pageMotion = (event: Event) => { pagePaused = (event as CustomEvent<boolean>).detail; reconcile(); };
   const entered = (event: AnimationEvent) => {
     if (event.target === lastRow && event.animationName.startsWith('rise')) root.setAttribute('data-status-entered', '');
   };
@@ -31,7 +33,7 @@ export function mountHeroStatusMotion(root: HTMLElement): () => void {
     observer?.disconnect();
     root.removeEventListener('animationend', entered);
     media.removeEventListener('change', reconcile);
-    document.removeEventListener('visibilitychange', reconcile);
+    document.removeEventListener('itkeepers:motionchange', pageMotion); document.removeEventListener('visibilitychange', reconcile);
     window.removeEventListener('pagehide', onHide);
     window.removeEventListener('pageshow', onShow);
     document.removeEventListener('astro:before-swap', dispose);
@@ -42,7 +44,7 @@ export function mountHeroStatusMotion(root: HTMLElement): () => void {
   root.setAttribute('data-status-enhanced', '');
   root.addEventListener('animationend', entered);
   media.addEventListener('change', reconcile);
-  document.addEventListener('visibilitychange', reconcile);
+  document.addEventListener('itkeepers:motionchange', pageMotion); document.addEventListener('visibilitychange', reconcile);
   window.addEventListener('pagehide', onHide);
   window.addEventListener('pageshow', onShow);
   document.addEventListener('astro:before-swap', dispose);

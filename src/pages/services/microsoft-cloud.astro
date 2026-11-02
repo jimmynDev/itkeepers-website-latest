@@ -1,5 +1,15 @@
 ---
+import CloudHeroAnimation from '../../components/animations/CloudHeroAnimation.astro';
+import HomeMotionControl from '../../components/HomeMotionControl.astro';
 import Animation from '../../components/animations/MicrosoftCloudAnimation.astro';
 import P from '../../components/ServicePage.astro';const points=[['Microsoft 365','User accounts, licensing and joining or leaving the organization.'],['Identity & access','Entra ID, MFA and Conditional Access can be managed around the environment and licenses in use.'],['Device management','Intune can support policy and role-based application deployment where appropriate.']];
 ---
-<P title="Microsoft 365 & Cloud" intro="Microsoft 365 administration for user accounts, licenses, Entra ID access controls and Intune device policies." scopeHeading="What does Microsoft administration involve?" points={points} boundary="Available controls and onboarding paths depend on licensing, current configuration and agreed scope." cta="Discuss your Microsoft environment"><p slot="context">Employee onboarding and offboarding connects <a class="disclosure-link" href="/services/cybersecurity/">identity and endpoint security</a> with agreed <a class="disclosure-link" href="/services/backup-recovery/">backup and recovery requirements</a>.</p><section class="section service-page-example"><h2>Joining and leaving a Microsoft environment</h2><Animation /></section></P>
+<P title="Microsoft 365 & Cloud" intro="Microsoft 365 administration for user accounts, licenses, Entra ID access controls and Intune device policies." scopeHeading="What does Microsoft administration involve?" points={points} boundary="Available controls and onboarding paths depend on licensing, current configuration and agreed scope." cta="Discuss your Microsoft environment"><CloudHeroAnimation slot="hero-visual" /><p slot="context">Employee onboarding and offboarding connects <a class="disclosure-link" href="/services/cybersecurity/">identity and endpoint security</a> with agreed <a class="disclosure-link" href="/services/backup-recovery/">backup and recovery requirements</a>.</p><section class="section service-page-example"><h2>Joining and leaving a Microsoft environment</h2><Animation /></section><HomeMotionControl slot="after-footer" /></P>
+
+<style is:global>
+  #main-content > .service-hero-with-visual { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.04fr); align-items:center; gap:32px; }
+  .service-hero-with-visual > * { min-inline-size:0; }
+  #main-content .service-hero-copy p:not(.eyebrow) { color:var(--itk-muted); max-inline-size:var(--itk-prose-measure); overflow-wrap:anywhere; }
+  .service-hero-visual { width:100%; max-inline-size:680px; justify-self:center; }
+  @media(max-width:980px) { #main-content > .service-hero-with-visual { grid-template-columns:1fr; gap:16px; } .service-hero-visual { max-inline-size:600px; } }
+</style>

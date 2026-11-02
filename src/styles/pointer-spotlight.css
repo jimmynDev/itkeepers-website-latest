@@ -1,0 +1,23 @@
+/* Reuse the exact 1000px Home radial light from public/style.css. */
+:root {
+  --itk-spotlight-home: 1;
+  --itk-spotlight-medium: .72;
+  --itk-spotlight-low: .32;
+  --itk-spotlight-subtle: .18;
+}
+body[data-spotlight="home"] { --itk-spotlight-intensity:var(--itk-spotlight-home); }
+body[data-spotlight="medium"] { --itk-spotlight-intensity:var(--itk-spotlight-medium); }
+body[data-spotlight="low"] { --itk-spotlight-intensity:var(--itk-spotlight-low); }
+body[data-spotlight="subtle"] { --itk-spotlight-intensity:var(--itk-spotlight-subtle); }
+.home-pointer-layer { opacity:var(--itk-spotlight-intensity,1); }
+
+/* Home keeps its existing compositing and intensity. Inner pages need the light
+   above their opaque section surfaces, with foreground groups above the light.
+   No section-local light, geometry reads, background changes, or clipping. */
+body[data-spotlight]:not(.home-page) { isolation:isolate; }
+body[data-spotlight]:not(.home-page) .home-pointer-layer { z-index:1; }
+body[data-spotlight]:not(.home-page) #main-content { position:relative; z-index:auto; }
+body[data-spotlight]:not(.home-page) #main-content > section > :not(style,script),
+body[data-spotlight]:not(.home-page) #main-content > .delivery-page > section > :not(style,script),
+body[data-spotlight]:not(.home-page) .site-footer > * { position:relative; z-index:2; }
+body[data-spotlight]:not(.home-page) .home-pointer-light { transition:opacity 220ms ease-out; }

@@ -8,7 +8,10 @@ import { sharedStyles } from '../data/shared-styles';
 import { offices } from '../data/locations';
 import logo192 from '../assets/itkeepers-logo-192.webp?url';
 import logo384 from '../assets/itkeepers-logo-384.webp?url';
+import PointerSpotlight from '../components/PointerSpotlight.astro';
+import { spotlightProfile } from '../data/spotlight';
 const path = canonicalPath(Astro.url.pathname);
+const lighting = spotlightProfile(path);
 const page = pages[path];
 if (!page) throw new Error(`Missing SEO metadata for ${path}`);
 const { title, description } = page;
@@ -52,7 +55,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
 
     <link rel="stylesheet" href={Astro.url.pathname === '/' ? sharedStyles.home.href : sharedStyles.inner.href} />
   </head>
-  <body class={Astro.url.pathname === '/' ? 'home-page' : undefined}>
+  <body class={Astro.url.pathname === '/' ? 'home-page' : undefined} data-spotlight={lighting}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     {Astro.url.pathname === '/' && <svg class="logo-theme-defs" aria-hidden="true" width="0" height="0"><defs><filter id="itkeepers-logo-day" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.043137 0 0 0 0 -0.827451 1 0 0 0 -0.627451 0 1 0 0 0 0 0 1 0" /></filter></defs></svg>}
     <div class="header-region">
@@ -66,7 +69,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
       <PrimaryNavigation mobile />
     </header>
     </div>
-    {Astro.url.pathname === '/' && <div class="home-pointer-layer" aria-hidden="true"><div class="home-pointer-light"></div></div>}
+    {lighting && <PointerSpotlight />}
     <main id="main-content" tabindex="-1"><slot /></main>
     <footer class="site-footer">
       <div class="footer-inner">
@@ -122,6 +125,7 @@ const schemaJson = JSON.stringify(schema).replace(/</g, '\\u003c');
         </div>
       </div>
     </footer>
+    <slot name="after-footer" />
     <script>
       import { mountHeroTheme } from '../scripts/hero-theme';
       mountHeroTheme();

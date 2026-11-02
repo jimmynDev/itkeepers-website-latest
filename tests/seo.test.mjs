@@ -111,7 +111,12 @@ test('service breadcrumbs describe the real Home, Services and current-page hier
 
 test('all verified legacy rules are permanent, exact, loop-free and point directly to indexable pages', () => {
   const rules = read('dist/_redirects').split(/\r?\n/).filter(line => line.trim() && !line.startsWith('#')).map(line => line.split(/\s+/));
-  assert.equal(rules.length, 28);
+  const cloudAliases = new Set(['/services/cloud', '/services/cloud/']);
+  assert.equal(rules.filter(([source]) => !cloudAliases.has(source)).length, 28, 'preserve all original legacy rules');
+  assert.deepEqual(rules.filter(([source]) => cloudAliases.has(source)), [
+    ['/services/cloud', '/services/microsoft-cloud/', '301'],
+    ['/services/cloud/', '/services/microsoft-cloud/', '301']
+  ], 'owner-approved Cloud aliases preserve the existing canonical route');
   const sources = rules.map(([source]) => source);
   assert.equal(new Set(sources).size, sources.length);
   for (const [source, destination, status] of rules) {

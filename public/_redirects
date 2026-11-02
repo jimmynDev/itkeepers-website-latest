@@ -28,3 +28,5 @@
 /server-management/ /services/networks-infrastructure/ 301
 /contact-us /contact/ 301
 /contact-us/ /contact/ 301
+/services/cloud /services/microsoft-cloud/ 301
+/services/cloud/ /services/microsoft-cloud/ 301

@@ -20,6 +20,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
     let hovered = root.matches(':hover');
     let focused = root.contains(document.activeElement);
     let manuallyPaused = false, pageHidden = false, disposed = false;
+    let pagePaused = document.documentElement?.hasAttribute('data-motion-paused') ?? false;
     let automaticFade = false;
     let visible = !('IntersectionObserver' in window);
     let remaining = rotationDelay, since = 0;
@@ -37,7 +38,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
       clearAuto(preserve);
       if (automaticFade) { clearFade(); desired = current; }
     };
-    const paused = () => !visible || manuallyPaused || hovered || focused || document.hidden || pageHidden || reduced.matches;
+    const paused = () => !visible || manuallyPaused || hovered || focused || document.hidden || pageHidden || pagePaused || reduced.matches;
     const schedule = () => {
       clearAuto(true);
       if (!disposed && !paused()) { since = performance.now(); autoTimer = setTimeout(() => { autoTimer = undefined; remaining = rotationDelay; go((current + 1) % slides.length, false); }, remaining); }
@@ -88,6 +89,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
       rotation.setAttribute('aria-pressed', String(manuallyPaused || reduced.matches));
       if (icon) icon.textContent = manuallyPaused || reduced.matches ? '▶' : 'Ⅱ';
     };
+    const pageMotion = (event: Event) => { pagePaused = (event as CustomEvent<boolean>).detail; pauseAutomatic(true); schedule(); };
     const onRotation = () => { manuallyPaused = !manuallyPaused; if (manuallyPaused) pauseAutomatic(); updateRotation(); schedule(); };
     const onEnter = () => { hovered = true; pauseAutomatic(); };
     const onLeave = () => { hovered = false; schedule(); };
@@ -104,7 +106,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
     root.addEventListener('focusin', onFocus); root.addEventListener('focusout', onBlur);
     previous.addEventListener('click', onPrevious); next.addEventListener('click', onNext);
     rotation?.addEventListener('click', onRotation); dots.forEach(dot => dot.addEventListener('click', onDot));
-    document.addEventListener('visibilitychange', onVisibility);
+    document.addEventListener('itkeepers:motionchange', pageMotion); document.addEventListener('visibilitychange', onVisibility);
     window.addEventListener('pagehide', onPageHide); window.addEventListener('pageshow', onPageShow);
     reduced.addEventListener('change', onReduced);
     const dispose = () => {
@@ -113,7 +115,7 @@ export function initializeClientProofCarousel(scope: ParentNode) {
       root.removeEventListener('focusin', onFocus); root.removeEventListener('focusout', onBlur);
       previous.removeEventListener('click', onPrevious); next.removeEventListener('click', onNext);
       rotation?.removeEventListener('click', onRotation); dots.forEach(dot => dot.removeEventListener('click', onDot));
-      document.removeEventListener('visibilitychange', onVisibility);
+      document.removeEventListener('itkeepers:motionchange', pageMotion); document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('pagehide', onPageHide); window.removeEventListener('pageshow', onPageShow);
       reduced.removeEventListener('change', onReduced);
       document.removeEventListener('astro:before-swap', dispose);

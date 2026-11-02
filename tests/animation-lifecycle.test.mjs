@@ -106,6 +106,30 @@ test('loop pause control survives long runs, re-entry and preference changes wit
 });
 test('initial and live reduced motion expose complete information, then resume only ambient motion',()=>{for(const reduced of [true,false]){const h=harness({reduced}),events=[];h.mount(()=>({duration:1000,ambient:true,play(){events.push('play')},settle(){events.push('settle')}}));h.visible();if(!reduced){h.tick(200);h.media.matches=true;h.media.emit('change')}assert.equal(h.root.dataset.animationActive,'false');assert.equal(h.root.dataset.animationState,'settled');assert.equal(h.timers.size,0);h.media.matches=false;h.media.emit('change');h.tick(30000);assert.equal(h.root.dataset.animationActive,'true');assert.equal(events.filter(x=>x==='settle').length,1);assert.equal(events.filter(x=>x==='play').length,reduced?0:1);}});
 test('CSS and SMIL clocks pause offscreen and resume the same animation identity',()=>{const h=harness();let clock={playState:'running',pause(){this.playState='paused'},play(){this.playState='running'}},paused=false;h.root.getAnimations=()=>[clock];h.root.querySelectorAll=()=>[{pauseAnimations(){paused=true},unpauseAnimations(){paused=false}}];h.mount(()=>({duration:0,ambient:true,play(){},settle(){}}));h.visible();assert.equal(clock.playState,'running');assert.equal(paused,false);h.leave();assert.equal(clock.playState,'paused');assert.equal(paused,true);h.visible();assert.equal(clock.playState,'running');assert.equal(paused,false);});
+
+test('page pause gates canvas activity, CSS and SMIL across media/visibility changes without overriding local pause',()=>{
+ const h=harness(),activity=[];
+ let svgPaused=true,plays=0;
+ const clock={playState:'running',pause(){this.playState='paused'},play(){this.playState='running'}};
+ h.root.getAnimations=()=>[clock];h.root.querySelectorAll=()=>[{pauseAnimations(){svgPaused=true},unpauseAnimations(){svgPaused=false}}];
+ const control=target({setAttribute(){}});
+ h.mount(()=>({duration:0,ambient:true,play(){plays++},settle(){},activity(active){activity.push(active)}}),{loop:true,pauseControl:control});
+ h.visible();assert.equal(activity.at(-1),true);assert.equal(svgPaused,false);
+ h.document.emit('itkeepers:motionchange',{detail:true});assert.equal(activity.at(-1),false);assert.equal(clock.playState,'paused');assert.equal(svgPaused,true);
+ h.leave();h.visible();h.media.matches=true;h.media.emit('change');h.media.matches=false;h.media.emit('change');h.tick(60000);
+ assert.equal(activity.at(-1),false);assert.equal(clock.playState,'paused');assert.equal(svgPaused,true);
+ control.emit('click');h.document.emit('itkeepers:motionchange',{detail:false});assert.equal(activity.at(-1),false,'global resume preserves local pause');
+ control.emit('click');assert.equal(activity.at(-1),true);assert.equal(clock.playState,'running');assert.equal(svgPaused,false);assert.equal(plays,1);
+});
+
+test('page pause before an offscreen introduction exposes static information and resumes ambient clocks without replay',()=>{
+ const h=harness({entrance:true}),events=[];
+ h.mount(()=>({duration:1000,ambient:true,play(){events.push('play')},settle(){events.push('settle')},activity(active){events.push(active)}}));
+ h.document.emit('itkeepers:motionchange',{detail:true});
+ assert.equal(h.root.dataset.animationEntrance,'static');assert.equal(h.visual.inert,false);assert.equal(h.root.dataset.animationActive,'false');
+ h.visible();h.tick(60000);assert.equal(h.timers.size,0);assert.equal(events.filter(e=>e==='settle').length,1);assert(!events.includes('play'));
+ h.document.emit('itkeepers:motionchange',{detail:false});assert.equal(h.root.dataset.animationActive,'true');assert(!events.includes('play'));
+});
 test('idempotent mount and disposal remove timers, observers, listeners and renderer exactly once',()=>{const h=harness(),events=[];let disposed=0;const factory=()=>({duration:30000,ambient:true,play(){events.push('play')},settle(){events.push('settle')},dispose(){disposed++}});const stop=h.mount(factory);assert.equal(h.mount(factory),stop);h.visible();h.tick(200);stop();stop();h.tick(60000);assert.equal(disposed,1);assert.deepEqual(events,['play']);assert.equal(h.timers.size,0);assert.equal(h.window.listenerCount()+h.document.listenerCount()+h.media.listenerCount(),0);});
 test('missing observer and factory failures reveal readable fallback immediately',()=>{const h=harness({observerAvailable:false,entrance:true}),events=[];sequence(h,events);assert.deepEqual(events,['settle']);assert.equal(h.visual.inert,false);assert.equal(h.timers.size,0);const bad=harness({entrance:true});bad.visual.setAttribute('data-phase','settled');bad.mount(()=>{bad.visual.innerHTML='partial';bad.visual.setAttribute('data-phase','play');throw Error('canvas unavailable')});assert.equal(bad.visual.innerHTML,'<p>Readable static example</p>');assert.equal(bad.visual.getAttribute('data-phase'),'settled');assert.equal(bad.root.dataset.animationEnhanced,undefined);assert.equal(bad.visual.inert,false);});
 test('invalid durations and failing scheduled callbacks retain a static fallback',()=>{for(const value of [-1,Infinity,NaN]){const h=harness();h.mount(()=>({duration:value,play(){},settle(){}}));assert.equal(h.root.dataset.animationEnhanced,undefined);assert.equal(h.timers.size,0);}const h=harness();h.mount(({later})=>({duration:10000,play(){later(()=>{throw Error('bad phase')},100)},settle(){}}));h.visible();h.tick(30000);assert.equal(h.timers.size,0);assert.equal(h.root.dataset.animationActive,'false');assert.equal(h.visual.innerHTML,'<p>Readable static example</p>');});

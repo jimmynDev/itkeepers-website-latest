@@ -17,10 +17,10 @@ function eventTarget() {
     emit(name, event = {}) { for (const callback of callbacks.get(name) ?? []) callback(event); }
   };
 }
-function fixture({ matches = true, hasPage = true, hasWash = true } = {}) {
+function fixture({ matches = true, hasPage = true, hasWash = true, home = true } = {}) {
   const wash = { style: {}, dataset: {} };
   const classes = new Set();
-  const page = { ...eventTarget(), classList: { add: name => classes.add(name) }, querySelector: () => hasWash ? wash : null };
+  const page = { ...eventTarget(), classList: { add: name => classes.add(name), contains: name => name === 'home-page' && home }, querySelector: () => hasWash ? wash : null };
   const media = { ...eventTarget(), matches };
   const document = { ...eventTarget(), hidden: false, querySelector: () => hasPage ? page : null };
   const window = eventTarget();
@@ -117,6 +117,18 @@ test('missing Home root or light returns without media initialization', () => {
     assert.equal(flow.mediaQueries(), 0); assert.equal(flow.frames.size, 0);
     assert.equal(flow.classes.size, 0);
   }
+});
+
+test('inner pages reuse the same pointer batching without starting the Home entrance', () => {
+  const flow = fixture({home:false});
+  assert.equal(flow.classes.size,0);
+  for(let i=0;i<100;i++)flow.move(i*10,400);
+  assert.equal(flow.frames.size,1);
+  flow.flush();
+  assert.equal(flow.wash.style.transform,'translate3d(490px, -100px, 0)');
+  assert.equal(flow.wash.style.opacity,'1');
+  flow.page.emit('keydown',{key:'Tab'});flow.flush();
+  assert.equal(flow.wash.style.opacity,'0');
 });
 
 test('initial HTML contains the Home explanations without a script-added motion class', () => {

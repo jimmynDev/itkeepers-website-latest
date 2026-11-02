@@ -14,6 +14,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import CTA from '../components/CTA.astro';
+import HomeMotionControl from '../components/HomeMotionControl.astro';
 const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimonials.some(quoteReady);
 ---
 <Base>
@@ -28,10 +29,5 @@ const hasApprovedClientProof = videoTestimonials.some(videoReady) || textTestimo
   {hasApprovedClientProof && <ClientProof />}
   <AIPlaybook />
   <CTA />
+  <HomeMotionControl slot="after-footer" />
 </Base>
-
-<script>
-  import '../scripts/home-motion';
-</script>
-
-
